@@ -6,3 +6,6 @@ Andrés dice: Error de tipo 1.
 -Solucionado-
 
 Andrés dice: Error de tipo 2.
+Pablo dice: error tipo 2.
+
+-Solucionado-
