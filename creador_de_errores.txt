@@ -11,3 +11,6 @@ Pablo dice: error tipo 2.
 -Solucionado-
 
 Pablo dice: error de tipo 3.
+Andrés dice: Error de tipo 3.
+
+-Solucionado-
