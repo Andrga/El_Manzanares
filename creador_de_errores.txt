@@ -9,3 +9,5 @@ Andrés dice: Error de tipo 2.
 Pablo dice: error tipo 2.
 
 -Solucionado-
+
+Pablo dice: error de tipo 3.
