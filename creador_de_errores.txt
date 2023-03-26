@@ -4,3 +4,5 @@ Pablo dice: Error tipo 1.
 Andrés dice: Error de tipo 1.
 
 -Solucionado-
+
+Pablo dice: error tipo 2.
