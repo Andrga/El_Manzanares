@@ -3,8 +3,8 @@
 Bunker::Bunker(Point2D<double> pos, int vid, Texture& tex)
 	: posicion(pos), vidas(vid), textura(&tex){}
 Bunker::~Bunker() {
-	delete &posicion;
-	delete &vidas;
+	//delete &posicion;
+	//delete &vidas;
 	delete textura;
 }
 

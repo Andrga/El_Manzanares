@@ -33,7 +33,7 @@ Game::Game() {
 }
 Game::~Game() // Destructor
 {
-	for (const auto e : aliens) {
+	/*for (const auto e : aliens) {
 		delete e;
 	}
 	for (const auto e : bunkers) {
@@ -42,7 +42,7 @@ Game::~Game() // Destructor
 	for (const auto e : lasers) {
 		delete e;
 	}
-	delete cannon;
+	delete cannon;*/
 
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
@@ -82,25 +82,27 @@ void Game::render() {
 
 
 void Game::update() {
-	cout << "update inicio";
+	//cout << "update inicio";
 	int i = 0;
 	while (i < aliens.size())
 	{
-		if (!aliens[i]->update()) {
+		/*if (!aliens[i]->update()) {
 			delete aliens[i];
 			vector<Alien*>::iterator it = aliens.begin() + i;
 			aliens.erase(it);
 		}
-		else
-		{
+		else{
 			i++;
-		}
+		}*/
+		
+		aliens[i]->update();
+		i++;
 	}
-	cout << "update aliens fin";
+	//cout << "update aliens fin";
 	i = 0;
 	while (i < bunkers.size())
 	{
-		if (!bunkers[i]->update()) {
+		/*if (!bunkers[i]->update()) {
 			delete bunkers[i];
 			vector<Bunker*>::iterator it = bunkers.begin() + i;
 			bunkers.erase(it);
@@ -108,15 +110,18 @@ void Game::update() {
 		else
 		{
 			i++;
-		}
+		}*/
+		bunkers[i]->update();
+		i++;
+		
 	}
-	cout << "update inicio"; 
+	//cout << "update inicio"; 
 	
-	/*
+	
 	i = 0;
 	while (i < lasers.size())
 	{
-		if (!lasers[i]->update()) {
+		/*if (!lasers[i]->update()) {
 			delete lasers[i];
 			vector<Laser*>::iterator it = lasers.begin() + i;
 			lasers.erase(it);
@@ -124,17 +129,19 @@ void Game::update() {
 		else
 		{
 			i++;
-		}
-	}*/
+		}*/
+		lasers[i]->update();
+		i++;
+	}
 	if (!cannon->update()) {
 		delete cannon;
 	}
-	cout << "update fin";
+	//cout << "update fin";
 }
 
 void Game::run() {
 
-	cout << "run inicio";
+	//cout << "run inicio";
 	int subtipoAlien = 0;
 	Game* game = this;
 	for (int i = 0; i < 4; i++)
@@ -144,7 +151,7 @@ void Game::run() {
 			Point2D<double> pos((textures[ALIENS]->getFrameWidth() + 4) * j + 135, (textures[ALIENS]->getFrameHeight() + 3) * i + 30);
 			//da un error en esta linea que no tengo ni idea de lo que es porque antes funcionaba y ahora no :C (preguntar al profe)
 			Alien* aux = new Alien(pos, subtipoAlien, *textures[ALIENS], *this);
-			cout << "CARGAN ALIENS";
+			//cout << "CARGAN ALIENS";
 			aliens.push_back(aux);
 
 		}
@@ -157,19 +164,19 @@ void Game::run() {
 		bunkers.push_back(newBunker);
 	}
 
-	cout << "CARGA BUNKERS";
+	//cout << "CARGA BUNKERS";
 	Point2D<double> pos(SCRWIDTH / 2 - textures[SPACESHIP]->getFrameWidth() / 2, SCRHEIGHT - SCRHEIGHT / 8);
 	cannon = new Cannon(pos, *textures[SPACESHIP], 3, *game);
 
-	cout << "run fin";
+	//cout << "run fin";
 	while (!exit)
 	{
 
-		cout << "bucle principal inicio";
+		//cout << "bucle principal inicio";
 		handleEvents();
 		update();
 		render();
-		cout << "bucle principal ";
+		//cout << "bucle principal ";
 	}
 }
 
@@ -198,4 +205,10 @@ void Game::cannotMove() // Cambia la direccion de movimeintdo cuando se alcanzan
 	{
 		e->bajar();
 	}
+}
+void Game::fireLaser(Point2D<double>position, bool alien) 
+{
+	Laser* laser = new Laser(position, velocidadLaser, alien); // Creamos un nuevo laser.
+	lasers.push_back(laser); // Añadimos el laser a la lista de lasers.
+
 }

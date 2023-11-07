@@ -20,6 +20,7 @@ static const double SCRWIDTH = 800;
 static const double SCRHEIGHT = 600;
 static const double velocidadAlien = 0.01;
 static const double velocidadCannon = 0.1;
+static const Vector2D<double> velocidadLaser(0, 0.1);
 enum TextureName { ALIENS, BUNKER, SPACESHIP, STARS };
 
 class Game
@@ -47,7 +48,7 @@ public:
 	int getDirection();
 	void cannotMove();
 	void handleEvents();
-	//void fireLaser();
+	void fireLaser(Point2D<double>position, bool alieen);
 	int getRandomRange(int min, int max);
 
 };

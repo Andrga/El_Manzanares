@@ -3,12 +3,13 @@
 Laser::Laser(Point2D<double> pos, Vector2D<double> vel, bool al) :posicion(pos), velocidad(vel), alien(al) {}
 
 Laser::~Laser() {
-	delete& posicion;
-	delete& velocidad;
-	delete& alien;
+	//delete& posicion;
+	//delete& velocidad;
+	//delete& alien;
 }
-void Laser::render() {
-
+void Laser::render() 
+{
+	SDL_RenderFillRect(renderer);
 }
 bool Laser::update() {
 	posicion = posicion + velocidad;

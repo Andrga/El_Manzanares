@@ -5,10 +5,10 @@ Cannon::Cannon(Point2D<double> pos, Texture& tex, int vid, Game& gam)
 	:posicion(pos), textura(&tex), vidas(vid), game(&gam)
 {}
 Cannon::~Cannon() {
-	delete& posicion;
+	//delete& posicion;
 	delete textura;
-	delete& direccion;
-	delete& vidas;
+	//delete& direccion;
+	//delete& vidas;
 }
 void Cannon::render() {
 	SDL_Rect rect;
@@ -54,6 +54,8 @@ void Cannon::handleEvent(SDL_Event event)
 			//std::cout << "Izquierda\n";
 			direccion = -1;
 			break;
+		case SDLK_SPACE:
+			game->fireLaser(posicion, false);
 		default:
 			direccion = 0;
 			break;
