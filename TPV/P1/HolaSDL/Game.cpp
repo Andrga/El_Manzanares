@@ -96,10 +96,11 @@ void Game::update() {
 			i++;
 		}
 	}
+	cout << "update aliens fin";
 	i = 0;
 	while (i < bunkers.size())
 	{
-		if (!lasers[i]->update()) {
+		if (!bunkers[i]->update()) {
 			delete bunkers[i];
 			vector<Bunker*>::iterator it = bunkers.begin() + i;
 			bunkers.erase(it);
@@ -108,7 +109,10 @@ void Game::update() {
 		{
 			i++;
 		}
-	} /*
+	}
+	cout << "update inicio"; 
+	
+	/*
 	i = 0;
 	while (i < lasers.size())
 	{
@@ -138,15 +142,13 @@ void Game::run() {
 		for (int j = 0; j < 11; j++)
 		{
 			Point2D<double> pos((textures[ALIENS]->getFrameWidth() + 4) * j + 135, (textures[ALIENS]->getFrameHeight() + 3) * i + 30);
-			cout << "CARGAN ALIENS";
 			//da un error en esta linea que no tengo ni idea de lo que es porque antes funcionaba y ahora no :C (preguntar al profe)
-			aliens.push_back(new Alien(pos, subtipoAlien, *textures[ALIENS], *this));
+			Alien* aux = new Alien(pos, subtipoAlien, *textures[ALIENS], *this);
+			cout << "CARGAN ALIENS";
+			aliens.push_back(aux);
 
-			if (aliens.size() % 11 == 0)
-			{
-				subtipoAlien++;
-			}
 		}
+		subtipoAlien++;
 	}
 	for (int i = 1; i < 5; i++)
 	{

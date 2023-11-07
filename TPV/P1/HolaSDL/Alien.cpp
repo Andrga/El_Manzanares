@@ -1,18 +1,15 @@
 #include "Alien.h"
 #include "Game.h"
 
-Alien::Alien(Point2D<double> pos, int subt, Texture& tex, Game& jueg)
-{
-	posicion = pos;
-	subtipo = subt;
-	textura = &tex;
-	juego = &jueg;
+Alien::Alien() {
 }
+Alien::Alien(Point2D<double> pos, int subt, Texture& tex, Game& jueg): posicion(pos), subtipo(subt), textura(&tex), juego(&jueg) {}
+
 Alien::~Alien() {
-	delete& posicion;
+	/*delete& posicion;
 	delete& subtipo;
 	delete textura;
-	delete& renderFrame;
+	delete& renderFrame;*/
 }
 void Alien::render()
 {
