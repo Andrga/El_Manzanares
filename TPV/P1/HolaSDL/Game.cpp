@@ -33,7 +33,7 @@ Game::Game() {
 }
 Game::~Game() // Destructor
 {
-	/*for (const auto e : aliens) {
+	for (const auto e : aliens) {
 		delete e;
 	}
 	for (const auto e : bunkers) {
@@ -42,7 +42,7 @@ Game::~Game() // Destructor
 	for (const auto e : lasers) {
 		delete e;
 	}
-	delete cannon;*/
+	delete cannon;
 
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
@@ -53,7 +53,7 @@ void Game::render() {
 	if (tiempoTrans == 2500)
 	{
 		tiempoTrans = 0;
-		for (const auto e : aliens) 
+		for (const auto e : aliens)
 		{
 			e->render();
 			e->animation();
@@ -62,15 +62,15 @@ void Game::render() {
 	SDL_RenderClear(renderer);
 	textures[STARS]->render();
 	// Tres filas de aliens.
-	for(const auto e : aliens) 
+	for (const auto e : aliens)
 	{
 		e->render();
 	}
-	for (const auto e : bunkers) 
+	for (const auto e : bunkers)
 	{
 		e->render();
 	}
-	for (const auto e : lasers) 
+	for (const auto e : lasers)
 	{
 		e->render();
 	}
@@ -82,29 +82,55 @@ void Game::render() {
 
 
 void Game::update() {
-	for (const auto e : aliens) 
+	cout << "update inicio";
+	int i = 0;
+	while (i < aliens.size())
 	{
-		if (e->update()) {
-			delete e;
+		if (!aliens[i]->update()) {
+			delete aliens[i];
+			vector<Alien*>::iterator it = aliens.begin() + i;
+			aliens.erase(it);
+		}
+		else
+		{
+			i++;
 		}
 	}
-	for (const auto e : bunkers) {
-		if (e->update()) {
-			delete e;
+	i = 0;
+	while (i < bunkers.size())
+	{
+		if (!lasers[i]->update()) {
+			delete bunkers[i];
+			vector<Bunker*>::iterator it = bunkers.begin() + i;
+			bunkers.erase(it);
 		}
-	}
-	/*for (const auto e : lasers) {
-		if (e->update()) {
-			delete e;
+		else
+		{
+			i++;
+		}
+	} /*
+	i = 0;
+	while (i < lasers.size())
+	{
+		if (!lasers[i]->update()) {
+			delete lasers[i];
+			vector<Laser*>::iterator it = lasers.begin() + i;
+			lasers.erase(it);
+		}
+		else
+		{
+			i++;
 		}
 	}*/
-	if (cannon->update()) {
+	if (!cannon->update()) {
 		delete cannon;
 	}
+	cout << "update fin";
 }
 
 void Game::run() {
 
+	cout << "run inicio";
 	int subtipoAlien = 0;
 	Game* game = this;
 	for (int i = 0; i < 4; i++)
@@ -112,7 +138,9 @@ void Game::run() {
 		for (int j = 0; j < 11; j++)
 		{
 			Point2D<double> pos((textures[ALIENS]->getFrameWidth() + 4) * j + 135, (textures[ALIENS]->getFrameHeight() + 3) * i + 30);
-			aliens.push_back(new Alien(pos, subtipoAlien, *textures[ALIENS], *game));
+			cout << "CARGAN ALIENS";
+			//da un error en esta linea que no tengo ni idea de lo que es porque antes funcionaba y ahora no :C (preguntar al profe)
+			aliens.push_back(new Alien(pos, subtipoAlien, *textures[ALIENS], *this));
 
 			if (aliens.size() % 11 == 0)
 			{
@@ -127,14 +155,19 @@ void Game::run() {
 		bunkers.push_back(newBunker);
 	}
 
+	cout << "CARGA BUNKERS";
 	Point2D<double> pos(SCRWIDTH / 2 - textures[SPACESHIP]->getFrameWidth() / 2, SCRHEIGHT - SCRHEIGHT / 8);
 	cannon = new Cannon(pos, *textures[SPACESHIP], 3, *game);
 
+	cout << "run fin";
 	while (!exit)
 	{
+
+		cout << "bucle principal inicio";
 		handleEvents();
 		update();
 		render();
+		cout << "bucle principal ";
 	}
 }
 

@@ -20,11 +20,7 @@ void Bunker::render()
 };
 bool Bunker::update() // Update.
 {
-	if (vidas > 0)
-	{
-		return true;
-	}
-	else return false;
+	return true;
 };
 void Bunker::hit()
 {
