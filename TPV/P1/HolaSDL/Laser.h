@@ -5,12 +5,13 @@ class Laser
 {
 private:
 	Point2D<double> posicion;
-	Vector2D<int> velocidad;
+	Vector2D<double> velocidad;
 	bool alien;
 public:
-	Laser();
+	Laser(Point2D<double> pos, Vector2D<double> vel, bool al);
+	~Laser();
 	void render();
-	void update();
+	bool update();
 
 
 };

@@ -16,6 +16,7 @@ private:
 public:
 	Alien() = default;
 	Alien(Point2D<double> pos, int subt, Texture& tex, Game& jueg);
+	~Alien();
 	void render();
 	bool hit();
 	bool update();

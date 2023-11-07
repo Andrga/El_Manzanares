@@ -10,6 +10,7 @@ private:
 public:
 	Bunker(); // Cosntructor por defecto.
 	Bunker(Point2D<double> pos, int vid, Texture& tex); // Constructor.
+	~Bunker();
 	void render();
 	bool update(); // Update.
 	void hit();

@@ -84,15 +84,23 @@ void Game::render() {
 void Game::update() {
 	for (const auto e : aliens) 
 	{
-		e->update();
+		if (e->update()) {
+			delete e;
+		}
 	}
-	/*for (const auto e : bunkers) {
-		e->update();
+	for (const auto e : bunkers) {
+		if (e->update()) {
+			delete e;
+		}
 	}
-	for (const auto e : lasers) {
-		e->update();
+	/*for (const auto e : lasers) {
+		if (e->update()) {
+			delete e;
+		}
 	}*/
-	cannon->update();
+	if (cannon->update()) {
+		delete cannon;
+	}
 }
 
 void Game::run() {

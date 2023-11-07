@@ -10,10 +10,11 @@ private:
 	Game* game = nullptr;
 	int direccion = 0;
 	int vidas;
-	int tiempo;
+	//int tiempo;
 
 public:
 	Cannon(Point2D<double> pos, Texture& tex, int vid, Game& gam);
+	~Cannon();
 	bool update();
 	bool hit();
 	void render();

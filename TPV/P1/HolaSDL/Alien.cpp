@@ -8,6 +8,12 @@ Alien::Alien(Point2D<double> pos, int subt, Texture& tex, Game& jueg)
 	textura = &tex;
 	juego = &jueg;
 }
+Alien::~Alien() {
+	delete& posicion;
+	delete& subtipo;
+	delete textura;
+	delete& renderFrame;
+}
 void Alien::render()
 {
 	SDL_Rect rect;
@@ -34,9 +40,9 @@ bool Alien::update()
 	}
 
 	return !hit();
-	
+
 }
-void Alien::animation() 
+void Alien::animation()
 {
 	if (renderFrame == 0)
 	{
@@ -47,7 +53,7 @@ void Alien::animation()
 		renderFrame = 0;
 	}
 }
-void Alien::bajar() 
+void Alien::bajar()
 {
 	posicion = posicion + Vector2D<double>(0.0, textura->getFrameHeight() / 2);
 }

@@ -4,6 +4,12 @@
 Cannon::Cannon(Point2D<double> pos, Texture& tex, int vid, Game& gam)
 	:posicion(pos), textura(&tex), vidas(vid), game(&gam)
 {}
+Cannon::~Cannon() {
+	delete& posicion;
+	delete textura;
+	delete& direccion;
+	delete& vidas;
+}
 void Cannon::render() {
 	SDL_Rect rect;
 	rect.x = posicion.getX();
@@ -14,16 +20,16 @@ void Cannon::render() {
 
 }
 
-bool Cannon::hit() 
+bool Cannon::hit()
 {
 	return false;
 }
 
-bool Cannon::update() 
+bool Cannon::update()
 {
 	posicion = posicion + Vector2D(velocidadCannon * direccion, 0.0); // Movimiento
 	// Para cuando choca con un borde:
-	if (posicion.getX() >= (SCRWIDTH - textura->getFrameWidth())) 
+	if (posicion.getX() >= (SCRWIDTH - textura->getFrameWidth()))
 	{
 		posicion = Vector2D(SCRWIDTH - textura->getFrameWidth(), posicion.getY());
 	}
@@ -34,7 +40,7 @@ bool Cannon::update()
 	return !hit();
 }
 
-void Cannon::handleEvent(SDL_Event event) 
+void Cannon::handleEvent(SDL_Event event)
 {
 
 	if (event.type == SDL_KEYDOWN)
