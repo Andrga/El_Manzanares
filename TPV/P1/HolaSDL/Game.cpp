@@ -83,23 +83,24 @@ void Game::render() {
 	tiempoTrans++;
 }
 
-
 void Game::update() {
 	//cout << "update inicio";
+	colDetection();
 	int i = 0;
 	while (i < aliens.size())
 	{
-		/*if (!aliens[i]->update()) {
+		if (!aliens[i]->update()) {
 			delete aliens[i];
 			vector<Alien*>::iterator it = aliens.begin() + i;
 			aliens.erase(it);
+			cout << "alien " << i << " muerto, " << aliens.size() << " restantes";
 		}
-		else{
+		else {
 			i++;
-		}*/
-		
-		aliens[i]->update();
-		i++;
+		}
+
+		/*aliens[i]->update();
+		i++;*/
 	}
 	//cout << "update aliens fin";
 	i = 0;
@@ -116,15 +117,15 @@ void Game::update() {
 		}*/
 		bunkers[i]->update();
 		i++;
-		
+
 	}
 	//cout << "update inicio"; 
-	
-	
+
+
 	i = 0;
 	while (i < lasers.size())
 	{
-		/*if (!lasers[i]->update()) {
+		if (!lasers[i]->update()) {
 			delete lasers[i];
 			vector<Laser*>::iterator it = lasers.begin() + i;
 			lasers.erase(it);
@@ -132,9 +133,9 @@ void Game::update() {
 		else
 		{
 			i++;
-		}*/
-		lasers[i]->update();
-		i++;
+		}
+		/*lasers[i]->update();
+		i++;*/
 	}
 	if (!cannon->update()) {
 		delete cannon;
@@ -158,7 +159,10 @@ void Game::run() {
 			aliens.push_back(aux);
 
 		}
-		subtipoAlien++;
+		if (subtipoAlien < 2)
+		{
+			subtipoAlien++;
+		}
 	}
 	for (int i = 1; i < 5; i++)
 	{
@@ -177,8 +181,8 @@ void Game::run() {
 
 		//cout << "bucle principal inicio";
 		handleEvents();
-		update();
 		render();
+		update();
 		//cout << "bucle principal ";
 	}
 }
@@ -210,11 +214,33 @@ void Game::cannotMove() // Cambia la direccion de movimeintdo cuando se alcanzan
 	}
 }
 
-void Game::fireLaser(Point2D<double>position, bool alien) 
+void Game::fireLaser(Point2D<double>position, bool alien)
 {
 	Laser* laser = new Laser(position, velocidadLaser, alien, this, renderer); // Creamos un nuevo laser.
-	
+
 	lasers.push_back(laser); // Añadimos el laser a la lista de lasers.
 	//cout << "entra en el disparo";
+
+}
+
+void Game::colDetection() {
+	int i = 0;
+	int j = 0;
+	bool collided = false;
+	while (i < lasers.size() && !collided)
+	{
+		while (j < aliens.size() && !collided)
+		{
+			if (SDL_HasIntersection(&lasers[i]->getRect(), &aliens[j]->getRect()))
+			{
+				lasers[i]->hit();
+				aliens[j]->hit();
+				collided = true;
+				cout << "Colision";
+			}
+			j++;
+		}
+		i++;
+	}
 
 }

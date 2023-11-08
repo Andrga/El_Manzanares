@@ -10,17 +10,29 @@ Laser::~Laser() {
 }
 void Laser::render() 
 {
-	rectangulo.x = posicion.getX()+(15);
-	rectangulo.y = posicion.getY();
-	rectangulo.w = 3;
-	rectangulo.h = 12;
+	rect.x = posicion.getX()+(15);
+	rect.y = posicion.getY();
+	rect.w = 3;
+	rect.h = 12;
 
 	//cout << "renderiza el disparo";
 
-	SDL_RenderFillRect(renderer, &rectangulo);
+	SDL_RenderFillRect(renderer, &rect);
 }
 bool Laser::update() {
-	posicion = posicion - velocidad;
-	//game->collisionD
-	return true;
+	alien? posicion = posicion + velocidad : posicion = posicion - velocidad;
+	if (posicion.getY()<=0)
+	{
+		return false;
+	}
+	return !hitted;
+}
+//return el rect del laser
+SDL_Rect Laser::getRect() {
+	return rect;
+}
+
+//es llamado cuando colisiona
+void Laser::hit() {
+	hitted = true;
 }

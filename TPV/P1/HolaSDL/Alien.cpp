@@ -9,7 +9,7 @@ Alien::~Alien() {
 	/*delete& posicion;
 	delete& subtipo;
 	delete textura;
-	delete& renderFrame;*/
+	//delete& renderFrame;*/
 }
 void Alien::render()
 {
@@ -19,9 +19,9 @@ void Alien::render()
 	rect.h = textura->getFrameHeight();
 	textura->renderFrame(rect, subtipo, renderFrame);
 }
-bool Alien::hit()
+void Alien::hit()
 {
-	return false;
+	hitted = true;
 }
 
 bool Alien::update()
@@ -35,7 +35,8 @@ bool Alien::update()
 		//posicion = posicion + Vector2D<double>(0.0, textura->getFrameHeight() / 2);
 	}
 
-	return !hit();
+	//devuelve false si no sigue vivo
+	return !hitted;
 
 }
 void Alien::animation()
@@ -52,5 +53,9 @@ void Alien::animation()
 void Alien::bajar()
 {
 	posicion = posicion + Vector2D<double>(0.0, textura->getFrameHeight() / 2);
+}
+//return el rect del alien
+SDL_Rect Alien::getRect() {
+	return rect;
 }
 

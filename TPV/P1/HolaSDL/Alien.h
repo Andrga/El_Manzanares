@@ -12,16 +12,18 @@ private:
 	Texture* textura = nullptr;
 	Game* juego;
 	int renderFrame = 0;
+	SDL_Rect rect;
+	bool hitted = false;
 
 public:
-	SDL_Rect rect;
 	Alien();
 	Alien(Point2D<double> pos, int subt, Texture& tex, Game& jueg);
 	~Alien();
 	void render();
-	bool hit();
+	void hit();
 	bool update();
 	void animation();
 	void bajar();
+	SDL_Rect getRect();
 };
 

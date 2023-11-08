@@ -21,6 +21,10 @@ bool Bunker::update() // Update.
 {
 	return true;
 };
+//return el rect del laser
+SDL_Rect Bunker::getRect() {
+	return rect;
+}
 void Bunker::hit()
 {
 	vidas--;

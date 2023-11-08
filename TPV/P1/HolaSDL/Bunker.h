@@ -7,12 +7,13 @@ private:
 	int vidas;
 	Point2D<double> posicion;
 	Texture* textura;
-public:
 	SDL_Rect rect;
+public:
 	Bunker(); // Cosntructor por defecto.
 	Bunker(Point2D<double> pos, int vid, Texture& tex); // Constructor.
 	~Bunker();
 	void render();
 	bool update(); // Update.
 	void hit();
+	SDL_Rect getRect();
 };

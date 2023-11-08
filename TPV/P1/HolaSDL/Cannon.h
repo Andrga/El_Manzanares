@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector2D.h"
 #include "texture.h"
+const double TIEMPODISPARO = 1000;
 class Game;
 class Cannon
 {
@@ -10,16 +11,17 @@ private:
 	Game* game = nullptr;
 	int direccion = 0;
 	int vidas;
-	//int tiempo;
+	double elapsedTime = 0;
+	SDL_Rect rect;
 
 public:
-	SDL_Rect rect;
 	Cannon(Point2D<double> pos, Texture& tex, int vid, Game& gam);
 	~Cannon();
 	bool update();
 	bool hit();
 	void render();
 	void handleEvent(SDL_Event event);
+	SDL_Rect getRect();
 
 };
 

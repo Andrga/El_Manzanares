@@ -36,6 +36,7 @@ bool Cannon::update()
 	{
 		posicion = Vector2D(0.0, posicion.getY());
 	}
+	elapsedTime++;
 	return !hit();
 }
 
@@ -53,6 +54,17 @@ void Cannon::handleEvent(SDL_Event event)
 			//std::cout << "Izquierda\n";
 			direccion = -1;
 			break;
+		case SDLK_SPACE: // Cambio de direccion a la izquierda.
+			if (elapsedTime >= TIEMPODISPARO)
+			{
+				std::cout << "Disparo\n";
+				game->fireLaser(posicion, false);
+				elapsedTime = 0;
+			}
+			else {
+				std::cout << elapsedTime;
+			}
+			break;
 		default:
 			direccion = 0;
 			break;
@@ -62,4 +74,8 @@ void Cannon::handleEvent(SDL_Event event)
 	{
 		direccion = 0;
 	}
+}
+//return el rect del Cannon
+SDL_Rect Cannon::getRect() {
+	return rect;
 }
