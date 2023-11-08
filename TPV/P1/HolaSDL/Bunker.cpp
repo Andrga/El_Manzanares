@@ -10,7 +10,6 @@ Bunker::~Bunker() {
 
 void Bunker::render()
 {
-	SDL_Rect rect;
 	rect.x = posicion.getX();
 	rect.y = posicion.getY();
 	rect.w = textura->getFrameWidth();

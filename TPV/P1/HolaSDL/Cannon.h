@@ -13,6 +13,7 @@ private:
 	//int tiempo;
 
 public:
+	SDL_Rect rect;
 	Cannon(Point2D<double> pos, Texture& tex, int vid, Game& gam);
 	~Cannon();
 	bool update();

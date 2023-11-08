@@ -19,15 +19,15 @@ public:
 	}
 	Vector2D operator-(Vector2D other)
 	{
-		return Vector2D(x - other.x, y - other.y)
+		return Vector2D(x - other.x, y - other.y);
 	}
 	T operator*(Vector2D other)
 	{
-		return ((x * other.x) + (y * other.y))
+		return ((x * other.x) + (y * other.y));
 	}
 	Vector2D operator*(T other)
 	{
-		return Vector2D(other * x, other * y)
+		return Vector2D(other * x, other * y);
 	}
 };
 

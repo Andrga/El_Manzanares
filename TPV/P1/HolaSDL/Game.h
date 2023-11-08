@@ -50,6 +50,7 @@ public:
 	void handleEvents();
 	void fireLaser(Point2D<double>position, bool alieen);
 	int getRandomRange(int min, int max);
+	bool collisionDetection(SDL_Rect rectCollideando);
 
 };
 

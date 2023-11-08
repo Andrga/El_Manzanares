@@ -14,6 +14,7 @@ private:
 	int renderFrame = 0;
 
 public:
+	SDL_Rect rect;
 	Alien();
 	Alien(Point2D<double> pos, int subt, Texture& tex, Game& jueg);
 	~Alien();

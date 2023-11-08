@@ -11,7 +11,6 @@ Cannon::~Cannon() {
 	//delete& vidas;
 }
 void Cannon::render() {
-	SDL_Rect rect;
 	rect.x = posicion.getX();
 	rect.y = posicion.getY();
 	rect.w = textura->getFrameWidth();
@@ -42,9 +41,9 @@ bool Cannon::update()
 
 void Cannon::handleEvent(SDL_Event event)
 {
-
 	if (event.type == SDL_KEYDOWN)
 	{
+		//int key = SDL_GetKeyboardState(3);
 		switch (event.key.keysym.sym)
 		{
 		case SDLK_RIGHT: // Cambio de direccion a la derecha
@@ -54,8 +53,6 @@ void Cannon::handleEvent(SDL_Event event)
 			//std::cout << "Izquierda\n";
 			direccion = -1;
 			break;
-		case SDLK_SPACE:
-			game->fireLaser(posicion, false);
 		default:
 			direccion = 0;
 			break;

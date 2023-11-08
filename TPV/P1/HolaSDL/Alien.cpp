@@ -1,9 +1,9 @@
 #include "Alien.h"
 #include "Game.h"
 
-Alien::Alien() {
-}
-Alien::Alien(Point2D<double> pos, int subt, Texture& tex, Game& jueg): posicion(pos), subtipo(subt), textura(&tex), juego(&jueg) {}
+Alien::Alien() {}
+Alien::Alien(Point2D<double> pos, int subt, Texture& tex, Game& jueg)
+	: posicion(pos), subtipo(subt), textura(&tex), juego(&jueg) {}
 
 Alien::~Alien() {
 	/*delete& posicion;
@@ -13,7 +13,6 @@ Alien::~Alien() {
 }
 void Alien::render()
 {
-	SDL_Rect rect;
 	rect.x = posicion.getX();
 	rect.y = posicion.getY();
 	rect.w = textura->getFrameWidth();

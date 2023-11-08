@@ -8,6 +8,7 @@ private:
 	Point2D<double> posicion;
 	Texture* textura;
 public:
+	SDL_Rect rect;
 	Bunker(); // Cosntructor por defecto.
 	Bunker(Point2D<double> pos, int vid, Texture& tex); // Constructor.
 	~Bunker();

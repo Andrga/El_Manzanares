@@ -6,6 +6,7 @@ struct Textura
 	int rows;
 	int cols;
 };
+
 const Textura texturas[NUM_TEXTURES]
 {
 		Textura{"aliens",3,2},
@@ -31,6 +32,7 @@ Game::Game() {
 	}
 	SDL_RenderClear(renderer);
 }
+
 Game::~Game() // Destructor
 {
 	/*for (const auto e : aliens) {
@@ -72,6 +74,7 @@ void Game::render() {
 	}
 	for (const auto e : lasers)
 	{
+		SDL_SetRenderDrawColor(renderer, 255, 165, 0, 255);
 		e->render();
 	}
 	cannon->render(); // Cannon
@@ -206,9 +209,12 @@ void Game::cannotMove() // Cambia la direccion de movimeintdo cuando se alcanzan
 		e->bajar();
 	}
 }
+
 void Game::fireLaser(Point2D<double>position, bool alien) 
 {
-	Laser* laser = new Laser(position, velocidadLaser, alien); // Creamos un nuevo laser.
+	Laser* laser = new Laser(position, velocidadLaser, alien, this, renderer); // Creamos un nuevo laser.
+	
 	lasers.push_back(laser); // Añadimos el laser a la lista de lasers.
+	//cout << "entra en el disparo";
 
 }
