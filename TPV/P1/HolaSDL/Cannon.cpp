@@ -57,13 +57,13 @@ void Cannon::handleEvent(SDL_Event event)
 		case SDLK_SPACE: // Cambio de direccion a la izquierda.
 			if (elapsedTime >= TIEMPODISPARO)
 			{
-				std::cout << "Disparo\n";
+				//std::cout << "Disparo\n";
 				game->fireLaser(posicion, false);
 				elapsedTime = 0;
 			}
-			else {
+			/*else {
 				std::cout << elapsedTime;
-			}
+			}*/
 			break;
 		default:
 			direccion = 0;

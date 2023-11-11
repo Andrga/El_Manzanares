@@ -231,7 +231,7 @@ void Game::colDetection(Laser* laser) {
 		{
 			lasers[i]->hit();
 			laser->hit();
-			cout << "Colision";
+			//cout << "Colision";
 			collided = true;
 		}
 		i++;
@@ -244,7 +244,7 @@ void Game::colDetection(Laser* laser) {
 			laser->hit();
 			aliens[i]->hit();
 			collided = true;
-			cout << "Colision";
+			//cout << "Colision";
 		}
 		i++;
 	}
@@ -256,7 +256,7 @@ void Game::colDetection(Laser* laser) {
 			laser->hit();
 			bunkers[i]->hit();
 			collided = true;
-			cout << "Colision";
+			//cout << "Colision";
 		}
 		i++;
 	}
@@ -264,7 +264,7 @@ void Game::colDetection(Laser* laser) {
 	{
 		laser->hit();
 		cannon->hit();
-		cout << "Colision";
+		//cout << "Colision";
 	}
 
 }

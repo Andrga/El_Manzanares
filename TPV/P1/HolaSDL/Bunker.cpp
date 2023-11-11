@@ -19,7 +19,7 @@ void Bunker::render()
 };
 bool Bunker::update() // Update.
 {
-	if (actVidas <= 0)
+	if (actVidas >= maxVidas)
 	{
 		return false;
 	}
@@ -31,7 +31,7 @@ SDL_Rect Bunker::getRect() {
 }
 void Bunker::hit()
 {
-	actVidas--;
+	actVidas++;
 	// Renderizar apariencia nueva
-	textura->renderFrame(rect, 0, actVidas % maxVidas);
+	textura->renderFrame(rect, 0, actVidas);
 };
