@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector2D.h"
 #include "texture.h"
+
 class Game;
 class Laser
 {
@@ -19,5 +20,6 @@ public:
 	bool update();
 	SDL_Rect getRect();
 	void hit();
+	bool canon();
 };
 

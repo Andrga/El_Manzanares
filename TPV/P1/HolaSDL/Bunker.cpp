@@ -1,7 +1,7 @@
 #include "Bunker.h"
 
 Bunker::Bunker(Point2D<double> pos, int vid, Texture& tex)
-	: posicion(pos), vidas(vid), textura(&tex){}
+	: posicion(pos), maxVidas(vid), actVidas(vid), textura(&tex) {}
 Bunker::~Bunker() {
 	//delete &posicion;
 	//delete &vidas;
@@ -19,6 +19,10 @@ void Bunker::render()
 };
 bool Bunker::update() // Update.
 {
+	if (actVidas <= 0)
+	{
+		return false;
+	}
 	return true;
 };
 //return el rect del laser
@@ -27,6 +31,7 @@ SDL_Rect Bunker::getRect() {
 }
 void Bunker::hit()
 {
-	vidas--;
+	actVidas--;
 	// Renderizar apariencia nueva
+	textura->renderFrame(rect, 0, actVidas % maxVidas);
 };

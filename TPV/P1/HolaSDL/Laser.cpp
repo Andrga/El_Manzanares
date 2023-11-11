@@ -1,4 +1,5 @@
 #include "Laser.h"
+#include "Game.h"
 
 Laser::Laser(Point2D<double> pos, Vector2D<double> vel, bool al, Game* jueg, SDL_Renderer* rend)
 	:posicion(pos), velocidad(vel), alien(al), game(jueg), renderer(rend) {}
@@ -21,6 +22,7 @@ void Laser::render()
 }
 bool Laser::update() {
 	alien? posicion = posicion + velocidad : posicion = posicion - velocidad;
+	game->colDetection(this);
 	if (posicion.getY()<=0)
 	{
 		return false;
@@ -35,4 +37,8 @@ SDL_Rect Laser::getRect() {
 //es llamado cuando colisiona
 void Laser::hit() {
 	hitted = true;
+}
+
+bool Laser::canon() {
+	return alien;
 }
