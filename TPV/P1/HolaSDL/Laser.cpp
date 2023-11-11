@@ -2,7 +2,12 @@
 #include "Game.h"
 
 Laser::Laser(Point2D<double> pos, Vector2D<double> vel, bool al, Game* jueg, SDL_Renderer* rend)
-	:posicion(pos), velocidad(vel), alien(al), game(jueg), renderer(rend) {}
+	:posicion(pos), velocidad(vel), alien(al), game(jueg), renderer(rend) 
+{
+	//asignamos los valores del rect aqui para no hacerlo cada iteración del bucle principal
+	rect.w = 3;
+	rect.h = 12;
+}
 
 Laser::~Laser() {
 	//delete& posicion;
@@ -11,10 +16,9 @@ Laser::~Laser() {
 }
 void Laser::render() 
 {
-	rect.x = posicion.getX()+(15);
+	//+15 para que aparezca en el centro de la nave
+	rect.x = posicion.getX() +(15);
 	rect.y = posicion.getY();
-	rect.w = 3;
-	rect.h = 12;
 
 	//cout << "renderiza el disparo";
 

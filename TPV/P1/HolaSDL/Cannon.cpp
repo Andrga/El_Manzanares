@@ -3,7 +3,10 @@
 
 Cannon::Cannon(Point2D<double> pos, Texture& tex, int vid, Game& gam)
 	:posicion(pos), textura(&tex), vidas(vid), game(&gam)
-{}
+{
+	rect.w = textura->getFrameWidth();
+	rect.h = textura->getFrameHeight();
+}
 Cannon::~Cannon() {
 	//delete& posicion;
 	delete textura;
@@ -13,8 +16,6 @@ Cannon::~Cannon() {
 void Cannon::render() {
 	rect.x = posicion.getX();
 	rect.y = posicion.getY();
-	rect.w = textura->getFrameWidth();
-	rect.h = textura->getFrameHeight();
 	textura->renderFrame(rect, textura->getNumRows() - 1, textura->getNumColumns() - 1);
 
 }

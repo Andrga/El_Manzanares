@@ -3,7 +3,11 @@
 
 Alien::Alien() {}
 Alien::Alien(Point2D<double> pos, int subt, Texture& tex, Game& jueg)
-	: posicion(pos), subtipo(subt), textura(&tex), juego(&jueg) {}
+	: posicion(pos), subtipo(subt), textura(&tex), juego(&jueg) 
+{
+	rect.w = textura->getFrameWidth();
+	rect.h = textura->getFrameHeight();
+}
 
 Alien::~Alien() {
 	/*delete& posicion;
@@ -15,8 +19,6 @@ void Alien::render()
 {
 	rect.x = posicion.getX();
 	rect.y = posicion.getY();
-	rect.w = textura->getFrameWidth();
-	rect.h = textura->getFrameHeight();
 	textura->renderFrame(rect, subtipo, renderFrame);
 }
 void Alien::hit()
