@@ -1,7 +1,7 @@
 #include "Bunker.h"
 
 Bunker::Bunker(Point2D<double> pos, int vid, Texture& tex)
-	: posicion(pos), maxVidas(vid), actVidas(vid), textura(&tex) {}
+	: posicion(pos), maxVidas(vid), textura(&tex) {}
 Bunker::~Bunker() {
 	//delete &posicion;
 	//delete &vidas;
@@ -33,5 +33,5 @@ void Bunker::hit()
 {
 	actVidas++;
 	// Renderizar apariencia nueva
-	textura->renderFrame(rect, 0, actVidas);
+	textura->renderFrame(rect, 0, 3);
 };

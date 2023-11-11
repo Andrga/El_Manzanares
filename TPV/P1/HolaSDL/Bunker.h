@@ -5,7 +5,7 @@ class Bunker
 {
 private:
 	int maxVidas;
-	int actVidas;
+	int actVidas = 0;
 	Point2D<double> posicion;
 	Texture* textura;
 	SDL_Rect rect;
