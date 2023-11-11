@@ -5,7 +5,7 @@ Bunker::Bunker(Point2D<double> pos, int vid, Texture& tex)
 Bunker::~Bunker() {
 	//delete &posicion;
 	//delete &vidas;
-	delete textura;
+	//delete textura;
 }
 
 void Bunker::render()
@@ -14,7 +14,7 @@ void Bunker::render()
 	rect.y = posicion.getY();
 	rect.w = textura->getFrameWidth();
 	rect.h = textura->getFrameHeight();
-	textura->renderFrame(rect, 0, 0);
+	textura->renderFrame(rect, 0, 2);
 
 };
 bool Bunker::update() // Update.
