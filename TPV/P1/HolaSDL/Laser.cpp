@@ -27,7 +27,8 @@ void Laser::render()
 bool Laser::update() {
 	alien ? posicion = posicion + velocidad : posicion = posicion - velocidad;
 	game->colDetection(this);
-	if (posicion.getY() <= 0 || posicion.getY() >= SCRHEIGHT)
+	hitted ? cout << "true" : cout << "false";
+	if (posicion.getY() <= 0 )
 	{
 		return false;
 	}

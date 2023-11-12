@@ -17,7 +17,6 @@ void Cannon::render() {
 	rect.x = posicion.getX();
 	rect.y = posicion.getY();
 	textura->renderFrame(rect, textura->getNumRows() - 1, textura->getNumColumns() - 1);
-
 }
 
 bool Cannon::hit()

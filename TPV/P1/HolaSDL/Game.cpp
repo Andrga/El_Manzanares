@@ -129,6 +129,7 @@ void Game::update() {
 			delete lasers[i];
 			vector<Laser*>::iterator it = lasers.begin() + i;
 			lasers.erase(it);
+			//cout << "elimina laser" << i;
 		}
 		else
 		{
@@ -202,7 +203,8 @@ int Game::getDirection() // Devuelve la direccion de movimiento actual.
 }
 
 int Game::getRandomRange(int min, int max) {
-	return uniform_int_distribution<int>(min, max)(randomGenerator);
+	cout << uniform_int_distribution<int>(min, max)(randomGenerator);
+	return 1;
 }
 
 void Game::cannotMove() // Cambia la direccion de movimeintdo cuando se alcanzan los limites de pantalla.
@@ -218,9 +220,9 @@ void Game::fireLaser(Point2D<double>position, bool alien)
 {
 	Laser* laser = new Laser(position, velocidadLaser, alien, this, renderer); // Creamos un nuevo laser.
 
-	cout << lasers.size();
 
 	lasers.push_back(laser); // Añadimos el laser a la lista de lasers.
+	cout << lasers.size();
 	//cout << "entra en el disparo";
 
 }

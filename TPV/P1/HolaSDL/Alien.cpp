@@ -59,7 +59,7 @@ bool Alien::update()
 		{
 			juego->fireLaser(posicion, true);
 			elapsedShootTime = shootTime;
-			cout << "dispara alien" << endl;
+			//cout << "dispara alien" << endl;
 		}
 		else
 		{
