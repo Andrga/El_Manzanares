@@ -227,7 +227,7 @@ void Game::colDetection(Laser* laser) {
 	bool collided = false;
 	while (i < lasers.size() && !collided)
 	{
-		if (lasers[i]!=laser && SDL_HasIntersection(&laser->getRect(), &lasers[i]->getRect()))
+		if (lasers[i] != laser && SDL_HasIntersection(&laser->getRect(), &lasers[i]->getRect()))
 		{
 			lasers[i]->hit();
 			laser->hit();
@@ -237,18 +237,25 @@ void Game::colDetection(Laser* laser) {
 		i++;
 	}
 	i = 0;
-	while (i < aliens.size() && !collided)
+
+	//deteccion de colision del laser con los aliens, si el laser proviene del cañon
+	if (laser->cannon())
 	{
-		if (SDL_HasIntersection(&laser->getRect(), &aliens[i]->getRect()))
+		while (i < aliens.size() && !collided)
 		{
-			laser->hit();
-			aliens[i]->hit();
-			collided = true;
-			//cout << "Colision";
+			if (SDL_HasIntersection(&laser->getRect(), &aliens[i]->getRect()))
+			{
+				laser->hit();
+				aliens[i]->hit();
+				collided = true;
+				cout << "Colision" << endl;
+			}
+			i++;
 		}
-		i++;
+		i = 0;
 	}
-	i = 0;
+
+	//deteccion de colision del laser con los bunkeres
 	while (i < bunkers.size() && !collided)
 	{
 		if (SDL_HasIntersection(&laser->getRect(), &bunkers[i]->getRect()))
@@ -260,7 +267,9 @@ void Game::colDetection(Laser* laser) {
 		}
 		i++;
 	}
-	if (laser->canon() && SDL_HasIntersection(&laser->getRect(), &cannon->getRect()))
+
+	//deteccion de colision del laser con el cañon si proviene de los aliens
+	if (!laser->cannon() && SDL_HasIntersection(&laser->getRect(), &cannon->getRect()))
 	{
 		laser->hit();
 		cannon->hit();

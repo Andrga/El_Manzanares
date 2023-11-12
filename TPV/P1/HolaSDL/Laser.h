@@ -20,6 +20,6 @@ public:
 	bool update();
 	SDL_Rect getRect();
 	void hit();
-	bool canon();
+	bool cannon();
 };
 

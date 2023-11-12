@@ -2,7 +2,7 @@
 #include "Game.h"
 
 Laser::Laser(Point2D<double> pos, Vector2D<double> vel, bool al, Game* jueg, SDL_Renderer* rend)
-	:posicion(pos), velocidad(vel), alien(al), game(jueg), renderer(rend) 
+	:posicion(pos), velocidad(vel), alien(al), game(jueg), renderer(rend)
 {
 	//asignamos los valores del rect aqui para no hacerlo cada iteración del bucle principal
 	rect.w = 3;
@@ -14,10 +14,10 @@ Laser::~Laser() {
 	//delete& velocidad;
 	//delete& alien;
 }
-void Laser::render() 
+void Laser::render()
 {
 	//+15 para que aparezca en el centro de la nave
-	rect.x = posicion.getX() +(15);
+	rect.x = posicion.getX() + (15);
 	rect.y = posicion.getY();
 
 	//cout << "renderiza el disparo";
@@ -25,9 +25,9 @@ void Laser::render()
 	SDL_RenderFillRect(renderer, &rect);
 }
 bool Laser::update() {
-	alien? posicion = posicion + velocidad : posicion = posicion - velocidad;
+	alien ? posicion = posicion + velocidad : posicion = posicion - velocidad;
 	game->colDetection(this);
-	if (posicion.getY()<=0)
+	if (posicion.getY() <= 0 || posicion.getY() >= SCRHEIGHT)
 	{
 		return false;
 	}
@@ -43,6 +43,7 @@ void Laser::hit() {
 	hitted = true;
 }
 
-bool Laser::canon() {
-	return alien;
+//return true si es un cannon
+bool Laser::cannon() {
+	return !alien;
 }

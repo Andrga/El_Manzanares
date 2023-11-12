@@ -8,13 +8,16 @@ class Alien
 {
 private:
 	Point2D<double> posicion;
-	int subtipo;
 	Texture* textura = nullptr;
 	Game* juego;
-	int renderFrame = 0;
 	SDL_Rect rect;
+	double shootTime = 1000;
+	double elapsedShootTime = 0;
+	int subtipo;
+	int renderFrame = 0;
 	bool hitted = false;
 
+	void animation();
 public:
 	Alien();
 	Alien(Point2D<double> pos, int subt, Texture& tex, Game& jueg);
@@ -22,7 +25,6 @@ public:
 	void render();
 	void hit();
 	bool update();
-	void animation();
 	void bajar();
 	SDL_Rect getRect();
 };
