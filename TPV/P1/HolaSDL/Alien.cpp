@@ -26,6 +26,7 @@ Alien::~Alien() {
 //render
 void Alien::render()
 {
+	//cout << "yipi" << endl;
 	rect.x = posicion.getX();
 	rect.y = posicion.getY();
 	textura->renderFrame(rect, subtipo, renderFrame);

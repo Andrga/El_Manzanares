@@ -17,11 +17,11 @@ private:
 	int renderFrame = 0;
 	bool hitted = false;
 
-	void animation();
 public:
 	Alien();
 	Alien(Point2D<double> pos, int subt, Texture& tex, Game& jueg);
 	~Alien();
+	void animation();
 	void render();
 	void hit();
 	bool update();

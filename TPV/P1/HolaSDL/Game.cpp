@@ -57,9 +57,10 @@ void Game::render() {
 		tiempoTrans = 0;
 		for (const auto e : aliens)
 		{
-			e->render();
+			//e->render();
 			e->animation();
 		}
+		//cout << "yipi" << endl;
 	}
 	SDL_RenderClear(renderer);
 	textures[STARS]->render();
@@ -217,6 +218,8 @@ void Game::fireLaser(Point2D<double>position, bool alien)
 {
 	Laser* laser = new Laser(position, velocidadLaser, alien, this, renderer); // Creamos un nuevo laser.
 
+	cout << lasers.size();
+
 	lasers.push_back(laser); // Añadimos el laser a la lista de lasers.
 	//cout << "entra en el disparo";
 
@@ -239,21 +242,18 @@ void Game::colDetection(Laser* laser) {
 	i = 0;
 
 	//deteccion de colision del laser con los aliens, si el laser proviene del cañon
-	if (laser->cannon())
+	while (laser->cannon() && i < aliens.size() && !collided)
 	{
-		while (i < aliens.size() && !collided)
+		if (SDL_HasIntersection(&laser->getRect(), &aliens[i]->getRect()))
 		{
-			if (SDL_HasIntersection(&laser->getRect(), &aliens[i]->getRect()))
-			{
-				laser->hit();
-				aliens[i]->hit();
-				collided = true;
-				cout << "Colision" << endl;
-			}
-			i++;
+			laser->hit();
+			aliens[i]->hit();
+			collided = true;
+			//cout << "Colision" << endl;
 		}
-		i = 0;
+		i++;
 	}
+	i = 0;
 
 	//deteccion de colision del laser con los bunkeres
 	while (i < bunkers.size() && !collided)

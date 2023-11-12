@@ -41,6 +41,7 @@ SDL_Rect Laser::getRect() {
 //es llamado cuando colisiona
 void Laser::hit() {
 	hitted = true;
+	//cout << "destruido" << endl;
 }
 
 //return true si es un cannon
