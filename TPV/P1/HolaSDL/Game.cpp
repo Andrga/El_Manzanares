@@ -160,19 +160,24 @@ void Game::run() {
 		while (!map.eof())
 		{
 			map >> objeto;
-			cout << objeto;
+			//cout << objeto;
+			map >> posx >> posy;
+			Point2D<double> pos(posx, posy);
+
+
 			switch (objeto)
 			{
 			case 0:
-				map >> posx;
-				map >> posy;
 				//cout << "CARGA BUNKERS";
-				Point2D<double> pos(posx, posy);
 				cannon = new Cannon(pos, *textures[SPACESHIP], 3, *game);
 				break;
 			case 1:
-				map >> posx;
-				map >> posy;
+				map >> subtAlien;
+				//cout << "CARGAN ALIENS";
+				aliens.push_back(new Alien(pos, subtAlien, *textures[ALIENS], *this));
+				break;
+			case 2:
+				bunkers.push_back(new Bunker(pos, 4, *textures[BUNKER]));
 				break;
 
 			default:
@@ -180,7 +185,7 @@ void Game::run() {
 			}
 		}
 		//cout << "run inicio";
-		int subtipoAlien = 0;
+		/*int subtipoAlien = 0;
 		for (int i = 0; i < 4; i++)
 		{
 			for (int j = 0; j < 11; j++)
@@ -202,7 +207,7 @@ void Game::run() {
 			Point2D<double> pos(SCRWIDTH * i / 5 - textures[BUNKER]->getFrameWidth() / 2, SCRHEIGHT - SCRHEIGHT / 4);
 			Bunker* newBunker = new Bunker(pos, 4, *textures[BUNKER]);
 			bunkers.push_back(newBunker);
-		}
+		}*/
 
 
 
