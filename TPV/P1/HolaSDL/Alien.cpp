@@ -13,6 +13,7 @@ Alien::Alien(Point2D<double> pos, int subt, Texture& tex, Game& jueg)
 {
 	rect.w = textura->getFrameWidth();
 	rect.h = textura->getFrameHeight();
+	elapsedShootTime = juego->getRandomRange(minShootTime, maxShootTime);
 }
 
 //destructora
@@ -58,7 +59,7 @@ bool Alien::update()
 		if (elapsedShootTime <= 0)
 		{
 			juego->fireLaser(posicion, true);
-			elapsedShootTime = shootTime;
+			elapsedShootTime = juego->getRandomRange(minShootTime, maxShootTime);
 			//cout << "dispara alien" << endl;
 		}
 		else

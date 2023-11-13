@@ -145,46 +145,77 @@ void Game::update() {
 }
 
 void Game::run() {
-
-	//cout << "run inicio";
-	int subtipoAlien = 0;
 	Game* game = this;
-	for (int i = 0; i < 4; i++)
-	{
-		for (int j = 0; j < 11; j++)
-		{
-			Point2D<double> pos((textures[ALIENS]->getFrameWidth() + 4) * j + 135, (textures[ALIENS]->getFrameHeight() + 3) * i + 30);
-			//da un error en esta linea que no tengo ni idea de lo que es porque antes funcionaba y ahora no :C (preguntar al profe)
-			Alien* aux = new Alien(pos, subtipoAlien, *textures[ALIENS], *this);
-			//cout << "CARGAN ALIENS";
-			aliens.push_back(aux);
+	int objeto, posx, posy, subtAlien;
+	std::ifstream map;
 
-		}
-		if (subtipoAlien < 2)
-		{
-			subtipoAlien++;
-		}
+	map.open(MAP_PATH);
+
+	if (map.fail()) {
+		cout << "me cago en dios ya";
 	}
-	for (int i = 1; i < 5; i++)
-	{
-		Point2D<double> pos(SCRWIDTH * i / 5 - textures[BUNKER]->getFrameWidth() / 2, SCRHEIGHT - SCRHEIGHT / 4);
-		Bunker* newBunker = new Bunker(pos, 4, *textures[BUNKER]);
-		bunkers.push_back(newBunker);
-	}
-
-	//cout << "CARGA BUNKERS";
-	Point2D<double> pos(SCRWIDTH / 2 - textures[SPACESHIP]->getFrameWidth() / 2, SCRHEIGHT - SCRHEIGHT / 8);
-	cannon = new Cannon(pos, *textures[SPACESHIP], 3, *game);
-
-	//cout << "run fin";
-	while (!exit)
+	else
 	{
 
-		//cout << "bucle principal inicio";
-		handleEvents();
-		render();
-		update();
-		//cout << "bucle principal ";
+		while (!map.eof())
+		{
+			map >> objeto;
+			cout << objeto;
+			switch (objeto)
+			{
+			case 0:
+				map >> posx;
+				map >> posy;
+				//cout << "CARGA BUNKERS";
+				Point2D<double> pos(posx, posy);
+				cannon = new Cannon(pos, *textures[SPACESHIP], 3, *game);
+				break;
+			case 1:
+				map >> posx;
+				map >> posy;
+				break;
+
+			default:
+				break;
+			}
+		}
+		//cout << "run inicio";
+		int subtipoAlien = 0;
+		for (int i = 0; i < 4; i++)
+		{
+			for (int j = 0; j < 11; j++)
+			{
+				Point2D<double> pos((textures[ALIENS]->getFrameWidth() + 4) * j + 135, (textures[ALIENS]->getFrameHeight() + 3) * i + 30);
+				//da un error en esta linea que no tengo ni idea de lo que es porque antes funcionaba y ahora no :C (preguntar al profe)
+				Alien* aux = new Alien(pos, subtipoAlien, *textures[ALIENS], *this);
+				//cout << "CARGAN ALIENS";
+				aliens.push_back(aux);
+
+			}
+			if (subtipoAlien < 2)
+			{
+				subtipoAlien++;
+			}
+		}
+		for (int i = 1; i < 5; i++)
+		{
+			Point2D<double> pos(SCRWIDTH * i / 5 - textures[BUNKER]->getFrameWidth() / 2, SCRHEIGHT - SCRHEIGHT / 4);
+			Bunker* newBunker = new Bunker(pos, 4, *textures[BUNKER]);
+			bunkers.push_back(newBunker);
+		}
+
+
+
+		//cout << "run fin";
+		while (!exit)
+		{
+
+			//cout << "bucle principal inicio";
+			handleEvents();
+			render();
+			update();
+			//cout << "bucle principal ";
+		}
 	}
 }
 
@@ -203,8 +234,7 @@ int Game::getDirection() // Devuelve la direccion de movimiento actual.
 }
 
 int Game::getRandomRange(int min, int max) {
-	cout << uniform_int_distribution<int>(min, max)(randomGenerator);
-	return 1;
+	return  uniform_int_distribution<int>(min, max)(randomGenerator);
 }
 
 void Game::cannotMove() // Cambia la direccion de movimeintdo cuando se alcanzan los limites de pantalla.
@@ -221,6 +251,7 @@ void Game::fireLaser(Point2D<double>position, bool alien)
 	Laser* laser = new Laser(position, velocidadLaser, alien, this, renderer); // Creamos un nuevo laser.
 
 
+	//laser->cannon() ? cout << "true" : cout << "false";
 	lasers.push_back(laser); // Añadimos el laser a la lista de lasers.
 	cout << lasers.size();
 	//cout << "entra en el disparo";
@@ -235,8 +266,8 @@ void Game::colDetection(Laser* laser) {
 		if (lasers[i] != laser && SDL_HasIntersection(&laser->getRect(), &lasers[i]->getRect()))
 		{
 			lasers[i]->hit();
-			laser->hit();
-			//cout << "Colision";
+			//laser->hit();
+			cout << "Colision";
 			collided = true;
 		}
 		i++;

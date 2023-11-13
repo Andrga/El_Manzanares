@@ -8,6 +8,8 @@
 #include "Cannon.h"
 #include "Laser.h"
 #include <iostream>
+#include <fstream>
+#include <filesystem>
 #include <SDL_image.h>
 #include <vector>
 #include <array>
@@ -16,11 +18,12 @@
 using namespace std;
 static const int NUM_TEXTURES = 4;
 static const string TEXTURE_ROOT = "..\\images\\";
+static const std::string MAP_PATH = "mapas/original.txt";
 static const double SCRWIDTH = 800;
 static const double SCRHEIGHT = 600;
 static const double velocidadAlien = 0.01;
-static const double velocidadCannon = 0.1;
-static const Vector2D<double> velocidadLaser(0, 0.1);
+static const double velocidadCannon = 0.05;
+static const Vector2D<double> velocidadLaser(0, 0.05);
 enum TextureName { ALIENS, BUNKER, SPACESHIP, STARS };
 
 class Game

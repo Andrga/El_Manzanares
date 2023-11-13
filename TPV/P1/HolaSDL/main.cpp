@@ -1,5 +1,4 @@
 #include "checkML.h"
-
 #include "SDL.h"
 #include "SDL_image.h"
 #include "Game.h"
@@ -13,6 +12,5 @@ int main(int argc, char* argv[])
 {
 	Game game;
 	game.run();
-	game.~Game();
 	return 0;
 }

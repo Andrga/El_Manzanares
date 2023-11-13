@@ -35,5 +35,5 @@ void Bunker::hit()
 {
 	actVidas++;
 	// Renderizar apariencia nueva
-	std::cout << "kerokekambie el frame plis";
+	//std::cout << "kerokekambie el frame plis";
 };

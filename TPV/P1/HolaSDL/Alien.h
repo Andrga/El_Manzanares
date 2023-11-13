@@ -11,7 +11,8 @@ private:
 	Texture* textura = nullptr;
 	Game* juego;
 	SDL_Rect rect;
-	double shootTime = 1000;
+	double maxShootTime = 30000;
+	double minShootTime = 10000;
 	double elapsedShootTime = 0;
 	int subtipo;
 	int renderFrame = 0;
