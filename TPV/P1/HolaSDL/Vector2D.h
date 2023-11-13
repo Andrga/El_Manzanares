@@ -10,9 +10,11 @@ private:
 public:
 	Vector2D() = default;
 	Vector2D(T a, T b) { x = a; y = b; }
-	//~Vector2D() { delete& x; delete& y; }
+	//~Vector2D() { delete& x; delete& y; } destructora no funciona
 	T getX() { return x; }
 	T getY() { return y; }
+
+	//Sobrecargas de operadores
 	Vector2D operator+(Vector2D other)
 	{
 		return Vector2D(x + other.x, y + other.y);

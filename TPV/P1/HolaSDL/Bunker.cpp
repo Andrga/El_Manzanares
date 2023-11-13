@@ -1,5 +1,7 @@
+#include "checkML.h"
 #include "Bunker.h"
 
+//Constructora
 Bunker::Bunker(Point2D<double> pos, int vid, Texture& tex)
 	: posicion(pos), maxVidas(vid), textura(&tex) 
 {
@@ -8,18 +10,23 @@ Bunker::Bunker(Point2D<double> pos, int vid, Texture& tex)
 	rect.w = textura->getFrameWidth();
 	rect.h = textura->getFrameHeight();
 }
+
+//Destructora
 Bunker::~Bunker() {
 	//delete &posicion;
 	//delete &vidas;
 	//delete textura;
 }
 
+//Render
 void Bunker::render()
 {
 	textura->renderFrame(rect, 0, actVidas);
 
 };
-bool Bunker::update() // Update.
+
+// Update.
+bool Bunker::update() 
 {
 	if (actVidas >= maxVidas)
 	{
@@ -27,13 +34,15 @@ bool Bunker::update() // Update.
 	}
 	return true;
 };
+
 //return el rect del laser
 SDL_Rect Bunker::getRect() {
 	return rect;
 }
+
+// Es llamado cuando es golpeado por un laser
 void Bunker::hit()
 {
-	actVidas++;
 	// Renderizar apariencia nueva
-	//std::cout << "kerokekambie el frame plis";
+	actVidas++;
 };

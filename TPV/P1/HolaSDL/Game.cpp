@@ -1,3 +1,4 @@
+#include "checkML.h"
 #include "Game.h"
 #include <iostream>
 #include <fstream>
@@ -74,9 +75,10 @@ Game::Game() {
 	}
 }
 
-Game::~Game() // Destructor
+// Destructora
+Game::~Game() 
 {
-	/*for (const auto e : aliens) {
+	for (const auto e : aliens) {
 		delete e;
 	}
 	for (const auto e : bunkers) {
@@ -85,36 +87,39 @@ Game::~Game() // Destructor
 	for (const auto e : lasers) {
 		delete e;
 	}
-	delete cannon;*/
+	delete cannon;
 
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 }
 
+//Render de los objetos del juego
 void Game::render() {
+	//Contador para el cambio de animación
 	if (tiempoTrans == 2500)
 	{
 		tiempoTrans = 0;
 		for (const auto e : aliens)
 		{
-			//e->render();
 			e->animation();
 		}
-		//cout << "yipi" << endl;
 	}
+
+	//Borra el render anterior
 	SDL_RenderClear(renderer);
-	textures[STARS]->render();
-	// Tres filas de aliens.
-	for (const auto e : aliens)
+
+	//Renderizado de los diferentes elementos del juego
+	textures[STARS]->render(); // Fondo
+	for (const auto e : aliens) // Aliens
 	{
 		e->render();
 	}
-	for (const auto e : bunkers)
+	for (const auto e : bunkers) //Bunkers
 	{
 		e->render();
 	}
-	for (const auto e : lasers)
+	for (const auto e : lasers) // Lasers
 	{
 		SDL_SetRenderDrawColor(renderer, 255, 165, 0, 255);
 		e->render();
@@ -125,11 +130,12 @@ void Game::render() {
 	tiempoTrans++;
 }
 
+//Update de los elementos del juego
 void Game::update() {
-	//cout << "update inicio";
 	int i = 0;
 	while (i < aliens.size())
 	{
+		// Si update del elemento devuelve false, el elemento se elimina
 		if (!aliens[i]->update()) {
 			delete aliens[i];
 			vector<Alien*>::iterator it = aliens.begin() + i;
@@ -139,14 +145,12 @@ void Game::update() {
 		else {
 			i++;
 		}
-
-		/*aliens[i]->update();
-		i++;*/
 	}
-	//cout << "update aliens fin";
+
 	i = 0;
 	while (i < bunkers.size())
 	{
+		// Si update del elemento devuelve false, el elemento se elimina
 		if (!bunkers[i]->update()) {
 			delete bunkers[i];
 			vector<Bunker*>::iterator it = bunkers.begin() + i;
@@ -156,72 +160,72 @@ void Game::update() {
 		{
 			i++;
 		}
-		//bunkers[i]->update();
-		//i++;
 
 	}
-	//cout << "update inicio"; 
-
 
 	i = 0;
 	while (i < lasers.size())
 	{
+		// Si update del elemento devuelve false, el elemento se elimina
 		if (!lasers[i]->update()) {
 			delete lasers[i];
 			vector<Laser*>::iterator it = lasers.begin() + i;
 			lasers.erase(it);
-			//cout << "elimina laser" << i;
 		}
 		else
 		{
 			i++;
 		}
-		/*lasers[i]->update();
-		i++;*/
 	}
+
+	// Si update del elemento devuelve false, el elemento se elimina
 	if (!cannon->update()) {
 		delete cannon;
+		cout << "GAME OVER" << endl;
+		exit = true;
 	}
-	//cout << "update fin";
+
+	// Si no quedan aliens has ganado
+	if (aliens.size() <= 0)
+	{
+		exit = true;
+		cout << "YOU WIN!!" << endl;
+	}
 }
 
+// Lee el mapa de archivo, crea y situa los objetos y contiene el bucle de juego
 void Game::run() {
 
 	try
 	{
+		//inicialza el ifstream
 		std::ifstream map;
-
 		map.open(MAP_PATH);
-		Game* game = this;
-		int objeto, posx, posy, subtAlien;
 		if (map.fail())
 		{
-			//	const std::error_code ec;
-			//	const std::filesystem::path route = MAP_PATH;
-			//	//throw std::filesystem::filesystem_error("Could not read the file at " + route.string(), route, ec);
 			throw Error("File not found.");
 		}
 
+		// Variables auxiliares
+		int objeto, posx, posy, subtAlien;
+
+		// Lectura de objetos
 		while (!map.eof())
 		{
-			map >> objeto;
-			//cout << objeto;
-			map >> posx >> posy;
+			map >> objeto >> posx >> posy;
 			Point2D<double> pos(posx, posy);
 
-
+			//clasificacion de objetos
 			switch (objeto)
 			{
-			case 0:
-				//cout << "CARGA BUNKERS";
-				cannon = new Cannon(pos, *textures[SPACESHIP], 3, *game);
+			case 0: // caso de lectura de cannon
+				cannon = new Cannon(pos, *textures[SPACESHIP], 3, *this);
 				break;
-			case 1:
+			case 1: // caso de lectura de aliens
 				map >> subtAlien;
-				//cout << "CARGAN ALIENS";
 				aliens.push_back(new Alien(pos, subtAlien, *textures[ALIENS], *this));
 				break;
-			case 2:
+			case 2: // caso de lectura de bunkers
 				bunkers.push_back(new Bunker(pos, 4, *textures[BUNKER]));
 				break;
 
@@ -229,33 +233,6 @@ void Game::run() {
 				break;
 			}
 		}
-		//cout << "run inicio";
-		/*int subtipoAlien = 0;
-		for (int i = 0; i < 4; i++)
-		{
-			for (int j = 0; j < 11; j++)
-			{
-				Point2D<double> pos((textures[ALIENS]->getFrameWidth() + 4) * j + 135, (textures[ALIENS]->getFrameHeight() + 3) * i + 30);
-				//da un error en esta linea que no tengo ni idea de lo que es porque antes funcionaba y ahora no :C (preguntar al profe)
-				Alien* aux = new Alien(pos, subtipoAlien, *textures[ALIENS], *this);
-				//cout << "CARGAN ALIENS";
-				aliens.push_back(aux);
-
-			}
-			if (subtipoAlien < 2)
-			{
-				subtipoAlien++;
-			}
-		}
-		for (int i = 1; i < 5; i++)
-		{
-			Point2D<double> pos(SCRWIDTH * i / 5 - textures[BUNKER]->getFrameWidth() / 2, SCRHEIGHT - SCRHEIGHT / 4);
-			Bunker* newBunker = new Bunker(pos, 4, *textures[BUNKER]);
-			bunkers.push_back(newBunker);
-		}*/
-
-
-
 	}
 	catch (const Error& ex)
 	{
@@ -263,17 +240,16 @@ void Game::run() {
 		exit = true;
 	}
 
+	//Bucle principal
 	while (!exit)
 	{
-
-		//cout << "bucle principal inicio";
 		handleEvents();
 		render();
 		update();
-		//cout << "bucle principal ";
 	}
 }
 
+//Manejo de eventos
 void Game::handleEvents() {
 	SDL_Event event;
 	while (SDL_PollEvent(&event) && !exit)
@@ -283,15 +259,18 @@ void Game::handleEvents() {
 	}
 }
 
+//Devuelve la direccion del movimiento de la nave
 int Game::getDirection() // Devuelve la direccion de movimiento actual.
 {
 	return direccionMovimiento;
 }
 
+//Generador de numeros aleatorios en un rango
 int Game::getRandomRange(int min, int max) {
 	return  uniform_int_distribution<int>(min, max)(randomGenerator);
 }
 
+//Es llamado cuando los alienigenas chocan con un borde de pantalla
 void Game::cannotMove() // Cambia la direccion de movimeintdo cuando se alcanzan los limites de pantalla.
 {
 	direccionMovimiento = -direccionMovimiento;
@@ -301,25 +280,24 @@ void Game::cannotMove() // Cambia la direccion de movimeintdo cuando se alcanzan
 	}
 }
 
+//Disparador de laseres
 void Game::fireLaser(Point2D<double>position, bool alien)
 {
-	//laser->cannon() ? cout << "true" : cout << "false";
 	lasers.push_back(new Laser(position, velocidadLaser, alien, this, renderer)); // Añadimos el laser a la lista de lasers.
-	cout << lasers.size();
-	//cout << "entra en el disparo";
-
 }
 
+//Detector de colisiones
 void Game::colDetection(Laser* laser) {
+	//variables auxiliares
 	int i = 0;
 	bool collided = false;
+
+	//deteccion de colision laser con laser
 	while (i < lasers.size() && !collided)
 	{
 		if (lasers[i] != laser && SDL_HasIntersection(&laser->getRect(), &lasers[i]->getRect()))
 		{
 			lasers[i]->hit();
-			//laser->hit();
-			cout << "Colision";
 			collided = true;
 		}
 		i++;
@@ -334,7 +312,6 @@ void Game::colDetection(Laser* laser) {
 			laser->hit();
 			aliens[i]->hit();
 			collided = true;
-			//cout << "Colision" << endl;
 		}
 		i++;
 	}
@@ -348,7 +325,6 @@ void Game::colDetection(Laser* laser) {
 			laser->hit();
 			bunkers[i]->hit();
 			collided = true;
-			//cout << "Colision";
 		}
 		i++;
 	}
@@ -358,7 +334,5 @@ void Game::colDetection(Laser* laser) {
 	{
 		laser->hit();
 		cannon->hit();
-		//cout << "Colision";
 	}
-
 }

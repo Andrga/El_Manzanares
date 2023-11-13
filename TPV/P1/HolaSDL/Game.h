@@ -1,5 +1,4 @@
 #pragma once
-#include "checkML.h"
 #include "SDL.h"
 #include "texture.h"
 #include "Vector2D.h"
@@ -53,5 +52,3 @@ public:
 	void colDetection(Laser* laser);
 
 };
-
-// incluir alien y alien* alien. se vuelve loqisimo pero falla en complacion. no incluir game en alien sino clase game en alien pero sin nada.

@@ -1,32 +1,42 @@
+#include "checkML.h"
 #include "Cannon.h"
 #include "Game.h"
 
+//Constructora
 Cannon::Cannon(Point2D<double> pos, Texture& tex, int vid, Game& gam)
 	:posicion(pos), textura(&tex), vidas(vid), game(&gam)
 {
 	rect.w = textura->getFrameWidth();
 	rect.h = textura->getFrameHeight();
 }
+
+// Destructora
 Cannon::~Cannon() {
 	//delete& posicion;
-	delete textura;
+	//delete textura;
 	//delete& direccion;
 	//delete& vidas;
 }
+
+// Render
 void Cannon::render() {
 	rect.x = posicion.getX();
 	rect.y = posicion.getY();
 	textura->renderFrame(rect, textura->getNumRows() - 1, textura->getNumColumns() - 1);
 }
 
-bool Cannon::hit()
+// Es llamado cuando golpean al cannon
+void Cannon::hit()
 {
-	return false;
+	vidas--;
+	cout << "Vidas restantes: " << vidas << endl;
 }
 
+// Update
 bool Cannon::update()
 {
 	posicion = posicion + Vector2D(velocidadCannon * direccion, 0.0); // Movimiento
+
 	// Para cuando choca con un borde:
 	if (posicion.getX() >= (SCRWIDTH - textura->getFrameWidth()))
 	{
@@ -37,33 +47,30 @@ bool Cannon::update()
 		posicion = Vector2D(0.0, posicion.getY());
 	}
 	elapsedTime++;
-	return !hit();
+
+	//return true mientras esta vivo
+	return vidas > 0;
 }
 
+//Manejo de eventos del cannon
 void Cannon::handleEvent(SDL_Event event)
 {
 	if (event.type == SDL_KEYDOWN)
 	{
-		//int key = SDL_GetKeyboardState(3);
 		switch (event.key.keysym.sym)
 		{
 		case SDLK_RIGHT: // Cambio de direccion a la derecha
 			direccion = 1;
 			break;
 		case SDLK_LEFT: // Cambio de direccion a la izquierda.
-			//std::cout << "Izquierda\n";
 			direccion = -1;
 			break;
 		case SDLK_SPACE: // Cambio de direccion a la izquierda.
 			if (elapsedTime >= TIEMPODISPARO)
 			{
-				//std::cout << "Disparo\n";
 				game->fireLaser(posicion, false);
 				elapsedTime = 0;
 			}
-			/*else {
-				std::cout << elapsedTime;
-			}*/
 			break;
 		default:
 			direccion = 0;
@@ -75,6 +82,7 @@ void Cannon::handleEvent(SDL_Event event)
 		direccion = 0;
 	}
 }
+
 //return el rect del Cannon
 SDL_Rect Cannon::getRect() {
 	return rect;

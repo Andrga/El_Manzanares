@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector2D.h"
 #include "texture.h"
+
 class Bunker
 {
 private:
@@ -14,7 +15,7 @@ public:
 	Bunker(Point2D<double> pos, int vid, Texture& tex); // Constructor.
 	~Bunker();
 	void render();
-	bool update(); // Update.
+	bool update();
 	void hit();
 	SDL_Rect getRect();
 };

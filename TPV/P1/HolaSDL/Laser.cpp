@@ -1,6 +1,8 @@
+#include "checkML.h"
 #include "Laser.h"
 #include "Game.h"
 
+// Constructora
 Laser::Laser(Point2D<double> pos, Vector2D<double> vel, bool al, Game* jueg, SDL_Renderer* rend)
 	:posicion(pos), velocidad(vel), alien(al), game(jueg), renderer(rend)
 {
@@ -9,43 +11,46 @@ Laser::Laser(Point2D<double> pos, Vector2D<double> vel, bool al, Game* jueg, SDL
 	rect.h = 12;
 }
 
+// Destructora
 Laser::~Laser() {
-	//delete& posicion;
-	//delete& velocidad;
-	//delete& alien;
 }
+
+//Renderizado del laser
 void Laser::render()
 {
 	//+15 para que aparezca en el centro de la nave
 	rect.x = posicion.getX() + (15);
 	rect.y = posicion.getY();
 
-	//cout << "renderiza el disparo";
-
 	SDL_RenderFillRect(renderer, &rect);
 }
+
+//Update del laser
 bool Laser::update() {
+	//Cambio de posición y direccion
 	alien ? posicion = posicion + velocidad : posicion = posicion - velocidad;
 	game->colDetection(this);
-	//hitted ? cout << "true" : cout << "false";
+
+	//Salida de limites de la bala
 	if (posicion.getY() <= 0 || posicion.getY()>= SCRHEIGHT)
 	{
 		return false;
 	}
+
 	return !hitted;
 }
-//return el rect del laser
+
+//Return el rect del laser
 SDL_Rect Laser::getRect() {
 	return rect;
 }
 
-//es llamado cuando colisiona
+//Es llamado cuando colisiona
 void Laser::hit() {
 	hitted = true;
-	//cout << "destruido" << endl;
 }
 
-//return true si es un cannon
+//Return true si es un cannon
 bool Laser::cannon() {
 	return !alien;
 }

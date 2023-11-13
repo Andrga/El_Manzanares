@@ -1,13 +1,8 @@
+#include "checkML.h"
 #include "Alien.h"
 #include "Game.h"
 
-//constructor predeterminado
-Alien::Alien()
-{
-	//Alien(Point2D<double>(0, 0), 0, new Texture, new Game);
-}
-
-//constructora
+// Constructora
 Alien::Alien(Point2D<double> pos, int subt, Texture& tex, Game& jueg)
 	: posicion(pos), subtipo(subt), textura(&tex), juego(&jueg)
 {
@@ -16,7 +11,7 @@ Alien::Alien(Point2D<double> pos, int subt, Texture& tex, Game& jueg)
 	elapsedShootTime = juego->getRandomRange(minShootTime, maxShootTime);
 }
 
-//destructora
+// Destructora
 Alien::~Alien() {
 	/*delete& posicion;
 	delete& subtipo;
@@ -24,33 +19,30 @@ Alien::~Alien() {
 	//delete& renderFrame;*/
 }
 
-//render
+// Render
 void Alien::render()
 {
-	//cout << "yipi" << endl;
 	rect.x = posicion.getX();
 	rect.y = posicion.getY();
 	textura->renderFrame(rect, subtipo, renderFrame);
 }
 
-//hit
+// Hit
 void Alien::hit()
 {
 	hitted = true;
 }
 
-//update
+// Update
 bool Alien::update()
 {
 	//movimiento del alien
-	double xpos = juego->getDirection() * velocidadAlien; // Actualiza la direccion. 
-	posicion = posicion + Vector2D<double>(xpos, 0.0); // Movimiento.
+	posicion = posicion + Vector2D<double>(juego->getDirection() * velocidadAlien, 0.0); // Actualización del movimiento y direccion.
 
 	//choque con un borde
 	if (posicion.getX() >= (SCRWIDTH - textura->getFrameWidth()) || posicion.getX() <= 0)
 	{
 		juego->cannotMove(); // Cuando choca con los bordes de la pantalla.
-		//posicion = posicion + Vector2D<double>(0.0, textura->getFrameHeight() / 2);
 	}
 
 	//contador para disparar los aliens
@@ -59,8 +51,8 @@ bool Alien::update()
 		if (elapsedShootTime <= 0)
 		{
 			juego->fireLaser(posicion, true);
+			// aliens disparan en un tiempo aleatorio
 			elapsedShootTime = juego->getRandomRange(minShootTime, maxShootTime);
-			//cout << "dispara alien" << endl;
 		}
 		else
 		{
@@ -75,19 +67,14 @@ bool Alien::update()
 void Alien::animation()
 {
 	renderFrame == 0 ? renderFrame = 1 : renderFrame = 0;
-	/*if (renderFrame == 0)
-	{
-		renderFrame = 1;
-	}
-	else
-	{
-		renderFrame = 0;
-	}*/
 }
+
+//Baja a el alien
 void Alien::bajar()
 {
 	posicion = posicion + Vector2D<double>(0.0, textura->getFrameHeight() / 2);
 }
+
 //return el rect del alien
 SDL_Rect Alien::getRect() {
 	return rect;
