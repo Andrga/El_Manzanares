@@ -18,7 +18,7 @@
 using namespace std;
 static const int NUM_TEXTURES = 4;
 static const string TEXTURE_ROOT = "..\\images\\";
-static const std::string MAP_PATH = "mapas/original.txt";
+static const std::string MAP_PATH = "assets/maps/original.txt";
 static const double SCRWIDTH = 800;
 static const double SCRHEIGHT = 600;
 static const double velocidadAlien = 0.01;
