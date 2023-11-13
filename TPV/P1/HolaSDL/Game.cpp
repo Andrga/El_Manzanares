@@ -1,4 +1,8 @@
 #include "Game.h"
+#include <iostream>
+#include <fstream>
+#include <filesystem>
+#include <exception>
 
 struct Textura
 {
@@ -15,22 +19,59 @@ const Textura texturas[NUM_TEXTURES]
 		Textura{"stars",1,1}
 };
 
+class Error {
+protected:
+	string mensaje;
+public:
+	Error(string const& m) : mensaje(m) {};
+	const string& what() const {
+		return mensaje;
+	};
+};
+
 
 Game::Game() {
 	SDL_Init(SDL_INIT_EVERYTHING);
-	window = SDL_CreateWindow("SPACE INAVERS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCRWIDTH, SCRHEIGHT, SDL_WINDOW_SHOWN);
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
-	if (window == nullptr || renderer == nullptr)
-		cout << "No ha punchao la ventana o el renderer :CC";
-	else
+	try
 	{
-		for (int i = 0; i < NUM_TEXTURES; i++)
+
+		window = SDL_CreateWindow("SPACE INAVERS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCRWIDTH, SCRHEIGHT, SDL_WINDOW_SHOWN);
+		renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+		if (window == nullptr)
 		{
-			textures[i] = new Texture(renderer, (TEXTURE_ROOT + texturas[i].name + ".png").c_str(), texturas[i].rows, texturas[i].cols);
+			throw Error("Window do not created.");
 		}
+		else if (renderer == nullptr)
+		{
+			throw Error("Renderer do not created.");
+
+		}
+		else
+		{
+
+			for (int i = 0; i < NUM_TEXTURES; i++)
+			{
+				try
+				{
+					textures[i] = new Texture(renderer, (TEXTURE_ROOT + texturas[i].name + ".png").c_str(), texturas[i].rows, texturas[i].cols);
+					if (textures[i] == nullptr)
+					{
+						throw Error("Texture do not found.");
+					}
+				}
+				catch (const Error& ex)
+				{
+					cout << "Error reading texture from archive: " << ex.what() << endl;
+				}
+			}
+		}
+		SDL_RenderClear(renderer);
 	}
-	SDL_RenderClear(renderer);
+	catch (const Error& ex)
+	{
+		cout << "Error creating: " << ex.what() << endl;
+	}
 }
 
 Game::~Game() // Destructor
@@ -145,17 +186,21 @@ void Game::update() {
 }
 
 void Game::run() {
-	Game* game = this;
-	int objeto, posx, posy, subtAlien;
-	std::ifstream map;
 
-	map.open(MAP_PATH);
-
-	if (map.fail()) {
-		cout << "me cago en dios ya";
-	}
-	else
+	try
 	{
+		std::ifstream map;
+
+		map.open(MAP_PATH);
+		Game* game = this;
+		int objeto, posx, posy, subtAlien;
+		if (map.fail())
+		{
+			//	const std::error_code ec;
+			//	const std::filesystem::path route = MAP_PATH;
+			//	//throw std::filesystem::filesystem_error("Could not read the file at " + route.string(), route, ec);
+			throw Error("File not found.");
+		}
 
 		while (!map.eof())
 		{
@@ -211,16 +256,21 @@ void Game::run() {
 
 
 
-		//cout << "run fin";
-		while (!exit)
-		{
+	}
+	catch (const Error& ex)
+	{
+		cout << "Error reading from archive: " << ex.what() << endl;
+		exit = true;
+	}
 
-			//cout << "bucle principal inicio";
-			handleEvents();
-			render();
-			update();
-			//cout << "bucle principal ";
-		}
+	while (!exit)
+	{
+
+		//cout << "bucle principal inicio";
+		handleEvents();
+		render();
+		update();
+		//cout << "bucle principal ";
 	}
 }
 
@@ -253,11 +303,8 @@ void Game::cannotMove() // Cambia la direccion de movimeintdo cuando se alcanzan
 
 void Game::fireLaser(Point2D<double>position, bool alien)
 {
-	Laser* laser = new Laser(position, velocidadLaser, alien, this, renderer); // Creamos un nuevo laser.
-
-
 	//laser->cannon() ? cout << "true" : cout << "false";
-	lasers.push_back(laser); // Añadimos el laser a la lista de lasers.
+	lasers.push_back(new Laser(position, velocidadLaser, alien, this, renderer)); // Añadimos el laser a la lista de lasers.
 	cout << lasers.size();
 	//cout << "entra en el disparo";
 

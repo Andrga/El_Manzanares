@@ -7,9 +7,6 @@
 #include "Bunker.h"
 #include "Cannon.h"
 #include "Laser.h"
-#include <iostream>
-#include <fstream>
-#include <filesystem>
 #include <SDL_image.h>
 #include <vector>
 #include <array>
@@ -17,7 +14,7 @@
 
 using namespace std;
 static const int NUM_TEXTURES = 4;
-static const string TEXTURE_ROOT = "..\\images\\";
+static const string TEXTURE_ROOT = "assets/images/";
 static const string MAP_PATH = "assets/maps/original.txt";
 static const double SCRWIDTH = 800;
 static const double SCRHEIGHT = 600;
@@ -29,7 +26,7 @@ enum TextureName { ALIENS, BUNKER, SPACESHIP, STARS };
 class Game
 {
 private:
-	
+
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	bool exit = false;
