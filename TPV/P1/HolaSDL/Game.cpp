@@ -140,7 +140,7 @@ void Game::update() {
 			delete aliens[i];
 			vector<Alien*>::iterator it = aliens.begin() + i;
 			aliens.erase(it);
-			cout << "alien " << i << " muerto, " << aliens.size() << " restantes";
+			cout << "alien " << i << " muerto, " << aliens.size() << " restantes" << endl;
 		}
 		else {
 			i++;
@@ -160,7 +160,6 @@ void Game::update() {
 		{
 			i++;
 		}
-
 	}
 
 	i = 0;
