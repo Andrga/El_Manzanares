@@ -71,6 +71,7 @@
   <ItemGroup>
     <ClCompile Include="Alien.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Laser.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mothership.cpp" />
     <ClCompile Include="texture.cpp" />
@@ -81,6 +82,7 @@
     <ClInclude Include="checkML.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Laser.h" />
     <ClInclude Include="Mothership.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="texture.h" />

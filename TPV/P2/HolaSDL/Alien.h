@@ -12,22 +12,22 @@ class Alien: public SceneObject
 private:
 
 	int subtipo;
-	int renderFrame = 0;
-	const Mothership* mothership; // Puntero a mothership.
+	Mothership* mothership = nullptr; // Puntero a mothership.
 	
 	//Animation parameters
-	int timeChange;
+	int renderFrame = 0;
+	int changeSprTime;
 	int elapsedTime;
+	void animation();
 
 public:
 	Alien();
-	Alien(Point2D<int> pos, int subt, const Texture& tex, const Game& gam, const Mothership& mot);
+	Alien(Point2D<int> pos, int subt, const Texture& tex, const Game& gam, Mothership& mot);
 	~Alien();
 	bool update() override;
 	const void render() override;
 	void hit(SDL_Rect rect, char c) override;
 	
-	void animation();
 	//void bajar();
 };
 

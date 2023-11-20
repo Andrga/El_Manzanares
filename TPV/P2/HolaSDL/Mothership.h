@@ -10,13 +10,13 @@ private:
 public:
 	Mothership(int dir); // Constructora.
 	
-	const int getDirection(); // Devuelve la direccion de movimiento.
+	int getDirection() const; // Devuelve la direccion de movimiento.
 
 	bool shouldMove();
 
 	void canNotMove();
 
-	const int getAlienCount();
+	int getAlienCount() const;
 
 	void alienDied();
 

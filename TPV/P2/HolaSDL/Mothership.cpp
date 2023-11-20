@@ -2,9 +2,8 @@
 
 Mothership::Mothership(int dir) : direction(dir) {}
 
-const int Mothership::getDirection()
+int Mothership::getDirection() const
 {
-	direction = -direction;
 	return direction;
 }
 bool Mothership::shouldMove() 
@@ -13,9 +12,9 @@ bool Mothership::shouldMove()
 }
 void Mothership::canNotMove()
 {
-
+	direction = -direction;
 }
-const int Mothership::getAlienCount() 
+int Mothership::getAlienCount() const
 {
 	return 8;
 }
