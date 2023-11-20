@@ -7,6 +7,7 @@ private:
 	enum  states { VISIBLE, OCULTO, DESTRUIDO }; // Enumerado de los diferentes estados de la nave.
 
 public:
-	void state() {}
+	UFO();
+	void state();
 };
 

@@ -15,6 +15,10 @@ private:
 	int renderFrame = 0;
 	const Mothership* mothership; // Puntero a mothership.
 	
+	//Animation parameters
+	int timeChange;
+	int elapsedTime;
+
 public:
 	Alien();
 	Alien(Point2D<int> pos, int subt, const Texture& tex, const Game& gam, const Mothership& mot);
@@ -23,11 +27,8 @@ public:
 	const void render() override;
 	void hit(SDL_Rect rect, char c) override;
 	
-	
-	
-	
-	/*void animation();
-	void bajar();*/
+	void animation();
+	//void bajar();
 };
 
 

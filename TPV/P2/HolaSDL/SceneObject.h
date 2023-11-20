@@ -10,7 +10,7 @@ protected:
 	Point2D<int> position; // Posicion del elemento.
 	int width; // Anchura.
 	int height; // Altura.
-	const Texture* texture;
+	const Texture* texture = nullptr;
 	bool alive = false;
 	SDL_Rect rect;
 

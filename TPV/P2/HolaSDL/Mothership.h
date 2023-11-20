@@ -8,20 +8,20 @@ private:
 	int direction = 1;
 
 public:
-	Mothership(int dir){} // Constructora.
+	Mothership(int dir); // Constructora.
 	
-	const int getDirection(){} // Devuelve la direccion de movimiento.
+	const int getDirection(); // Devuelve la direccion de movimiento.
 
-	bool shouldMove(){}
+	bool shouldMove();
 
-	void canNotMove(){}
+	void canNotMove();
 
-	const int getAlienCount(){}
+	const int getAlienCount();
 
-	void alienDied(){}
+	void alienDied();
 
-	void alienLanded(){}
+	void alienLanded();
 
-	void haveLanded(){}
+	void haveLanded();
 };
 

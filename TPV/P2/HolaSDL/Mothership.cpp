@@ -1,6 +1,7 @@
 #include "Mothership.h"
 
 Mothership::Mothership(int dir) : direction(dir) {}
+
 const int Mothership::getDirection()
 {
 	direction = -direction;
@@ -8,7 +9,7 @@ const int Mothership::getDirection()
 }
 bool Mothership::shouldMove() 
 {
-
+	return true;
 }
 void Mothership::canNotMove()
 {
@@ -16,7 +17,7 @@ void Mothership::canNotMove()
 }
 const int Mothership::getAlienCount() 
 {
-
+	return 8;
 }
 void Mothership::alienDied() 
 {
