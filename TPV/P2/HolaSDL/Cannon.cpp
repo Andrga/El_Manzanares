@@ -36,7 +36,7 @@ void Cannon::hit(SDL_Rect rect, char c)
 }
 bool Cannon::update() 
 {
-
+	return true;
 }
 void const Cannon::render() 
 {
