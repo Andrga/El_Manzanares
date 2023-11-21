@@ -70,21 +70,27 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Alien.cpp" />
+    <ClCompile Include="Bunker.cpp" />
+    <ClCompile Include="Cannon.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mothership.cpp" />
+    <ClCompile Include="ShooterAlien.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="UFO.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alien.h" />
+    <ClInclude Include="Bunker.h" />
+    <ClInclude Include="Cannon.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Laser.h" />
     <ClInclude Include="Mothership.h" />
     <ClInclude Include="SceneObject.h" />
+    <ClInclude Include="ShooterAlien.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="UFO.h" />
     <ClInclude Include="Vector2D.h" />

@@ -22,7 +22,6 @@ Bunker::~Bunker() {
 void Bunker::render()
 {
 	textura->renderFrame(rect, 0, actVidas);
-
 };
 
 // Update.

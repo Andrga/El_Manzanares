@@ -15,10 +15,10 @@ Alien::~Alien() {} // Destructora.
 
 bool Alien::update() 
 {
-	//movimiento del alien
-	position = position + Vector2D<int>((mothership->getDirection() * velocidadAlien), 0); // Actualización del movimiento y direccion.
+	// Movimiento del alien.
+	position = position + Vector2D<int>((mothership->getDirection() * velocidadAlien), 0); // Actualizacion del movimiento y direccion.
 
-	//choque con un borde
+	// Choque con un borde.
 	if (position.getX() >= (SCRWIDTH - texture->getFrameWidth()) || position.getX() <= 0)
 	{
 		mothership->canNotMove(); // Cuando choca con los bordes de la pantalla.
