@@ -1,0 +1,11 @@
+Integrantes del grupo 06:
+Pablo Iglesias Rodrigo
+Andrés García Navarro
+
+Errores:
+-Problemas con MemoryLeacks y destructoras.
+-No se puede disparar y moverse al mismo tiempo.
+
+Funcionalidades opcionales añadidas:
+-Implementación de las animaciones de los aliens cambiando el frame que se renderiza.
+-Descenso de los alienigenas segun avanza el juego aumentando la posicion Y cuando chocan con un limite de pantalla
