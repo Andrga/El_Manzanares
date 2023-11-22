@@ -20,6 +20,8 @@ private:
 	int elapsedTime;
 	void animation();
 
+
+
 public:
 	Alien();
 	Alien(const Game* gam, Point2D<int> pos, int sub, const Texture* tex, Mothership* mot);
@@ -27,6 +29,7 @@ public:
 	bool update() override;
 	const void render() override;
 	void hit(SDL_Rect rect, char c) override;
+	//list<SceneObject*>::iterator getIterator() { return ite; }
 	
 	//void bajar();
 };

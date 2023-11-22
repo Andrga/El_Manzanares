@@ -20,7 +20,6 @@
 using namespace std;
 
 
-std::list<SceneObject*> entities; // Lista de entidades del juego.
 
 const int NUM_TEXTURES = 4;
 const string TEXTURE_ROOT = "assets/images/";
@@ -50,10 +49,15 @@ const textureInfo texturesList[NUM_TEXTURES]
 class Game
 {
 private:
+	std::list<SceneObject*> entities; // Lista de entidades del juego.
+	std::list<SceneObject*>::iterator it;
+	//std::list<Cannon>::iterator itCannon;
+
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	array<Texture*, NUM_TEXTURES> textures{	};
 	Mothership* mother = new Mothership(1, 44);
+
 
 	bool endGame = false;
 	void readMap();
@@ -64,6 +68,7 @@ public:
 	void render();
 	void update();
 	void run();
+	void handleEvent();
 
 };
 

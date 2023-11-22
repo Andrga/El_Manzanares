@@ -1,7 +1,7 @@
 #include "Cannon.h"
 
-Cannon::Cannon(const Game* gam, Point2D<int> pos, const Texture* tex, int liv, int dir) 
-	: SceneObject(gam, pos, tex), lives(liv), direction(dir) 
+Cannon::Cannon(const Game* gam, Point2D<int> pos, const Texture* tex, int liv, int dir)
+	: SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), lives(liv)
 {
 
 }
@@ -50,7 +50,9 @@ bool Cannon::update()
 }
 void const Cannon::render() 
 {
-	
+	rect.x = position.getX();
+	rect.y = position.getY();
+	texture->renderFrame(rect, texture->getNumRows() - 1, texture->getNumColumns() - 1);
 }
 
 

@@ -254,7 +254,7 @@ void Game::handleEvents() {
 	while (SDL_PollEvent(&event) && !exit)
 	{
 		if (event.key.keysym.sym == SDLK_ESCAPE) exit = true; // Input de salida (esc).
-		cannon->handleEvent(event); // Input.
+		else cannon->handleEvent(event); // Input.
 	}
 }
 

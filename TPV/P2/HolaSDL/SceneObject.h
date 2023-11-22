@@ -13,12 +13,18 @@ protected:
 	const Texture* texture = nullptr;
 	bool alive = false;
 	SDL_Rect rect;
+	list<SceneObject*>::iterator ite;
 
 public:
 
-	SceneObject(const Game* gam, Point2D<int> pos, /*int wid, int hei,*/ const Texture* tex) // Constructora.
-		: GameObject(gam), position(pos), /*width(wid), height(hei),*/ texture(tex) {} 
+	SceneObject(const Game* gam, Point2D<int> pos, int wid, int hei, const Texture* tex) // Constructora.
+		: GameObject(gam), position(pos), width(wid), height(hei), texture(tex) {} 
 	
 	virtual void hit(SDL_Rect rect, char c) = 0;
+	
+	void setListOperator(list<SceneObject*>::iterator it)
+	{
+		ite = it;
+	}
 };
 

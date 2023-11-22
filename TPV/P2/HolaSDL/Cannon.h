@@ -12,6 +12,7 @@ private:
 	double elapsedTime = 0;
 
 
+
 public:
 	Cannon(const Game* gam, Point2D<int> pos,const Texture* tex, int liv, int dir);
 	~Cannon();
@@ -20,6 +21,8 @@ public:
 	void hit(SDL_Rect rect, char c)override;
 	bool update() override;
 	void const render() override;
+	//list<SceneObject*>::iterator getIterator() { return ite; }
+
 
 
 

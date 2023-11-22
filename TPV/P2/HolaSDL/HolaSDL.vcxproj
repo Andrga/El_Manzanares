@@ -76,6 +76,7 @@
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mothership.cpp" />
+    <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="ShooterAlien.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="UFO.cpp" />

@@ -4,11 +4,9 @@
 #include "Game.h"
 
 // Constructora
-Alien::Alien(const Game* gam,Point2D<int> pos, int sub, const Texture* tex, Mothership* mot)
-	: subtipo(sub), SceneObject(gam, pos, tex), mothership(mot)
+Alien::Alien(const Game* gam, Point2D<int> pos, int sub, const Texture* tex, Mothership* mot)
+	: subtipo(sub), SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), mothership(mot)
 {
-	//rect.w = texture->getFrameWidth();
-	//rect.h = texture->getFrameHeight();
 }
 
 Alien::~Alien() {} // Destructora.
@@ -28,7 +26,7 @@ bool Alien::update()
 
 const void Alien::render()
 {
-	animation();
+	//animation();
 
 	rect.x = position.getX();
 	rect.y = position.getY();
@@ -43,7 +41,7 @@ void Alien::hit(SDL_Rect rect, char c)
 
 void Alien::animation()
 {
-	if (elapsedTime <= 0)
+	/*if (elapsedTime <= 0)
 	{
 		elapsedTime = changeSprTime;
 		renderFrame == 0 ? renderFrame = 1 : renderFrame = 0;
@@ -51,5 +49,5 @@ void Alien::animation()
 	else
 	{
 		elapsedTime--;
-	}
+	}*/
 }

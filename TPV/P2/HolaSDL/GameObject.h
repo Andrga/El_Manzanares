@@ -1,5 +1,9 @@
 #pragma once
 #include <iostream>
+#include <iterator>
+#include <list>
+
+using namespace std;
 
 class Game;
 

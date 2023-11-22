@@ -33,4 +33,12 @@ void Mothership::haveLanded()
 {
 
 }
+bool Mothership::update() 
+{
+	return true;
+}
+void const Mothership::render() 
+{
+
+}
 

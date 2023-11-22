@@ -2,6 +2,7 @@
 
 Game::Game() {
 	setupGame();
+	readMap();
 }
 
 Game::~Game()
@@ -34,7 +35,9 @@ void Game::setupGame()
 void Game::run() {
 	while (!endGame)
 	{
-
+		handleEvent();
+		update();
+		render();
 	}
 }
 void Game::readMap() 
@@ -59,6 +62,8 @@ void Game::readMap()
 		{
 		case 0:
 			entities.push_back(new Cannon(this, Point2D<int>(posx, posy), textures[SPACESHIP], 3, 0));
+			it = entities.begin(); // Ponemos el iterador en el primero ahora que tenemos primero.
+			//itCannon = it;
 		case 1:
 			map >> subtAlien;
 			entities.push_back(new Alien(this, Point2D<int>(posx, posy), subtAlien, textures[ALIENS], mother));
@@ -67,5 +72,34 @@ void Game::readMap()
 		default:
 			break;
 		}
+		
+		
+		(*it)->setListOperator(it);
+		++it;
+	}
+
+}
+void Game::update()
+{
+	
+}
+void Game::render() 
+{
+	SDL_RenderClear(renderer);
+	textures[STARS]->render(); // Fondo
+	for (const auto i : entities)
+	{
+		i->render();
+		//SDL_RenderPresent(renderer);
+	}
+	SDL_RenderPresent(renderer);
+}
+void Game::handleEvent() 
+{
+	SDL_Event event;
+	while (SDL_PollEvent(&event) && !exit)
+	{
+		if (event.key.keysym.sym == SDLK_ESCAPE) endGame = true; // Input de salida (esc).
+		//else (*itCannon)->handleEvent(event); // Input.
 	}
 }
