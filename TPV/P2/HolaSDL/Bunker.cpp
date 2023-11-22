@@ -12,3 +12,15 @@ void Bunker::hit(SDL_Rect rect, char c)
 {
 	lives--;
 }
+bool Bunker::update() 
+{
+
+}
+void const Bunker::render() 
+{
+
+}
+void Bunker::hit(SDL_Rect rect, char c) 
+{
+
+}

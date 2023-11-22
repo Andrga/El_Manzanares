@@ -10,8 +10,15 @@
 #include <vector>
 #include <array>
 #include <random>
+#include <list>
+#include <iterator>
+#include <iostream>
+#include <fstream>
 
 using namespace std;
+
+
+std::list<SceneObject*> entities; // Lista de entidades del juego.
 
 const int NUM_TEXTURES = 4;
 const string TEXTURE_ROOT = "assets/images/";
@@ -46,13 +53,14 @@ private:
 	array<Texture*, NUM_TEXTURES> textures{	};
 
 	bool endGame = false;
-
+	void readMap();
 	void setupGame();
 public:
-	Game();
+	Game(); 
 	~Game();
 	void render();
 	void update();
 	void run();
+
 };
 

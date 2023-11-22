@@ -1,32 +1,35 @@
 #include "Mothership.h"
 
-Mothership::Mothership(int dir) : direction(dir) {}
+Mothership::Mothership(int dir, int nAl) : direction(dir), nAliens(nAl) {}
 
-int Mothership::getDirection() const
+bool Mothership::shouldMove()
 {
-	return direction;
-}
-bool Mothership::shouldMove() 
-{
-	return true;
+	if (true)
+	{
+		return true;
+	}
 }
 void Mothership::canNotMove()
 {
 	direction = -direction;
+	/*for (const auto e : aliens)
+	{
+		e->bajar();
+	}*/
 }
 int Mothership::getAlienCount() const
 {
 	return 8;
 }
-void Mothership::alienDied() 
+void Mothership::alienDied()
 {
 
 }
-void Mothership::alienLanded() 
+void Mothership::alienLanded()
 {
 
 }
-void Mothership::haveLanded() 
+void Mothership::haveLanded()
 {
 
 }

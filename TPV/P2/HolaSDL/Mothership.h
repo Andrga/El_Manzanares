@@ -6,11 +6,11 @@ class Mothership: public GameObject
 {
 private:
 	int direction = 1;
-
+	int nAliens = 44;
 public:
-	Mothership(int dir); // Constructora.
+	Mothership(int dir, int aAl); // Constructora.
 	
-	int getDirection() const; // Devuelve la direccion de movimiento.
+	int getDirection() const { return direction; } // Devuelve la direccion de movimiento.
 
 	bool shouldMove();
 
