@@ -1,6 +1,16 @@
 #include "Cannon.h"
 
-Cannon::~Cannon(){}
+Cannon::Cannon(const Game* gam, Point2D<int> pos, const Texture* tex, int liv, int dir) 
+	: SceneObject(gam, pos, tex), lives(liv), direction(dir) 
+{
+
+}
+
+Cannon::~Cannon()
+{
+
+}
+
 void Cannon::handleEvents(SDL_Event event)
 {
 	if (event.type == SDL_KEYDOWN)

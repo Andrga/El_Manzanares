@@ -12,7 +12,7 @@ protected:
 
 public:
 	GameObject(){}
-	GameObject(const Game& gam) : game(&gam) {} // Constructora.
+	GameObject(const Game* gam) : game(gam) {} // Constructora.
 
 	virtual ~GameObject() = default; // Destructora.
 
@@ -20,5 +20,5 @@ public:
 
 	virtual bool update() = 0;
 
-	virtual void const save() = 0;
+	//virtual void const save() = 0;
 };

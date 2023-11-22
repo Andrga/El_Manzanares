@@ -5,6 +5,8 @@
 #include "UFO.h"
 #include "texture.h"
 #include "Vector2D.h"
+#include "Cannon.h"
+#include "Bunker.h"
 
 #include <SDL_image.h>
 #include <vector>
@@ -51,6 +53,7 @@ private:
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	array<Texture*, NUM_TEXTURES> textures{	};
+	Mothership* mother = new Mothership(1, 44);
 
 	bool endGame = false;
 	void readMap();

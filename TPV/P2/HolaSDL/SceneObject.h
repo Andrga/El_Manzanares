@@ -16,8 +16,8 @@ protected:
 
 public:
 
-	SceneObject(const Game& gam, Point2D<int> pos, /*int wid, int hei,*/ const Texture& tex) // Constructora.
-		: GameObject(gam), position(pos), /*width(wid), height(hei),*/ texture(&tex) {} 
+	SceneObject(const Game* gam, Point2D<int> pos, /*int wid, int hei,*/ const Texture* tex) // Constructora.
+		: GameObject(gam), position(pos), /*width(wid), height(hei),*/ texture(tex) {} 
 	
 	virtual void hit(SDL_Rect rect, char c) = 0;
 };

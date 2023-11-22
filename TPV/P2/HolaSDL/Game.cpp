@@ -53,37 +53,19 @@ void Game::readMap()
 	// Lectura de objetos
 	while (!map.eof())
 	{
-		
-		
-		
-		
-		
-		
-		
-		/*map >> objeto >> posx >> posy;
-		Point2D<double> pos(posx, posy);
+		map >> objeto >> posx >> posy;
 
-		//clasificacion de objetos
 		switch (objeto)
 		{
-		case 0: // caso de lectura de cannon
-			cannon = new Cannon(pos, *textures[SPACESHIP], 3, *this);
-			break;
-		case 1: // caso de lectura de aliens
+		case 0:
+			entities.push_back(new Cannon(this, Point2D<int>(posx, posy), textures[SPACESHIP], 3, 0));
+		case 1:
 			map >> subtAlien;
-			aliens.push_back(new Alien(pos, subtAlien, *textures[ALIENS], *this));
-			break;
-		case 2: // caso de lectura de bunkers
-			bunkers.push_back(new Bunker(pos, 4, *textures[BUNKER]));
-			break;
-
+			entities.push_back(new Alien(this, Point2D<int>(posx, posy), subtAlien, textures[ALIENS], mother));
+		case 2:
+			entities.push_back(new Bunker(this, 4, Point2D<int>(posx, posy), textures[BUNKER]));
 		default:
-			break;*/
+			break;
 		}
 	}
-
-
-
-
-
 }

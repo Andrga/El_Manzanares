@@ -22,7 +22,7 @@ private:
 
 public:
 	Alien();
-	Alien(Point2D<int> pos, int subt, const Texture& tex, const Game& gam, Mothership& mot);
+	Alien(const Game* gam, Point2D<int> pos, int sub, const Texture* tex, Mothership* mot);
 	~Alien();
 	bool update() override;
 	const void render() override;

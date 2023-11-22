@@ -23,5 +23,7 @@ public:
 	void alienLanded();
 
 	void haveLanded();
+	bool update() override;
+	void const render() override;
 };
 

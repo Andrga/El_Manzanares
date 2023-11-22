@@ -4,8 +4,8 @@
 #include "Game.h"
 
 // Constructora
-Alien::Alien(Point2D<int> pos, int sub, const Texture& tex, const Game& gam, Mothership& mot)
-	: subtipo(sub), SceneObject(gam, pos, tex), mothership(&mot)
+Alien::Alien(const Game* gam,Point2D<int> pos, int sub, const Texture* tex, Mothership* mot)
+	: subtipo(sub), SceneObject(gam, pos, tex), mothership(mot)
 {
 	//rect.w = texture->getFrameWidth();
 	//rect.h = texture->getFrameHeight();
