@@ -1,6 +1,6 @@
 #include "Cannon.h"
 
-Cannon::Cannon(const Game* gam, Point2D<int> pos, const Texture* tex, int liv, int dir)
+Cannon::Cannon(const Game* gam, Point2D<double> pos, const Texture* tex, int liv, int dir)
 	: SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), lives(liv)
 {
 

@@ -14,7 +14,7 @@ private:
 
 
 public:
-	Cannon(const Game* gam, Point2D<int> pos,const Texture* tex, int liv, int dir);
+	Cannon(const Game* gam, Point2D<double> pos,const Texture* tex, int liv, int dir);
 	~Cannon();
 	int getLives() { return lives; }
 	void handleEvents(SDL_Event event);

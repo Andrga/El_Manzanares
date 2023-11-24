@@ -61,19 +61,22 @@ void Game::readMap()
 		switch (objeto)
 		{
 		case 0:
-			entities.push_back(new Cannon(this, Point2D<int>(posx, posy), textures[SPACESHIP], 3, 0));
+			entities.push_back(new Cannon(this, Point2D<double>(posx, posy), textures[SPACESHIP], 3, 0));
 			it = entities.begin(); // Ponemos el iterador en el primero ahora que tenemos primero.
+			break;
 			//itCannon = it;
 		case 1:
 			map >> subtAlien;
-			entities.push_back(new Alien(this, Point2D<int>(posx, posy), subtAlien, textures[ALIENS], mother));
+			entities.push_back(new Alien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother));
+			break;
 		case 2:
-			entities.push_back(new Bunker(this, 4, Point2D<int>(posx, posy), textures[BUNKER]));
+			entities.push_back(new Bunker(this, 4, Point2D<double>(posx, posy), textures[BUNKER]));
+			break;
 		default:
 			break;
 		}
-		
-		
+		cout << entities.size() << endl;
+		cout << *it << endl;
 		(*it)->setListOperator(it);
 		++it;
 	}
@@ -81,7 +84,14 @@ void Game::readMap()
 }
 void Game::update()
 {
-	
+	for (const auto i : entities)
+	{
+		
+		if (!i->update())
+		{
+
+		}
+	}
 }
 void Game::render() 
 {
@@ -90,7 +100,7 @@ void Game::render()
 	for (const auto i : entities)
 	{
 		i->render();
-		//SDL_RenderPresent(renderer);
+		SDL_RenderPresent(renderer);
 	}
 	SDL_RenderPresent(renderer);
 }

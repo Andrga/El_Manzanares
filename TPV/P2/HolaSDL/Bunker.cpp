@@ -2,7 +2,7 @@
 #include "game.h"
 
 
-Bunker::Bunker(const Game *gam, int liv, Point2D<int> pos, const Texture* tex) 
+Bunker::Bunker(const Game *gam, int liv, Point2D<double> pos, const Texture* tex) 
 	: SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), lives(liv)
 {
 	rect.x = position.getX();

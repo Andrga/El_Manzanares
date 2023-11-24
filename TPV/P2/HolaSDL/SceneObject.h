@@ -7,7 +7,7 @@
 class SceneObject: public GameObject
 {
 protected:
-	Point2D<int> position; // Posicion del elemento.
+	Point2D<double> position; // Posicion del elemento.
 	int width; // Anchura.
 	int height; // Altura.
 	const Texture* texture = nullptr;
@@ -17,8 +17,12 @@ protected:
 
 public:
 
-	SceneObject(const Game* gam, Point2D<int> pos, int wid, int hei, const Texture* tex) // Constructora.
-		: GameObject(gam), position(pos), width(wid), height(hei), texture(tex) {} 
+	SceneObject(const Game* gam, Point2D<double> pos, int wid, int hei, const Texture* tex) // Constructora.
+		: GameObject(gam), position(pos), width(wid), height(hei), texture(tex) 
+	{
+		rect.w = wid;
+		rect.h = hei;
+	}
 	
 	virtual void hit(SDL_Rect rect, char c) = 0;
 	

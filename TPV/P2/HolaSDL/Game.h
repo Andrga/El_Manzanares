@@ -24,11 +24,11 @@ using namespace std;
 const int NUM_TEXTURES = 4;
 const string TEXTURE_ROOT = "assets/images/";
 const string MAP_PATH = "assets/maps/original.txt";
-static const double SCRWIDTH = 800;
-static const double SCRHEIGHT = 600;
-static const double velocidadAlien = 0.01;
-static const double velocidadCannon = 0.05;
-static const Vector2D<double> velocidadLaser(0, 0.05);
+const double SCRWIDTH = 800;
+const double SCRHEIGHT = 600;
+const double velocidadAlien = 0.3;
+const double velocidadCannon = 0.05;
+const Vector2D<double> velocidadLaser(0, 0.05);
 enum TextureName { ALIENS, BUNKER, SPACESHIP, STARS };
 
 struct textureInfo
@@ -63,7 +63,7 @@ private:
 	void readMap();
 	void setupGame();
 public:
-	Game(); 
+	Game();
 	~Game();
 	void render();
 	void update();

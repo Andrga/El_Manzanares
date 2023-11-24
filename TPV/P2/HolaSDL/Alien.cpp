@@ -4,7 +4,7 @@
 #include "Game.h"
 
 // Constructora
-Alien::Alien(const Game* gam, Point2D<int> pos, int sub, const Texture* tex, Mothership* mot)
+Alien::Alien(const Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot)
 	: subtipo(sub), SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), mothership(mot)
 {
 }
@@ -14,7 +14,9 @@ Alien::~Alien() {} // Destructora.
 bool Alien::update() 
 {
 	// Movimiento del alien.
-	position = position + Vector2D<int>((mothership->getDirection() * velocidadAlien), 0); // Actualizacion del movimiento y direccion.
+	position = position + Vector2D<double>((mothership->getDirection() * velocidadAlien), 0); // Actualizacion del movimiento y direccion.
+	rect.y = position.getY();
+	rect.x = position.getX();
 
 	// Choque con un borde.
 	if (position.getX() >= (SCRWIDTH - texture->getFrameWidth()) || position.getX() <= 0)
@@ -28,10 +30,9 @@ const void Alien::render()
 {
 	//animation();
 
-	rect.x = position.getX();
-	rect.y = position.getY();
 	texture->renderFrame(rect, subtipo, renderFrame);
-
+	rect.y = position.getY();
+	rect.x = position.getX();
 }
 
 void Alien::hit(SDL_Rect rect, char c)
