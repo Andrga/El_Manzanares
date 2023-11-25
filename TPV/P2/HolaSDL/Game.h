@@ -7,6 +7,7 @@
 #include "Vector2D.h"
 #include "Cannon.h"
 #include "Bunker.h"
+#include "Laser.h"
 
 #include <SDL_image.h>
 #include <vector>
@@ -19,17 +20,17 @@
 
 using namespace std;
 
-
-
 const int NUM_TEXTURES = 4;
 const string TEXTURE_ROOT = "assets/images/";
 const string MAP_PATH = "assets/maps/original.txt";
 const double SCRWIDTH = 800;
 const double SCRHEIGHT = 600;
 const double velocidadAlien = 0.05;
-const double velocidadCannon = 0.05;
+const double velocidadCannon = 0.5;
 const Vector2D<double> velocidadLaser(0, 0.05);
 enum TextureName { ALIENS, BUNKER, SPACESHIP, STARS };
+const double FRAMERATE = 60;
+const double TIMEBETWEENFRAMES = 100 / FRAMERATE;
 
 struct textureInfo
 {
@@ -51,16 +52,14 @@ class Game
 private:
 	std::list<SceneObject*> entities; // Lista de entidades del juego.
 	std::list<SceneObject*>::iterator it;
-	//std::list<Cannon>::iterator itCannon;
-
-	//Cannon* cannonPtr = nullptr;
 
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	array<Texture*, NUM_TEXTURES> textures{	};
 	Mothership* mother = new Mothership(1, 44);
 
-
+	uint32_t frameTime;
+	uint32_t startTime;
 	bool endGame = false;
 	void readMap();
 	void setupGame();
@@ -71,6 +70,7 @@ public:
 	void update();
 	void run();
 	void handleEvent();
+	void fireLaser(Point2D<double> &position, char c);
 
 };
 

@@ -1,6 +1,7 @@
 #include "Cannon.h"
 
-Cannon::Cannon(const Game* gam, Point2D<double> pos, const Texture* tex, int liv, int dir)
+
+Cannon::Cannon(Game* gam, Point2D<double> pos, const Texture* tex, int liv, int dir)
 	: SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), lives(liv)
 {
 
@@ -24,13 +25,13 @@ void Cannon::handleEvents(SDL_Event event)
 		case SDLK_LEFT: // Cambio de direccion a la izquierda.
 			direction = -1;
 			break;
-		/*case SDLK_SPACE: // Cambio de direccion a la izquierda.
+		case SDLK_SPACE: // Cambio de direccion a la izquierda.
 			if (elapsedTime >= TIEMPODISPARO)
 			{
-				game->fireLaser(position, false);
+				game->fireLaser(position, 'c');
 				elapsedTime = 0;
 			}
-			break;*/
+			break;
 		default:
 			direction = 0;
 			break;
@@ -41,11 +42,11 @@ void Cannon::handleEvents(SDL_Event event)
 		direction = 0;
 	}
 }
-void Cannon::hit(SDL_Rect rect, char c) 
+void Cannon::hit(SDL_Rect rect, char c)
 {
 	lives--;
 }
-bool Cannon::update() 
+bool Cannon::update()
 {
 	position = position + Vector2D(velocidadCannon * direction, 0.0); // Movimiento
 
@@ -63,7 +64,7 @@ bool Cannon::update()
 	//return true mientras esta vivo
 	return alive;
 }
-void const Cannon::render() 
+void const Cannon::render()
 {
 	rect.x = position.getX();
 	rect.y = position.getY();

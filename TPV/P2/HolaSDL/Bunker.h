@@ -9,7 +9,7 @@ private:
 
 public:
 	Bunker();
-	Bunker(const Game* gam, int liv, Point2D<double> pos, const Texture* tex);
+	Bunker(Game* gam, int liv, Point2D<double> pos, const Texture* tex);
 	~Bunker();
 	bool update() override;
 	void const render() override;

@@ -17,7 +17,7 @@ protected:
 
 public:
 
-	SceneObject(const Game* gam, Point2D<double> pos, int wid, int hei, const Texture* tex) // Constructora.
+	SceneObject(Game* gam, Point2D<double> pos, int wid, int hei, const Texture* tex) // Constructora.
 		: GameObject(gam), position(pos), width(wid), height(hei), texture(tex) 
 	{
 		rect.w = wid;

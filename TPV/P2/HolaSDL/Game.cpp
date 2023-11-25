@@ -30,14 +30,20 @@ void Game::setupGame()
 	SDL_RenderClear(renderer);
 }
 void Game::run() {
+	startTime = SDL_GetTicks();
 	while (!endGame)
 	{
 		handleEvent();
-		update();
+		frameTime = SDL_GetTicks() - startTime;
+		if (frameTime > TIMEBETWEENFRAMES)
+		{
+			update();
+			startTime = SDL_GetTicks();
+		}
 		render();
 	}
 }
-void Game::readMap() 
+void Game::readMap()
 {
 	std::ifstream map; 	// Inicialza el ifstream.
 
@@ -73,7 +79,7 @@ void Game::readMap()
 			break;
 		}
 		entities.push_back(newObj); // Metemos la nueva entidad en la lista.
-		
+
 		it = entities.end(); // Ponemos el iterador al final de la lista.
 
 		newObj->setListOperator(it); // Le pasamos el iterador a la entidad.
@@ -85,11 +91,11 @@ void Game::update()
 	{
 		if (!i->update())
 		{
-
+			
 		}
 	}
 }
-void Game::render() 
+void Game::render()
 {
 	SDL_RenderClear(renderer);
 
@@ -101,21 +107,26 @@ void Game::render()
 	}
 	SDL_RenderPresent(renderer); // Presentacion del render.
 }
-void Game::handleEvent() 
+void Game::handleEvent()
 {
 	SDL_Event event;
 	while (SDL_PollEvent(&event) && !endGame)
 	{
-		if (event.key.keysym.sym == SDLK_ESCAPE) 
-		{ 
+		if (event.key.keysym.sym == SDLK_ESCAPE)
+		{
 			cout << "Adiós hasta nunca.";
 			endGame = true; // Input de salida (esc).
-		} 
-		else 
+		}
+		else
 		{
 			cout << "Game: funciona porfavor te lo rogamos Vs y c++ del amor hermoso os queremos..." << endl;
 			it = entities.begin(); // Ponemos el iterador en el principio que es el sitio del cannon.
 			dynamic_cast<Cannon*>(*it)->handleEvents(event); // Input.
 		}
 	}
+}
+void Game::fireLaser(Point2D<double> &pos, char c) 
+{
+	//entities.push_back(new Laser(this, ));
+
 }

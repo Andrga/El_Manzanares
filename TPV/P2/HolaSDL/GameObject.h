@@ -12,11 +12,11 @@ class GameObject
 {
 
 protected:
-	const Game* game; // Puntero al juego.
+	Game* game; // Puntero al juego.
 
 public:
 	GameObject(){}
-	GameObject(const Game* gam) : game(gam) {} // Constructora.
+	GameObject(Game* gam) : game(gam) {} // Constructora.
 
 	virtual ~GameObject() = default; // Destructora.
 

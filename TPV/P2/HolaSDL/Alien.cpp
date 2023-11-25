@@ -4,7 +4,7 @@
 #include "Game.h"
 
 // Constructora
-Alien::Alien(const Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot)
+Alien::Alien(Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot)
 	: subtipo(sub), SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), mothership(mot)
 {
 }
