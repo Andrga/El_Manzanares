@@ -5,6 +5,7 @@ class Bunker : public SceneObject
 {
 private:
 	int lives = 4;
+	int maxLives = 4;
 
 public:
 	Bunker();

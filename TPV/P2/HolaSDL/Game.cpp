@@ -4,14 +4,12 @@ Game::Game() {
 	setupGame();
 	readMap();
 }
-
 Game::~Game()
 {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 }
-
 void Game::setupGame()
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -31,7 +29,6 @@ void Game::setupGame()
 	}
 	SDL_RenderClear(renderer);
 }
-
 void Game::run() {
 	while (!endGame)
 	{
@@ -42,51 +39,50 @@ void Game::run() {
 }
 void Game::readMap() 
 {
-
 	std::ifstream map; 	// Inicialza el ifstream.
+
 	map.open(MAP_PATH);
 	if (map.fail())
 	{
 		//throw Error("File not found.");
 	}
 
-	// Variables auxiliares
-	int objeto, posx, posy, subtAlien;
+	int objeto, posx, posy, subtAlien; // Variables auxiliares.
 
-	// Lectura de objetos
-	while (!map.eof())
+	while (!map.eof()) // Lectura de objetos.
 	{
 		map >> objeto >> posx >> posy;
+
+		SceneObject* newObj;
 
 		switch (objeto)
 		{
 		case 0:
-			entities.push_back(new Cannon(this, Point2D<double>(posx, posy), textures[SPACESHIP], 3, 0));
-			it = entities.begin(); // Ponemos el iterador en el primero ahora que tenemos primero.
+
+			newObj = new Cannon(this, Point2D<double>(posx, posy), textures[SPACESHIP], 3, 0);
+			//cannonPtr = dynamic_cast<Cannon*>(newObj);
 			break;
-			//itCannon = it;
 		case 1:
 			map >> subtAlien;
-			entities.push_back(new Alien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother));
+			newObj = new Alien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
 			break;
 		case 2:
-			entities.push_back(new Bunker(this, 4, Point2D<double>(posx, posy), textures[BUNKER]));
+			newObj = new Bunker(this, 4, Point2D<double>(posx, posy), textures[BUNKER]);
 			break;
 		default:
 			break;
 		}
-		cout << entities.size() << endl;
-		cout << *it << endl;
-		(*it)->setListOperator(it);
-		++it;
-	}
+		entities.push_back(newObj); // Metemos la nueva entidad en la lista.
+		
+		it = entities.end(); // Ponemos el iterador al final de la lista.
 
+		newObj->setListOperator(it); // Le pasamos el iterador a la entidad.
+	}
 }
 void Game::update()
 {
 	for (const auto i : entities)
 	{
-		
 		if (!i->update())
 		{
 
@@ -96,20 +92,30 @@ void Game::update()
 void Game::render() 
 {
 	SDL_RenderClear(renderer);
+
 	textures[STARS]->render(); // Fondo
+
 	for (const auto i : entities)
 	{
 		i->render();
-		SDL_RenderPresent(renderer);
 	}
-	SDL_RenderPresent(renderer);
+	SDL_RenderPresent(renderer); // Presentacion del render.
 }
 void Game::handleEvent() 
 {
 	SDL_Event event;
-	while (SDL_PollEvent(&event) && !exit)
+	while (SDL_PollEvent(&event) && !endGame)
 	{
-		if (event.key.keysym.sym == SDLK_ESCAPE) endGame = true; // Input de salida (esc).
-		//else (*itCannon)->handleEvent(event); // Input.
+		if (event.key.keysym.sym == SDLK_ESCAPE) 
+		{ 
+			cout << "Adiós hasta nunca.";
+			endGame = true; // Input de salida (esc).
+		} 
+		else 
+		{
+			cout << "Game: funciona porfavor te lo rogamos Vs y c++ del amor hermoso os queremos..." << endl;
+			it = entities.begin(); // Ponemos el iterador en el principio que es el sitio del cannon.
+			dynamic_cast<Cannon*>(*it)->handleEvents(event); // Input.
+		}
 	}
 }

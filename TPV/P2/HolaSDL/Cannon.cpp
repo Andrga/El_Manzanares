@@ -13,6 +13,7 @@ Cannon::~Cannon()
 
 void Cannon::handleEvents(SDL_Event event)
 {
+	cout << "Cannon: tu puta madre iteradores de los cojones." << endl;
 	if (event.type == SDL_KEYDOWN)
 	{
 		switch (event.key.keysym.sym)
@@ -46,7 +47,21 @@ void Cannon::hit(SDL_Rect rect, char c)
 }
 bool Cannon::update() 
 {
-	return true;
+	position = position + Vector2D(velocidadCannon * direction, 0.0); // Movimiento
+
+	// Para cuando choca con un borde:
+	if (position.getX() >= (SCRWIDTH - texture->getFrameWidth()))
+	{
+		position = Vector2D(SCRWIDTH - texture->getFrameWidth(), position.getY());
+	}
+	else if (position.getX() <= 0)
+	{
+		position = Vector2D(0.0, position.getY());
+	}
+	elapsedTime++;
+
+	//return true mientras esta vivo
+	return alive;
 }
 void const Cannon::render() 
 {

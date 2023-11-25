@@ -3,10 +3,11 @@
 
 
 Bunker::Bunker(const Game *gam, int liv, Point2D<double> pos, const Texture* tex) 
-	: SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), lives(liv)
+	: SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), maxLives(liv)
 {
 	rect.x = position.getX();
 	rect.y = position.getY();
+	lives = maxLives;
 
 }
 Bunker::~Bunker()
@@ -23,5 +24,5 @@ bool Bunker::update()
 }
 void const Bunker::render() 
 {
-	texture->renderFrame(rect, 0, lives);
+	texture->renderFrame(rect, 0, maxLives - lives);
 }
