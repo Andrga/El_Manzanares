@@ -20,7 +20,7 @@ public:
 	~Laser();
 	bool update() override;
 	void const render() override;
-	void hit(SDL_Rect* rect, char c) override;
+	bool hit(SDL_Rect* rect, char c) override;
 
 	/*SDL_Rect getRect();
 	void hit();

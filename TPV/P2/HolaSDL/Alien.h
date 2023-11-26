@@ -15,6 +15,8 @@ private:
 	Mothership* mothership = nullptr; // Puntero a mothership.
 	char entity = 'a';
 
+	int nombre;
+
 	//Animation parameters
 	int renderFrame = 0;
 	int changeSprTime;
@@ -25,11 +27,11 @@ private:
 
 public:
 	Alien();
-	Alien(Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot);
+	Alien(Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot, int nomb);
 	~Alien();
 	bool update() override;
 	const void render() override;
-	void hit(SDL_Rect* rect, char c) override;
+	bool hit(SDL_Rect* rect, char c) override;
 	//list<SceneObject*>::iterator getIterator() { return ite; }
 
 	//void bajar();

@@ -18,7 +18,7 @@ public:
 	~Cannon();
 	int getLives() { return lives; }
 	void handleEvents(SDL_Event event);
-	void hit(SDL_Rect *rect, char c)override;
+	bool hit(SDL_Rect *rect, char c)override;
 	bool update() override;
 	void const render() override;
 	//list<SceneObject*>::iterator getIterator() { return ite; }

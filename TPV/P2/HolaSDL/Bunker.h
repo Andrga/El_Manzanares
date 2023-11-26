@@ -14,6 +14,6 @@ public:
 	~Bunker();
 	bool update() override;
 	void const render() override;
-	void hit(SDL_Rect *rect, char c) override;
+	bool hit(SDL_Rect *rect, char c) override;
 };
 

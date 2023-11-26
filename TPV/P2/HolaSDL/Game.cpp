@@ -42,6 +42,7 @@ void Game::run() {
 		}
 		render();
 	}
+	cout << "se ha acabao" << endl;
 }
 void Game::readMap()
 {
@@ -56,6 +57,8 @@ void Game::readMap()
 	int objeto, posx, posy, subtAlien; // Variables auxiliares.
 
 	auto it = entities.begin();
+
+	int i = 0;
 
 	while (!map.eof()) // Lectura de objetos.
 	{
@@ -75,11 +78,11 @@ void Game::readMap()
 
 			if (subtAlien == 0) // Shooter Alien.
 			{
-				newObj = new ShooterAlien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
+				newObj = new ShooterAlien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother, i);
 			}
 			else // Resto de Aliens.
 			{
-				newObj = new Alien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
+				newObj = new Alien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother, i);
 			}
 			break;
 		case 2:
@@ -91,22 +94,44 @@ void Game::readMap()
 		entities.push_back(newObj); // Metemos la nueva entidad en la lista.
 
 		if (it != entities.end())
-			newObj->setListIterator(++it);
+		{
+			newObj->setListIterator(it++);
+
+		}
+
+		//i++;
 
 		//it = entities.end(); // Ponemos el iterador al final de la lista.
 
 		//newObj->setListIterator(it); // Le pasamos el iterador a la entidad.
 	}
+
+	cout << entities.size();
 }
 void Game::update()
 {
-	for (const auto i : entities)
-	{
-		if (!i->update())
-		{
+	auto it = entities.begin();
 
+	while (it != entities.end())
+	{
+		if((*it)->update()) 
+			it++;
+		else
+		{
+			delete (*it);
+			it = entities.erase(it);
 		}
 	}
+	//cout << entities.size() << endl;
+	//for (it = entities.begin(); it != entities.end(); it++)
+	//{
+	//	(*it)->update();
+	//	//cout << entities.size() << endl;
+	//	/*if (!i->update())
+	//	{
+
+	//	}*/
+	//}
 }
 void Game::render()
 {
@@ -120,6 +145,7 @@ void Game::render()
 	}
 	SDL_RenderPresent(renderer); // Presentacion del render.
 }
+
 void Game::handleEvent()
 {
 	SDL_Event event;
@@ -133,36 +159,63 @@ void Game::handleEvent()
 		else
 		{
 			//cout << "Game: funciona porfavor te lo rogamos Vs y c++ del amor hermoso os queremos..." << endl;
-			it = entities.begin(); // Ponemos el iterador en el principio que es el sitio del cannon.
+			auto it = entities.begin(); // Ponemos el iterador en el principio que es el sitio del cannon.
 			dynamic_cast<Cannon*>(*it)->handleEvents(event); // Input.
 		}
 	}
 }
+
 void Game::fireLaser(Point2D<double>& pos, char c)
 {
-	//cout << "Game: pium pium" << endl;
+	cout << "Game: pium pium" << endl;
 	SceneObject* newObj = new Laser(this, pos, textures[LASER], c, velocidadLaser);
 	entities.push_back(newObj);
-	it = entities.end();
-	newObj->setListIterator(it);
-
+	newObj->setListIterator(entities.end()--);
 }
+
 int Game::getRandomRange(int min, int max)
 {
 	return  uniform_int_distribution<int>(min, max)(randomGenerator);
 }
-void Game::damage(SDL_Rect* _rect, char c)
+
+bool Game::damage(SDL_Rect* _rect, char c)
 {
-	for (const auto i : entities)
+	bool end = false;
+	auto it = entities.begin();
+
+	int i = 0;
+	while (it != entities.end() && !end)
+	{
+		end = (*it)->hit(_rect, c);
+		//cout << i << " ";
+		i++;
+		it++;
+	}
+
+	return end;
+
+
+
+	/*for (const auto i : entities)
 	{
 		i->hit(_rect, c);
 	}
+	list<SceneObject*>::iterator itam = entities.begin();
+	while (itam != entities.end() && !(*itam)->hit(_rect, c))
+	{
+		//cout << "Porfa plis funciona no podemos mas porfi :3";
+		itam++;
+	}*/
 }
-void Game::hasDied(list<SceneObject*>::iterator ite)
+
+/*void Game::hasDied(list<SceneObject*>::iterator ite)
 {
-	cout << "Game: elimina" << endl;
+	cout << "Pre elim " << entities.size() << endl;
+	//cout << "Game: elimina" << entities.size() << endl;
+	delete (*ite); // El hueco de la lista se queda vacio.
 	ite = entities.erase(ite);
-	//delete (*ite); // El hueco de la lista se queda vacio.
-	cout << "HIJO DE TU MADRE MUERETE :)" << endl;
-	entities.erase(ite); // Eliminamos el hueco de la lista.
-}
+	//cout << "HIJO DE TU MADRE MUERETE :)";
+	//entities.erase(ite); // Eliminamos el hueco de la lista.
+
+	cout << "Post elim " << entities.size() << endl;
+}*/

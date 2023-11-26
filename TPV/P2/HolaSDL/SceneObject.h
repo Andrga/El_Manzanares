@@ -25,9 +25,9 @@ public:
 		rect->h = hei;
 	}
 
-	virtual void hit(SDL_Rect* rect, char c) = 0;
+	virtual bool hit(SDL_Rect* _rect, char c) = 0;
 
-	void setListIterator(list<SceneObject*>::iterator &it)
+	void setListIterator(list<SceneObject*>::iterator& it)
 	{
 		ite = it;
 	}

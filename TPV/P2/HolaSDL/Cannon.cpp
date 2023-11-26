@@ -43,9 +43,9 @@ void Cannon::handleEvents(SDL_Event event)
 		direction = 0;
 	}
 }
-void Cannon::hit(SDL_Rect *rect, char c)
+bool Cannon::hit(SDL_Rect *rect, char c)
 {
-	lives--;
+	return false;
 }
 bool Cannon::update()
 {
@@ -63,7 +63,6 @@ bool Cannon::update()
 	
 	elapsedTime++;
 
-	//return true mientras esta vivo
 	return alive;
 }
 void const Cannon::render()

@@ -1,6 +1,6 @@
 #include "ShooterAlien.h"
-ShooterAlien::ShooterAlien(Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot) :
-	Alien(gam, pos, sub, tex, mot)
+ShooterAlien::ShooterAlien(Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot, int nomb) :
+	Alien(gam, pos, sub, tex, mot, nomb)
 {}
 ShooterAlien::~ShooterAlien() {}
 bool ShooterAlien::update() 

@@ -54,7 +54,7 @@ class Game
 {
 private:
 	std::list<SceneObject*> entities; // Lista de entidades del juego.
-	std::list<SceneObject*>::iterator it;
+	//std::list<SceneObject*>::iterator it;
 
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
@@ -76,7 +76,7 @@ public:
 	void handleEvent();
 	void fireLaser(Point2D<double> &position, char c);
 	int getRandomRange(int min, int max);
-	void damage(SDL_Rect* _rect, char c);
-	void hasDied(list<SceneObject*>::iterator ite);
+	bool damage(SDL_Rect* _rect, char c);
+	//void hasDied(list<SceneObject*>::iterator ite);
 };
 

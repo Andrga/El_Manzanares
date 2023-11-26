@@ -14,13 +14,16 @@ Bunker::~Bunker()
 {
 
 }
-void Bunker::hit(SDL_Rect *rect, char c) 
+bool Bunker::hit(SDL_Rect *rect, char c) 
 {
 	//lives--;
+	alive = lives <= 0;
+	//cout << "ay ay ay" << lives;
+	return false;
 }
 bool Bunker::update() 
 {
-	return lives >= 0; // Devuelve true si está vivo.
+	return alive;
 }
 void const Bunker::render() 
 {

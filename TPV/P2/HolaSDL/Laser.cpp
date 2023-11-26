@@ -24,9 +24,16 @@ bool Laser::update()
 
 	if (position.getY() <= 0 || position.getY() >= SCRHEIGHT)	//Salida de limites de la bala.
 	{
-		return false;
+		//game->hasDied(ite);
+		alive = false;
 	}
-	game->damage(rect, entity);
+	if (game->damage(rect, entity)) 
+	{
+		//game->hasDied(ite);
+		alive = false;
+		
+	}
+
 	return alive;
 }
 void const Laser::render() 
@@ -36,7 +43,16 @@ void const Laser::render()
 
 	texture->renderFrame(*rect, texture->getNumRows() - 1, texture->getNumColumns() - 1);
 }
-void Laser::hit(SDL_Rect* rect, char c)
+
+bool Laser::hit(SDL_Rect* _rect, char c)
 {
 
+	if (_rect != rect && c != entity && SDL_HasIntersection(rect, _rect))
+	{
+		cout << "Laser: COLISIOOOOOoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooOOOOON" << endl;
+		//game->hasDied(ite);
+		alive = false;
+		return true;
+	}
+	return false;
 }

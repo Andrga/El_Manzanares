@@ -4,8 +4,8 @@
 #include "Game.h"
 
 // Constructora
-Alien::Alien(Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot)
-	: subtipo(sub), SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), mothership(mot)
+Alien::Alien(Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot, int nomb)
+	: subtipo(sub), SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), mothership(mot), nombre(nomb)
 {
 }
 
@@ -23,6 +23,7 @@ bool Alien::update()
 	{
 		mothership->canNotMove(); // Cuando choca con los bordes de la pantalla.
 	}
+
 	return alive;
 }
 
@@ -35,21 +36,20 @@ const void Alien::render()
 	rect->x = position.getX();
 }
 
-void Alien::hit(SDL_Rect* _rect, char c)
+bool Alien::hit(SDL_Rect* _rect, char c)
 {
 	//cout << "Alien: hit" << endl;
 	if (_rect != rect && c != entity)
 	{
 		if (SDL_HasIntersection(rect, _rect))
 		{
-			cout << "Alien: interseccion" << endl;
-			game->hasDied(ite);
+			//cout << "Alien: interseccion" << nombre << endl;
+			//game->hasDied(ite);
+			alive = false;
+			return true;
 		}
 	}
-	
-
-
-
+	return false;
 }
 
 void Alien::animation()
