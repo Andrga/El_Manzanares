@@ -9,6 +9,7 @@ Laser::Laser(Game* gam, Point2D<double> pos, const Texture* tex, char ent, Vecto
 Laser::~Laser(){}
 bool Laser::update() 
 {
+	cout << "Laser: " << position.getX() << " " << position.getY() << endl;
 	// Cambio de posición y direccion.
 	if (entity == 'a') // Disparo de Alien.
 	{
@@ -32,6 +33,8 @@ void const Laser::render()
 {
 	rect.x = position.getX() + (15); // +15 para que aparezca en el centro de la nave.
 	rect.y = position.getY();
+
+	texture->renderFrame(rect, texture->getNumRows() - 1, texture->getNumColumns() - 1);
 }
 void Laser::hit(SDL_Rect rect, char c)
 {

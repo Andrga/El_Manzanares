@@ -21,12 +21,8 @@ public:
 	bool update() override;
 	void const render() override;
 	void hit(SDL_Rect rect, char c) override;
-	
-	/*Laser(Point2D<double> pos, Vector2D<double> vel, bool al, Game* jueg, SDL_Renderer* rend);
 
-	void render();
-	bool update();
-	SDL_Rect getRect();
+	/*SDL_Rect getRect();
 	void hit();
 	bool cannon();*/
 };

@@ -8,6 +8,7 @@
 #include "Cannon.h"
 #include "Bunker.h"
 #include "Laser.h"
+#include"ShooterAlien.h"
 
 #include <SDL_image.h>
 #include <vector>
@@ -17,18 +18,19 @@
 #include <iterator>
 #include <iostream>
 #include <fstream>
+#include <random>
 
 using namespace std;
 
-const int NUM_TEXTURES = 4;
+const int NUM_TEXTURES = 5;
 const string TEXTURE_ROOT = "assets/images/";
 const string MAP_PATH = "assets/maps/original.txt";
 const double SCRWIDTH = 800;
 const double SCRHEIGHT = 600;
 const double velocidadAlien = 0.05;
 const double velocidadCannon = 0.5;
-const Vector2D<double> velocidadLaser(0, 0.05);
-enum TextureName { ALIENS, BUNKER, SPACESHIP, STARS };
+const Vector2D<double> velocidadLaser(0, 0.5);
+enum TextureName { ALIENS, BUNKER, SPACESHIP, STARS, LASER };
 const double FRAMERATE = 60;
 const double TIMEBETWEENFRAMES = 100 / FRAMERATE;
 
@@ -44,7 +46,8 @@ const textureInfo texturesList[NUM_TEXTURES]
 		textureInfo{"aliens",3,2},
 		textureInfo{"bunker",1,4},
 		textureInfo{"spaceship",1,1},
-		textureInfo{"stars",1,1}
+		textureInfo{"stars",1,1},
+		textureInfo{"Laser",1,1}
 };
 
 class Game
@@ -57,6 +60,7 @@ private:
 	SDL_Renderer* renderer = nullptr;
 	array<Texture*, NUM_TEXTURES> textures{	};
 	Mothership* mother = new Mothership(1, 44);
+	mt19937_64 randomGenerator;
 
 	uint32_t frameTime;
 	uint32_t startTime;
@@ -71,6 +75,7 @@ public:
 	void run();
 	void handleEvent();
 	void fireLaser(Point2D<double> &position, char c);
+	double getRandomRange(int min, int max);
 
 };
 

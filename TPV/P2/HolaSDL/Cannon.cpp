@@ -14,7 +14,7 @@ Cannon::~Cannon()
 
 void Cannon::handleEvents(SDL_Event event)
 {
-	cout << "Cannon: tu puta madre iteradores de los cojones." << endl;
+	//cout << "Cannon: tu puta madre iteradores de los cojones." << endl;
 	if (event.type == SDL_KEYDOWN)
 	{
 		switch (event.key.keysym.sym)
@@ -28,6 +28,7 @@ void Cannon::handleEvents(SDL_Event event)
 		case SDLK_SPACE: // Cambio de direccion a la izquierda.
 			if (elapsedTime >= TIEMPODISPARO)
 			{
+				cout << "Cannon: pium pium" << endl;
 				game->fireLaser(position, 'c');
 				elapsedTime = 0;
 			}
@@ -59,6 +60,7 @@ bool Cannon::update()
 	{
 		position = Vector2D(0.0, position.getY());
 	}
+	
 	elapsedTime++;
 
 	//return true mientras esta vivo

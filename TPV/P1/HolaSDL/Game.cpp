@@ -284,6 +284,7 @@ void Game::fireLaser(Point2D<double>position, bool alien)
 {
 	lasers.push_back(new Laser(position, velocidadLaser, alien, this, renderer)); // Añadimos el laser a la lista de lasers.
 }
+
 //Detector de colisiones
 void Game::colDetection(Laser* laser) {
 	//variables auxiliares

@@ -70,7 +70,15 @@ void Game::readMap()
 			break;
 		case 1:
 			map >> subtAlien;
-			newObj = new Alien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
+			if (subtAlien==0)
+			{
+				newObj = new ShooterAlien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
+			}
+			else
+			{
+				newObj = new Alien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
+			}
+
 			break;
 		case 2:
 			newObj = new Bunker(this, 4, Point2D<double>(posx, posy), textures[BUNKER]);
@@ -114,12 +122,12 @@ void Game::handleEvent()
 	{
 		if (event.key.keysym.sym == SDLK_ESCAPE)
 		{
-			cout << "Adiós hasta nunca.";
+			cout << "Adios hasta nunca.";
 			endGame = true; // Input de salida (esc).
 		}
 		else
 		{
-			cout << "Game: funciona porfavor te lo rogamos Vs y c++ del amor hermoso os queremos..." << endl;
+			//cout << "Game: funciona porfavor te lo rogamos Vs y c++ del amor hermoso os queremos..." << endl;
 			it = entities.begin(); // Ponemos el iterador en el principio que es el sitio del cannon.
 			dynamic_cast<Cannon*>(*it)->handleEvents(event); // Input.
 		}
@@ -127,6 +135,14 @@ void Game::handleEvent()
 }
 void Game::fireLaser(Point2D<double> &pos, char c) 
 {
-	//entities.push_back(new Laser(this, ));
+	cout << "Game: pium pium" << endl;
+	SceneObject* newObj = new Laser(this, pos, textures[LASER], c, velocidadLaser);
+	entities.push_back(newObj);
+	it = entities.end();
+	newObj->setListOperator(it);
 
+}
+double Game::getRandomRange(int min, int max) 
+{
+	return  uniform_int_distribution<int>(min, max)(randomGenerator);
 }
