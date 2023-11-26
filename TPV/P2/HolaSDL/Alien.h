@@ -7,13 +7,14 @@
 
 
 class Game;
-class Alien: public SceneObject
+class Alien : public SceneObject
 {
 private:
 
 	int subtipo;
 	Mothership* mothership = nullptr; // Puntero a mothership.
-	
+	char entity = 'a';
+
 	//Animation parameters
 	int renderFrame = 0;
 	int changeSprTime;
@@ -28,9 +29,9 @@ public:
 	~Alien();
 	bool update() override;
 	const void render() override;
-	void hit(SDL_Rect rect, char c) override;
+	void hit(SDL_Rect* rect, char c) override;
 	//list<SceneObject*>::iterator getIterator() { return ite; }
-	
+
 	//void bajar();
 };
 

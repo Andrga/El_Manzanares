@@ -6,6 +6,7 @@ class Bunker : public SceneObject
 private:
 	int lives = 4;
 	int maxLives = 4;
+	char entity = 'b';
 
 public:
 	Bunker();
@@ -13,6 +14,6 @@ public:
 	~Bunker();
 	bool update() override;
 	void const render() override;
-	void hit(SDL_Rect rect, char c) override;
+	void hit(SDL_Rect *rect, char c) override;
 };
 

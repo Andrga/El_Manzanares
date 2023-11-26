@@ -70,7 +70,7 @@ void Game::readMap()
 			break;
 		case 1:
 			map >> subtAlien;
-			if (subtAlien==0)
+			if (subtAlien == 0)
 			{
 				newObj = new ShooterAlien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
 			}
@@ -99,7 +99,7 @@ void Game::update()
 	{
 		if (!i->update())
 		{
-			
+
 		}
 	}
 }
@@ -133,16 +133,28 @@ void Game::handleEvent()
 		}
 	}
 }
-void Game::fireLaser(Point2D<double> &pos, char c) 
+void Game::fireLaser(Point2D<double>& pos, char c)
 {
-	cout << "Game: pium pium" << endl;
+	//cout << "Game: pium pium" << endl;
 	SceneObject* newObj = new Laser(this, pos, textures[LASER], c, velocidadLaser);
 	entities.push_back(newObj);
 	it = entities.end();
 	newObj->setListOperator(it);
 
 }
-double Game::getRandomRange(int min, int max) 
+int Game::getRandomRange(int min, int max)
 {
 	return  uniform_int_distribution<int>(min, max)(randomGenerator);
+}
+void Game::damage(SDL_Rect* _rect, char c)
+{
+	for (const auto i : entities)
+	{
+		i->hit(_rect, c);
+	}
+}
+void Game::hasDied(list<SceneObject*>::iterator ite)
+{
+	cout << "Game: elimina" << endl;
+	entities.erase(ite);
 }

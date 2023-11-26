@@ -10,7 +10,7 @@ private:
 	int lives = 3; // Numero de vidas del cannon.
 	int direction = 0; // Direcciones: -1 (izquierda), 0 (parado), 1 (derecha).
 	double elapsedTime = 0;
-
+	char entity = 'c';
 
 
 public:
@@ -18,7 +18,7 @@ public:
 	~Cannon();
 	int getLives() { return lives; }
 	void handleEvents(SDL_Event event);
-	void hit(SDL_Rect rect, char c)override;
+	void hit(SDL_Rect *rect, char c)override;
 	bool update() override;
 	void const render() override;
 	//list<SceneObject*>::iterator getIterator() { return ite; }

@@ -28,7 +28,7 @@ void Cannon::handleEvents(SDL_Event event)
 		case SDLK_SPACE: // Cambio de direccion a la izquierda.
 			if (elapsedTime >= TIEMPODISPARO)
 			{
-				cout << "Cannon: pium pium" << endl;
+				//cout << "Cannon: pium pium" << endl;
 				game->fireLaser(position, 'c');
 				elapsedTime = 0;
 			}
@@ -43,7 +43,7 @@ void Cannon::handleEvents(SDL_Event event)
 		direction = 0;
 	}
 }
-void Cannon::hit(SDL_Rect rect, char c)
+void Cannon::hit(SDL_Rect *rect, char c)
 {
 	lives--;
 }
@@ -68,9 +68,9 @@ bool Cannon::update()
 }
 void const Cannon::render()
 {
-	rect.x = position.getX();
-	rect.y = position.getY();
-	texture->renderFrame(rect, texture->getNumRows() - 1, texture->getNumColumns() - 1);
+	rect->x = position.getX();
+	rect->y = position.getY();
+	texture->renderFrame(*rect, texture->getNumRows() - 1, texture->getNumColumns() - 1);
 }
 
 

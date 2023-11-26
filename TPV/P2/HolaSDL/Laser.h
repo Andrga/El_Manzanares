@@ -10,7 +10,7 @@ private:
 	Game* game = nullptr;
 	bool hitted = false;
 	SDL_Rect rect;*/
-	char entity;
+	char entity = 'l';
 	Vector2D<double> velocidad;
 
 
@@ -20,7 +20,7 @@ public:
 	~Laser();
 	bool update() override;
 	void const render() override;
-	void hit(SDL_Rect rect, char c) override;
+	void hit(SDL_Rect* rect, char c) override;
 
 	/*SDL_Rect getRect();
 	void hit();

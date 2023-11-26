@@ -75,7 +75,8 @@ public:
 	void run();
 	void handleEvent();
 	void fireLaser(Point2D<double> &position, char c);
-	double getRandomRange(int min, int max);
-
+	int getRandomRange(int min, int max);
+	void damage(SDL_Rect* _rect, char c);
+	void hasDied(list<SceneObject*>::iterator ite);
 };
 

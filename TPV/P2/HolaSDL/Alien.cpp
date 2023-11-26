@@ -15,8 +15,8 @@ bool Alien::update()
 {
 	// Movimiento del alien.
 	position = position + Vector2D<double>((mothership->getDirection() * velocidadAlien), 0); // Actualizacion del movimiento y direccion.
-	rect.y = position.getY();
-	rect.x = position.getX();
+	rect->y = position.getY();
+	rect->x = position.getX();
 
 	// Choque con un borde.
 	if (position.getX() >= (SCRWIDTH - texture->getFrameWidth()) || position.getX() <= 0)
@@ -30,13 +30,25 @@ const void Alien::render()
 {
 	//animation();
 
-	texture->renderFrame(rect, subtipo, renderFrame);
-	rect.y = position.getY();
-	rect.x = position.getX();
+	texture->renderFrame(*rect, subtipo, renderFrame);
+	rect->y = position.getY();
+	rect->x = position.getX();
 }
 
-void Alien::hit(SDL_Rect rect, char c)
+void Alien::hit(SDL_Rect* _rect, char c)
 {
+	//cout << "Alien: hit" << endl;
+	if (_rect != rect && c != entity)
+	{
+		if (SDL_HasIntersection(rect, _rect))
+		{
+			cout << "Alien: interseccion" << endl;
+			game->hasDied(ite);
+		}
+	}
+	
+
+
 
 }
 

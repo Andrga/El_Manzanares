@@ -5,8 +5,8 @@
 Bunker::Bunker(Game *gam, int liv, Point2D<double> pos, const Texture* tex) 
 	: SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), maxLives(liv)
 {
-	rect.x = position.getX();
-	rect.y = position.getY();
+	rect->x = position.getX();
+	rect->y = position.getY();
 	lives = maxLives;
 
 }
@@ -14,9 +14,9 @@ Bunker::~Bunker()
 {
 
 }
-void Bunker::hit(SDL_Rect rect, char c) 
+void Bunker::hit(SDL_Rect *rect, char c) 
 {
-	lives--;
+	//lives--;
 }
 bool Bunker::update() 
 {
@@ -24,5 +24,5 @@ bool Bunker::update()
 }
 void const Bunker::render() 
 {
-	texture->renderFrame(rect, 0, maxLives - lives);
+	texture->renderFrame(*rect, 0, maxLives - lives);
 }
