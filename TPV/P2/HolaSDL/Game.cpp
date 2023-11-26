@@ -55,6 +55,8 @@ void Game::readMap()
 
 	int objeto, posx, posy, subtAlien; // Variables auxiliares.
 
+	auto it = entities.begin();
+
 	while (!map.eof()) // Lectura de objetos.
 	{
 		map >> objeto >> posx >> posy;
@@ -70,15 +72,15 @@ void Game::readMap()
 			break;
 		case 1:
 			map >> subtAlien;
-			if (subtAlien == 0)
+
+			if (subtAlien == 0) // Shooter Alien.
 			{
 				newObj = new ShooterAlien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
 			}
-			else
+			else // Resto de Aliens.
 			{
 				newObj = new Alien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
 			}
-
 			break;
 		case 2:
 			newObj = new Bunker(this, 4, Point2D<double>(posx, posy), textures[BUNKER]);
@@ -88,9 +90,12 @@ void Game::readMap()
 		}
 		entities.push_back(newObj); // Metemos la nueva entidad en la lista.
 
-		it = entities.end(); // Ponemos el iterador al final de la lista.
+		if (it != entities.end())
+			newObj->setListIterator(++it);
 
-		newObj->setListOperator(it); // Le pasamos el iterador a la entidad.
+		//it = entities.end(); // Ponemos el iterador al final de la lista.
+
+		//newObj->setListIterator(it); // Le pasamos el iterador a la entidad.
 	}
 }
 void Game::update()
@@ -139,7 +144,7 @@ void Game::fireLaser(Point2D<double>& pos, char c)
 	SceneObject* newObj = new Laser(this, pos, textures[LASER], c, velocidadLaser);
 	entities.push_back(newObj);
 	it = entities.end();
-	newObj->setListOperator(it);
+	newObj->setListIterator(it);
 
 }
 int Game::getRandomRange(int min, int max)
@@ -156,5 +161,8 @@ void Game::damage(SDL_Rect* _rect, char c)
 void Game::hasDied(list<SceneObject*>::iterator ite)
 {
 	cout << "Game: elimina" << endl;
-	entities.erase(ite);
+	ite = entities.erase(ite);
+	//delete (*ite); // El hueco de la lista se queda vacio.
+	cout << "HIJO DE TU MADRE MUERETE :)" << endl;
+	entities.erase(ite); // Eliminamos el hueco de la lista.
 }
