@@ -23,7 +23,7 @@ void Alien::update()
 	{
 		mothership->canNotMove(); // Cuando choca con los bordes de la pantalla.
 	}
-	if (!alive)
+	if (game->damage(rect, entity))
 	{
 		mothership->alienDied();
 	}
@@ -47,7 +47,7 @@ bool Alien::hit(SDL_Rect* _rect, char c)
 		if (SDL_HasIntersection(rect, _rect))
 		{
 			//cout << "Alien: interseccion" << nombre << endl;
-			game->hasDied(ite);
+			game->hasDied(ownIte);
 			return true;
 		}
 	}

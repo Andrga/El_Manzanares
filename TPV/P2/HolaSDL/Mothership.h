@@ -8,7 +8,7 @@ private:
 	int direction = 1;
 	int nAliens = 44;
 public:
-	Mothership(int dir, int aAl); // Constructora.
+	Mothership(int dir); // Constructora.
 	
 	int getDirection() const { return direction; } // Devuelve la direccion de movimiento.
 
@@ -23,6 +23,10 @@ public:
 	void alienLanded();
 
 	void haveLanded();
+
+	void update() override;
+
+	void const render() override;
 	
 	void const save(ofstream& fil)override;
 	

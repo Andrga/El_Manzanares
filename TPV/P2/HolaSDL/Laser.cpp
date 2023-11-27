@@ -23,9 +23,9 @@ void Laser::update()
 	}
 
 	//Salida de limites de la bala.
-	if (position.getY() <= 0 || position.getY() >= SCRHEIGHT) game->hasDied(ite);
+	if (position.getY() <= 0 || position.getY() >= SCRHEIGHT) game->hasDied(ownIte);
 	//Comprueba si la bala choca.
-	//if (game->damage(rect, entity)) game->hasDied(ite);
+	if (game->damage(rect, entity)) game->hasDied(ownIte);
 }
 
 void const Laser::render() 
@@ -41,7 +41,7 @@ bool Laser::hit(SDL_Rect* _rect, char c)
 	if (_rect != rect && c != entity && SDL_HasIntersection(rect, _rect))
 	{
 		cout << "Laser: COLISIOOOOOoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooOOOOON" << endl;
-		game->hasDied(ite);
+		//game->hasDied(ownIte);
 		return true;
 	}
 	return false;

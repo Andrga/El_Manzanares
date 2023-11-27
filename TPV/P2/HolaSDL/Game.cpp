@@ -30,6 +30,8 @@ void Game::setupGame()
 		}
 	}
 	SDL_RenderClear(renderer);
+
+	mother = new Mothership(1);
 }
 
 void Game::run() {
@@ -152,7 +154,7 @@ void Game::update()
 
 	// Bucle para eliminar la lista de objetos a eliminar.
 	for (auto e : itElims) {
-		e = entities.erase(e);
+  		e = entities.erase(e);
 	}
 	// Limpia la lista de objetos a eliminar.
 	itElims.clear();

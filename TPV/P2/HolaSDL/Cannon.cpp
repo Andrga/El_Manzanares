@@ -26,8 +26,8 @@ void Cannon::handleEvents(SDL_Event event)
 			//if (elapsedTime >= TIEMPODISPARO)
 			//{
 				//cout << "Cannon: pium pium" << endl;
-				game->fireLaser(position, 'c');
-				elapsedTime = 0;
+			game->fireLaser(position, 'c');
+			elapsedTime = 0;
 			//}
 			break;
 		default:
@@ -41,7 +41,7 @@ void Cannon::handleEvents(SDL_Event event)
 	}
 }
 
-bool Cannon::hit(SDL_Rect *_rect, char c)
+bool Cannon::hit(SDL_Rect* _rect, char c)
 {
 	//cout << "Alien: hit" << endl;
 	if (_rect != rect && c != entity)
@@ -52,6 +52,10 @@ bool Cannon::hit(SDL_Rect *_rect, char c)
 			//game->hasDied(ownIte);
 			lives--;
 			cout << "Cannon lives: " << lives << endl;
+			if (!(lives <= 0))
+			{
+				game->gameOver();
+			}
 			return true;
 		}
 	}
@@ -71,19 +75,14 @@ void Cannon::update()
 	{
 		position = Vector2D(0.0, position.getY());
 	}
-	
+
 	elapsedTime++;
 
-	alive = lives > 0;
-	if (!alive)
-	{
-		game->end();
-	}
 }
 
 void const Cannon::render()
 {
-	rect->x = position.getX();
+ 	rect->x = position.getX();
 	rect->y = position.getY();
 	texture->renderFrame(*rect, texture->getNumRows() - 1, texture->getNumColumns() - 1);
 }

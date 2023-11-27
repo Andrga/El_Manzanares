@@ -1,6 +1,6 @@
 #include "Mothership.h"
 
-Mothership::Mothership(int dir, int nAl) : direction(dir), nAliens(nAl) {}
+Mothership::Mothership(int dir) : direction(dir) {}
 
 bool Mothership::shouldMove()
 {
@@ -30,6 +30,15 @@ void Mothership::alienLanded()
 
 }
 void Mothership::haveLanded()
+{
+
+}
+void Mothership::update()
+{
+
+}
+
+void const Mothership::render() 
 {
 
 }
