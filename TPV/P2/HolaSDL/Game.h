@@ -94,5 +94,6 @@ public:
 	void gameOver();
 
 	void save();
+	void cargado();
 };
 

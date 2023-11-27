@@ -34,6 +34,25 @@ void Game::setupGame()
 
 void Game::run() {
 	startTime = SDL_GetTicks();
+	
+	/*cout << "¿Cargar partida?\ns=si y n=no" << endl;
+	char respuesta;
+	bool respuestaCorrecta = false;
+	while (!respuestaCorrecta)
+	{
+		cin >> respuesta;
+		if (respuesta=='s')
+		{
+			cargado();
+			respuestaCorrecta = true;
+		}
+		else if (true)
+		{
+			respuestaCorrecta = true;
+		}
+	}*/
+
+
 	while (!endGame)
 	{
 		handleEvent();
@@ -165,12 +184,12 @@ void Game::handleEvent()
 	SDL_Event event;
 	while (SDL_PollEvent(&event) && !endGame)
 	{
-		if (event.key.keysym.sym == SDLK_ESCAPE)
+		if (event.key.keysym.sym == SDLK_ESCAPE) // Salida del juego.
 		{
 			cout << "Adios hasta nunca." << endl;
-			endGame = true; // Input de salida (esc).
+			endGame = true;
 		}
-		else if (event.key.keysym.sym == SDLK_s)
+		else if (event.key.keysym.sym == SDLK_s) // Guardado en archivo.
 		{
 			save();
 		}
@@ -244,6 +263,11 @@ void Game::save()
 	mother->save(file); // Llama al save de la MotherShip (3).
 	
 	file.close(); // Cierra el archivo.
+}
+
+void Game::cargado() 
+{
+
 }
 
 /*void Game::hasDied(list<SceneObject*>::iterator ite)
