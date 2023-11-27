@@ -4,14 +4,14 @@
 #include "Game.h"
 
 // Constructora
-Alien::Alien(Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot, int nomb)
-	: subtipo(sub), SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), mothership(mot), nombre(nomb)
+Alien::Alien(Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot)
+	: subtipo(sub), SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), mothership(mot)
 {
 }
 
 Alien::~Alien() {} // Destructora.
 
-bool Alien::update() 
+void Alien::update() 
 {
 	// Movimiento del alien.
 	position = position + Vector2D<double>((mothership->getDirection() * velocidadAlien), 0); // Actualizacion del movimiento y direccion.
@@ -28,7 +28,6 @@ bool Alien::update()
 		mothership->alienDied();
 	}
 
-	return alive;
 }
 
 const void Alien::render()
@@ -48,8 +47,7 @@ bool Alien::hit(SDL_Rect* _rect, char c)
 		if (SDL_HasIntersection(rect, _rect))
 		{
 			//cout << "Alien: interseccion" << nombre << endl;
-			//game->hasDied(ownIte);
-			alive = false;
+			game->hasDied(ite);
 			return true;
 		}
 	}

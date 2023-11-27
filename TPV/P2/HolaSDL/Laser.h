@@ -19,8 +19,8 @@ public:
 	Laser(Game* gam, Point2D<double> pos, const Texture* tex, char ent, Vector2D<double> vel);
 
 	~Laser();
-
-	bool update() override;
+	
+	void update() override;
 
 	void const render() override;
 

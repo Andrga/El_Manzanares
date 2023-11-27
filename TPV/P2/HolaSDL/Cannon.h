@@ -18,8 +18,8 @@ public:
 
 	~Cannon();
 
-	bool update() override;
-
+	void update() override;
+	
 	void const render() override;
 
 	int getLives() { return lives; 

@@ -58,7 +58,7 @@ bool Cannon::hit(SDL_Rect *_rect, char c)
 	return false;
 }
 
-bool Cannon::update()
+void Cannon::update()
 {
 	position = position + Vector2D(velocidadCannon * direction, 0.0); // Movimiento
 
@@ -79,7 +79,6 @@ bool Cannon::update()
 	{
 		game->end();
 	}
-	return alive = lives > 0;
 }
 
 void const Cannon::render()

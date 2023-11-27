@@ -15,8 +15,8 @@ public:
 
 	~ShooterAlien();
 
-	bool update() override;
-
+	void update() override;
+	
 	void shoot();
 
 	double setTime();

@@ -67,7 +67,7 @@ void Game::readMap()
 
 	auto it = entities.begin();
 
-	int i = 0;
+	//int i = 0;
 
 	while (!map.eof()) // Lectura de objetos.
 	{
@@ -87,11 +87,11 @@ void Game::readMap()
 
 			if (subtAlien == 0) // Shooter Alien.
 			{
-				newObj = new ShooterAlien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother, i);
+				newObj = new ShooterAlien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
 			}
 			else // Resto de Aliens.
 			{
-				newObj = new Alien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother, i);
+				newObj = new Alien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
 			}
 			nAliens++;
 			break;
@@ -103,11 +103,10 @@ void Game::readMap()
 		}
 		entities.push_back(newObj); // Metemos la nueva entidad en la lista.
 
-		if (it != entities.end())
-		{
-			newObj->setListIterator(it++);
-
-		}
+		cout << (entities.begin() == entities.end()); //<< *(entities.end()--);
+		it = entities.end();
+		it--;
+		newObj->setListIterator(it);
 
 		//i++;
 
@@ -125,26 +124,20 @@ void Game::update()
 {
 	auto it = entities.begin();
 
+	// Updatea todos los elementos.
 	while (it != entities.end())
 	{
-		if((*it)->update()) 
-			it++;
-		else
-		{
-			delete (*it);
-			it = entities.erase(it);
-		}
+		(*it)->update();
+		it++;
 	}
-	//cout << entities.size() << endl;
-	//for (it = entities.begin(); it != entities.end(); it++)
-	//{
-	//	(*it)->update();
-	//	//cout << entities.size() << endl;
-	//	/*if (!i->update())
-	//	{
 
-	//	}*/
-	//}
+	// Bucle para eliminar la lista de objetos a eliminar.
+	for (auto e : itElims) {
+		e = entities.erase(e);
+	}
+	// Limpia la lista de objetos a eliminar.
+	itElims.clear();
+
 }
 
 void Game::render()
@@ -188,7 +181,9 @@ void Game::fireLaser(Point2D<double>& pos, char c)
 	//cout << "Game: pium pium" << endl;
 	SceneObject* newObj = new Laser(this, pos, textures[LASER], c, velocidadLaser);
 	entities.push_back(newObj);
-	newObj->setListIterator(entities.end()--);
+	auto it = entities.end();
+	it--;
+	newObj->setListIterator(it);
 }
 
 int Game::getRandomRange(int min, int max)
@@ -201,29 +196,14 @@ bool Game::damage(SDL_Rect* _rect, char c)
 	bool end = false;
 	auto it = entities.begin();
 
-	int i = 0;
+	//comprueba el hit de todos los objetos o hasta que encuentra un objeto con el que choca
 	while (it != entities.end() && !end)
 	{
 		end = (*it)->hit(_rect, c);
-		//cout << i << " ";
-		i++;
 		it++;
 	}
-
+	
 	return end;
-
-
-
-	/*for (const auto i : entities)
-	{
-		i->hit(_rect, c);
-	}
-	list<SceneObject*>::iterator itam = entities.begin();
-	while (itam != entities.end() && !(*itam)->hit(_rect, c))
-	{
-		//cout << "Porfa plis funciona no podemos mas porfi :3";
-		itam++;
-	}*/
 }
 
 void Game::gameOver() 
@@ -246,14 +226,4 @@ void Game::save()
 	file.close(); // Cierra el archivo.
 }
 
-/*void Game::hasDied(list<SceneObject*>::iterator ite)
-{
-	cout << "Pre elim " << entities.size() << endl;
-	//cout << "Game: elimina" << entities.size() << endl;
-	delete (*ite); // El hueco de la lista se queda vacio.
-	ite = entities.erase(ite);
-	//cout << "HIJO DE TU MADRE MUERETE :)";
-	//entities.erase(ite); // Eliminamos el hueco de la lista.
-
-	cout << "Post elim " << entities.size() << endl;
-}*/
+void Game::hasDied(list<SceneObject*>::iterator& ite) { itElims.push_back(ite);}

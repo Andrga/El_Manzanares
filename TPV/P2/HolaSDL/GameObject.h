@@ -24,7 +24,7 @@ public:
 
 	virtual void const render() = 0;
 
-	virtual bool update() = 0;
+	virtual void update() = 0;
 
 	virtual void const save(ofstream& fil) = 0;
 };

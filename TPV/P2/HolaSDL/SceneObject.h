@@ -11,7 +11,7 @@ protected:
 	int width; // Anchura.
 	int height; // Altura.
 	const Texture* texture = nullptr;
-	bool alive = true;
+	//bool alive = true;
 	SDL_Rect* rect;
 	list<SceneObject*>::iterator ownIte;
 

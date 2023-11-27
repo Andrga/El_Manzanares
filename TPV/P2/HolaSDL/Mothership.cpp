@@ -33,14 +33,6 @@ void Mothership::haveLanded()
 {
 
 }
-bool Mothership::update() 
-{
-	return true;
-}
-void const Mothership::render() 
-{
-
-}
 
 void const Mothership::save(ofstream& fil) // Guarda: tipo-nAliens.
 {

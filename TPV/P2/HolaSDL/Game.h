@@ -55,6 +55,7 @@ class Game
 private:
 	std::list<SceneObject*> entities; // Lista de entidades del juego.
 	//std::list<SceneObject*>::iterator it;
+	std::list<list<SceneObject*>::iterator> itElims; //lista de iteradores objetos a eliminar
 
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
@@ -87,12 +88,12 @@ public:
 
 	bool damage(SDL_Rect* _rect, char c);
 
-	//void hasDied(list<SceneObject*>::iterator ite);
-
 	void fireLaser(Point2D<double> &position, char c);
 
 	void gameOver();
 
 	void save();
+	
+	void hasDied(list<SceneObject*>::iterator& ite);
 };
 

@@ -25,18 +25,15 @@ bool Bunker::hit(SDL_Rect *_rect, char c)
 		if (SDL_HasIntersection(rect, _rect))
 		{
 			cout << "Bunker: hit" << endl;
-			//game->hasDied(ownIte);
+			game->hasDied(ownIte);
 			lives--;
 			return true;
 		}
 	}
 	return false;
 }
-
-bool Bunker::update() 
+void Bunker::update() 
 {
-	//alive = lives > 0;
-	return alive = lives > 0;
 }
 
 void const Bunker::render() 

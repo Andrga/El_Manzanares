@@ -27,13 +27,9 @@ private:
 
 public:
 	Alien();
-
-	Alien(Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot, int nomb);
-
+	Alien(Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot);
 	~Alien();
-
-	bool update() override;
-
+	void update() override;
 	const void render() override;
 
 	bool hit(SDL_Rect* rect, char c) override;

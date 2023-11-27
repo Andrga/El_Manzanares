@@ -9,10 +9,10 @@ Laser::Laser(Game* gam, Point2D<double> pos, const Texture* tex, char ent, Vecto
 
 Laser::~Laser(){}
 
-bool Laser::update() 
+void Laser::update() 
 {
 	//cout << "Laser: " << position.getX() << " " << position.getY() << endl;
-	// Cambio de posición y direccion.
+	// Cambio de posicion y direccion.
 	if (entity == 'a') // Disparo de Alien.
 	{
 		position = position + velocidad;
@@ -22,20 +22,10 @@ bool Laser::update()
 		position = position - velocidad;
 	}
 
-	//game->colDetection(this);
-
-	if (position.getY() <= 0 || position.getY() >= SCRHEIGHT)	//Salida de limites de la bala.
-	{
-		//game->hasDied(ownIte);
-		alive = false;
-	}
-	if (game->damage(rect, entity)) 
-	{
-		//game->hasDied(ownIte);
-		alive = false;
-	}
-
-	return alive;
+	//Salida de limites de la bala.
+	if (position.getY() <= 0 || position.getY() >= SCRHEIGHT) game->hasDied(ite);
+	//Comprueba si la bala choca.
+	//if (game->damage(rect, entity)) game->hasDied(ite);
 }
 
 void const Laser::render() 
@@ -50,9 +40,8 @@ bool Laser::hit(SDL_Rect* _rect, char c)
 {
 	if (_rect != rect && c != entity && SDL_HasIntersection(rect, _rect))
 	{
-		//cout << "Laser: COLISIOOOOOOOOOON" << endl;
-		//game->hasDied(ownIte);
-		alive = false;
+		cout << "Laser: COLISIOOOOOoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooOOOOON" << endl;
+		game->hasDied(ite);
 		return true;
 	}
 	return false;
