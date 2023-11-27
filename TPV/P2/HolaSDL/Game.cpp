@@ -1,5 +1,7 @@
 #include "Game.h"
 
+#pragma region constructora/destructora
+
 Game::Game() {
 	setupGame();
 	readMap();
@@ -32,44 +34,6 @@ void Game::setupGame()
 	SDL_RenderClear(renderer);
 
 	mother = new Mothership(1);
-}
-
-void Game::run() {
-	startTime = SDL_GetTicks();
-
-	/*cout << "Cargar partida?\ns=si y n=no" << endl;
-	char respuesta;
-	bool respuestaCorrecta = false;
-	while (!respuestaCorrecta)
-	{
-		cin >> respuesta;
-		if (respuesta=='s')
-		{
-			cargado();
-			respuestaCorrecta = true;
-		}
-		else if (respuesta == 'n')
-		{
-			respuestaCorrecta = true;
-		}
-	}*/
-	while (!endGame)
-	{
-		handleEvent();
-		frameTime = SDL_GetTicks() - startTime;
-		if (frameTime > TIMEBETWEENFRAMES)
-		{
-			update();
-			startTime = SDL_GetTicks();
-		}
-		render();
-	}
-
-	if (_gameOver)
-	{
-		cout << "GAME OVER" << endl;
-	}
-	cout << "se ha acabao" << endl;
 }
 
 void Game::readMap()
@@ -139,6 +103,30 @@ void Game::readMap()
 	//cout << "NEntidades: " << entities.size() << endl;
 }
 
+#pragma endregion
+
+void Game::run() {
+	startTime = SDL_GetTicks();
+
+	while (!endGame)
+	{
+		handleEvent();
+		frameTime = SDL_GetTicks() - startTime;
+		if (frameTime > TIMEBETWEENFRAMES)
+		{
+			update();
+			startTime = SDL_GetTicks();
+		}
+		render();
+	}
+
+	if (_gameOver)
+	{
+		cout << "GAME OVER" << endl;
+	}
+	cout << "se ha acabao" << endl;
+}
+
 void Game::update()
 {
 	auto it = entities.begin();
@@ -195,6 +183,7 @@ void Game::handleEvent()
 	}
 }
 
+#pragma region Dano y fin de juego
 void Game::fireLaser(Point2D<double>& pos, char c)
 {
 	//cout << "Game: pium pium" << endl;
@@ -231,6 +220,14 @@ void Game::gameOver()
 	endGame = true;
 }
 
+void Game::hasDied(list<SceneObject*>::iterator& ite)
+{
+	itElims.push_back(ite);
+}
+
+#pragma endregion
+
+#pragma region Carga y guardado
 void Game::save()
 {
 	ofstream file;
@@ -243,11 +240,6 @@ void Game::save()
 	mother->save(file); // Llama al save de la MotherShip (3).
 
 	file.close(); // Cierra el archivo.
-}
-
-void Game::hasDied(list<SceneObject*>::iterator& ite)
-{
-	itElims.push_back(ite);
 }
 
 void Game::cargado()
@@ -272,8 +264,9 @@ void Game::cargado()
 			switch (objeto)
 			{
 			case 0: // Cannon.
-
-				newObj = new Cannon(this, Point2D<double>(posx, posy), textures[SPACESHIP], 3, 0);
+				int vid, eTime;
+				file >> vid >> eTime;
+				newObj = new Cannon(this, Point2D<double>(posx, posy), textures[SPACESHIP], vid, eTime);
 				//cannonPtr = dynamic_cast<Cannon*>(newObj);
 				break;
 			case 1: // Aliens.
@@ -295,23 +288,19 @@ void Game::cargado()
 
 				break;
 			case 6: // Lasers.
+				char c;
+				file >> c;
 				newObj = new Laser(this, Point2D<double>(posx, posy), textures[LASER], c, velocidadLaser);
 				break;
 			default:
 				break;
 			}
-			entities.push_back(newObj); // Metemos la nueva entidad en la lista.
+			entities.push_back(newObj); 
 
-			//cout << (entities.begin() == entities.end()); //<< *(entities.end()--);
 			it = entities.end();
 			it--;
 			newObj->setListIterator(it);
 
-			//i++;
-
-			//it = entities.end(); // Ponemos el iterador al final de la lista.
-
-			//newObj->setListIterator(it); // Le pasamos el iterador a la entidad.
 		}
 
 		mother->setAlienCount(nAliens);
@@ -319,3 +308,5 @@ void Game::cargado()
 
 
 }
+
+#pragma endregion

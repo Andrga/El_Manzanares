@@ -14,7 +14,7 @@ private:
 
 
 public:
-	Cannon(Game* gam, Point2D<double> pos,const Texture* tex, int liv, int dir);
+	Cannon(Game* gam, Point2D<double> pos,const Texture* tex, int liv, int eTime);
 
 	~Cannon();
 
