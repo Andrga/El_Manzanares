@@ -2,7 +2,9 @@
 
 #pragma region constructora/destructora
 
-Game::Game() {
+Game::Game()
+{
+	cargado();
 	setupGame();
 	readMap();
 }
@@ -38,37 +40,37 @@ void Game::setupGame()
 
 void Game::readMap()
 {
-	std::ifstream map; 	// Inicialza el ifstream.
+	std::ifstream file; 	// Inicialza el ifstream.
 
-	map.open(MAP_PATH);
-	if (map.fail())
+	file.open(map);
+	if (file.fail())
 	{
 		//throw Error("File not found.");
 	}
-
-	int objeto, posx, posy, subtAlien, elapsedTime, lives;// Variables auxiliares.
-
+	// Variables auxiliares.
+	int objeto, subtAlien, lives;
+	double posx, posy, elapsedTime;
 	auto it = entities.begin();
 
-	while (!map.eof()) // Lectura de objetos.
+	while (!file.eof()) // Lectura de objetos.
 	{
-		map >> objeto >> posx >> posy;
+		file >> objeto >> posx >> posy;
 
 		SceneObject* newObj;
 
 		switch (objeto)
 		{
 		case 0: // Cannon.
-			map >> lives >> elapsedTime;
+			file >> lives >> elapsedTime;
 			newObj = new Cannon(this, Point2D<double>(posx, posy), textures[SPACESHIP], lives, elapsedTime);
 			break;
 		case 1: // Aliens.
-			map >> subtAlien;
+			file >> subtAlien;
 			newObj = new Alien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
 			nAliens++;
 			break;
 		case 2: // ShooterAliens.
-			map >> subtAlien >> elapsedTime;
+			file >> subtAlien >> elapsedTime;
 			newObj = new ShooterAlien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother, elapsedTime);
 			nAliens++;
 			break;
@@ -76,20 +78,22 @@ void Game::readMap()
 			mother->setAlienCount(nAliens);
 			break;
 		case 4: // Bunkers
-			map >> lives;
+			file >> lives;
 			newObj = new Bunker(this, lives, Point2D<double>(posx, posy), textures[BUNKER]);
 			break;
 		case 5: //UFO.
-
+			file >> lives >> subtAlien;
 
 			break;
 		case 6: //Lasers.
 			char c;
-			map >> c;
+			file >> c;
 			newObj = new Laser(this, Point2D<double>(posx, posy), textures[LASER], c, velocidadLaser);
 			break;
 		case 7: // Infobar.
 			// lo que venga aqui tiene es leido por posx.
+			/*5 800 10 0 219
+				7 0*/
 			break;
 		default:
 			break;
@@ -118,21 +122,7 @@ void Game::readMap()
 void Game::run() {
 	startTime = SDL_GetTicks();
 
-	cout << "Cargar partida?\ns=si y n=no" << endl;
-	char respuesta;
-	bool respuestaCorrecta = false;
-	while (!respuestaCorrecta)
-	{
-		cin >> respuesta;
-		if (respuesta == 's')
-		{
-			respuestaCorrecta = true;
-		}
-		else if (respuesta == 'n')
-		{
-			respuestaCorrecta = true;
-		}
-	}
+
 	while (!endGame)
 	{
 		handleEvent();
@@ -253,6 +243,7 @@ void Game::hasDied(list<SceneObject*>::iterator& ite)
 #pragma endregion
 
 #pragma region Carga y guardado
+
 void Game::save()
 {
 	ofstream file;
@@ -262,76 +253,44 @@ void Game::save()
 	{
 		i->save(file); // Llama a los save de todas las entidades de la lista: 0=Cannon, 1=Alien, 2=ShooterAlien, 4=Bunker, 5=UFO, 6=Laser.	
 	}
-	mother->save(file); // Llama al save de la MotherShip (3).
+	mother->save(file); // Llama al save de la MotherShip (3). La ponemos la ultima para que se pueda hacer el recuento de Aliens.
 
 	file.close(); // Cierra el archivo.
 }
-
 void Game::cargado()
 {
-	/*std::ifstream file; 	// Inicialza el ifstream.
-
-	file.open("guardado.txt");
-	if (!file.fail())
+	cout << "Cargar mapas?\ng=guardado, o=original,l=lluvia,t=trinchera y u=urgente" << endl;
+	char respuesta;
+	bool respuestaCorrecta = false;
+	while (!respuestaCorrecta)
 	{
-		int objeto, posx, posy, subtAlien; // Variables auxiliares.
-
-		auto it = entities.begin();
-
-		//int i = 0;
-
-		while (!file.eof()) // Lectura de objetos.
+		cin >> respuesta;
+		switch (respuesta)
 		{
-			file >> objeto >> posx >> posy;
+		case 'g':
+			map = map + "guardado.txt";
+			respuestaCorrecta = true;
+			break;
+		case 'o':
+			map = map + "original.txt";
+			respuestaCorrecta = true;
+			break;
+		case 't':
+			map = map + "trinchera.txt";
+			respuestaCorrecta = true;
+			break;
+		case 'u':
+			map = map + "urgente.txt";
+			respuestaCorrecta = true;
+			break;
+		case 'l':
+			map = map + "lluvia.txt";
+			respuestaCorrecta = true;
+			break;
 
-			SceneObject* newObj;
-
-			switch (objeto)
-			{
-			case 0: // Cannon.
-				int vid, eTime;
-				file >> vid >> eTime;
-				newObj = new Cannon(this, Point2D<double>(posx, posy), textures[SPACESHIP], vid, eTime);
-				//cannonPtr = dynamic_cast<Cannon*>(newObj);
-				break;
-			case 1: // Aliens.
-				file >> subtAlien;
-				newObj = new Alien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
-				nAliens++;
-				break;
-			case 2: // ShooterAliens.
-				newObj = new ShooterAlien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
-				nAliens++;
-				break;
-			case 3: // MotherShip.
-				mother->setAlienCount(nAliens);
-				break;
-			case 4: // Bunkers.
-				newObj = new Bunker(this, 4, Point2D<double>(posx, posy), textures[BUNKER]);
-				break;
-			case 5: // UFO.
-
-				break;
-			case 6: // Lasers.
-				char c;
-				file >> c;
-				newObj = new Laser(this, Point2D<double>(posx, posy), textures[LASER], c, velocidadLaser);
-				break;
-			default:
-				break;
-			}
-			entities.push_back(newObj);
-
-			it = entities.end();
-			it--;
-			newObj->setListIterator(it);
-
+		default:
+			break;
 		}
-
-		mother->setAlienCount(nAliens);
-	}*/
-
-
+	}
 }
-
 #pragma endregion

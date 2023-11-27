@@ -40,7 +40,7 @@ bool Laser::hit(SDL_Rect* _rect, char c)
 {
 	if (_rect != rect && c != entity && SDL_HasIntersection(rect, _rect))
 	{
-		cout << "Laser: COLISIOOOOOoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooOOOOON" << endl;
+		//cout << "Laser: COLISIOOOOOOOOOON" << endl;
 		//game->hasDied(ownIte);
 		return true;
 	}

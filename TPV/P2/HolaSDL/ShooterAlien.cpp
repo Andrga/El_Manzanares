@@ -26,7 +26,7 @@ double ShooterAlien::setTime()
 	return reloadTime = game->getRandomRange(minShootTime, maxShootTime);
 }
 
-void const ShooterAlien::save(ofstream& fil) // Guarda: tipo-posicion-tiempoParaDisparar.
+void const ShooterAlien::save(ofstream& fil) // Guarda: tipo-posicion-subitpo-tiempoParaDisparar.
 {
-	fil << 2 << " " << position.getX() << " " << position.getY() << "  " << elapsedTime << "\n";
+	fil << 2 << " " << position.getX() << " " << position.getY() << "  " << 0 << " " << elapsedTime << "\n";
 }

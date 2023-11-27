@@ -24,7 +24,7 @@ using namespace std;
 
 const int NUM_TEXTURES = 5;
 const string TEXTURE_ROOT = "assets/images/";
-const string MAP_PATH = "assets/maps/original.txt";
+const string MAP_PATH = "assets/maps/";
 const double SCRWIDTH = 800;
 const double SCRHEIGHT = 600;
 const double velocidadAlien = 0.05;
@@ -63,6 +63,7 @@ private:
 	Mothership* mother = nullptr;
 	mt19937_64 randomGenerator;
 
+	string map = MAP_PATH;
 	int nAliens = 0;
 	uint32_t frameTime;
 	uint32_t startTime;

@@ -67,7 +67,7 @@ void Alien::animation()
 	}*/
 }
 
-void const Alien::save(ofstream& fil) // Guarda: tipo-subtipo-posicion.
+void const Alien::save(ofstream& fil) // Guarda: tipo-posicion-subtipo.
 {
-	fil << 1 << " " << subtipo << " " << position.getX() << " " << position.getY() << "\n";
+	fil << 1 << " " << position.getX() << " " << position.getY() << " " << subtipo << " " << "\n";
 }
