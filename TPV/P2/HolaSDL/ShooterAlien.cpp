@@ -2,7 +2,9 @@
 ShooterAlien::ShooterAlien(Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot, int nomb) :
 	Alien(gam, pos, sub, tex, mot, nomb)
 {}
+
 ShooterAlien::~ShooterAlien() {}
+
 bool ShooterAlien::update() 
 {
 
@@ -19,7 +21,13 @@ bool ShooterAlien::update()
 	//cout << elapsedTime << endl;
 	return alive;
 }
+
 double ShooterAlien::setTime() 
 {
 	return reloadTime = game->getRandomRange(minShootTime, maxShootTime);
+}
+
+void const ShooterAlien::save(ofstream& fil) // Guarda: tipo-posicion-tiempoParaDisparar.
+{
+	fil << 2 << " " << position.getX() << " " << position.getY() << "  " << elapsedTime << "\n";
 }

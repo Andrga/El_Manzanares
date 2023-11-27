@@ -40,6 +40,7 @@ void Cannon::handleEvents(SDL_Event event)
 		direction = 0;
 	}
 }
+
 bool Cannon::hit(SDL_Rect *_rect, char c)
 {
 	//cout << "Alien: hit" << endl;
@@ -48,7 +49,7 @@ bool Cannon::hit(SDL_Rect *_rect, char c)
 		if (SDL_HasIntersection(rect, _rect))
 		{
 			cout << "Cannon: hit." << endl;
-			//game->hasDied(ite);
+			//game->hasDied(ownIte);
 			lives--;
 			cout << "Cannon lives: " << lives << endl;
 			return true;
@@ -56,6 +57,7 @@ bool Cannon::hit(SDL_Rect *_rect, char c)
 	}
 	return false;
 }
+
 bool Cannon::update()
 {
 	position = position + Vector2D(velocidadCannon * direction, 0.0); // Movimiento
@@ -72,10 +74,14 @@ bool Cannon::update()
 	
 	elapsedTime++;
 
-	//alive = lives > 0;
-
+	alive = lives > 0;
+	if (!alive)
+	{
+		game->end();
+	}
 	return alive = lives > 0;
 }
+
 void const Cannon::render()
 {
 	rect->x = position.getX();
@@ -83,4 +89,8 @@ void const Cannon::render()
 	texture->renderFrame(*rect, texture->getNumRows() - 1, texture->getNumColumns() - 1);
 }
 
+void const Cannon::save(ofstream& fil) // Guarda: tipo-posicion-vidas-tiempoParaDisparar.
+{
+	fil << 0 << " " << position.getX() << " " << position.getY() << " " << lives << " " << elapsedTime << "\n";
+}
 

@@ -25,5 +25,7 @@ public:
 	void const render() override;
 
 	bool hit(SDL_Rect* rect, char c) override;
+
+	void const save(ofstream& fil)override;
 };
 

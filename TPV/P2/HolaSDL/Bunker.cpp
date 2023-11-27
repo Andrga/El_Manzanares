@@ -25,7 +25,7 @@ bool Bunker::hit(SDL_Rect *_rect, char c)
 		if (SDL_HasIntersection(rect, _rect))
 		{
 			cout << "Bunker: hit" << endl;
-			//game->hasDied(ite);
+			//game->hasDied(ownIte);
 			lives--;
 			return true;
 		}
@@ -42,4 +42,9 @@ bool Bunker::update()
 void const Bunker::render() 
 {
 	texture->renderFrame(*rect, 0, maxLives - lives);
+}
+
+void const Bunker::save(ofstream& fil) // Guarda: tipo-posicion-vidas.
+{
+	fil << 4 << " " << position.getX() << " " << position.getY() << " " << lives << "\n";
 }

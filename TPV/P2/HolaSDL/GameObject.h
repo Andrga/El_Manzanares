@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <fstream>
 #include <iterator>
 #include <list>
 
@@ -25,5 +26,5 @@ public:
 
 	virtual bool update() = 0;
 
-	//virtual void const save() = 0;
+	virtual void const save(ofstream& fil) = 0;
 };

@@ -6,7 +6,9 @@ Laser::Laser(Game* gam, Point2D<double> pos, const Texture* tex, char ent, Vecto
 {
 
 }
+
 Laser::~Laser(){}
+
 bool Laser::update() 
 {
 	//cout << "Laser: " << position.getX() << " " << position.getY() << endl;
@@ -31,11 +33,11 @@ bool Laser::update()
 	{
 		//game->hasDied(ownIte);
 		alive = false;
-		
 	}
 
 	return alive;
 }
+
 void const Laser::render() 
 {
 	rect->x = position.getX() + (15); // +15 para que aparezca en el centro de la nave.
@@ -46,7 +48,6 @@ void const Laser::render()
 
 bool Laser::hit(SDL_Rect* _rect, char c)
 {
-
 	if (_rect != rect && c != entity && SDL_HasIntersection(rect, _rect))
 	{
 		//cout << "Laser: COLISIOOOOOOOOOON" << endl;
@@ -55,4 +56,9 @@ bool Laser::hit(SDL_Rect* _rect, char c)
 		return true;
 	}
 	return false;
+}
+
+void const Laser::save(ofstream& fil) // Guarda: tipo-posicion-vidas-quienHaDisparado.
+{
+	fil << 6 << " " << position.getX() << " " << position.getY() << " " << entity << "\n";
 }

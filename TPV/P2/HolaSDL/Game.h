@@ -59,12 +59,14 @@ private:
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	array<Texture*, NUM_TEXTURES> textures{	};
-	Mothership* mother = new Mothership(1, 44);
+	Mothership* mother = new Mothership(1, 0);
 	mt19937_64 randomGenerator;
 
+	int nAliens = 0;
 	uint32_t frameTime;
 	uint32_t startTime;
 	bool endGame = false;
+	bool _gameOver = false;
 	void readMap();
 	void setupGame();
 
@@ -88,5 +90,9 @@ public:
 	//void hasDied(list<SceneObject*>::iterator ite);
 
 	void fireLaser(Point2D<double> &position, char c);
+
+	void gameOver();
+
+	void save();
 };
 

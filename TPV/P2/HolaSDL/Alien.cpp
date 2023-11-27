@@ -48,7 +48,7 @@ bool Alien::hit(SDL_Rect* _rect, char c)
 		if (SDL_HasIntersection(rect, _rect))
 		{
 			//cout << "Alien: interseccion" << nombre << endl;
-			//game->hasDied(ite);
+			//game->hasDied(ownIte);
 			alive = false;
 			return true;
 		}
@@ -67,4 +67,9 @@ void Alien::animation()
 	{
 		elapsedTime--;
 	}*/
+}
+
+void const Alien::save(ofstream& fil) // Guarda: tipo-subtipo-posicion.
+{
+	fil << 1 << " " << subtipo << " " << position.getX() << " " << position.getY() << "\n";
 }

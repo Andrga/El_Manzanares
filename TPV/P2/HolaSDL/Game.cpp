@@ -45,6 +45,11 @@ void Game::run() {
 		}
 		render();
 	}
+
+	if (_gameOver)
+	{
+		cout << "GAME OVER" << endl;
+	}
 	cout << "se ha acabao" << endl;
 }
 
@@ -88,6 +93,7 @@ void Game::readMap()
 			{
 				newObj = new Alien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother, i);
 			}
+			nAliens++;
 			break;
 		case 2:
 			newObj = new Bunker(this, 4, Point2D<double>(posx, posy), textures[BUNKER]);
@@ -110,7 +116,9 @@ void Game::readMap()
 		//newObj->setListIterator(it); // Le pasamos el iterador a la entidad.
 	}
 
-	cout << entities.size();
+	mother->setAlienCount(nAliens);
+	//cout << "NAliens: " << nAliens << endl;
+	//cout << "NEntidades: " << entities.size() << endl;
 }
 
 void Game::update()
@@ -162,6 +170,10 @@ void Game::handleEvent()
 			cout << "Adios hasta nunca." << endl;
 			endGame = true; // Input de salida (esc).
 		}
+		else if (event.key.keysym.sym == SDLK_s)
+		{
+			save();
+		}
 		else
 		{
 			//cout << "Game: funciona porfavor te lo rogamos Vs y c++ del amor hermoso os queremos..." << endl;
@@ -212,6 +224,26 @@ bool Game::damage(SDL_Rect* _rect, char c)
 		//cout << "Porfa plis funciona no podemos mas porfi :3";
 		itam++;
 	}*/
+}
+
+void Game::gameOver() 
+{
+	_gameOver = true;
+	endGame = true;
+}
+
+void Game::save() 
+{
+	ofstream file;
+	file.open("assets/maps/guardado.txt");
+	
+	for (const auto i : entities)
+	{
+		i->save(file); // Llama a los save de todas las entidades de la lista: 0=Cannon, 1=Alien, 2=ShooterAlien, 4=Bunker, 5=UFO, 6=Laser.	
+	}
+	mother->save(file); // Llama al save de la MotherShip (3).
+	
+	file.close(); // Cierra el archivo.
 }
 
 /*void Game::hasDied(list<SceneObject*>::iterator ite)

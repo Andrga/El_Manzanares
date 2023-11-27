@@ -42,3 +42,12 @@ void const Mothership::render()
 
 }
 
+void const Mothership::save(ofstream& fil) // Guarda: tipo-nAliens.
+{
+	fil << 3 << " " << nAliens << "\n";
+}
+void Mothership::setAlienCount(int _nAliens)
+{
+	nAliens = _nAliens;
+}
+

@@ -12,9 +12,15 @@ private:
 
 public:
 	ShooterAlien(Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot, int nomb);
+
 	~ShooterAlien();
+
 	bool update() override;
+
 	void shoot();
+
 	double setTime();
+
+	void const save(ofstream& fil)override;
 };
 

@@ -27,5 +27,9 @@ public:
 	bool update() override;
 
 	void const render() override;
+	
+	void const save(ofstream& fil)override;
+	
+	void setAlienCount(int _nAliens);
 };
 

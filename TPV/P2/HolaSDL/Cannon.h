@@ -28,15 +28,8 @@ public:
 
 	bool hit(SDL_Rect *rect, char c)override;
 
-	//list<SceneObject*>::iterator getIterator() { return ite; }
+	//list<SceneObject*>::iterator getIterator() { return ownIte; }
 
-
-
-
-
-
-
-
-
+	void const save(ofstream& fil)override;
 };
 
