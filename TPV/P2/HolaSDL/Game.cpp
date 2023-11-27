@@ -46,11 +46,9 @@ void Game::readMap()
 		//throw Error("File not found.");
 	}
 
-	int objeto, posx, posy, subtAlien; // Variables auxiliares.
+	int objeto, posx, posy, subtAlien, elapsedTime, lives;// Variables auxiliares.
 
 	auto it = entities.begin();
-
-	//int i = 0;
 
 	while (!map.eof()) // Lectura de objetos.
 	{
@@ -60,33 +58,45 @@ void Game::readMap()
 
 		switch (objeto)
 		{
-		case 0:
-
-			newObj = new Cannon(this, Point2D<double>(posx, posy), textures[SPACESHIP], 3, 0);
-			//cannonPtr = dynamic_cast<Cannon*>(newObj);
+		case 0: // Cannon.
+			map >> lives >> elapsedTime;
+			newObj = new Cannon(this, Point2D<double>(posx, posy), textures[SPACESHIP], lives, elapsedTime);
 			break;
-		case 1:
+		case 1: // Aliens.
 			map >> subtAlien;
-
-			if (subtAlien == 0) // Shooter Alien.
-			{
-				newObj = new ShooterAlien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
-			}
-			else // Resto de Aliens.
-			{
-				newObj = new Alien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
-			}
+			newObj = new Alien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
 			nAliens++;
 			break;
-		case 2:
-			newObj = new Bunker(this, 4, Point2D<double>(posx, posy), textures[BUNKER]);
+		case 2: // ShooterAliens.
+			map >> subtAlien >> elapsedTime;
+			newObj = new ShooterAlien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother, elapsedTime);
+			nAliens++;
+			break;
+		case 3:
+			mother->setAlienCount(nAliens);
+			break;
+		case 4: // Bunkers
+			map >> lives;
+			newObj = new Bunker(this, lives, Point2D<double>(posx, posy), textures[BUNKER]);
+			break;
+		case 5: //UFO.
+
+
+			break;
+		case 6: //Lasers.
+			char c;
+			map >> c;
+			newObj = new Laser(this, Point2D<double>(posx, posy), textures[LASER], c, velocidadLaser);
+			break;
+		case 7: // Infobar.
+			// lo que venga aqui tiene es leido por posx.
 			break;
 		default:
 			break;
 		}
 		entities.push_back(newObj); // Metemos la nueva entidad en la lista.
 
-		cout << (entities.begin() == entities.end()); //<< *(entities.end()--);
+		//cout << (entities.begin() == entities.end()); //<< *(entities.end()--);
 		it = entities.end();
 		it--;
 		newObj->setListIterator(it);
@@ -108,6 +118,21 @@ void Game::readMap()
 void Game::run() {
 	startTime = SDL_GetTicks();
 
+	cout << "Cargar partida?\ns=si y n=no" << endl;
+	char respuesta;
+	bool respuestaCorrecta = false;
+	while (!respuestaCorrecta)
+	{
+		cin >> respuesta;
+		if (respuesta == 's')
+		{
+			respuestaCorrecta = true;
+		}
+		else if (respuesta == 'n')
+		{
+			respuestaCorrecta = true;
+		}
+	}
 	while (!endGame)
 	{
 		handleEvent();
@@ -140,7 +165,7 @@ void Game::update()
 
 	// Bucle para eliminar la lista de objetos a eliminar.
 	for (auto e : itElims) {
-		e = entities.erase(e);
+		entities.erase(e);
 	}
 	// Limpia la lista de objetos a eliminar.
 	itElims.clear();
@@ -244,7 +269,7 @@ void Game::save()
 
 void Game::cargado()
 {
-	std::ifstream file; 	// Inicialza el ifstream.
+	/*std::ifstream file; 	// Inicialza el ifstream.
 
 	file.open("guardado.txt");
 	if (!file.fail())
@@ -295,7 +320,7 @@ void Game::cargado()
 			default:
 				break;
 			}
-			entities.push_back(newObj); 
+			entities.push_back(newObj);
 
 			it = entities.end();
 			it--;
@@ -304,7 +329,7 @@ void Game::cargado()
 		}
 
 		mother->setAlienCount(nAliens);
-	}
+	}*/
 
 
 }

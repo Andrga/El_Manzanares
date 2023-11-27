@@ -11,7 +11,7 @@ private:
 	double elapsedTime = 0;
 
 public:
-	ShooterAlien(Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot);
+	ShooterAlien(Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot, double eTime);
 
 	~ShooterAlien();
 

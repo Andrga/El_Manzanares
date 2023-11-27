@@ -23,7 +23,7 @@ void Laser::update()
 	}
 
 	//Salida de limites de la bala.
-	if (position.getY() <= 0 || position.getY() >= SCRHEIGHT) game->hasDied(ownIte);
+	if (position.getY() <= 0 || position.getY() >= SCRHEIGHT-10) game->hasDied(ownIte);
 	//Comprueba si la bala choca.
 	if (game->damage(rect, entity)) game->hasDied(ownIte);
 }

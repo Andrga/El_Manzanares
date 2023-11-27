@@ -4,7 +4,7 @@
 
 const double TIEMPODISPARO = 1000;
 
-class Cannon: public SceneObject
+class Cannon : public SceneObject
 {
 private:
 	int lives = 3; // Numero de vidas del cannon.
@@ -14,19 +14,20 @@ private:
 
 
 public:
-	Cannon(Game* gam, Point2D<double> pos,const Texture* tex, int liv, int eTime);
+	Cannon(Game* gam, Point2D<double> pos, const Texture* tex, int liv, int eTime);
 
 	~Cannon();
 
 	void update() override;
-	
+
 	void const render() override;
 
-	int getLives() { return lives; 
+	int getLives() {
+		return lives;
 	}
 	void handleEvents(SDL_Event event);
 
-	bool hit(SDL_Rect *rect, char c)override;
+	bool hit(SDL_Rect* rect, char c)override;
 
 	//list<SceneObject*>::iterator getIterator() { return ownIte; }
 

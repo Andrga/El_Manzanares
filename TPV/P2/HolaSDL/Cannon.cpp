@@ -52,7 +52,7 @@ bool Cannon::hit(SDL_Rect* _rect, char c)
 			//game->hasDied(ownIte);
 			lives--;
 			cout << "Cannon lives: " << lives << endl;
-			if (!(lives <= 0))
+			if (lives <= 0)
 			{
 				game->gameOver();
 			}
