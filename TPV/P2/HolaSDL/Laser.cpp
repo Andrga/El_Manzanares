@@ -47,7 +47,7 @@ bool Laser::hit(SDL_Rect* _rect, char c)
 	return false;
 }
 
-void const Laser::save(ofstream& fil) // Guarda: tipo-posicion-vidas-quienHaDisparado.
+void const Laser::save(ofstream& fil) // Guarda: tipo-posicion-quienHaDisparado.
 {
 	fil << 6 << " " << position.getX() << " " << position.getY() << " " << entity << "\n";
 }

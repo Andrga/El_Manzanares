@@ -36,8 +36,8 @@ void Game::setupGame()
 
 void Game::run() {
 	startTime = SDL_GetTicks();
-	
-	/*cout << "�Cargar partida?\ns=si y n=no" << endl;
+
+	/*cout << "Cargar partida?\ns=si y n=no" << endl;
 	char respuesta;
 	bool respuestaCorrecta = false;
 	while (!respuestaCorrecta)
@@ -48,13 +48,11 @@ void Game::run() {
 			cargado();
 			respuestaCorrecta = true;
 		}
-		else if (true)
+		else if (respuesta == 'n')
 		{
 			respuestaCorrecta = true;
 		}
 	}*/
-
-
 	while (!endGame)
 	{
 		handleEvent();
@@ -154,7 +152,7 @@ void Game::update()
 
 	// Bucle para eliminar la lista de objetos a eliminar.
 	for (auto e : itElims) {
-  		e = entities.erase(e);
+		e = entities.erase(e);
 	}
 	// Limpia la lista de objetos a eliminar.
 	itElims.clear();
@@ -223,33 +221,101 @@ bool Game::damage(SDL_Rect* _rect, char c)
 		end = (*it)->hit(_rect, c);
 		it++;
 	}
-	
+
 	return end;
 }
 
-void Game::gameOver() 
+void Game::gameOver()
 {
 	_gameOver = true;
 	endGame = true;
 }
 
-void Game::save() 
+void Game::save()
 {
 	ofstream file;
 	file.open("assets/maps/guardado.txt");
-	
+
 	for (const auto i : entities)
 	{
 		i->save(file); // Llama a los save de todas las entidades de la lista: 0=Cannon, 1=Alien, 2=ShooterAlien, 4=Bunker, 5=UFO, 6=Laser.	
 	}
 	mother->save(file); // Llama al save de la MotherShip (3).
-	
+
 	file.close(); // Cierra el archivo.
 }
 
-void Game::hasDied(list<SceneObject*>::iterator& ite) { itElims.push_back(ite);}
-
-void Game::cargado() 
+void Game::hasDied(list<SceneObject*>::iterator& ite)
 {
+	itElims.push_back(ite);
+}
+
+void Game::cargado()
+{
+	std::ifstream file; 	// Inicialza el ifstream.
+
+	file.open("guardado.txt");
+	if (!file.fail())
+	{
+		int objeto, posx, posy, subtAlien; // Variables auxiliares.
+
+		auto it = entities.begin();
+
+		//int i = 0;
+
+		while (!file.eof()) // Lectura de objetos.
+		{
+			file >> objeto >> posx >> posy;
+
+			SceneObject* newObj;
+
+			switch (objeto)
+			{
+			case 0: // Cannon.
+
+				newObj = new Cannon(this, Point2D<double>(posx, posy), textures[SPACESHIP], 3, 0);
+				//cannonPtr = dynamic_cast<Cannon*>(newObj);
+				break;
+			case 1: // Aliens.
+				file >> subtAlien;
+				newObj = new Alien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
+				nAliens++;
+				break;
+			case 2: // ShooterAliens.
+				newObj = new ShooterAlien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
+				nAliens++;
+				break;
+			case 3: // MotherShip.
+				mother->setAlienCount(nAliens);
+				break;
+			case 4: // Bunkers.
+				newObj = new Bunker(this, 4, Point2D<double>(posx, posy), textures[BUNKER]);
+				break;
+			case 5: // UFO.
+
+				break;
+			case 6: // Lasers.
+				newObj = new Laser(this, Point2D<double>(posx, posy), textures[LASER], c, velocidadLaser);
+				break;
+			default:
+				break;
+			}
+			entities.push_back(newObj); // Metemos la nueva entidad en la lista.
+
+			//cout << (entities.begin() == entities.end()); //<< *(entities.end()--);
+			it = entities.end();
+			it--;
+			newObj->setListIterator(it);
+
+			//i++;
+
+			//it = entities.end(); // Ponemos el iterador al final de la lista.
+
+			//newObj->setListIterator(it); // Le pasamos el iterador a la entidad.
+		}
+
+		mother->setAlienCount(nAliens);
+	}
+
 
 }
