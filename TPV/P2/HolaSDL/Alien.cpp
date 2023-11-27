@@ -23,6 +23,10 @@ bool Alien::update()
 	{
 		mothership->canNotMove(); // Cuando choca con los bordes de la pantalla.
 	}
+	if (!alive)
+	{
+		mothership->alienDied();
+	}
 
 	return alive;
 }

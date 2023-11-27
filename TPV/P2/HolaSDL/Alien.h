@@ -27,11 +27,17 @@ private:
 
 public:
 	Alien();
+
 	Alien(Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot, int nomb);
+
 	~Alien();
+
 	bool update() override;
+
 	const void render() override;
+
 	bool hit(SDL_Rect* rect, char c) override;
+
 	//list<SceneObject*>::iterator getIterator() { return ite; }
 
 	//void bajar();

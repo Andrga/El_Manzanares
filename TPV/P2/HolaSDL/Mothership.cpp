@@ -23,7 +23,7 @@ int Mothership::getAlienCount() const
 }
 void Mothership::alienDied()
 {
-
+	nAliens--;
 }
 void Mothership::alienLanded()
 {

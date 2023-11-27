@@ -13,7 +13,7 @@ protected:
 	const Texture* texture = nullptr;
 	bool alive = true;
 	SDL_Rect* rect;
-	list<SceneObject*>::iterator ite;
+	list<SceneObject*>::iterator ownIte;
 
 public:
 
@@ -27,9 +27,6 @@ public:
 
 	virtual bool hit(SDL_Rect* _rect, char c) = 0;
 
-	void setListIterator(list<SceneObject*>::iterator& it)
-	{
-		ite = it;
-	}
+	void setListIterator(list<SceneObject*>::iterator& it) { ownIte = it; }
 };
 

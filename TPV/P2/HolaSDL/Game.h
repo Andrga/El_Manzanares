@@ -67,16 +67,26 @@ private:
 	bool endGame = false;
 	void readMap();
 	void setupGame();
+
 public:
 	Game();
+
 	~Game();
+
 	void render();
+
 	void update();
+
 	void run();
+
 	void handleEvent();
-	void fireLaser(Point2D<double> &position, char c);
+
 	int getRandomRange(int min, int max);
+
 	bool damage(SDL_Rect* _rect, char c);
+
 	//void hasDied(list<SceneObject*>::iterator ite);
+
+	void fireLaser(Point2D<double> &position, char c);
 };
 

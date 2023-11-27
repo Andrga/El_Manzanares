@@ -4,12 +4,14 @@ Game::Game() {
 	setupGame();
 	readMap();
 }
+
 Game::~Game()
 {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 }
+
 void Game::setupGame()
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
@@ -29,6 +31,7 @@ void Game::setupGame()
 	}
 	SDL_RenderClear(renderer);
 }
+
 void Game::run() {
 	startTime = SDL_GetTicks();
 	while (!endGame)
@@ -44,6 +47,7 @@ void Game::run() {
 	}
 	cout << "se ha acabao" << endl;
 }
+
 void Game::readMap()
 {
 	std::ifstream map; 	// Inicialza el ifstream.
@@ -108,6 +112,7 @@ void Game::readMap()
 
 	cout << entities.size();
 }
+
 void Game::update()
 {
 	auto it = entities.begin();
@@ -133,6 +138,7 @@ void Game::update()
 	//	}*/
 	//}
 }
+
 void Game::render()
 {
 	SDL_RenderClear(renderer);
@@ -153,7 +159,7 @@ void Game::handleEvent()
 	{
 		if (event.key.keysym.sym == SDLK_ESCAPE)
 		{
-			cout << "Adios hasta nunca.";
+			cout << "Adios hasta nunca." << endl;
 			endGame = true; // Input de salida (esc).
 		}
 		else
@@ -167,7 +173,7 @@ void Game::handleEvent()
 
 void Game::fireLaser(Point2D<double>& pos, char c)
 {
-	cout << "Game: pium pium" << endl;
+	//cout << "Game: pium pium" << endl;
 	SceneObject* newObj = new Laser(this, pos, textures[LASER], c, velocidadLaser);
 	entities.push_back(newObj);
 	newObj->setListIterator(entities.end()--);

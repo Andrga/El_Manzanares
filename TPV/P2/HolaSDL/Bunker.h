@@ -10,10 +10,15 @@ private:
 
 public:
 	Bunker();
+
 	Bunker(Game* gam, int liv, Point2D<double> pos, const Texture* tex);
+
 	~Bunker();
+
 	bool update() override;
+
 	void const render() override;
+
 	bool hit(SDL_Rect *rect, char c) override;
 };
 

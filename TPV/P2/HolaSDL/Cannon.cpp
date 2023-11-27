@@ -7,10 +7,7 @@ Cannon::Cannon(Game* gam, Point2D<double> pos, const Texture* tex, int liv, int 
 
 }
 
-Cannon::~Cannon()
-{
-
-}
+Cannon::~Cannon() {}
 
 void Cannon::handleEvents(SDL_Event event)
 {
@@ -25,13 +22,13 @@ void Cannon::handleEvents(SDL_Event event)
 		case SDLK_LEFT: // Cambio de direccion a la izquierda.
 			direction = -1;
 			break;
-		case SDLK_SPACE: // Cambio de direccion a la izquierda.
-			if (elapsedTime >= TIEMPODISPARO)
-			{
+		case SDLK_SPACE: // Disparo.
+			//if (elapsedTime >= TIEMPODISPARO)
+			//{
 				//cout << "Cannon: pium pium" << endl;
 				game->fireLaser(position, 'c');
 				elapsedTime = 0;
-			}
+			//}
 			break;
 		default:
 			direction = 0;
@@ -43,8 +40,20 @@ void Cannon::handleEvents(SDL_Event event)
 		direction = 0;
 	}
 }
-bool Cannon::hit(SDL_Rect *rect, char c)
+bool Cannon::hit(SDL_Rect *_rect, char c)
 {
+	//cout << "Alien: hit" << endl;
+	if (_rect != rect && c != entity)
+	{
+		if (SDL_HasIntersection(rect, _rect))
+		{
+			cout << "Cannon: hit." << endl;
+			//game->hasDied(ite);
+			lives--;
+			cout << "Cannon lives: " << lives << endl;
+			return true;
+		}
+	}
 	return false;
 }
 bool Cannon::update()
@@ -63,7 +72,9 @@ bool Cannon::update()
 	
 	elapsedTime++;
 
-	return alive;
+	//alive = lives > 0;
+
+	return alive = lives > 0;
 }
 void const Cannon::render()
 {

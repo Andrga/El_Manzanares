@@ -17,13 +17,13 @@ private:
 
 public:
 	Laser(Game* gam, Point2D<double> pos, const Texture* tex, char ent, Vector2D<double> vel);
-	~Laser();
-	bool update() override;
-	void const render() override;
-	bool hit(SDL_Rect* rect, char c) override;
 
-	/*SDL_Rect getRect();
-	void hit();
-	bool cannon();*/
+	~Laser();
+
+	bool update() override;
+
+	void const render() override;
+
+	bool hit(SDL_Rect* rect, char c) override;
 };
 

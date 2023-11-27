@@ -15,12 +15,19 @@ private:
 
 public:
 	Cannon(Game* gam, Point2D<double> pos,const Texture* tex, int liv, int dir);
+
 	~Cannon();
-	int getLives() { return lives; }
-	void handleEvents(SDL_Event event);
-	bool hit(SDL_Rect *rect, char c)override;
+
 	bool update() override;
+
 	void const render() override;
+
+	int getLives() { return lives; 
+	}
+	void handleEvents(SDL_Event event);
+
+	bool hit(SDL_Rect *rect, char c)override;
+
 	//list<SceneObject*>::iterator getIterator() { return ite; }
 
 

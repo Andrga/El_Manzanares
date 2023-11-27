@@ -16,6 +16,7 @@ protected:
 
 public:
 	GameObject(){}
+
 	GameObject(Game* gam) : game(gam) {} // Constructora.
 
 	virtual ~GameObject() = default; // Destructora.
