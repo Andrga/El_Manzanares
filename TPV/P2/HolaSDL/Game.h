@@ -95,5 +95,7 @@ public:
 	void save();
 	
 	void hasDied(list<SceneObject*>::iterator& ite);
+	
+	void cargado();
 };
 
