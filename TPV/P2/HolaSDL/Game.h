@@ -30,7 +30,7 @@ const double SCRHEIGHT = 600;
 const double velocidadAlien = 0.05;
 const double velocidadCannon = 0.5;
 const Vector2D<double> velocidadLaser(0, 0.5);
-enum TextureName { ALIENS, BUNKER, SPACESHIP, STARS, LASER, UFO };
+enum TextureName { ALIENS, BUNKER, SPACESHIP, STARS, LASER, UFOT };
 const double FRAMERATE = 60;
 const double TIMEBETWEENFRAMES = 100 / FRAMERATE;
 
