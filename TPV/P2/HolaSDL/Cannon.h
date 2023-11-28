@@ -11,6 +11,8 @@ private:
 	int direction = 0; // Direcciones: -1 (izquierda), 0 (parado), 1 (derecha).
 	double elapsedTime = 0;
 	char entity = 'c';
+	bool invincible = false;
+	int timer = 0, maxTimer = 200;
 
 
 public:
@@ -32,5 +34,7 @@ public:
 	//list<SceneObject*>::iterator getIterator() { return ownIte; }
 
 	void const save(ofstream& fil)override;
+
+	void setInvincible();
 };
 

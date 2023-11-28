@@ -19,7 +19,7 @@ private:
 
 	//Animation parameters
 	int renderFrame = 0;
-	int changeSprTime;
+	int changeSprTime=1000;
 	int elapsedTime;
 	void animation();
 

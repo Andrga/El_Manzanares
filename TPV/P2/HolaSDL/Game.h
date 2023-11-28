@@ -45,7 +45,7 @@ const textureInfo texturesList[NUM_TEXTURES]
 {
 		textureInfo{"aliens", 3, 2},
 		textureInfo{"bunker", 1, 4},
-		textureInfo{"spaceship", 1, 1},
+		textureInfo{"spaceship", 1, 2},
 		textureInfo{"stars",1, 1},
 		textureInfo{"Ufo", 1, 2}
 };
@@ -99,5 +99,7 @@ public:
 	void hasDied(list<SceneObject*>::iterator& ite);
 
 	void cargado();
+
+	void invencible();
 };
 

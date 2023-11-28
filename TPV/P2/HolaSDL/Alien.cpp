@@ -31,7 +31,7 @@ void Alien::update()
 
 const void Alien::render()
 {
-	//animation();
+	animation();
 	rect->y = position.getY();
 	rect->x = position.getX();
 	texture->renderFrame(*rect, subtipo, renderFrame);
@@ -54,7 +54,7 @@ bool Alien::hit(SDL_Rect* _rect, char c)
 
 void Alien::animation()
 {
-	/*if (elapsedTime <= 0)
+	if (elapsedTime <= 0)
 	{
 		elapsedTime = changeSprTime;
 		renderFrame == 0 ? renderFrame = 1 : renderFrame = 0;
@@ -62,7 +62,7 @@ void Alien::animation()
 	else
 	{
 		elapsedTime--;
-	}*/
+	}
 }
 
 void const Alien::save(ofstream& fil) // Guarda: tipo-posicion-subtipo.

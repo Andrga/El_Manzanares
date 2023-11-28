@@ -295,3 +295,8 @@ void Game::cargado()
 	}
 }
 #pragma endregion
+
+void Game::invencible() // Para poner la nave invencible, llamado por el UFO.
+{
+	canion->setInvincible();
+}

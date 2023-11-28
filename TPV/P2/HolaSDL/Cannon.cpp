@@ -43,24 +43,27 @@ void Cannon::handleEvents(SDL_Event event)
 }
 
 bool Cannon::hit(SDL_Rect* _rect, char c)
-{;
-	if (_rect != rect && c != entity)
+{
+	if (_rect != rect && c != entity) // Comprueba que el puntero al rect no sea igual a si mismo (para que un laser no colisione consigo mismo) y que no colisiones con una entidad igual (para los aliens)
 	{
 		if (SDL_HasIntersection(rect, _rect))
 		{
 			//cout << "Cannon: hit." << endl;
 			//game->hasDied(ownIte);
-			lives--;
-			cout << "Cannon lives: " << lives << endl;
-			if (lives <= 0)
+			if (!invincible)
 			{
-				game->gameOver();
+				lives--;
+				cout << "Cannon lives: " << lives << endl;
+				if (lives <= 0)
+				{
+					game->gameOver();
+				}
 			}
 			return true;
 		}
 	}
 	return false;
-}
+};
 
 void Cannon::update()
 {
@@ -78,17 +81,41 @@ void Cannon::update()
 
 	elapsedTime--;
 
+	if (invincible)
+	{
+		if (timer >= maxTimer)
+		{
+			invincible = false;
+			timer = 0;
+		}
+		timer++;
+	}
+
 }
 
 void const Cannon::render()
 {
 	rect->x = position.getX();
 	rect->y = position.getY();
-	texture->renderFrame(*rect, texture->getNumRows() - 1, texture->getNumColumns() - 1);
+
+	if (invincible) // Cuando la nave es invencible.
+	{
+		texture->renderFrame(*rect, texture->getNumRows() - 1, texture->getNumColumns() - 1);
+	}
+	else // Nave normal.
+	{
+		texture->renderFrame(*rect, texture->getNumRows() - 1, texture->getNumColumns() - 2);
+	}
+
 }
 
 void const Cannon::save(ofstream& fil) // Guarda: tipo-posicion-vidas-tiempoParaDisparar.
 {
 	fil << 0 << " " << position.getX() << " " << position.getY() << " " << lives << " " << elapsedTime << "\n";
+}
+
+void Cannon::setInvincible()
+{
+	invincible = true;
 }
 
