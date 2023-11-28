@@ -1,6 +1,5 @@
 #include "Alien.h"
 #include "checkML.h"
-#include "Alien.h"
 #include "Game.h"
 
 // Constructora
@@ -33,20 +32,18 @@ void Alien::update()
 const void Alien::render()
 {
 	//animation();
-
-	texture->renderFrame(*rect, subtipo, renderFrame);
 	rect->y = position.getY();
 	rect->x = position.getX();
+	texture->renderFrame(*rect, subtipo, renderFrame);
 }
 
 bool Alien::hit(SDL_Rect* _rect, char c)
 {
-	//cout << "Alien: hit" << endl;
 	if (_rect != rect && c != entity)
 	{
 		if (SDL_HasIntersection(rect, _rect))
 		{
-			//cout << "Alien: interseccion" << nombre << endl;
+			//cout << "Alien: hit" << endl;
 			game->hasDied(ownIte);
 			mothership->alienDied();
 			return true;
