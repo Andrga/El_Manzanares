@@ -57,64 +57,60 @@ void Game::readMap()
 		file >> objeto >> posx >> posy;
 
 		SceneObject* newObj;
-
-		switch (objeto)
+		if (objeto == 3) // Si es la madre la crea a parte y no la añade a la lista
 		{
-		case 0: // Cannon.
-			file >> lives >> elapsedTime;
-			canion = new Cannon(this, Point2D<double>(posx, posy), textures[SPACESHIP], lives, elapsedTime);
-			newObj = canion;
-			break;
-		case 1: // Aliens.
-			file >> subtAlien;
-			newObj = new Alien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
-			nAliens++;
-			break;
-		case 2: // ShooterAliens.
-			file >> subtAlien >> elapsedTime;
-			newObj = new ShooterAlien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother, elapsedTime);
-			nAliens++;
-			break;
-		case 3:
-			mother->setAlienCount(nAliens);
-			break;
-		case 4: // Bunkers
-			file >> lives;
-			newObj = new Bunker(this, lives, Point2D<double>(posx, posy), textures[BUNKER]);
-			break;
-		case 5: //UFO.
-			file >> state >> elapsedTime;
-			newObj = new UFO(this, Point2D<double>(posx, posy), textures[UFOT], state, elapsedTime);
-			break;
-		case 6: //Lasers.
-			char c;
-			file >> c;
-			newObj = new Laser(this, Point2D<double>(posx, posy), c, velocidadLaser, renderer);
-			break;
-		case 7: // Infobar.
-			// lo que venga aqui tiene es leido por posx.
-			/*5 800 10 0 219
-				7 0*/
-			break;
-		default:
-			break;
+			mother = new Mothership(1);
 		}
-		entities.push_back(newObj); // Metemos la nueva entidad en la lista.
+		else
+		{
 
-		//cout << (entities.begin() == entities.end()); //<< *(entities.end()--);
-		it = entities.end();
-		it--;
-		newObj->setListIterator(it);
+			switch (objeto)
+			{
+			case 0: // Cannon.
+				file >> lives >> elapsedTime;
+				canion = new Cannon(this, Point2D<double>(posx, posy), textures[SPACESHIP], lives, elapsedTime);
+				newObj = canion;
+				break;
+			case 1: // Aliens.
+				file >> subtAlien;
+				newObj = new Alien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
+				nAliens++;
+				break;
+			case 2: // ShooterAliens.
+				file >> subtAlien >> elapsedTime;
+				newObj = new ShooterAlien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother, elapsedTime);
+				nAliens++;
+				break;
+			case 4: // Bunkers.
+				file >> lives;
+				newObj = new Bunker(this, lives, Point2D<double>(posx, posy), textures[BUNKER]);
+				break;
+			case 5: // UFO.
+				file >> state >> elapsedTime;
+				newObj = new UFO(this, Point2D<double>(posx, posy), textures[UFOT], state, elapsedTime);
+				break;
+			case 6: // Lasers.
+				char c;
+				file >> c;
+				newObj = new Laser(this, Point2D<double>(posx, posy), c, velocidadLaser, renderer);
+				break;
+			case 7: // Infobar.
+				// lo que venga aqui tiene es leido por posx.
+				/*5 800 10 0 219
+					7 0*/
+				break;
+			default:
+				break;
+			}
+			entities.push_back(newObj); // Metemos la nueva entidad en la lista.
 
-		//i++;
+			it = entities.end();
+			it--;
+			newObj->setListIterator(it);
 
-		//it = entities.end(); // Ponemos el iterador al final de la lista.
-
-		//newObj->setListIterator(it); // Le pasamos el iterador a la entidad.
+		}
 	}
 	mother->setAlienCount(nAliens);
-	//cout << "NAliens: " << nAliens << endl;
-	//cout << "NEntidades: " << entities.size() << endl;
 }
 
 #pragma endregion
@@ -153,10 +149,15 @@ void Game::update()
 		it++;
 	}
 
+	if (iu >= 3 && itElims.size() > 0)
+	{
+		cout << itElims.size() << endl;
+	}
 	// Bucle para eliminar la lista de objetos a eliminar.
-	for (auto e : itElims) 
+	for (auto e : itElims)
 	{
 		entities.erase(e);
+		iu++;
 	}
 
 	itElims.clear(); // Limpia la lista de objetos a eliminar.

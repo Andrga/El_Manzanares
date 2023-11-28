@@ -72,7 +72,7 @@ private:
 	bool _gameOver = false;
 	void readMap();
 	void setupGame();
-
+	int iu = 0;
 public:
 	Game();
 
