@@ -2,7 +2,7 @@
 #include "SceneObject.h"
 
 const double TIEMPOAPARICION = 1000;
-//const Point2D<double> posInicial(800, 300); 
+
 
 class UFO : public SceneObject
 {
@@ -13,6 +13,8 @@ private:
 	char entity = 'u';
 	double elapsedTime = 0;
 	double aprearanceTime;
+	Point2D<double>posInicial;
+	int timer, maxTimer = 20;
 
 public:
 	UFO(Game* gam, Point2D<double> pos, const Texture* tex, int sta, int eTime);

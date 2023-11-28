@@ -48,7 +48,7 @@ bool Cannon::hit(SDL_Rect* _rect, char c)
 	{
 		if (SDL_HasIntersection(rect, _rect))
 		{
-			cout << "Cannon: hit." << endl;
+			//cout << "Cannon: hit." << endl;
 			//game->hasDied(ownIte);
 			lives--;
 			cout << "Cannon lives: " << lives << endl;

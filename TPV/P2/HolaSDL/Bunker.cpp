@@ -24,7 +24,7 @@ bool Bunker::hit(SDL_Rect* _rect, char c)
 	{
 		if (SDL_HasIntersection(rect, _rect))
 		{
-			cout << "Bunker: hit" << endl;
+			//cout << "Bunker: hit" << endl;
 			lives--;
 			if (lives <= 0)
 			{
