@@ -154,6 +154,11 @@ void Game::update()
 	}
 
 	// Bucle para eliminar la lista de objetos a eliminar.
+	if (itElims.size() > 0)
+	{
+		cout << itElims.size() << endl;
+
+	}
 	for (auto e : itElims) {
 		entities.erase(e);
 	}
