@@ -61,6 +61,7 @@ private:
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	array<Texture*, NUM_TEXTURES> textures{	};
+	Cannon* cannon = nullptr;
 	Mothership* mother = nullptr;
 	mt19937_64 randomGenerator;
 

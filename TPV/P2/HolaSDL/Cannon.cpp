@@ -23,11 +23,11 @@ void Cannon::handleEvents(SDL_Event event)
 			direction = -1;
 			break;
 		case SDLK_SPACE: // Disparo.
-			if (elapsedTime >= TIEMPODISPARO)
+			if (elapsedTime <= 0)
 			{
 				//cout << "Cannon: pium pium" << endl;
-			game->fireLaser(position, 'c');
-			elapsedTime = 0;
+				game->fireLaser(position, 'c');
+				elapsedTime = TIEMPODISPARO;
 			}
 			break;
 		default:
@@ -42,8 +42,7 @@ void Cannon::handleEvents(SDL_Event event)
 }
 
 bool Cannon::hit(SDL_Rect* _rect, char c)
-{
-	//cout << "Alien: hit" << endl;
+{;
 	if (_rect != rect && c != entity)
 	{
 		if (SDL_HasIntersection(rect, _rect))
@@ -76,13 +75,13 @@ void Cannon::update()
 		position = Vector2D(0.0, position.getY());
 	}
 
-	elapsedTime++;
+	elapsedTime--;
 
 }
 
 void const Cannon::render()
 {
- 	rect->x = position.getX();
+	rect->x = position.getX();
 	rect->y = position.getY();
 	texture->renderFrame(*rect, texture->getNumRows() - 1, texture->getNumColumns() - 1);
 }
