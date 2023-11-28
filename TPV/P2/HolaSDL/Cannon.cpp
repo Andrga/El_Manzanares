@@ -23,12 +23,12 @@ void Cannon::handleEvents(SDL_Event event)
 			direction = -1;
 			break;
 		case SDLK_SPACE: // Disparo.
-			//if (elapsedTime >= TIEMPODISPARO)
-			//{
+			if (elapsedTime >= TIEMPODISPARO)
+			{
 				//cout << "Cannon: pium pium" << endl;
 			game->fireLaser(position, 'c');
 			elapsedTime = 0;
-			//}
+			}
 			break;
 		default:
 			direction = 0;

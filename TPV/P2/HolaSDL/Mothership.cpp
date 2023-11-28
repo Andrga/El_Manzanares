@@ -19,7 +19,7 @@ void Mothership::canNotMove()
 }
 int Mothership::getAlienCount() const
 {
-	return 8;
+	return nAliens;
 }
 void Mothership::alienDied()
 {

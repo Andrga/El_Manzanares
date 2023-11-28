@@ -48,7 +48,7 @@ void Game::readMap()
 		//throw Error("File not found.");
 	}
 	// Variables auxiliares.
-	int objeto, subtAlien, lives;
+	int objeto, subtAlien, lives, state;
 	double posx, posy, elapsedTime;
 	auto it = entities.begin();
 
@@ -82,8 +82,8 @@ void Game::readMap()
 			newObj = new Bunker(this, lives, Point2D<double>(posx, posy), textures[BUNKER]);
 			break;
 		case 5: //UFO.
-			file >> lives >> subtAlien;
-
+			file >> state >> elapsedTime;
+			newObj = new UFO();
 			break;
 		case 6: //Lasers.
 			char c;

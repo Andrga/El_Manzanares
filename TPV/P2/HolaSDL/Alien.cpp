@@ -48,6 +48,7 @@ bool Alien::hit(SDL_Rect* _rect, char c)
 		{
 			//cout << "Alien: interseccion" << nombre << endl;
 			game->hasDied(ownIte);
+			mothership->alienDied();
 			return true;
 		}
 	}
