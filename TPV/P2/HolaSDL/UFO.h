@@ -3,7 +3,7 @@
 
 const double TIEMPOAPARICION = 1000;
 
-class UFO: public SceneObject
+class UFO : public SceneObject
 {
 private:
 	int _state;
@@ -14,8 +14,9 @@ public:
 	UFO(Game* gam, Point2D<double> pos, const Texture* tex, int sta, int eTime);
 	~UFO();
 	void state();
-	void update();
-	void const render();
-	void const save(ofstream& fil);
+	void update()override;
+	void const render()override;
+	void const save(ofstream& fil)override;
+	bool hit(SDL_Rect* rect, char c)override;
 };
 

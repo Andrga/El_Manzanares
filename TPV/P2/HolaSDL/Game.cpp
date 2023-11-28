@@ -83,7 +83,7 @@ void Game::readMap()
 			break;
 		case 5: //UFO.
 			file >> state >> elapsedTime;
-			newObj = new UFO();
+			newObj = new UFO(this, Point2D<double>(posx, posy), textures[UFOT], state, elapsedTime);
 			break;
 		case 6: //Lasers.
 			char c;
@@ -111,7 +111,6 @@ void Game::readMap()
 
 		//newObj->setListIterator(it); // Le pasamos el iterador a la entidad.
 	}
-
 	mother->setAlienCount(nAliens);
 	//cout << "NAliens: " << nAliens << endl;
 	//cout << "NEntidades: " << entities.size() << endl;

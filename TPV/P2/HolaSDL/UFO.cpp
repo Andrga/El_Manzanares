@@ -28,3 +28,7 @@ void const UFO::save(ofstream& fil)
 {
 
 }
+bool UFO::hit(SDL_Rect* rect, char c)
+{
+	return false;
+}
