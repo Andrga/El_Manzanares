@@ -89,7 +89,7 @@ void Game::readMap()
 		case 6: //Lasers.
 			char c;
 			file >> c;
-			newObj = new Laser(this, Point2D<double>(posx, posy), textures[LASER], c, velocidadLaser);
+			newObj = new Laser(this, Point2D<double>(posx, posy), c, velocidadLaser, renderer);
 			break;
 		case 7: // Infobar.
 			// lo que venga aqui tiene es leido por posx.
@@ -206,7 +206,7 @@ void Game::handleEvent()
 void Game::fireLaser(Point2D<double>& pos, char c)
 {
 	//cout << "Game: pium pium" << endl;
-	SceneObject* newObj = new Laser(this, pos, textures[LASER], c, velocidadLaser);
+	SceneObject* newObj = new Laser(this, pos, c, velocidadLaser, renderer);
 	entities.push_back(newObj);
 	auto it = entities.end();
 	it--;

@@ -6,8 +6,8 @@ class ShooterAlien : public Alien
 {
 private:
 	double reloadTime;
-	double maxShootTime = 1000000;
-	double minShootTime = 100;
+	double maxShootTime = 10000;
+	double minShootTime = 10;
 	double elapsedTime = 0;
 
 public:

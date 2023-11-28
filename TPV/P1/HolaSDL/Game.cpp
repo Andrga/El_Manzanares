@@ -121,7 +121,6 @@ void Game::render() {
 	}
 	for (const auto e : lasers) // Lasers
 	{
-		SDL_SetRenderDrawColor(renderer, 255, 165, 0, 255);
 		e->render();
 	}
 	cannon->render(); // Cannon

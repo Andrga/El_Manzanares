@@ -2,7 +2,7 @@
 #include "SceneObject.h"
 //#include "Game.h"
 
-const double TIEMPODISPARO = 750;
+const double TIEMPODISPARO = 75;
 
 class Cannon : public SceneObject
 {
