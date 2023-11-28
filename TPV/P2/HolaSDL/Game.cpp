@@ -133,9 +133,11 @@ void Game::run() {
 
 	if (_gameOver)
 	{
+		//system("color 04");
 		cout << "GAME OVER" << endl;
+		//system("color 07");
 	}
-	cout << "se ha acabao" << endl;
+	cout << "se a acabao" << endl;
 }
 
 void Game::update()
@@ -149,10 +151,10 @@ void Game::update()
 		it++;
 	}
 
-	if (iu >= 3 && itElims.size() > 0)
+	/*if (iu >= 3 && itElims.size() > 0)
 	{
 		cout << itElims.size() << endl;
-	}
+	}*/
 	// Bucle para eliminar la lista de objetos a eliminar.
 	for (auto e : itElims)
 	{
@@ -244,7 +246,6 @@ void Game::hasDied(list<SceneObject*>::iterator& ite)
 #pragma endregion
 
 #pragma region Carga y guardado
-
 void Game::save()
 {
 	ofstream file;
