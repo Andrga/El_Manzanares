@@ -62,8 +62,8 @@ void Game::readMap()
 		{
 		case 0: // Cannon.
 			file >> lives >> elapsedTime;
-			cannon = new Cannon(this, Point2D<double>(posx, posy), textures[SPACESHIP], lives, elapsedTime);
-			newObj = cannon;
+			canion = new Cannon(this, Point2D<double>(posx, posy), textures[SPACESHIP], lives, elapsedTime);
+			newObj = canion;
 			break;
 		case 1: // Aliens.
 			file >> subtAlien;
@@ -197,7 +197,7 @@ void Game::handleEvent()
 		else
 		{
 			//cout << "Game: funciona porfavor te lo rogamos Vs y c++ del amor hermoso os queremos..." << endl;
-			cannon->handleEvents(event); // Input.
+			canion->handleEvents(event); // Input.
 		}
 	}
 }

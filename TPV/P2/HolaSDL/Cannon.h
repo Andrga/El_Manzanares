@@ -1,6 +1,6 @@
 #pragma once
 #include "SceneObject.h"
-#include "Game.h"
+//#include "Game.h"
 
 const double TIEMPODISPARO = 750;
 

@@ -61,7 +61,7 @@ private:
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	array<Texture*, NUM_TEXTURES> textures{	};
-	Cannon* cannon = nullptr;
+	Cannon* canion = nullptr;
 	Mothership* mother = nullptr;
 	mt19937_64 randomGenerator;
 
@@ -91,14 +91,14 @@ public:
 
 	bool damage(SDL_Rect* _rect, char c);
 
-	void fireLaser(Point2D<double> &position, char c);
+	void fireLaser(Point2D<double>& position, char c);
 
 	void gameOver();
 
 	void save();
-	
+
 	void hasDied(list<SceneObject*>::iterator& ite);
-	
+
 	void cargado();
 };
 

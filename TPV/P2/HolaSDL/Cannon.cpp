@@ -1,4 +1,5 @@
 #include "Cannon.h"
+#include "Game.h"
 
 
 Cannon::Cannon(Game* gam, Point2D<double> pos, const Texture* tex, int liv, int eTime)
