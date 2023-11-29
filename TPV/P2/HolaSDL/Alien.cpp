@@ -16,6 +16,7 @@ void Alien::update()
 	//cout << move << "Move" << endl;
 	if (move) 
 	{
+		animation();
 		// Movimiento del alien.
 		position = position + Vector2D<double>((mothership->getDirection() * (velocidadAlien + mothership->getLevel())), 0); // Actualizacion del movimiento y direccion.
 		rect->y = position.getY() + (mothership->getLevel()*10);
@@ -26,19 +27,12 @@ void Alien::update()
 		{
 			mothership->canNotMove(); // Cuando choca con los bordes de la pantalla.
 		}
-		/*if (game->damage(rect, entity))
-		{
-			mothership->alienDied();
-		}*/
 	}
 
 }
 
 const void Alien::render()
 {
-	if (move)	animation();
-	//rect->y = position.getY();
-	//rect->x = position.getX();
 	texture->renderFrame(*rect, subtipo, renderFrame);
 }
 
