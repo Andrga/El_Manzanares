@@ -9,6 +9,7 @@
 #include "Bunker.h"
 #include "Laser.h"
 #include"ShooterAlien.h"
+#include "InfoBar.h"
 
 #include <SDL_image.h>
 #include <vector>
@@ -62,6 +63,7 @@ private:
 	array<Texture*, NUM_TEXTURES> textures{	};
 	Cannon* canion = nullptr;
 	Mothership* mother = nullptr;
+	InfoBar* info = nullptr;
 	mt19937_64 randomGenerator;
 
 	string map = MAP_PATH;
@@ -101,5 +103,7 @@ public:
 	void cargado();
 
 	void invencible();
+
+	int getCannonLives();
 };
 

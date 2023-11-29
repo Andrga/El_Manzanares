@@ -57,9 +57,13 @@ void Game::readMap()
 		file >> objeto >> posx >> posy;
 
 		SceneObject* newObj;
-		if (objeto == 3) // Si es la madre la crea a parte y no la añade a la lista
+		if (objeto == 3) // Si es la madre se crea a parte y no se mete en la lista
 		{
 			mother = new Mothership(1);
+		}
+		else if (objeto == 7) // InfoBar no se mete en la lista.
+		{
+			info = new InfoBar(this, Point2D<double>(0, 500), textures[SPACESHIP], posx);
 		}
 		else
 		{
@@ -94,11 +98,9 @@ void Game::readMap()
 				file >> c;
 				newObj = new Laser(this, Point2D<double>(posx, posy), c, velocidadLaser, renderer);
 				break;
-			case 7: // Infobar.
+			/*case 7: // Infobar.
 				// lo que venga aqui tiene es leido por posx.
-				/*5 800 10 0 219
-					7 0*/
-				break;
+				break;*/
 			default:
 				break;
 			}
@@ -176,6 +178,7 @@ void Game::render()
 	{
 		i->render();
 	}
+	info->render();
 	SDL_RenderPresent(renderer); // Presentacion del render.
 }
 
@@ -300,4 +303,9 @@ void Game::cargado()
 void Game::invencible() // Para poner la nave invencible, llamado por el UFO.
 {
 	canion->setInvincible();
+}
+
+int Game::getCannonLives() // Devuelve el numero de vidas del cannon.
+{
+	return canion->getLives();
 }

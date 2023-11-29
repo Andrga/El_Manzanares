@@ -24,9 +24,8 @@ public:
 
 	void const render() override;
 
-	int getLives() {
-		return lives;
-	}
+	int getLives() { return lives; }
+
 	void handleEvents(SDL_Event event);
 
 	bool hit(SDL_Rect* rect, char c)override;
