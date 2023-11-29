@@ -5,8 +5,23 @@
 class Mothership: public GameObject
 {
 private:
+
+	enum state : int { MOVE, STOP, SPIN, LANDED};
+	state _state = MOVE;
+
+	// Contador para moverse.
+	int maxTime = 10;
+	int elapsedTime = 0;
+
+	// Direccion de los aliens.
 	int direction = 1;
 	int nAliens = 44;
+
+	// Aliens que han llamado al mothership para comprobar si moverse.
+	int aliensReistrados = 0;
+
+	// Nivel de altura.
+	int level = 0;
 public:
 	Mothership(int dir); // Constructora.
 	
@@ -22,7 +37,9 @@ public:
 
 	void alienLanded();
 
-	void haveLanded();
+	bool haveLanded();
+
+	int getLevel() { return level; }
 
 	void update() override;
 

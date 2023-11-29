@@ -121,7 +121,7 @@ void Game::run() {
 	startTime = SDL_GetTicks();
 
 
-	while (!endGame)
+	while (!endGame && !mother->haveLanded())
 	{
 		handleEvent();
 		frameTime = SDL_GetTicks() - startTime;
@@ -131,6 +131,7 @@ void Game::run() {
 			startTime = SDL_GetTicks();
 		}
 		render();
+
 	}
 
 	if (_gameOver)
@@ -144,6 +145,9 @@ void Game::run() {
 
 void Game::update()
 {
+	//Actualizacion de la nave
+	mother->update();
+
 	auto it = entities.begin();
 
 	// Updatea todos los elementos.
@@ -153,10 +157,6 @@ void Game::update()
 		it++;
 	}
 
-	/*if (iu >= 3 && itElims.size() > 0)
-	{
-		cout << itElims.size() << endl;
-	}*/
 	// Bucle para eliminar la lista de objetos a eliminar.
 	for (auto e : itElims)
 	{
@@ -165,7 +165,6 @@ void Game::update()
 	}
 
 	itElims.clear(); // Limpia la lista de objetos a eliminar.
-
 }
 
 void Game::render()

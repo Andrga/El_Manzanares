@@ -17,6 +17,8 @@ private:
 
 	int nombre;
 
+	bool move = false;
+
 	//Animation parameters
 	int renderFrame = 0;
 	int changeSprTime=1000;
