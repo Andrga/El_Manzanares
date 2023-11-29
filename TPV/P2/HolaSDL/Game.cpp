@@ -63,11 +63,10 @@ void Game::readMap()
 		}
 		else if (objeto == 7) // InfoBar no se mete en la lista.
 		{
-			info = new InfoBar(this, Point2D<double>(0, 500), textures[SPACESHIP], posx);
+			info = new InfoBar(this, Point2D<double>(10, SCRHEIGHT - 30), textures[SPACESHIP], posx);
 		}
 		else
 		{
-
 			switch (objeto)
 			{
 			case 0: // Cannon.
@@ -147,7 +146,7 @@ void Game::update()
 {
 	//Actualizacion de la nave
 	mother->update();
-
+	info->update();
 	auto it = entities.begin();
 
 	// Updatea todos los elementos.

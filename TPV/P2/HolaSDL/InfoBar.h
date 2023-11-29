@@ -8,9 +8,10 @@ class InfoBar : public GameObject
 private:
 	int score;
 	Point2D<double> position;
-	const Texture* canTexture = nullptr;
-	int CannonLives = 3;
-	SDL_Rect* rect;
+	int cannonLives;
+	const Texture* canTexture = nullptr; // Textura del cannon para la muestra de vidas restantes.
+	SDL_Rect rect;
+	Point2D<double> pos1, pos2, pos3;
 
 public:
 
