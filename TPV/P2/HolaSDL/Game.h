@@ -75,6 +75,7 @@ private:
 	void readMap();
 	void setupGame();
 	int iu = 0;
+	int score = 0;
 public:
 	Game();
 
@@ -105,5 +106,9 @@ public:
 	void invencible();
 
 	int getCannonLives();
+
+	void addScore(int points);
+
+	int returnScore() { return score; }
 };
 

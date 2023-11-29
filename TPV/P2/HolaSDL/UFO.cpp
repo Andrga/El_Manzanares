@@ -83,13 +83,14 @@ void const UFO::save(ofstream& fil) // Guarda: tipo-posicion-estado-tiempoParaAp
 
 bool UFO::hit(SDL_Rect* _rect, char c)
 {
-	if (_rect != rect && c != entity) // Comprueba que el puntero al rect no sea igual a si mismo (para que un laser no colisione consigo mismo) y que no colisiones con una entidad igual (para los aliens)
+	if (_rect != rect && c != entity) // Comprueba que el puntero al rect no sea igual a si mismo (para que un laser no colisione consigo mismo) y que no colisiones con una entidad igual (para los aliens).
 	{
 		if (SDL_HasIntersection(rect, _rect))
 		{
 			UFOstate = DESTRUIDO; // Si ha sido alcanzado se cambia al estado de Destruido.
 			//cout << "UFO: hit" << endl;
 			//game->hasDied(ownIte); // Suponemos que no se elimina aunque lo eliminemos y lo que se hace es transportalo a la posicion de inicio.
+			game->addScore(100);
 			game->invencible(); // Al destruirse el UFO la nave se hace invencible durante un tiempo.
 			return true;
 		}

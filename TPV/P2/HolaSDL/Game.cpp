@@ -307,3 +307,8 @@ int Game::getCannonLives() // Devuelve el numero de vidas del cannon.
 {
 	return canion->getLives();
 }
+
+void Game::addScore(int points) 
+{
+	score += points;
+}

@@ -43,6 +43,20 @@ bool Alien::hit(SDL_Rect* _rect, char c)
 		if (SDL_HasIntersection(rect, _rect))
 		{
 			//cout << "Alien: hit" << endl;
+			switch (subtipo)
+			{
+			case 0:
+				game->addScore(30);
+				break;
+			case 1:
+				game->addScore(20);
+				break;
+			case 2:
+				game->addScore(10);
+				break;
+			default:
+				break;
+			}
 			game->hasDied(ownIte);
 			mothership->alienDied();
 			return true;

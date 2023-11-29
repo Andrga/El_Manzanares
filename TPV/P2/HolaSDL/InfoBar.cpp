@@ -12,14 +12,17 @@ InfoBar::~InfoBar() {}
 void InfoBar::update()
 {
 	cannonLives = game->getCannonLives(); // Cogemos las vidas del cannon.
+	score = game->returnScore();
 }
 
 void const InfoBar::render()
 {
 	//system("color 0A"); // Los colores pintan toda la pantalla -_-
-	//cout << "SCORE: " << score << endl;
+	cout << "SCORE: " << score << endl;
 	//system("color 07");
 
+	
+	// Para mostrar las vidas restantes de la nave:
 	rect.w = canTexture->getFrameWidth();
 	rect.h = canTexture->getFrameHeight();
 
