@@ -8,8 +8,15 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	Game* game = new Game;
-	game->run();
-	delete game;
+	try
+	{
+		Game* game = new Game;
+		game->run();
+		delete game;
+	}
+	catch (const std::exception& e)
+	{
+		SDL_ShowSimpleMessageBox(e);
+	}
 	return 0;
 }
