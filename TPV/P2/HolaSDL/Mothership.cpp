@@ -78,7 +78,7 @@ void const Mothership::render()
 
 void const Mothership::save(ofstream& fil) // Guarda: tipo-nAliens.
 {
-	fil << _state << " " << level << " " << elapsedTime << "\n";
+	fil << "3 " << _state << " " << level << " " << elapsedTime << "\n";
 }
 
 

@@ -97,9 +97,9 @@ void Game::readMap()
 				file >> c;
 				newObj = new Laser(this, Point2D<double>(dato1, dato2), c, velocidadLaser, renderer);
 				break;
-				/*case 7: // Infobar.
+				//case 7: // Infobar.
 					// lo que venga aqui tiene es leido por posx.
-					break;*/
+				break;
 			default:
 				break;
 			}
@@ -257,6 +257,7 @@ void Game::save()
 		i->save(file); // Llama a los save de todas las entidades de la lista: 0=Cannon, 1=Alien, 2=ShooterAlien, 4=Bunker, 5=UFO, 6=Laser.	
 	}
 	mother->save(file); // Llama al save de la MotherShip (3). La ponemos la ultima para que se pueda hacer el recuento de Aliens.
+	info->save(file);
 
 	file.close(); // Cierra el archivo.
 }

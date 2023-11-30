@@ -36,5 +36,5 @@ void const InfoBar::render()
 
 void const InfoBar::save(ofstream& fil) // Guarda: tipo-score.
 {
-	fil << 3 << " " << score << "\n";
+	fil << 7 << " " << score << "\n";
 }
