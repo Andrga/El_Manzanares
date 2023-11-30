@@ -58,7 +58,7 @@ void Game::readMap()
 		if (objeto == 3) // Si es la madre se crea a parte y no se mete en la lista
 		{
 			file >> dato3;
-			mother = new Mothership(dato1, dato2, dato3, this);
+			mother->setMotherParams(dato1, dato2, dato3);
 		}
 		else if (objeto == 7) // InfoBar no se mete en la lista.
 		{
@@ -110,11 +110,6 @@ void Game::readMap()
 			newObj->setListIterator(it);
 
 		}
-	}
-	if (mother == nullptr)
-	{
-
-		mother = new Mothership(0, 0, 0, this);
 	}
 	mother->setAlienCount(nAliens);
 }

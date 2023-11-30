@@ -74,11 +74,6 @@ bool Alien::hit(SDL_Rect* _rect, char c)
 	return false;
 }
 
-void Alien::bajar() 
-{
-	position = position + Vector2D<double>(0.0, (mothership->getLevel() * 10)); // Actualizacion del movimiento y direccion.
-}
-
 
 void const Alien::save(ofstream& fil) // Guarda: tipo-posicion-subtipo.
 {

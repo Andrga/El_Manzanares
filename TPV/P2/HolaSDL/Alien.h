@@ -41,8 +41,6 @@ public:
 
 	//list<SceneObject*>::iterator getIterator() { return ownIte; }
 
-	void bajar();
-
 	void const save(ofstream& fil)override;
 };
 

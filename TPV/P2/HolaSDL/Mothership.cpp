@@ -1,8 +1,9 @@
 #include "Mothership.h"
 #include "Game.h"
 
-Mothership::Mothership(int sta, int lev, int esp, Game* gam) : GameObject(gam), _state((state)sta), level(lev), elapsedTime(esp) {}
-
+Mothership::Mothership(Game* gam) 
+	:GameObject(gam)
+{}
 bool Mothership::shouldMove()
 {
 	//comprueba si se puede mover el alien (se mueve tambien si esta terminando de hacer el spin)
@@ -79,6 +80,14 @@ void const Mothership::save(ofstream& fil) // Guarda: tipo-nAliens.
 {
 	fil << _state << " " << level << " " << elapsedTime << "\n";
 }
+
+
+void Mothership::setMotherParams(int sta, int lev, int esp) {
+	_state = (state)sta;
+	level = lev;
+	elapsedTime = esp;
+}
+
 void Mothership::setAlienCount(int _nAliens)
 {
 	nAliens = _nAliens;

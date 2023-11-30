@@ -23,7 +23,7 @@ private:
 	// Nivel de altura.
 	int level = 0;
 public:
-	Mothership(int sta, int lev, int esp, Game* gam); // Constructora.
+	Mothership(Game* gam);
 
 	int getDirection() const { return direction; } // Devuelve la direccion de movimiento.
 
@@ -46,6 +46,8 @@ public:
 	void const render() override;
 
 	void const save(ofstream& fil)override;
+
+	void setMotherParams(int sta, int lev, int esp);
 
 	void setAlienCount(int _nAliens);
 };
