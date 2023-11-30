@@ -8,15 +8,18 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
+	SDL_Window* window = SDL_CreateWindow("SPACE INAVERS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCRWIDTH, SCRHEIGHT, SDL_WINDOW_SHOWN);
 	try
 	{
-		Game* game = new Game;
+
+		Game* game = new Game(window);
 		game->run();
 		delete game;
 	}
-	catch (const std::exception& e)
+	catch (const char* e)
 	{
-		SDL_ShowSimpleMessageBox(e);
+		const char* est = "ERROR";
+		SDL_ShowSimpleMessageBox(1, est, e, window);
 	}
 	return 0;
 }

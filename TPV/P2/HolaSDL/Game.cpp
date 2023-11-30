@@ -1,8 +1,11 @@
 #include "Game.h"
+#include <iostream>
+#include <string>
 
 #pragma region constructora/destructora
 
-Game::Game()
+Game::Game(SDL_Window* win)
+	:window(win)
 {
 	cargado();
 	setupGame();
@@ -19,12 +22,13 @@ Game::~Game()
 void Game::setupGame()
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
-	window = SDL_CreateWindow("SPACE INAVERS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCRWIDTH, SCRHEIGHT, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
 
 	if (window == nullptr || renderer == nullptr)
 	{
-		cout << "Error creacion de ventana" << endl;
+		throw "Error creacion de ventana o renderer";
+		//cout << "Error creacion de ventana" << endl;
 	}
 	else
 	{
@@ -44,7 +48,7 @@ void Game::readMap()
 	file.open(map);
 	if (file.fail())
 	{
-		//throw Error("File not found.");
+		throw "No se puede leer el archivo de mapa.";
 	}
 	// Variables auxiliares.
 	int objeto, subtAlien, lives, state, nAliens = 0;
@@ -251,6 +255,10 @@ void Game::save()
 {
 	ofstream file;
 	file.open("assets/maps/guardado.txt");
+	if (file.fail())
+	{
+		throw "No se puede acceder al archivo de guardado.";
+	}
 
 	for (const auto i : entities)
 	{
@@ -290,6 +298,7 @@ void Game::cargado()
 		case 'l':
 			map = map + "lluvia.txt";
 			respuestaCorrecta = true;
+
 			break;
 
 		default:

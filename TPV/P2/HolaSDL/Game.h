@@ -11,6 +11,7 @@
 #include"ShooterAlien.h"
 #include "InfoBar.h"
 
+
 #include <SDL_image.h>
 #include <vector>
 #include <array>
@@ -76,7 +77,7 @@ private:
 	int iu = 0;
 	int score = 0;
 public:
-	Game();
+	Game(SDL_Window* win);
 
 	~Game();
 
