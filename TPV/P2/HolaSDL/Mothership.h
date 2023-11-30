@@ -2,11 +2,11 @@
 #include "GameObject.h"
 #include <vector>
 
-class Mothership: public GameObject
+class Mothership : public GameObject
 {
 private:
 
-	enum state : int { MOVE, STOP, SPIN, LANDED};
+	enum state : int { MOVE, STOP, SPIN, LANDED };
 	state _state = MOVE;
 
 	// Contador para moverse.
@@ -23,8 +23,8 @@ private:
 	// Nivel de altura.
 	int level = 0;
 public:
-	Mothership(int dir); // Constructora.
-	
+	Mothership(int sta, int lev, int esp, Game* gam); // Constructora.
+
 	int getDirection() const { return direction; } // Devuelve la direccion de movimiento.
 
 	bool shouldMove();
@@ -44,9 +44,9 @@ public:
 	void update() override;
 
 	void const render() override;
-	
+
 	void const save(ofstream& fil)override;
-	
+
 	void setAlienCount(int _nAliens);
 };
 

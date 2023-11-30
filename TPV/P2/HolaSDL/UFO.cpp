@@ -33,7 +33,7 @@ void UFO::update()
 	//cout << "UFO: eTime:  " << elapsedTime << endl;
 	if (UFOstate == VISIBLE)
 	{
-		position = position + Vector2D(-1.5, 0.0); // Movimiento.
+		position = position + Vector2D(-5.0, 0.0); // Movimiento.
 		//position = position + Vector2D(-0.25, 0.0); // Para probar cosas del UFO y no vaya muy rapido >:(
 
 

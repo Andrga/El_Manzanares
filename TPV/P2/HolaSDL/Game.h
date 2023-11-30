@@ -28,11 +28,11 @@ const string TEXTURE_ROOT = "assets/images/";
 const string MAP_PATH = "assets/maps/";
 const double SCRWIDTH = 800;
 const double SCRHEIGHT = 600;
-const double velocidadAlien = 10;
-const double velocidadCannon = 5;
-const Vector2D<double> velocidadLaser(0, 5);
+const double velocidadAlien = 20;
+const double velocidadCannon = 15;
+const Vector2D<double> velocidadLaser(0, 10);
 enum TextureName { ALIENS, BUNKER, SPACESHIP, STARS, UFOT };
-const double FRAMERATE = 50;
+const double FRAMERATE = 20;
 const double TIMEBETWEENFRAMES = 1000 / FRAMERATE;
 
 struct textureInfo
@@ -67,7 +67,6 @@ private:
 	mt19937_64 randomGenerator;
 
 	string map = MAP_PATH;
-	int nAliens = 0;
 	uint32_t frameTime;
 	uint32_t startTime;
 	bool endGame = false;
@@ -110,5 +109,7 @@ public:
 	void addScore(int points);
 
 	int returnScore() { return score; }
+
+	double getCannonYPos() { return canion->getPos().getY(); }
 };
 

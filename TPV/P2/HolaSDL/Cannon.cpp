@@ -48,8 +48,6 @@ bool Cannon::hit(SDL_Rect* _rect, char c)
 	{
 		if (SDL_HasIntersection(rect, _rect))
 		{
-			//cout << "Cannon: hit." << endl;
-			//game->hasDied(ownIte);
 			if (!invincible)
 			{
 				lives--;
@@ -69,6 +67,10 @@ void Cannon::update()
 {
 	position = position + Vector2D(velocidadCannon * direction, 0.0); // Movimiento
 
+	// Actualiza posicion del rect.
+	rect->x = position.getX();
+	rect->y = position.getY();
+
 	// Para cuando choca con un borde:
 	if (position.getX() >= (SCRWIDTH - texture->getFrameWidth()))
 	{
@@ -79,8 +81,10 @@ void Cannon::update()
 		position = Vector2D(0.0, position.getY());
 	}
 
+
 	elapsedTime--;
 
+	// Contador de la invencibilidad.
 	if (invincible)
 	{
 		if (timer >= maxTimer)
@@ -95,8 +99,6 @@ void Cannon::update()
 
 void const Cannon::render()
 {
-	rect->x = position.getX();
-	rect->y = position.getY();
 
 	if (invincible) // Cuando la nave es invencible.
 	{

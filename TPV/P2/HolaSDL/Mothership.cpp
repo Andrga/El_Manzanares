@@ -1,7 +1,7 @@
 #include "Mothership.h"
 #include "Game.h"
 
-Mothership::Mothership(int dir) : direction(dir) {}
+Mothership::Mothership(int sta, int lev, int esp, Game* gam) : GameObject(gam), _state((state)sta), level(lev), elapsedTime(esp) {}
 
 bool Mothership::shouldMove()
 {
@@ -16,7 +16,7 @@ bool Mothership::shouldMove()
 		else
 		{
 			// Una vez todos los aliens han sido registrados (es decir, ya se han movido) pasa al estado stop
-			elapsedTime = maxTime;
+			elapsedTime = maxTime - level;
 			aliensReistrados = 0;
 			_state = STOP;
 		}
@@ -38,7 +38,7 @@ void Mothership::alienDied()
 }
 void Mothership::alienLanded()
 {
-
+	_state = LANDED;
 }
 bool Mothership::haveLanded()
 {
@@ -77,7 +77,7 @@ void const Mothership::render()
 
 void const Mothership::save(ofstream& fil) // Guarda: tipo-nAliens.
 {
-	fil << 3 << " " << nAliens << "\n";
+	fil << _state << " " << level << " " << elapsedTime << "\n";
 }
 void Mothership::setAlienCount(int _nAliens)
 {

@@ -11,8 +11,9 @@ class Alien : public SceneObject
 {
 private:
 
-	int subtipo;
+	int subtipo; // Subtipo de alien.
 	Mothership* mothership = nullptr; // Puntero a mothership.
+	double posYAnt = 0; // Posicion Y anterior
 	char entity = 'a';
 
 	int nombre;
@@ -21,9 +22,11 @@ private:
 
 	//Animation parameters
 	int renderFrame = 0;
-	int changeSprTime=1000;
+	int changeSprTime = 1000;
 	int elapsedTime;
-	void animation();
+
+	// Cambiar el renderFrame.
+	void animation() { renderFrame == 0 ? renderFrame = 1 : renderFrame = 0; }
 
 
 
@@ -38,7 +41,7 @@ public:
 
 	//list<SceneObject*>::iterator getIterator() { return ownIte; }
 
-	//void bajar();
+	void bajar();
 
 	void const save(ofstream& fil)override;
 };

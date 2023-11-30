@@ -35,7 +35,6 @@ void Game::setupGame()
 	}
 	SDL_RenderClear(renderer);
 
-	mother = new Mothership(1);
 }
 
 void Game::readMap()
@@ -48,58 +47,59 @@ void Game::readMap()
 		//throw Error("File not found.");
 	}
 	// Variables auxiliares.
-	int objeto, subtAlien, lives, state;
-	double posx, posy, elapsedTime;
+	int objeto, subtAlien, lives, state, nAliens = 0;
+	double dato1, dato2, dato3;
 	auto it = entities.begin();
 
 	while (!file.eof()) // Lectura de objetos.
 	{
-		file >> objeto >> posx >> posy;
+		file >> objeto >> dato1 >> dato2;
 
-		SceneObject* newObj;
 		if (objeto == 3) // Si es la madre se crea a parte y no se mete en la lista
 		{
-			mother = new Mothership(1);
+			file >> dato3;
+			mother = new Mothership(dato1, dato2, dato3, this);
 		}
 		else if (objeto == 7) // InfoBar no se mete en la lista.
 		{
-			info = new InfoBar(this, Point2D<double>(10, SCRHEIGHT - 30), textures[SPACESHIP], posx);
+			info = new InfoBar(this, Point2D<double>(10, SCRHEIGHT - 30), textures[SPACESHIP], dato1);
 		}
 		else
 		{
+			SceneObject* newObj;
 			switch (objeto)
 			{
 			case 0: // Cannon.
-				file >> lives >> elapsedTime;
-				canion = new Cannon(this, Point2D<double>(posx, posy), textures[SPACESHIP], lives, elapsedTime);
+				file >> lives >> dato3;
+				canion = new Cannon(this, Point2D<double>(dato1, dato2), textures[SPACESHIP], lives, dato3);
 				newObj = canion;
 				break;
 			case 1: // Aliens.
 				file >> subtAlien;
-				newObj = new Alien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother);
+				newObj = new Alien(this, Point2D<double>(dato1, dato2), subtAlien, textures[ALIENS], mother);
 				nAliens++;
 				break;
 			case 2: // ShooterAliens.
-				file >> subtAlien >> elapsedTime;
-				newObj = new ShooterAlien(this, Point2D<double>(posx, posy), subtAlien, textures[ALIENS], mother, elapsedTime);
+				file >> subtAlien >> dato3;
+				newObj = new ShooterAlien(this, Point2D<double>(dato1, dato2), subtAlien, textures[ALIENS], mother, dato3);
 				nAliens++;
 				break;
 			case 4: // Bunkers.
 				file >> lives;
-				newObj = new Bunker(this, lives, Point2D<double>(posx, posy), textures[BUNKER]);
+				newObj = new Bunker(this, lives, Point2D<double>(dato1, dato2), textures[BUNKER]);
 				break;
 			case 5: // UFO.
-				file >> state >> elapsedTime;
-				newObj = new UFO(this, Point2D<double>(posx, posy), textures[UFOT], state, elapsedTime);
+				file >> state >> dato3;
+				newObj = new UFO(this, Point2D<double>(dato1, dato2), textures[UFOT], state, dato3);
 				break;
 			case 6: // Lasers.
 				char c;
 				file >> c;
-				newObj = new Laser(this, Point2D<double>(posx, posy), c, velocidadLaser, renderer);
+				newObj = new Laser(this, Point2D<double>(dato1, dato2), c, velocidadLaser, renderer);
 				break;
-			/*case 7: // Infobar.
-				// lo que venga aqui tiene es leido por posx.
-				break;*/
+				/*case 7: // Infobar.
+					// lo que venga aqui tiene es leido por posx.
+					break;*/
 			default:
 				break;
 			}
@@ -110,6 +110,11 @@ void Game::readMap()
 			newObj->setListIterator(it);
 
 		}
+	}
+	if (mother == nullptr)
+	{
+
+		mother = new Mothership(0, 0, 0, this);
 	}
 	mother->setAlienCount(nAliens);
 }
@@ -308,7 +313,7 @@ int Game::getCannonLives() // Devuelve el numero de vidas del cannon.
 	return canion->getLives();
 }
 
-void Game::addScore(int points) 
+void Game::addScore(int points)
 {
 	score += points;
 }

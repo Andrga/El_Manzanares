@@ -6,6 +6,7 @@
 Alien::Alien(Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot)
 	: subtipo(sub), SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), mothership(mot)
 {
+	posYAnt = pos.getY();
 }
 
 Alien::~Alien() {} // Destructora.
@@ -14,12 +15,15 @@ void Alien::update()
 {
 	move = mothership->shouldMove();
 	//cout << move << "Move" << endl;
-	if (move) 
+	if (move)
 	{
 		animation();
 		// Movimiento del alien.
-		position = position + Vector2D<double>((mothership->getDirection() * (velocidadAlien + mothership->getLevel())), 0); // Actualizacion del movimiento y direccion.
-		rect->y = position.getY() + (mothership->getLevel()*10);
+
+		position = Vector2D<double>((position.getX() + (mothership->getDirection() * velocidadAlien )), posYAnt + mothership->getLevel()*20); // Actualizacion del movimiento y direccion.
+
+		// Actualizacion de la posicion del rect.
+		rect->y = position.getY();
 		rect->x = position.getX();
 
 		// Choque con un borde.
@@ -27,8 +31,13 @@ void Alien::update()
 		{
 			mothership->canNotMove(); // Cuando choca con los bordes de la pantalla.
 		}
-	}
 
+		// Comprueba si ha landeado.
+		if (position.getY() >= game->getCannonYPos())
+		{
+			mothership->alienLanded();
+		}
+	}
 }
 
 const void Alien::render()
@@ -65,10 +74,11 @@ bool Alien::hit(SDL_Rect* _rect, char c)
 	return false;
 }
 
-void Alien::animation()
+void Alien::bajar() 
 {
-	renderFrame == 0 ? renderFrame = 1 : renderFrame = 0;
+	position = position + Vector2D<double>(0.0, (mothership->getLevel() * 10)); // Actualizacion del movimiento y direccion.
 }
+
 
 void const Alien::save(ofstream& fil) // Guarda: tipo-posicion-subtipo.
 {

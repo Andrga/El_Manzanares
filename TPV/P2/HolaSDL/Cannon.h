@@ -1,8 +1,7 @@
 #pragma once
 #include "SceneObject.h"
-//#include "Game.h"
 
-const double TIEMPODISPARO = 75;
+const double TIEMPODISPARO = 25;
 
 class Cannon : public SceneObject
 {
@@ -11,8 +10,10 @@ private:
 	int direction = 0; // Direcciones: -1 (izquierda), 0 (parado), 1 (derecha).
 	double elapsedTime = 0;
 	char entity = 'c';
+
+	// Parametros invencibilidad
 	bool invincible = false;
-	int timer = 0, maxTimer = 200;
+	int timer = 0, maxTimer = 20;
 
 
 public:
@@ -35,5 +36,7 @@ public:
 	void const save(ofstream& fil)override;
 
 	void setInvincible();
+
+	Point2D<double> getPos() { return position; }
 };
 

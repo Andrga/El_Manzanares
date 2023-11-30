@@ -1,7 +1,7 @@
 #pragma once
 #include "SceneObject.h"
 
-const double TIEMPOAPARICION = 1000;
+const double TIEMPOAPARICION = 100;
 
 
 class UFO : public SceneObject
