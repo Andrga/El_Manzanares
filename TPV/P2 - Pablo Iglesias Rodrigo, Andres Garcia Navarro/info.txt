@@ -1,0 +1,7 @@
+Pablo Iglesias Rodrigo
+Andrés García Navarro
+
+_Funcionalidades opcionales_
+-Inmortalidad de la nave cuando golpea al UFO.
+-Animación de los alienigenas.
+-InfoBar solo muestra en la ventana las vidas del jugador, el resto lo muestra por consola.
