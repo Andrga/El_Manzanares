@@ -11,10 +11,15 @@ Game::Game(SDL_Window* win)
 	cargado();
 	setupGame();
 	readMap();
+	
 }
 
 Game::~Game()
 {
+	for (auto e: entities)
+	{
+		delete(e);
+	}
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
