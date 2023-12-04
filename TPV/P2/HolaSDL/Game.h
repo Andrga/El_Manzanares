@@ -34,7 +34,7 @@ const string TEXTURE_ROOT = "assets/images/";
 const string MAP_PATH = "assets/maps/";
 const double SCRWIDTH = 800;
 const double SCRHEIGHT = 600;
-const double velocidadAlien = 10;
+const double velocidadAlien = 100;
 const double velocidadCannon = 15;
 const Vector2D<double> velocidadLaser(0, 10);
 enum TextureName { ALIENS, BUNKER, SPACESHIP, STARS, UFOT };
