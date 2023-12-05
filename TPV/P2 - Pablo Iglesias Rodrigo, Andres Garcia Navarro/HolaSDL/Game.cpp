@@ -11,10 +11,17 @@ Game::Game(SDL_Window* win)
 	cargado();
 	setupGame();
 	readMap();
+	
 }
 
 Game::~Game()
 {
+	//delete de las cosas
+	for (auto e: entities)
+	{
+		delete(e);
+	}
+
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
@@ -173,7 +180,8 @@ void Game::update()
 	// Bucle para eliminar la lista de objetos a eliminar.
 	for (auto e : itElims)
 	{
-		entities.erase(e);
+		entities.erase(e);//erase elimina el nodo de la lista
+		//deletea ademas de erase
 		iu++;
 	}
 
@@ -208,6 +216,8 @@ void Game::handleEvent()
 		{
 			save();
 		}
+
+		//Load aqui tu puta madre
 		else
 		{
 			//cout << "Game: funciona porfavor te lo rogamos Vs y c++ del amor hermoso os queremos..." << endl;

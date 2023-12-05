@@ -63,6 +63,7 @@ void Mothership::update()
 		//velocidadAlien += level;
 		break;
 	case Mothership::LANDED:
+		haveLanded();
 		break;
 	default:
 		break;

@@ -115,8 +115,6 @@ void Game::readMap()
 				file >> c;
 				newObj = new Laser(this, Point2D<double>(dato1, dato2), c, velocidadLaser, renderer);
 				break;
-				//case 7: // Infobar.
-					// lo que venga aqui tiene es leido por posx.
 				break;
 			default:
 				break;
