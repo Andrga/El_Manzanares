@@ -68,10 +68,43 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Alien.cpp" />
+    <ClCompile Include="Bunker.cpp" />
+    <ClCompile Include="Cannon.cpp" />
+    <ClCompile Include="FileFormatError.cpp" />
+    <ClCompile Include="FileNotFoundError.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="InfoBar.cpp" />
+    <ClCompile Include="InvadersError.cpp" />
+    <ClCompile Include="Laser.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mothership.cpp" />
+    <ClCompile Include="SceneObject.cpp" />
+    <ClCompile Include="SDLError.cpp" />
+    <ClCompile Include="ShooterAlien.cpp" />
+    <ClCompile Include="texture.cpp" />
+    <ClCompile Include="UFO.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Alien.h" />
+    <ClInclude Include="Bunker.h" />
+    <ClInclude Include="Cannon.h" />
     <ClInclude Include="checkML.h" />
+    <ClInclude Include="FileFormatError.h" />
+    <ClInclude Include="FileNotFoundError.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="gameList.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="InfoBar.h" />
+    <ClInclude Include="InvadersError.h" />
+    <ClInclude Include="Laser.h" />
+    <ClInclude Include="Mothership.h" />
+    <ClInclude Include="SceneObject.h" />
+    <ClInclude Include="SDLError.h" />
+    <ClInclude Include="ShooterAlien.h" />
+    <ClInclude Include="texture.h" />
+    <ClInclude Include="UFO.h" />
+    <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
