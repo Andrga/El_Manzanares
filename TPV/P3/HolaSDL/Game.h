@@ -8,8 +8,9 @@
 #include "Cannon.h"
 #include "Bunker.h"
 #include "Laser.h"
-#include"ShooterAlien.h"
+#include "ShooterAlien.h"
 #include "InfoBar.h"
+#include "GameStateMachine.h"
 
 #include "InvadersError.h"
 #include "SDLError.h"
@@ -34,7 +35,7 @@ const string TEXTURE_ROOT = "assets/images/";
 const string MAP_PATH = "assets/maps/";
 const double SCRWIDTH = 800;
 const double SCRHEIGHT = 600;
-const double velocidadAlien = 100;
+const double velocidadAlien = 10;
 const double velocidadCannon = 15;
 const Vector2D<double> velocidadLaser(0, 10);
 enum TextureName { ALIENS, BUNKER, SPACESHIP, STARS, UFOT };
@@ -62,25 +63,25 @@ class Game
 private:
 	std::list<SceneObject*> entities; // Lista de entidades del juego.
 	//std::list<SceneObject*>::iterator it;
-	std::list<list<SceneObject*>::iterator> itElims; //lista de iteradores objetos a eliminar
+	//std::list<list<SceneObject*>::iterator> itElims; //lista de iteradores objetos a eliminar
 
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
-	array<Texture*, NUM_TEXTURES> textures{	};
+	array<Texture*, NUM_TEXTURES> textures{	};/*
 	Cannon* canion = nullptr;
 	Mothership* mother = mother = new Mothership(this);;
 	InfoBar* info = nullptr;
-	mt19937_64 randomGenerator;
+	mt19937_64 randomGenerator;*/
 
+	//Maquina de estados
+	GameStateMachine gsMachine;
+	/*
 	string map = MAP_PATH;
 	uint32_t frameTime;
 	uint32_t startTime;
 	bool endGame = false;
-	bool _gameOver = false;
-	void readMap();
+	bool _gameOver = false;*/
 	void setupGame();
-	int iu = 0;
-	int score = 0;
 public:
 	Game(SDL_Window* win);
 
@@ -92,7 +93,7 @@ public:
 
 	void run();
 
-	void handleEvent();
+	void handleEvent();/*
 
 	int getRandomRange(int min, int max);
 
@@ -102,7 +103,7 @@ public:
 
 	void gameOver();
 
-	void save();
+	void save(string _saveNum);
 
 	void hasDied(list<SceneObject*>::iterator& ite);
 
@@ -116,6 +117,6 @@ public:
 
 	int returnScore() { return score; }
 
-	double getCannonYPos() { return canion->getPos().getY(); }
+	double getCannonYPos() { return canion->getPos().getY(); }*/
 };
 
