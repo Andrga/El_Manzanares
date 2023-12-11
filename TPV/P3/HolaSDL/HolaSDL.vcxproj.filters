@@ -16,122 +16,89 @@
     <Filter Include="Archivos de encabezado\Estados">
       <UniqueIdentifier>{0b35fcec-df67-4e06-8588-84569770c626}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Archivos de encabezado\Clases Base">
+      <UniqueIdentifier>{38c9c7ed-8923-4b42-a9ff-d515a8e3ef14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\plantillas y abstractas">
+      <UniqueIdentifier>{847168b2-d046-4d22-80e9-fb2f92891f3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de encabezado\Errores">
+      <UniqueIdentifier>{3cacc450-5897-4774-8f02-e27d8a957bd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\Estados">
+      <UniqueIdentifier>{21492f8d-e0ac-4824-bd21-69c6ded265db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\Clases base">
+      <UniqueIdentifier>{dcc12027-e4a5-4512-93c5-161f860bca3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\Errores">
+      <UniqueIdentifier>{c4e42f53-f3c1-4e31-aab2-95f06a788bca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Archivos de código fuente\Plantillas y abstractas">
+      <UniqueIdentifier>{a208358c-6b99-44cd-b60f-616606788422}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="Alien.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="Bunker.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="Cannon.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="FileFormatError.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="FileNotFoundError.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="InfoBar.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="InvadersError.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="Laser.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="Mothership.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneObject.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="SDLError.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="ShooterAlien.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="texture.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="UFO.cpp">
-      <Filter>Archivos de código fuente</Filter>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Archivos de código fuente\Estados</Filter>
     </ClCompile>
     <ClCompile Include="GameStateMachine.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
-    <ClCompile Include="GameState.cpp">
-      <Filter>Archivos de código fuente</Filter>
+      <Filter>Archivos de código fuente\Estados</Filter>
     </ClCompile>
     <ClCompile Include="PlayState.cpp">
-      <Filter>Archivos de código fuente</Filter>
+      <Filter>Archivos de código fuente\Estados</Filter>
+    </ClCompile>
+    <ClCompile Include="Alien.cpp">
+      <Filter>Archivos de código fuente\Clases base</Filter>
+    </ClCompile>
+    <ClCompile Include="Bunker.cpp">
+      <Filter>Archivos de código fuente\Clases base</Filter>
+    </ClCompile>
+    <ClCompile Include="Cannon.cpp">
+      <Filter>Archivos de código fuente\Clases base</Filter>
+    </ClCompile>
+    <ClCompile Include="InfoBar.cpp">
+      <Filter>Archivos de código fuente\Clases base</Filter>
+    </ClCompile>
+    <ClCompile Include="Laser.cpp">
+      <Filter>Archivos de código fuente\Clases base</Filter>
+    </ClCompile>
+    <ClCompile Include="Mothership.cpp">
+      <Filter>Archivos de código fuente\Clases base</Filter>
+    </ClCompile>
+    <ClCompile Include="ShooterAlien.cpp">
+      <Filter>Archivos de código fuente\Clases base</Filter>
+    </ClCompile>
+    <ClCompile Include="UFO.cpp">
+      <Filter>Archivos de código fuente\Clases base</Filter>
+    </ClCompile>
+    <ClCompile Include="InvadersError.cpp">
+      <Filter>Archivos de código fuente\Errores</Filter>
+    </ClCompile>
+    <ClCompile Include="FileNotFoundError.cpp">
+      <Filter>Archivos de código fuente\Errores</Filter>
+    </ClCompile>
+    <ClCompile Include="FileFormatError.cpp">
+      <Filter>Archivos de código fuente\Errores</Filter>
+    </ClCompile>
+    <ClCompile Include="SDLError.cpp">
+      <Filter>Archivos de código fuente\Errores</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneObject.cpp">
+      <Filter>Archivos de código fuente\Plantillas y abstractas</Filter>
+    </ClCompile>
+    <ClCompile Include="texture.cpp">
+      <Filter>Archivos de código fuente\Plantillas y abstractas</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="checkML.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="InvadersError.h">
-      <Filter>Archivos de código fuente</Filter>
-    </ClInclude>
-    <ClInclude Include="Laser.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="InfoBar.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="gameList.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="FileNotFoundError.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="FileFormatError.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Cannon.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Bunker.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Alien.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Mothership.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneObject.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="SDLError.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="ShooterAlien.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="texture.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2D.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
-    <ClInclude Include="UFO.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="GameStateMachine.h">
@@ -142,6 +109,60 @@
     </ClInclude>
     <ClInclude Include="PlayState.h">
       <Filter>Archivos de encabezado\Estados</Filter>
+    </ClInclude>
+    <ClInclude Include="Alien.h">
+      <Filter>Archivos de encabezado\Clases Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Bunker.h">
+      <Filter>Archivos de encabezado\Clases Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Cannon.h">
+      <Filter>Archivos de encabezado\Clases Base</Filter>
+    </ClInclude>
+    <ClInclude Include="InfoBar.h">
+      <Filter>Archivos de encabezado\Clases Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Laser.h">
+      <Filter>Archivos de encabezado\Clases Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Mothership.h">
+      <Filter>Archivos de encabezado\Clases Base</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>Archivos de encabezado\Clases Base</Filter>
+    </ClInclude>
+    <ClInclude Include="UFO.h">
+      <Filter>Archivos de encabezado\Clases Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ShooterAlien.h">
+      <Filter>Archivos de encabezado\Clases Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2D.h">
+      <Filter>Archivos de encabezado\plantillas y abstractas</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Archivos de encabezado\plantillas y abstractas</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneObject.h">
+      <Filter>Archivos de encabezado\plantillas y abstractas</Filter>
+    </ClInclude>
+    <ClInclude Include="gameList.h">
+      <Filter>Archivos de encabezado\plantillas y abstractas</Filter>
+    </ClInclude>
+    <ClInclude Include="checkML.h">
+      <Filter>Archivos de encabezado\plantillas y abstractas</Filter>
+    </ClInclude>
+    <ClInclude Include="FileFormatError.h">
+      <Filter>Archivos de encabezado\Errores</Filter>
+    </ClInclude>
+    <ClInclude Include="FileNotFoundError.h">
+      <Filter>Archivos de encabezado\Errores</Filter>
+    </ClInclude>
+    <ClInclude Include="SDLError.h">
+      <Filter>Archivos de encabezado\Errores</Filter>
+    </ClInclude>
+    <ClInclude Include="InvadersError.h">
+      <Filter>Archivos de encabezado\Errores</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

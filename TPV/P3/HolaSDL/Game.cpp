@@ -133,7 +133,7 @@ void Game::setupGame()
 #pragma endregion
 
 void Game::run() {
-	startTime = SDL_GetTicks();
+	/*startTime = SDL_GetTicks();
 
 
 	while (!endGame && mother->getAlienCount() > 0)
@@ -158,7 +158,7 @@ void Game::run() {
 	else if (mother->getAlienCount() <= 0)
 	{
 		cout << "WIN" << endl;
-	}
+	}*/
 }
 
 void Game::update()
