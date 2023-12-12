@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
 
 	try
 	{
-		Game* game = new Game();
+		SDLApplication* game = new SDLApplication();
 		game->run();
 		delete game;
 	}

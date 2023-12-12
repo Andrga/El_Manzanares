@@ -43,7 +43,7 @@ const textureInfo texturesList[NUM_TEXTURES]
 
 #pragma endregion
 
-class Game
+class SDLApplication
 {
 private:
 
@@ -56,8 +56,8 @@ private:
 	void setupGame();
 
 public:
-	Game();
-	~Game();
+	SDLApplication();
+	~SDLApplication();
 
 	//Metodos base
 	void Update();

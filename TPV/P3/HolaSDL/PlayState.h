@@ -1,5 +1,6 @@
 #pragma once
 #include "SDL.h"
+#include "SDLApplication.h"
 #include "Alien.h"
 #include "Mothership.h"
 #include "UFO.h"
@@ -48,7 +49,10 @@ private:
 
 	//SDL_Window* window = nullptr;
 	//SDL_Renderer* renderer = nullptr;
-	//array<Texture*, NUM_TEXTURES> textures{	};
+	const array<Texture*, NUM_TEXTURES>* textures{	};
+	const SDL_Renderer* renderer;
+
+
 	Cannon* canion = nullptr;
 	Mothership* mother = mother = new Mothership(this);;
 	InfoBar* info = nullptr;
@@ -64,15 +68,14 @@ private:
 	void readMap();
 	
 public:
-	PlayState(SDL_Window* win);
+	PlayState(const SDL_Renderer* rend, const array<Texture*, NUM_TEXTURES>* text);
 
 	~PlayState();
 
 	//Metodos overrided
 	const void render() override;
-
 	void update() override;
-
+	void run();
 	void handleEvent();
 
 	//Metodos de clase

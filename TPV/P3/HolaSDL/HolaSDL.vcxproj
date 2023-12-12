@@ -73,7 +73,7 @@
     <ClCompile Include="Cannon.cpp" />
     <ClCompile Include="FileFormatError.cpp" />
     <ClCompile Include="FileNotFoundError.cpp" />
-    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="SDLApplication.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameStateMachine.cpp" />
@@ -95,7 +95,7 @@
     <ClInclude Include="checkML.h" />
     <ClInclude Include="FileFormatError.h" />
     <ClInclude Include="FileNotFoundError.h" />
-    <ClInclude Include="Game.h" />
+    <ClInclude Include="SDLApplication.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="gameList.h" />
     <ClInclude Include="GameObject.h" />

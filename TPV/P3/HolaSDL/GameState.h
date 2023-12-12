@@ -2,7 +2,7 @@
 #include "SDL.h"
 #include "GameObject.h"
 #include "gameList.h"
-#include "Game.h"
+#include "SDLApplication.h"
 
 #include <list>
 class GameState
@@ -10,7 +10,7 @@ class GameState
 private:
 	GameList<GameObject, true> objs;
 	//list<EventHandler*> listeners;
-	Game* game;
+	SDLApplication* game;
 
 public:
 	GameState();
@@ -24,6 +24,6 @@ public:
 	virtual void addObject() = 0;
 
 	void hasDied(GameList<GameObject, true>::anchor);
-	const Game* getGame() { return game; }
+	const SDLApplication* getGame() { return game; }
 };
 

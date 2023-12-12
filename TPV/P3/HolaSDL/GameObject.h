@@ -13,12 +13,12 @@ class GameObject
 {
 
 protected:
-	Game* game; // Puntero al juego.
+	SDLApplication* game; // Puntero al juego.
 
 public:
 	GameObject(){}
 
-	GameObject(Game* gam) : game(gam) {} // Constructora.
+	GameObject(SDLApplication* gam) : game(gam) {} // Constructora.
 
 	virtual ~GameObject() = default; // Destructora.
 

@@ -5,20 +5,16 @@
 
 #pragma region constructora/destructora
 
-PlayState::PlayState(SDL_Window* win)
+PlayState::PlayState(const SDL_Renderer* rend,const array<Texture*, NUM_TEXTURES>* text)
+	: renderer(rend), textures(text)
 {
 	cargado();
 	readMap();
-	
+
 }
 
 PlayState::~PlayState()
 {
-	//delete de las cosas
-	for (auto e: entities)
-	{
-		delete(e);
-	}
 }
 
 void PlayState::readMap()
