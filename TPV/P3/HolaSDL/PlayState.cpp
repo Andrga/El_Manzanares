@@ -1,5 +1,25 @@
+#include "checkML.h"
 #include "PlayState.h"
+#include <iostream>
+#include <string>
 
+#pragma region constructora/destructora
+
+PlayState::PlayState(SDL_Window* win)
+{
+	cargado();
+	readMap();
+	
+}
+
+PlayState::~PlayState()
+{
+	//delete de las cosas
+	for (auto e: entities)
+	{
+		delete(e);
+	}
+}
 
 void PlayState::readMap()
 {
@@ -81,22 +101,39 @@ void PlayState::readMap()
 	mother->setAlienCount(nAliens);
 }
 
-void PlayState::update()
-{
-	//Esto va al state machine 
-	/*if(!endGame && mother->getAlienCount() > 0)
+#pragma endregion
+
+void PlayState::run() {
+	startTime = SDL_GetTicks();
+
+
+	while (!endGame && mother->getAlienCount() > 0)
 	{
 		handleEvent();
-			frameTime = SDL_GetTicks() - startTime;
-			if (frameTime > TIMEBETWEENFRAMES)
-			{
-				update();
-					startTime = SDL_GetTicks();
-			}
+		frameTime = SDL_GetTicks() - startTime;
+		if (frameTime > TIMEBETWEENFRAMES)
+		{
+			update();
+			startTime = SDL_GetTicks();
+		}
 		render();
 
-	}*/
+	}
 
+	if (_gameOver)
+	{
+		//system("color 04");
+		cout << "GAME OVER" << endl;
+		//system("color 07");
+	}
+	else if (mother->getAlienCount() <= 0)
+	{
+		cout << "WIN" << endl;
+	}
+}
+
+void PlayState::update()
+{
 	//Actualizacion de la nave
 	mother->update();
 	info->update();
@@ -114,7 +151,161 @@ void PlayState::update()
 	{
 		entities.erase(e);//erase elimina el nodo de la lista
 		//deletea ademas de erase
+		iu++;
 	}
 
 	itElims.clear(); // Limpia la lista de objetos a eliminar.
+}
+
+void PlayState::render()
+{
+	SDL_RenderClear(renderer);
+
+	textures[STARS]->render(); // Fondo
+
+	for (const auto i : entities)
+	{
+		i->render();
+	}
+	info->render();
+	SDL_RenderPresent(renderer); // Presentacion del render.
+}
+
+void PlayState::handleEvent()
+{
+	SDL_Event event;
+	while (SDL_PollEvent(&event) && !endGame)
+	{
+		if (event.key.keysym.sym == SDLK_ESCAPE) // Salida del juego.
+		{
+			cout << "Has cerrado el juego." << endl;
+			endGame = true;
+		}
+		else if (event.key.keysym.sym == SDLK_s) // Guardado en archivo.
+		{
+			save();
+		}
+
+		//Load aqui tu puta madre
+		else
+		{
+			//cout << "Game: funciona porfavor te lo rogamos Vs y c++ del amor hermoso os queremos..." << endl;
+			canion->handleEvents(event); // Input.
+		}
+	}
+}
+
+#pragma region Dano y fin de juego
+void PlayState::fireLaser(Point2D<double>& pos, char c)
+{
+	//cout << "Game: pium pium" << endl;
+	SceneObject* newObj = new Laser(this, pos, c, velocidadLaser, renderer);
+	entities.push_back(newObj);
+	auto it = entities.end();
+	it--;
+	newObj->setListIterator(it);
+}
+
+int PlayState::getRandomRange(int min, int max)
+{
+	return  uniform_int_distribution<int>(min, max)(randomGenerator);
+}
+
+bool PlayState::damage(SDL_Rect* _rect, char c)
+{
+	bool end = false;
+	auto it = entities.begin();
+
+	//comprueba el hit de todos los objetos o hasta que encuentra un objeto con el que choca
+	while (it != entities.end() && !end)
+	{
+		end = (*it)->hit(_rect, c);
+		it++;
+	}
+
+	return end;
+}
+
+void PlayState::gameOver()
+{
+	_gameOver = true;
+	endGame = true;
+}
+
+void PlayState::hasDied(list<SceneObject*>::iterator& ite)
+{
+	itElims.push_back(ite);
+}
+
+#pragma endregion
+
+#pragma region Carga y guardado
+void PlayState::save()
+{
+	ofstream file;
+	file.open("assets/maps/guardado.txt");
+
+	for (const auto i : entities)
+	{
+		i->save(file); // Llama a los save de todas las entidades de la lista: 0=Cannon, 1=Alien, 2=ShooterAlien, 4=Bunker, 5=UFO, 6=Laser.	
+	}
+	mother->save(file); // Llama al save de la MotherShip (3). La ponemos la ultima para que se pueda hacer el recuento de Aliens.
+	info->save(file);
+
+	file.close(); // Cierra el archivo.
+}
+void PlayState::cargado()
+{
+	cout << "Cargar mapas?\ng=guardado, o=original,l=lluvia,t=trinchera y u=urgente" << endl;
+	char respuesta;
+	bool respuestaCorrecta = false;
+	while (!respuestaCorrecta)
+	{
+		cin >> respuesta;
+		switch (respuesta)
+		{
+		case 'g':
+			map = map + "guardado.txt";
+			respuestaCorrecta = true;
+			break;
+		case 'o':
+			map = map + "original.txt";
+			respuestaCorrecta = true;
+			break;
+		case 't':
+			map = map + "trinchera.txt";
+			respuestaCorrecta = true;
+			break;
+		case 'u':
+			map = map + "urgente.txt";
+			respuestaCorrecta = true;
+			break;
+		case 'l':
+			map = map + "lluvia.txt";
+			respuestaCorrecta = true;
+
+			break;
+
+		default:
+
+			cout << "Respuesta no valida." << endl;
+			break;
+		}
+	}
+}
+#pragma endregion
+
+void PlayState::invencible() // Para poner la nave invencible, llamado por el UFO.
+{
+	canion->setInvincible();
+}
+
+int PlayState::getCannonLives() // Devuelve el numero de vidas del cannon.
+{
+	return canion->getLives();
+}
+
+void PlayState::addScore(int points)
+{
+	score += points;
 }

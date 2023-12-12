@@ -3,7 +3,7 @@
 #include "Game.h"
 
 
-Cannon::Cannon(Game* gam, Point2D<double> pos, const Texture* tex, int liv, int eTime)
+Cannon::Cannon(PlayState* gam, Point2D<double> pos, const Texture* tex, int liv, int eTime)
 	: SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), lives(liv), elapsedTime(eTime)
 {
 

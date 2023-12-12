@@ -19,7 +19,7 @@ private:
 
 public:
 	//Laser(Game* gam, Point2D<double> pos, const Texture* tex, char ent, Vector2D<double> vel);
-	Laser(Game* gam, Point2D<double> pos, char ent, Vector2D<double> vel, SDL_Renderer* _renderer);
+	Laser(PlayState* gam, Point2D<double> pos, char ent, Vector2D<double> vel, SDL_Renderer* _renderer);
 
 	~Laser();
 	

@@ -1,7 +1,7 @@
 #include "UFO.h"
 #include "Game.h"
 
-UFO::UFO(Game* gam, Point2D<double> pos, const Texture* tex, int sta, int eTime)
+UFO::UFO(PlayState* gam, Point2D<double> pos, const Texture* tex, int sta, int eTime)
 	:SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), elapsedTime(eTime)
 {
 	switch (sta) // Setear los diferentes estados en los que puede entrar el UFO y las posiciones iniciales.

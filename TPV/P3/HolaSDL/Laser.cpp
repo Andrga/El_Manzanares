@@ -9,7 +9,7 @@
 
 }
 */
-Laser::Laser(Game* gam, Point2D<double> pos, char ent, Vector2D<double> vel, SDL_Renderer* _renderer)
+Laser::Laser(PlayState* gam, Point2D<double> pos, char ent, Vector2D<double> vel, SDL_Renderer* _renderer)
 	: SceneObject(gam, pos, 3, 21,nullptr), entity(ent), velocidad(vel), renderer(_renderer)
 {
 	if (entity == 'c')

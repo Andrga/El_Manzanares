@@ -42,16 +42,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Archivos de código fuente</Filter>
-    </ClCompile>
     <ClCompile Include="GameState.cpp">
       <Filter>Archivos de código fuente\Estados</Filter>
     </ClCompile>
     <ClCompile Include="GameStateMachine.cpp">
-      <Filter>Archivos de código fuente\Estados</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayState.cpp">
       <Filter>Archivos de código fuente\Estados</Filter>
     </ClCompile>
     <ClCompile Include="Alien.cpp">
@@ -96,18 +90,18 @@
     <ClCompile Include="texture.cpp">
       <Filter>Archivos de código fuente\Plantillas y abstractas</Filter>
     </ClCompile>
+    <ClCompile Include="PlayState.cpp">
+      <Filter>Archivos de código fuente\Estados</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h">
-      <Filter>Archivos de encabezado</Filter>
-    </ClInclude>
     <ClInclude Include="GameStateMachine.h">
       <Filter>Archivos de encabezado\Estados</Filter>
     </ClInclude>
     <ClInclude Include="GameState.h">
-      <Filter>Archivos de encabezado\Estados</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayState.h">
       <Filter>Archivos de encabezado\Estados</Filter>
     </ClInclude>
     <ClInclude Include="Alien.h">
@@ -163,6 +157,12 @@
     </ClInclude>
     <ClInclude Include="InvadersError.h">
       <Filter>Archivos de encabezado\Errores</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayState.h">
+      <Filter>Archivos de encabezado\Estados</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

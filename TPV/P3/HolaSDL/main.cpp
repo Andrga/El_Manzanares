@@ -13,28 +13,31 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-	SDL_Window* window = SDL_CreateWindow("SPACE INAVERS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCRWIDTH, SCRHEIGHT, SDL_WINDOW_SHOWN);
-	
+
 	try
 	{
-		Game* game = new Game(window);
+		Game* game = new Game();
 		game->run();
 		delete game;
 	}
-	catch (FileNotFoundError& e	)
+	catch (FileNotFoundError& e)
 	{
+		SDL_Window* window = SDL_CreateWindow("SPACE INAVERS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1, 1, SDL_WINDOW_SHOWN);
 		SDL_ShowSimpleMessageBox(1, "ERROR", e.what(), window);
 	}
 	catch (SDLError& e)
 	{
+		SDL_Window* window = SDL_CreateWindow("SPACE INAVERS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1, 1, SDL_WINDOW_SHOWN);
 		SDL_ShowSimpleMessageBox(1, "ERROR", e.what(), window);
 	}
 	catch (FileFormatError& e)
 	{
+		SDL_Window* window = SDL_CreateWindow("SPACE INAVERS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1, 1, SDL_WINDOW_SHOWN);
 		SDL_ShowSimpleMessageBox(1, "ERROR", e.what(), window);
 	}
 	catch (...)
 	{
+		SDL_Window* window = SDL_CreateWindow("SPACE INAVERS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1, 1, SDL_WINDOW_SHOWN);
 		SDL_ShowSimpleMessageBox(1, "ERROR", "ERROR: Excepcion sin definir.", window);
 	}
 	return 0;

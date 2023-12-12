@@ -23,7 +23,7 @@ private:
 	// Nivel de altura.
 	int level = 0;
 public:
-	Mothership(Game* gam);
+	Mothership(PlayState* gam);
 
 	int getDirection() const { return direction; } // Devuelve la direccion de movimiento.
 

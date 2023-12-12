@@ -74,6 +74,7 @@
     <ClCompile Include="FileFormatError.cpp" />
     <ClCompile Include="FileNotFoundError.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameStateMachine.cpp" />
     <ClCompile Include="InfoBar.cpp" />
@@ -81,7 +82,6 @@
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mothership.cpp" />
-    <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="SDLError.cpp" />
     <ClCompile Include="ShooterAlien.cpp" />
@@ -96,6 +96,7 @@
     <ClInclude Include="FileFormatError.h" />
     <ClInclude Include="FileNotFoundError.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="PlayState.h" />
     <ClInclude Include="gameList.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameState.h" />
@@ -104,7 +105,6 @@
     <ClInclude Include="InvadersError.h" />
     <ClInclude Include="Laser.h" />
     <ClInclude Include="Mothership.h" />
-    <ClInclude Include="PlayState.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="SDLError.h" />
     <ClInclude Include="ShooterAlien.h" />

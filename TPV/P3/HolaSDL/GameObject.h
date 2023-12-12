@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class Game;
+class PlayState;
 
 //template <class T>
 class GameObject

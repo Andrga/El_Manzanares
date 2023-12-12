@@ -3,7 +3,7 @@
 #include "Game.h"
 
 
-InfoBar::InfoBar(Game* gam, Point2D<double> pos, const Texture* tex, int scr) : GameObject(gam), position(pos), canTexture(tex), score(scr)
+InfoBar::InfoBar(PlayState* gam, Point2D<double> pos, const Texture* tex, int scr) : GameObject(gam), position(pos), canTexture(tex), score(scr)
 {
 	pos1 = pos; // Para la muestra de vidas cogemos la posicion del infobar.
 }

@@ -6,7 +6,7 @@
 #include "Mothership.h"
 
 
-class Game;
+class PlayState;
 class Alien : public SceneObject
 {
 private:

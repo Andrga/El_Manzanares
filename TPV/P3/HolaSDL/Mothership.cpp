@@ -2,7 +2,7 @@
 #include "Mothership.h"
 #include "Game.h"
 
-Mothership::Mothership(Game* gam) 
+Mothership::Mothership(PlayState* gam) 
 	:GameObject(gam)
 {}
 bool Mothership::shouldMove()

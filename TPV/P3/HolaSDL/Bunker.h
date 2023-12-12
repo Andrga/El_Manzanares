@@ -11,7 +11,7 @@ private:
 public:
 	Bunker();
 
-	Bunker(Game* gam, int liv, Point2D<double> pos, const Texture* tex);
+	Bunker(PlayState* gam, int liv, Point2D<double> pos, const Texture* tex);
 
 	~Bunker();
 	

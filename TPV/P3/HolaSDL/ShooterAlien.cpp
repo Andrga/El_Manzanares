@@ -1,6 +1,6 @@
 #include "checkML.h"
 #include "ShooterAlien.h"
-ShooterAlien::ShooterAlien(Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot, double eTime) :
+ShooterAlien::ShooterAlien(PlayState* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot, double eTime) :
 	Alien(gam, pos, sub, tex, mot), elapsedTime(eTime)
 {}
 

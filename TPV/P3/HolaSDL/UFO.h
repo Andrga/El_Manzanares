@@ -17,7 +17,7 @@ private:
 	int timer = 0, maxTimer = 7;
 
 public:
-	UFO(Game* gam, Point2D<double> pos, const Texture* tex, int sta, int eTime);
+	UFO(PlayState* gam, Point2D<double> pos, const Texture* tex, int sta, int eTime);
 	~UFO();
 	void update()override;
 	void const render()override;

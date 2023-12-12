@@ -1,5 +1,5 @@
 #pragma once
-#include "Game.h"
+#include "PlayState.h"
 #include "Alien.h"
 
 class ShooterAlien : public Alien
@@ -11,7 +11,7 @@ private:
 	double elapsedTime = 0;
 
 public:
-	ShooterAlien(Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot, double eTime);
+	ShooterAlien(PlayState* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot, double eTime);
 
 	~ShooterAlien();
 

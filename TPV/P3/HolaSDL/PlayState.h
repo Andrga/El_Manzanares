@@ -1,5 +1,5 @@
 #pragma once
-#include "GameState.h"
+#include "SDL.h"
 #include "Alien.h"
 #include "Mothership.h"
 #include "UFO.h"
@@ -8,46 +8,81 @@
 #include "Cannon.h"
 #include "Bunker.h"
 #include "Laser.h"
-#include "ShooterAlien.h"
+#include"ShooterAlien.h"
 #include "InfoBar.h"
 
+#include "GameState.h"
+
+#include "InvadersError.h"
+#include "SDLError.h"
+#include "FileFormatError.h"
+#include "FileNotFoundError.h"
+
+
+//#include <SDL_image.h>
+#include <vector>
+#include <array>
 #include <random>
-class PlayState : public GameState
+#include <list>
+#include <iterator>
+#include <iostream>
+#include <fstream>
+#include <random>
+
+using namespace std;
+
+const string MAP_PATH = "assets/maps/";
+const double velocidadAlien = 100;
+const double velocidadCannon = 15;
+const Vector2D<double> velocidadLaser(0, 10);
+const double FRAMERATE = 20;
+const double TIMEBETWEENFRAMES = 1000 / FRAMERATE;
+
+class PlayState: public GameState
 {
 private:
-	std::list<list<SceneObject*>::iterator> itElims; //lista de iteradores objetos a eliminar
-	std::list<SceneObject> entities;
+	GameList<SceneObject, false> entities;
+	//std::list<SceneObject*> entities; // Lista de entidades del juego.
+	//std::list<SceneObject*>::iterator it;
+	//std::list<list<SceneObject*>::iterator> itElims; //lista de iteradores objetos a eliminar
 
+	//SDL_Window* window = nullptr;
+	//SDL_Renderer* renderer = nullptr;
+	//array<Texture*, NUM_TEXTURES> textures{	};
 	Cannon* canion = nullptr;
 	Mothership* mother = mother = new Mothership(this);;
 	InfoBar* info = nullptr;
 	mt19937_64 randomGenerator;
 
-	bool endGame = false;
-	bool _gameOver = false;
-
 	string map = MAP_PATH;
 	uint32_t frameTime;
 	uint32_t startTime;
+	bool endGame = false;
+	bool _gameOver = false;
+	int score = 0;
 
 	void readMap();
-
-	int score = 0;
+	
 public:
+	PlayState(SDL_Window* win);
+
+	~PlayState();
+
+	//Metodos overrided
+	const void render() override;
 
 	void update() override;
-	const void render() override;
-	void handleEvent() override;
 
-	int getRandomRange(int min, int max);
+	void handleEvent();
 
+	//Metodos de clase
 	bool damage(SDL_Rect* _rect, char c);
 
 	void fireLaser(Point2D<double>& position, char c);
 
 	void gameOver();
 
-	void save(string _saveNum);
+	const void save(ostream&) override;
 
 	void hasDied(list<SceneObject*>::iterator& ite);
 
@@ -55,12 +90,15 @@ public:
 
 	void invencible();
 
-	int getCannonLives();
-
 	void addScore(int points);
 
-	int returnScore() { return score; }
+	//Getters
+	const int getRandomRange(int min, int max);
 
-	double getCannonYPos() { return canion->getPos().getY(); }
+	const int getCannonLives();
 
+	const int returnScore() { return score; }
+
+	const double getCannonYPos() { return canion->getPos().getY(); }
 };
+
