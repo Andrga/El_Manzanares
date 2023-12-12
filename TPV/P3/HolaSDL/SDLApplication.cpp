@@ -1,17 +1,17 @@
-#include "Game.h"
-Game::Game() {
+#include "SDLApplication.h"
+SDLApplication::SDLApplication() {
 
 	setupGame();
 }
 
-Game::~Game()
+SDLApplication::~SDLApplication()
 {
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 }
 
-void Game::setupGame()
+void SDLApplication::setupGame()
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
@@ -33,31 +33,7 @@ void Game::setupGame()
 	SDL_RenderClear(renderer);
 
 }
-void Game::run() {
-	startTime = SDL_GetTicks();
 
-
-	while (!endGame && mother->getAlienCount() > 0)
-	{
-		frameTime = SDL_GetTicks() - startTime;
-		if (frameTime > TIMEBETWEENFRAMES)
-		{
-			handleEvent();
-			update();
-			startTime = SDL_GetTicks();
-		}
-		render();
-
-	}
-
-	if (_gameOver)
-	{
-		//system("color 04");
-		cout << "GAME OVER" << endl;
-		//system("color 07");
-	}
-	else if (mother->getAlienCount() <= 0)
-	{
-		cout << "WIN" << endl;
-	}
+void SDLApplication::run() {
+	
 }
