@@ -5,7 +5,7 @@
 
 #pragma region constructora/destructora
 
-PlayState::PlayState(const SDL_Renderer* rend,const array<Texture*, NUM_TEXTURES>* text)
+PlayState::PlayState(SDL_Renderer* rend, const array<Texture*, NUM_TEXTURES>* text)
 	: renderer(rend), textures(text)
 {
 	cargado();
@@ -34,7 +34,7 @@ void PlayState::readMap()
 	// Variables auxiliares.
 	int objeto, subtAlien, lives, state, nAliens = 0;
 	double dato1, dato2, dato3;
-	auto it = entities.begin();
+	auto anch = entities.begin();
 
 	while (!file.eof()) // Lectura de objetos.
 	{
@@ -86,11 +86,11 @@ void PlayState::readMap()
 			default:
 				break;
 			}
-			entities.push_back(newObj); // Metemos la nueva entidad en la lista.
+			anch = entities.push_back(newObj); // Metemos la nueva entidad en la lista.
 
-			it = entities.end();
-			it--;
-			newObj->setListIterator(it);
+			anch
+			anch--;
+			newObj->setListIterator(anch);
 
 		}
 	}
@@ -138,31 +138,35 @@ void PlayState::update()
 	// Updatea todos los elementos.
 	while (it != entities.end())
 	{
-		(*it)->update();
+		(*it).update();
 		it++;
 	}
 
-	// Bucle para eliminar la lista de objetos a eliminar.
-	for (auto e : itElims)
-	{
-		entities.erase(e);//erase elimina el nodo de la lista
-		//deletea ademas de erase
-		iu++;
-	}
+	// --- Utilizamos el metodo erase de la clase gamelist ---
+	// 
+	//// Bucle para eliminar la lista de objetos a eliminar.
+	//for (auto e : itElims)
+	//{
+	//	entities.erase(e);//erase elimina el nodo de la lista
+	//	//deletea ademas de erase
+	//	iu++;
+	//}
 
-	itElims.clear(); // Limpia la lista de objetos a eliminar.
+	//itElims.clear(); // Limpia la lista de objetos a eliminar.
 }
 
-void PlayState::render()
+const void PlayState::render()
 {
 	SDL_RenderClear(renderer);
 
-	textures[STARS]->render(); // Fondo
+	textures[STARS]->render();// Fondo
 
-	for (const auto i : entities)
+	// Actualizacion del render
+	for (auto i : entities)
 	{
-		i->render();
+		i.render();
 	}
+
 	info->render();
 	SDL_RenderPresent(renderer); // Presentacion del render.
 }
@@ -179,10 +183,21 @@ void PlayState::handleEvent()
 		}
 		else if (event.key.keysym.sym == SDLK_s) // Guardado en archivo.
 		{
-			save();
-		}
+			string num;
+			cout << "Numero de guardado de partida:";
+			cin >> num;
 
-		//Load aqui tu puta madre
+			ofstream file;
+			file.open("assets/maps/guardado" + num + ".txt");
+			save(file);
+
+			file.close();
+		}
+		//else if (event.key.keysym.sym == SDLK_l) // Cargar partida.
+		//{
+		//	save();
+		//}
+
 		else
 		{
 			//cout << "Game: funciona porfavor te lo rogamos Vs y c++ del amor hermoso os queremos..." << endl;
@@ -202,12 +217,12 @@ void PlayState::fireLaser(Point2D<double>& pos, char c)
 	newObj->setListIterator(it);
 }
 
-int PlayState::getRandomRange(int min, int max)
-{
-	return  uniform_int_distribution<int>(min, max)(randomGenerator);
-}
+//int PlayState::getRandomRange(int min, int max)
+//{
+//	return  uniform_int_distribution<int>(min, max)(randomGenerator);
+//}
 
-bool PlayState::damage(SDL_Rect* _rect, char c)
+bool PlayState::damage(SDL_Rect _rect, char c)
 {
 	bool end = false;
 	auto it = entities.begin();
@@ -215,7 +230,7 @@ bool PlayState::damage(SDL_Rect* _rect, char c)
 	//comprueba el hit de todos los objetos o hasta que encuentra un objeto con el que choca
 	while (it != entities.end() && !end)
 	{
-		end = (*it)->hit(_rect, c);
+		end = (*it).hit(_rect, c);
 		it++;
 	}
 
@@ -228,28 +243,39 @@ void PlayState::gameOver()
 	endGame = true;
 }
 
-void PlayState::hasDied(list<SceneObject*>::iterator& ite)
+void PlayState::hasDied(GameList<SceneObject, false>::anchor anch)
 {
-	itElims.push_back(ite);
+	entities.erase(anch);
 }
 
 #pragma endregion
 
 #pragma region Carga y guardado
-void PlayState::save()
-{
-	ofstream file;
-	file.open("assets/maps/guardado.txt");
+//void PlayState::save(string num)
+//{
+//	ofstream file;
+//	file.open("assets/maps/guardado.txt");
+//
+//	for (const auto i : entities)
+//	{
+//		i->save(file); // Llama a los save de todas las entidades de la lista: 0=Cannon, 1=Alien, 2=ShooterAlien, 4=Bunker, 5=UFO, 6=Laser.	
+//	}
+//	mother->save(file); // Llama al save de la MotherShip (3). La ponemos la ultima para que se pueda hacer el recuento de Aliens.
+//	info->save(file);
+//
+//	file.close(); // Cierra el archivo.
+//}
 
-	for (const auto i : entities)
+const void PlayState::save(ostream& file)
+{
+	for (auto i : entities)
 	{
-		i->save(file); // Llama a los save de todas las entidades de la lista: 0=Cannon, 1=Alien, 2=ShooterAlien, 4=Bunker, 5=UFO, 6=Laser.	
+		i.save(file); // Llama a los save de todas las entidades de la lista: 0=Cannon, 1=Alien, 2=ShooterAlien, 4=Bunker, 5=UFO, 6=Laser.	
 	}
 	mother->save(file); // Llama al save de la MotherShip (3). La ponemos la ultima para que se pueda hacer el recuento de Aliens.
 	info->save(file);
-
-	file.close(); // Cierra el archivo.
 }
+
 void PlayState::cargado()
 {
 	cout << "Cargar mapas?\ng=guardado, o=original,l=lluvia,t=trinchera y u=urgente" << endl;
@@ -291,17 +317,17 @@ void PlayState::cargado()
 }
 #pragma endregion
 
-void PlayState::invencible() // Para poner la nave invencible, llamado por el UFO.
-{
-	canion->setInvincible();
-}
+//void PlayState::invencible() // Para poner la nave invencible, llamado por el UFO.
+//{
+//	canion->setInvincible();
+//}
 
-int PlayState::getCannonLives() // Devuelve el numero de vidas del cannon.
-{
-	return canion->getLives();
-}
-
-void PlayState::addScore(int points)
-{
-	score += points;
-}
+//int PlayState::getCannonLives() // Devuelve el numero de vidas del cannon.
+//{
+//	return canion->getLives();
+//}
+//
+//void PlayState::addScore(int points)
+//{
+//	score += points;
+//}

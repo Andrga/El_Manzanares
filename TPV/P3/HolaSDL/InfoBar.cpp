@@ -1,6 +1,6 @@
 #include "checkML.h"
 #include "InfoBar.h"
-#include "Game.h"
+#include "PlayState.h"
 
 
 InfoBar::InfoBar(PlayState* gam, Point2D<double> pos, const Texture* tex, int scr) : GameObject(gam), position(pos), canTexture(tex), score(scr)
@@ -39,7 +39,7 @@ void const InfoBar::render()
 	}
 }
 
-void const InfoBar::save(ofstream& fil) // Guarda: tipo-score.
+void const InfoBar::save(ostream& fil) // Guarda: tipo-score.
 {
 	fil << 7 << " " << score << "\n";
 }

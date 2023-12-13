@@ -65,6 +65,6 @@ public:
 	void run();
 
 	//Getters
-	const Texture* getTexture(string TextureName) { return textures[]; }
+	const Texture* getTexture(string TextureName) { return textures; }
 };
 

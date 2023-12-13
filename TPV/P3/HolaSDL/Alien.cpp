@@ -1,7 +1,7 @@
 #include "checkML.h"
 #include "Alien.h"
 #include "checkML.h"
-#include "Game.h"
+#include "Playstate.h"
 
 // Constructora
 Alien::Alien(PlayState* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot)
@@ -67,7 +67,7 @@ bool Alien::hit(SDL_Rect _rect, char c)
 			default:
 				break;
 			}
-			game->hasDied(ownIte);
+			game->hasDied(ownAnch);
 			mothership->alienDied();
 			return true;
 		}
@@ -76,7 +76,7 @@ bool Alien::hit(SDL_Rect _rect, char c)
 }
 
 
-void const Alien::save(ofstream& fil) // Guarda: tipo-posicion-subtipo.
+void const Alien::save(ostream& fil) // Guarda: tipo-posicion-subtipo.
 {
 	fil << 1 << " " << position.getX() << " " << position.getY() << " " << subtipo << " " << "\n";
 }

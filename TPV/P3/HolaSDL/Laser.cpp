@@ -1,6 +1,6 @@
 #include "checkML.h"
 #include "Laser.h"
-#include "Game.h"
+#include "PlayState.h"
 #include "SDL.h"
 
 /*Laser::Laser(Game* gam, Point2D<double> pos, const Texture* tex, char ent, Vector2D<double> vel)
@@ -42,9 +42,9 @@ void Laser::update()
 	}
 
 	//Salida de limites de la bala.
-	if (position.getY() <= 0 || position.getY() >= SCRHEIGHT-10) game->hasDied(ownIte);
+	if (position.getY() <= 0 || position.getY() >= SCRHEIGHT-10) game->hasDied(ownAnch);
 	//Comprueba si la bala choca.
-	if (game->damage(&rect, entity)) game->hasDied(ownIte);
+	if (game->damage(&rect, entity)) game->hasDied(ownAnch);
 }
 
 void const Laser::render() 
@@ -70,7 +70,7 @@ bool Laser::hit(SDL_Rect _rect, char c)
 	return false;
 }
 
-void const Laser::save(ofstream& fil) // Guarda: tipo-posicion-quienHaDisparado.
+void const Laser::save(ostream& fil) // Guarda: tipo-posicion-quienHaDisparado.
 {
 	fil << 6 << " " << position.getX() << " " << position.getY() << " " << entity << "\n";
 }

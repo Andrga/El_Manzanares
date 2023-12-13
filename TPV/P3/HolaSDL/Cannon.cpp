@@ -1,6 +1,6 @@
 #include "checkML.h"
 #include "Cannon.h"
-#include "Game.h"
+#include "Playstate.h"
 
 
 Cannon::Cannon(PlayState* gam, Point2D<double> pos, const Texture* tex, int liv, int eTime)

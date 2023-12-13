@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "gameList.h"
 #include "Vector2D.h"
 #include "texture.h"
 
@@ -13,11 +14,11 @@ protected:
 	const Texture* texture = nullptr;
 	//bool alive = true;
 	SDL_Rect rect;
-	list<SceneObject*>::iterator ownIte;
+	GameList<SceneObject, false>::anchor ownAnch;
 
 public:
 
-	SceneObject(Game* gam, Point2D<double> pos, int wid, int hei, const Texture* tex) // Constructora.
+	SceneObject(PlayState* gam, Point2D<double> pos, int wid, int hei, const Texture* tex) // Constructora.
 		: GameObject(gam), position(pos), width(wid), height(hei), texture(tex)
 	{
 		rect.w = wid;
@@ -26,6 +27,6 @@ public:
 
 	virtual bool hit(SDL_Rect _rect, char c) = 0;
 
-	void setListIterator(list<SceneObject*>::iterator& it) { ownIte = it; }
+	void setListIterator(GameList<SceneObject, false>::anchor& anc) { ownAnch = anc; }
 };
 

@@ -13,12 +13,12 @@ class GameObject
 {
 
 protected:
-	SDLApplication* game; // Puntero al juego.
+	PlayState* game; // Puntero al juego.
 
 public:
-	GameObject(){}
+	GameObject() {};
 
-	GameObject(SDLApplication* gam) : game(gam) {} // Constructora.
+	GameObject(PlayState* gam) : game(gam) {} // Constructora.
 
 	virtual ~GameObject() = default; // Destructora.
 
@@ -26,5 +26,5 @@ public:
 
 	virtual void update() = 0;
 
-	virtual void const save(ofstream& fil) = 0;
+	virtual void const save(ostream& fil) = 0;
 };

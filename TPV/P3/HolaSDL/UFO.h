@@ -21,7 +21,7 @@ public:
 	~UFO();
 	void update()override;
 	void const render()override;
-	void const save(ofstream& fil)override;
+	void const save(ostream& fil)override;
 	bool hit(SDL_Rect _rect, char c)override;
 	void reset();
 };

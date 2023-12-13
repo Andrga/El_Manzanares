@@ -21,6 +21,6 @@ public:
 
 	double setTime();
 
-	void const save(ofstream& fil)override;
+	void const save(ostream& fil)override;
 };
 

@@ -5,8 +5,6 @@
 #include "SceneObject.h"
 #include "Mothership.h"
 
-
-class PlayState;
 class Alien : public SceneObject
 {
 private:
@@ -32,7 +30,7 @@ private:
 
 public:
 	Alien();
-	Alien(Game* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot);
+	Alien(PlayState* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot);
 	~Alien();
 	void update() override;
 	const void render() override;
@@ -41,7 +39,7 @@ public:
 
 	//list<SceneObject*>::iterator getIterator() { return ownIte; }
 
-	void const save(ofstream& fil)override;
+	void const save(ostream& fil)override;
 };
 
 

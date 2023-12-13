@@ -21,6 +21,6 @@ public:
 
 	bool hit(SDL_Rect rect, char c) override;
 	
-	void const save(ofstream& fil)override;
+	void const save(ostream& fil)override;
 };
 

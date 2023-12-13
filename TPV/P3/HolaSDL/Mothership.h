@@ -45,7 +45,7 @@ public:
 
 	void const render() override;
 
-	void const save(ofstream& fil)override;
+	void const save(ostream& fil)override;
 
 	void setMotherParams(int sta, int lev, int esp);
 

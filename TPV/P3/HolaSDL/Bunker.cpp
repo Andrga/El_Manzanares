@@ -1,6 +1,6 @@
 #include "checkML.h"
 #include "Bunker.h"
-#include "game.h"
+#include "Playstate.h"
 
 
 Bunker::Bunker(PlayState* gam, int liv, Point2D<double> pos, const Texture* tex)
@@ -29,7 +29,7 @@ bool Bunker::hit(SDL_Rect _rect, char c)
 			lives--;
 			if (lives <= 0)
 			{
-				game->hasDied(ownIte);
+				game->hasDied(ownAnch);
 			}
 			return true;
 		}
@@ -45,7 +45,7 @@ void const Bunker::render()
 	texture->renderFrame(rect, 0, maxLives - lives);
 }
 
-void const Bunker::save(ofstream& fil) // Guarda: tipo-posicion-vidas.
+void const Bunker::save(ostream& fil) // Guarda: tipo-posicion-vidas.
 {
 	fil << 4 << " " << position.getX() << " " << position.getY() << " " << lives << "\n";
 }

@@ -1,5 +1,5 @@
 #include "UFO.h"
-#include "Game.h"
+#include "Playstate.h"
 
 UFO::UFO(PlayState* gam, Point2D<double> pos, const Texture* tex, int sta, int eTime)
 	:SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), elapsedTime(eTime)
@@ -76,7 +76,7 @@ void const UFO::render()
 	}
 }
 
-void const UFO::save(ofstream& fil) // Guarda: tipo-posicion-estado-tiempoParaAparecer.
+void const UFO::save(ostream& fil) // Guarda: tipo-posicion-estado-tiempoParaAparecer.
 {
 	fil << 5 << " " << position.getX() << " " << position.getY() << "  " << UFOstate << " " << elapsedTime << "\n";
 }

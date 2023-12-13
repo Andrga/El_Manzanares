@@ -33,7 +33,7 @@ public:
 
 	//list<SceneObject*>::iterator getIterator() { return ownIte; }
 
-	void const save(ofstream& fil)override;
+	void const save(ostream& fil)override;
 
 	void setInvincible();
 

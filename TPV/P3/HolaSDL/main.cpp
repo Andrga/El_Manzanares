@@ -3,7 +3,7 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include <iostream>
-#include "Game.h"
+#include "SDLApplication.h"
 
 #include "InvadersError.h"
 #include "SDLError.h"

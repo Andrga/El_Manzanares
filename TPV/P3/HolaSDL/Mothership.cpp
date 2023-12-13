@@ -1,6 +1,6 @@
 #include "checkML.h"
 #include "Mothership.h"
-#include "Game.h"
+#include "PlayState.h"
 
 Mothership::Mothership(PlayState* gam) 
 	:GameObject(gam)
@@ -78,7 +78,7 @@ void Mothership::update()
 void const Mothership::render()
 {}
 
-void const Mothership::save(ofstream& fil) // Guarda: tipo-nAliens.
+void const Mothership::save(ostream& fil) // Guarda: tipo-nAliens.
 {
 	fil << "3 " << _state << " " << level << " " << elapsedTime << "\n";
 }

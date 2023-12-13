@@ -39,7 +39,7 @@ const Vector2D<double> velocidadLaser(0, 10);
 const double FRAMERATE = 20;
 const double TIMEBETWEENFRAMES = 1000 / FRAMERATE;
 
-class PlayState: public GameState
+class PlayState : public GameState
 {
 private:
 	GameList<SceneObject, false> entities;
@@ -49,8 +49,8 @@ private:
 
 	//SDL_Window* window = nullptr;
 	//SDL_Renderer* renderer = nullptr;
-	const array<Texture*, NUM_TEXTURES>* textures{	};
-	const SDL_Renderer* renderer;
+	array<Texture*, NUM_TEXTURES> textures;
+	SDL_Renderer* renderer;
 
 
 	Cannon* canion = nullptr;
@@ -66,9 +66,9 @@ private:
 	int score = 0;
 
 	void readMap();
-	
+
 public:
-	PlayState(const SDL_Renderer* rend, const array<Texture*, NUM_TEXTURES>* text);
+	PlayState(SDL_Renderer* rend, const array<Texture*, NUM_TEXTURES>* text);
 
 	~PlayState();
 
@@ -77,31 +77,21 @@ public:
 	void update() override;
 	void run();
 	void handleEvent();
+	const void save(ostream& file) override;
 
 	//Metodos de clase
-	bool damage(SDL_Rect* _rect, char c);
-
+	bool damage(SDL_Rect _rect, char c);
 	void fireLaser(Point2D<double>& position, char c);
-
 	void gameOver();
-
-	const void save(ostream&) override;
-
-	void hasDied(list<SceneObject*>::iterator& ite);
-
+	void hasDied(GameList<SceneObject, false>::anchor anch);
 	void cargado();
-
-	void invencible();
-
-	void addScore(int points);
+	void invencible() { canion->setInvincible(); }
+	void addScore(int points) { score += points; }
 
 	//Getters
-	const int getRandomRange(int min, int max);
-
-	const int getCannonLives();
-
+	const int getRandomRange(int min, int max) { return  uniform_int_distribution<int>(min, max)(randomGenerator); }
+	const int getCannonLives() { return canion->getLives(); }
 	const int returnScore() { return score; }
-
 	const double getCannonYPos() { return canion->getPos().getY(); }
 };
 

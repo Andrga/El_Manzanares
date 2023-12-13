@@ -15,7 +15,7 @@ private:
 
 public:
 
-	InfoBar(Game* gam, Point2D<double> pos, const Texture* tex, int scr);
+	InfoBar(PlayState* gam, Point2D<double> pos, const Texture* tex, int scr);
 
 	~InfoBar();
 
@@ -23,6 +23,6 @@ public:
 
 	void const render() override;
 
-	void const save(ofstream& fil)override;
+	void const save(ostream& fil)override;
 };
 
