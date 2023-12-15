@@ -45,18 +45,18 @@ void Laser::update()
 	if (position.getY() <= 0 || position.getY() >= SCRHEIGHT-10) playST->hasDied(ownAnch);
 	//Comprueba si la bala choca.
 	if (playST->damage(rect, entity)) playST->hasDied(ownAnch);
-}
 
-void const Laser::render() 
-{
+	// Actualizacion del rect.
 	rect.x = position.getX() + (15); // +15 para que aparezca en el centro de la nave.
 	rect.y = position.getY();
+}
 
-
+void Laser::render() const
+{
 	renderRect();
 }
 
-void Laser::renderRect() {
+void Laser::renderRect() const {
 	SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
 	SDL_RenderFillRect(renderer, &rect);
 }
@@ -70,7 +70,7 @@ bool Laser::hit(SDL_Rect _rect, char c)
 	return false;
 }
 
-void const Laser::save(ostream& fil) // Guarda: tipo-posicion-quienHaDisparado.
+void Laser::save(ostream& fil) const // Guarda: tipo-posicion-quienHaDisparado.
 {
 	fil << 6 << " " << position.getX() << " " << position.getY() << " " << entity << "\n";
 }

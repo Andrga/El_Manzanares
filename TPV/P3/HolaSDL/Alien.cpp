@@ -41,7 +41,7 @@ void Alien::update()
 	}
 }
 
-const void Alien::render()
+void Alien::render() const
 {
 	texture->renderFrame(rect, subtipo, renderFrame);
 }
@@ -76,7 +76,7 @@ bool Alien::hit(SDL_Rect _rect, char c)
 }
 
 
-void const Alien::save(ostream& fil) // Guarda: tipo-posicion-subtipo.
+void Alien::save(ostream& fil) const // Guarda: tipo-posicion-subtipo.
 {
 	fil << 1 << " " << position.getX() << " " << position.getY() << " " << subtipo << " " << "\n";
 }

@@ -18,7 +18,7 @@ public:
 
 	// Metodos heredados.
 	void update() override;
-	void const save(ostream& fil)override;
+	void save(ostream& fil) const override;
 	
 	//Metodos de clase.
 	void shoot();

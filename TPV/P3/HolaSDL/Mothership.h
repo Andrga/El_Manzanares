@@ -2,12 +2,16 @@
 #include "GameObject.h"
 #include <vector>
 
+class PlayState;
+
 class Mothership : public GameObject
 {
 private:
 
 	enum state : int { MOVE, STOP, SPIN, LANDED };
 	state _state = MOVE;
+
+	PlayState* playST = nullptr;
 
 	// Contador para moverse.
 	int maxTime = 10;
@@ -23,32 +27,28 @@ private:
 	// Nivel de altura.
 	int level = 0;
 public:
-	Mothership(PlayState* gam);
 
-	int getDirection() const { return direction; } // Devuelve la direccion de movimiento.
+	// Constructora / Destructora.
+	Mothership(PlayState* plST, SDLApplication* appl);
 
+	// Metodos heredados
+	void update() override;
+	void render() const override;
+	void save(ostream& fil) const override;
+
+	// Metodos de clase
+	void alienDied();
+	void alienLanded();
+	void haveLanded();
+	void canNotMove();
 	bool shouldMove();
 
-	void canNotMove();
-
-	int getAlienCount() const;
-
-	void alienDied();
-
-	void alienLanded();
-
-	void haveLanded();
-
+	//Getters / Setters
 	int getLevel() { return level; }
-
-	void update() override;
-
-	void const render() override;
-
-	void const save(ostream& fil)override;
+	int getAlienCount() const;
+	int getDirection() const { return direction; } // Devuelve la direccion de movimiento.
 
 	void setMotherParams(int sta, int lev, int esp);
-
 	void setAlienCount(int _nAliens);
 };
 

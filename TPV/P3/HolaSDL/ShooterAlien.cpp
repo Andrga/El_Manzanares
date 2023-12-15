@@ -27,7 +27,7 @@ double ShooterAlien::setTime()
 	return reloadTime = playST->getRandomRange(minShootTime, maxShootTime);
 }
 
-void const ShooterAlien::save(ostream& fil) // Guarda: tipo-posicion-subitpo-tiempoParaDisparar.
+void ShooterAlien::save(ostream& fil) const // Guarda: tipo-posicion-subitpo-tiempoParaDisparar.
 {
 	fil << 2 << " " << position.getX() << " " << position.getY() << "  " << 0 << " " << elapsedTime << "\n";
 }

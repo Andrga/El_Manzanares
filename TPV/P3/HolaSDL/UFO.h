@@ -24,8 +24,8 @@ public:
 
 	// Metodos heredados.
 	void update()override;
-	void const render()override;
-	void const save(ostream& fil)override;
+	void render() const override;
+	void save(ostream& fil) const override;
 	bool hit(SDL_Rect _rect, char c)override;
 
 	// Metodos de clase.

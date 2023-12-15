@@ -1,5 +1,6 @@
 #include "checkML.h"
 #include "PlayState.h"
+#include "SDLApplication.h"
 #include "GameState.h"
 #include <iostream>
 #include <string>
@@ -9,10 +10,6 @@
 PlayState::PlayState(SDL_Renderer* rend)
 	: renderer(rend)
 {
-	for (int i = 0; i < NUM_TEXTURES; i++)
-	{
-		textures[i] = new Texture(renderer, (TEXTURE_ROOT + texturesList[i].name + ".png").c_str(), texturesList[i].rows, texturesList[i].cols);
-	}
 
 	cargado();
 	readMap();
@@ -30,11 +27,11 @@ void PlayState::readMap()
 	file.open(map);
 	if (file.fail())
 	{
-		throw FileNotFoundError("No se puede encuentra el archivo: " + map);
+		throw FileNotFoundError("No se puede encuentra el archivo: "s + map);
 	}
 	if (file.peek() == std::ifstream::traits_type::eof())
 	{
-		throw FileFormatError("El siguiente archivo esta vacio: ", map);
+		throw FileFormatError("El siguiente archivo esta vacio: "s + map);
 	}
 
 	// Variables auxiliares.
@@ -53,7 +50,7 @@ void PlayState::readMap()
 		}
 		else if (objeto == 7) // InfoBar no se mete en la lista.
 		{
-			info = new InfoBar(this, Point2D<double>(10, SCRHEIGHT - 30), getGame()->getTexture("as"), dato1);
+			info = new InfoBar(this, getGame(), Point2D<double>(10, SCRHEIGHT - 30), getGame()->getTexture("spaceship"), dato1);
 		}
 		else
 		{
@@ -62,26 +59,26 @@ void PlayState::readMap()
 			{
 			case 0: // Cannon.
 				file >> lives >> dato3;
-				canion = new Cannon(this, Point2D<double>(dato1, dato2), textures[SPACESHIP], lives, dato3);
+				canion = new Cannon(this, Point2D<double>(dato1, dato2), getGame()->getTexture("spaceship"), lives, dato3);
 				newObj = canion;
 				break;
 			case 1: // Aliens.
 				file >> subtAlien;
-				newObj = new Alien(this, Point2D<double>(dato1, dato2), subtAlien, textures[ALIENS], mother);
+				newObj = new Alien(this, Point2D<double>(dato1, dato2), subtAlien, getGame()->getTexture("aliens"), mother);
 				nAliens++;
 				break;
 			case 2: // ShooterAliens.
 				file >> subtAlien >> dato3;
-				newObj = new ShooterAlien(this, Point2D<double>(dato1, dato2), subtAlien, textures[ALIENS], mother, dato3);
+				newObj = new ShooterAlien(this, Point2D<double>(dato1, dato2), subtAlien, getGame()->getTexture("aliens"), mother, dato3);
 				nAliens++;
 				break;
 			case 4: // Bunkers.
 				file >> lives;
-				newObj = new Bunker(this, lives, Point2D<double>(dato1, dato2), textures[BUNKER]);
+				newObj = new Bunker(this, lives, Point2D<double>(dato1, dato2), getGame()->getTexture("bunker"));
 				break;
 			case 5: // UFO.
 				file >> state >> dato3;
-				newObj = new UFO(this, Point2D<double>(dato1, dato2), textures[UFOT], state, dato3);
+				newObj = new UFO(this, Point2D<double>(dato1, dato2), getGame()->getTexture("Ufo"), state, dato3);
 				break;
 			case 6: // Lasers.
 				char c;
@@ -90,6 +87,7 @@ void PlayState::readMap()
 				break;
 				break;
 			default:
+				throw FileFormatError("Objeto inesperado");
 				break;
 			}
 			entities.push_back(newObj); // Metemos la nueva entidad en la lista
@@ -159,7 +157,7 @@ const void PlayState::render()
 {
 	SDL_RenderClear(renderer);
 
-	textures[STARS]->render();// Fondo
+	getGame()->getTexture("stars")->render();// Fondo
 
 	// Actualizacion del render
 	for (auto i : entities)

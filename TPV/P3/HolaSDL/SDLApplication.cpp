@@ -39,7 +39,7 @@ void SDLApplication::run() {
 
 }
 
-const Texture* SDLApplication::getTexture(string _textureName)
+Texture* SDLApplication::getTexture(string _textureName) const
 {
 	int i = 0;
 	bool enc = false;

@@ -2,8 +2,8 @@
 #include "Mothership.h"
 #include "PlayState.h"
 
-Mothership::Mothership(PlayState* gam) 
-	:GameObject(gam)
+Mothership::Mothership(PlayState* plST, SDLApplication* appl) 
+	:GameObject(appl), playST(plST)
 {}
 bool Mothership::shouldMove()
 {
@@ -75,10 +75,10 @@ void Mothership::update()
 
 }
 
-void const Mothership::render()
+void Mothership::render() const
 {}
 
-void const Mothership::save(ostream& fil) // Guarda: tipo-nAliens.
+void Mothership::save(ostream& fil) const // Guarda: tipo-nAliens.
 {
 	fil << "3 " << _state << " " << level << " " << elapsedTime << "\n";
 }

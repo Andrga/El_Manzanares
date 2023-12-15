@@ -61,10 +61,10 @@ public:
 
 	//Metodos base
 	void Update();
-	const void Render();
+	void Render() const;
 	void run();
 
 	//Getters
-	const Texture* getTexture(string _textureName);
+	Texture* getTexture(string _textureName) const;
 };
 

@@ -40,12 +40,12 @@ void Bunker::update()
 {
 }
 
-void const Bunker::render()
+void Bunker::render()const
 {
 	texture->renderFrame(rect, 0, maxLives - lives);
 }
 
-void const Bunker::save(ostream& fil) // Guarda: tipo-posicion-vidas.
+void Bunker::save(ostream& fil) const // Guarda: tipo-posicion-vidas.
 {
 	fil << 4 << " " << position.getX() << " " << position.getY() << " " << lives << "\n";
 }

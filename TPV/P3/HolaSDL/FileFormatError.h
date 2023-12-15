@@ -3,6 +3,6 @@
 class FileFormatError : public InvadersError
 {
 public:
-	FileFormatError(const string& mes, string fil) : InvadersError(mes+ fil){}
+	FileFormatError(const string& mes) : InvadersError(mes){}
 };
 

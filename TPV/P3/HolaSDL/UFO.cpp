@@ -42,6 +42,10 @@ void UFO::update()
 			//cout << "UFO: ahora deberia de pasar a estar oculto porque se ha ido de limites." << endl;
 			reset(); // Reseteo.
 		}
+
+		// Update rect.b
+		rect.x = position.getX();
+		rect.y = position.getY();
 	}
 	else if (UFOstate == DESTRUIDO)
 	{
@@ -61,10 +65,8 @@ void UFO::update()
 	elapsedTime++;
 }
 
-void const UFO::render()
+void UFO::render() const
 {
-	rect.x = position.getX();
-	rect.y = position.getY();
 
 	if (UFOstate == VISIBLE) // textura del UFO cuando pasa por la pantalla.
 	{
@@ -76,7 +78,7 @@ void const UFO::render()
 	}
 }
 
-void const UFO::save(ostream& fil) // Guarda: tipo-posicion-estado-tiempoParaAparecer.
+void UFO::save(ostream& fil) const // Guarda: tipo-posicion-estado-tiempoParaAparecer.
 {
 	fil << 5 << " " << position.getX() << " " << position.getY() << "  " << UFOstate << " " << elapsedTime << "\n";
 }

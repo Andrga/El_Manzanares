@@ -98,7 +98,7 @@ void Cannon::update()
 
 }
 
-void const Cannon::render()
+void Cannon::render() const
 {
 
 	if (invincible) // Cuando la nave es invencible.
@@ -112,7 +112,7 @@ void const Cannon::render()
 
 }
 
-void const Cannon::save(ostream& fil) // Guarda: tipo-posicion-vidas-tiempoParaDisparar.
+void Cannon::save(ostream& fil) const // Guarda: tipo-posicion-vidas-tiempoParaDisparar.
 {
 	fil << 0 << " " << position.getX() << " " << position.getY() << " " << lives << " " << elapsedTime << "\n";
 }

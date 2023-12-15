@@ -1,6 +1,6 @@
 #pragma once
 #include "SDL.h"
-#include "SDLApplication.h"
+//#include "SDLApplication.h"
 #include "Alien.h"
 #include "Mothership.h"
 #include "UFO.h"
@@ -9,7 +9,7 @@
 #include "Cannon.h"
 #include "Bunker.h"
 #include "Laser.h"
-#include"ShooterAlien.h"
+#include "ShooterAlien.h"
 #include "InfoBar.h"
 
 #include "GameState.h"
@@ -54,7 +54,7 @@ private:
 
 
 	Cannon* canion = nullptr;
-	Mothership* mother = mother = new Mothership(this);;
+	Mothership* mother = new Mothership(this, getGame());
 	InfoBar* info = nullptr;
 	mt19937_64 randomGenerator;
 

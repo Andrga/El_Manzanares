@@ -6,26 +6,28 @@
 
 using namespace std;
 
-class PlayState;
+class SDLApplication;
+class GameState;
 
 //template <class T>
 class GameObject
 {
 
 protected:
-	PlayState* playST; // Puntero al juego.
+	const SDLApplication* sdlAppl = nullptr; // Puntero al juego.
+	GameState* gameST = nullptr; // Puntero al estado de juego
 
 public:
 
 	GameObject() {};
 
-	GameObject(PlayState* plST) : playST(plST) {} // Constructora.
+	GameObject(SDLApplication* appl) : sdlAppl(appl) {} // Constructora.
 
 	~GameObject() = default; // Destructora.
 
-	virtual void const render() = 0;
+	virtual void render() const = 0;
 
 	virtual void update() = 0;
 
-	virtual void const save(ostream& fil) = 0;
+	virtual void save(ostream& fil) const = 0;
 };

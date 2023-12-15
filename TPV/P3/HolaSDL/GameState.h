@@ -4,13 +4,15 @@
 #include "gameList.h"
 
 #include <list>
+
 class SDLApplication;
+
 class GameState
 {
 private:
 	GameList<GameObject, true> objs;
 	//list<EventHandler*> listeners;
-	SDLApplication* game;
+	SDLApplication* sdlapp;
 
 public:
 	GameState();
@@ -24,6 +26,6 @@ public:
 	virtual void addObject() = 0;
 
 	void hasDied(GameList<GameObject, true>::anchor);
-	const SDLApplication* getGame() { return game; };
+	SDLApplication* getGame() const { return sdlapp; };
 };
 
