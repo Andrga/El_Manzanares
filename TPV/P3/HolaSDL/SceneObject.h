@@ -4,7 +4,6 @@
 #include "Vector2D.h"
 #include "texture.h"
 
-
 class SceneObject : public GameObject
 {
 protected:
@@ -25,8 +24,8 @@ public:
 		rect.h = hei;
 	}
 
-	virtual bool hit(SDL_Rect _rect, char c) = 0;
+	virtual bool hit(SDL_Rect _rect, char c);
 
-	void setListIterator(GameList<SceneObject, false>::anchor& anc) { ownAnch = anc; }
+	void setListAnchor(GameList<SceneObject, false>::anchor& anc) { ownAnch = anc; }
 };
 

@@ -9,8 +9,8 @@
 
 }
 */
-Laser::Laser(PlayState* gam, Point2D<double> pos, char ent, Vector2D<double> vel, SDL_Renderer* _renderer)
-	: SceneObject(gam, pos, 3, 21,nullptr), entity(ent), velocidad(vel), renderer(_renderer)
+Laser::Laser(PlayState* playST, Point2D<double> pos, char ent, Vector2D<double> vel, SDL_Renderer* _renderer)
+	: SceneObject(playST, pos, 3, 21,nullptr), entity(ent), velocidad(vel), renderer(_renderer)
 {
 	if (entity == 'c')
 	{
@@ -42,9 +42,9 @@ void Laser::update()
 	}
 
 	//Salida de limites de la bala.
-	if (position.getY() <= 0 || position.getY() >= SCRHEIGHT-10) game->hasDied(ownAnch);
+	if (position.getY() <= 0 || position.getY() >= SCRHEIGHT-10) playST->hasDied(ownAnch);
 	//Comprueba si la bala choca.
-	if (game->damage(&rect, entity)) game->hasDied(ownAnch);
+	if (playST->damage(rect, entity)) playST->hasDied(ownAnch);
 }
 
 void const Laser::render() 

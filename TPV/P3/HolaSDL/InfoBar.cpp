@@ -12,10 +12,10 @@ InfoBar::~InfoBar() {}
 
 void InfoBar::update()
 {
-	cannonLives = game->getCannonLives(); // Cogemos las vidas del cannon.
-	if (score != game->returnScore())
+	cannonLives = playST->getCannonLives(); // Cogemos las vidas del cannon.
+	if (score != playST->returnScore())
 	{
-		score = game->returnScore();
+		score = playST->returnScore();
 		cout << "SCORE: " << score << endl;
 
 	}

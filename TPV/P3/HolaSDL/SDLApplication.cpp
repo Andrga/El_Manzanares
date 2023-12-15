@@ -1,4 +1,5 @@
 #include "SDLApplication.h"
+
 SDLApplication::SDLApplication() {
 
 	setupGame();
@@ -35,5 +36,19 @@ void SDLApplication::setupGame()
 }
 
 void SDLApplication::run() {
-	
+
+}
+
+const Texture* SDLApplication::getTexture(string _textureName)
+{
+	int i = 0;
+	bool enc = false;
+
+	while (i <= NUM_TEXTURES && !enc)
+	{
+		texturesList[i].name == _textureName ? enc = true : i++;
+	}
+
+	if (enc) { return textures[i]; }
+	else { return textures[0]; }
 }

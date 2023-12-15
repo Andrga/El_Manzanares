@@ -29,16 +29,16 @@ private:
 
 
 public:
+
+	//Constructoras / destructoras
 	Alien();
 	Alien(PlayState* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot);
 	~Alien();
+
+	// Metodos heredados.
 	void update() override;
 	const void render() override;
-
 	bool hit(SDL_Rect rect, char c) override;
-
-	//list<SceneObject*>::iterator getIterator() { return ownIte; }
-
 	void const save(ostream& fil)override;
 };
 

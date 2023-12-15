@@ -17,26 +17,22 @@ private:
 
 
 public:
+	//Constructoras / destructoras
 	Cannon(PlayState* gam, Point2D<double> pos, const Texture* tex, int liv, int eTime);
-
 	~Cannon();
 
+	// Metodos heredados.
 	void update() override;
-
 	void const render() override;
-
-	int getLives() { return lives; }
-
-	void handleEvents(SDL_Event event);
-
 	bool hit(SDL_Rect rect, char c)override;
-
-	//list<SceneObject*>::iterator getIterator() { return ownIte; }
-
 	void const save(ostream& fil)override;
 
+	// Metodos de clase.
+	void handleEvents(SDL_Event event);
 	void setInvincible();
 
+	// Getters.
+	int getLives() { return lives; }
 	Point2D<double> getPos() { return position; }
 };
 

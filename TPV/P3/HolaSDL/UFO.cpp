@@ -21,7 +21,7 @@ UFO::UFO(PlayState* gam, Point2D<double> pos, const Texture* tex, int sta, int e
 	default:
 		break;
 	}
-	aprearanceTime = game->getRandomRange(100, 500);
+	aprearanceTime = playST->getRandomRange(100, 500);
 	//cout << "UFO: estado inicial: " << UFOstate << endl;
 }
 
@@ -90,8 +90,8 @@ bool UFO::hit(SDL_Rect _rect, char c)
 			UFOstate = DESTRUIDO; // Si ha sido alcanzado se cambia al estado de Destruido.
 			//cout << "UFO: hit" << endl;
 			//game->hasDied(ownIte); // Suponemos que no se elimina aunque lo eliminemos y lo que se hace es transportalo a la posicion de inicio.
-			game->addScore(100);
-			game->invencible(); // Al destruirse el UFO la nave se hace invencible durante un tiempo.
+			playST->addScore(100);
+			playST->invencible(); // Al destruirse el UFO la nave se hace invencible durante un tiempo.
 			return true;
 		}
 	}
@@ -106,7 +106,7 @@ void UFO::reset() // Pone el estado del UFO que le corresponde y modifica el eTi
 		UFOstate = OCULTO;
 		position = posInicial;
 		elapsedTime = 0;
-		aprearanceTime = game->getRandomRange(500, 1000); // Reinicimaos el tiempo para la siguiente espera.
+		aprearanceTime = playST->getRandomRange(500, 1000); // Reinicimaos el tiempo para la siguiente espera.
 	}
 	else if (UFOstate == OCULTO)
 	{

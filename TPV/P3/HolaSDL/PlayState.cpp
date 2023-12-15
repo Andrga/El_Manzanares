@@ -1,13 +1,19 @@
 #include "checkML.h"
 #include "PlayState.h"
+#include "GameState.h"
 #include <iostream>
 #include <string>
 
 #pragma region constructora/destructora
 
-PlayState::PlayState(SDL_Renderer* rend, const array<Texture*, NUM_TEXTURES>* text)
-	: renderer(rend), textures(text)
+PlayState::PlayState(SDL_Renderer* rend)
+	: renderer(rend)
 {
+	for (int i = 0; i < NUM_TEXTURES; i++)
+	{
+		textures[i] = new Texture(renderer, (TEXTURE_ROOT + texturesList[i].name + ".png").c_str(), texturesList[i].rows, texturesList[i].cols);
+	}
+
 	cargado();
 	readMap();
 
@@ -34,7 +40,7 @@ void PlayState::readMap()
 	// Variables auxiliares.
 	int objeto, subtAlien, lives, state, nAliens = 0;
 	double dato1, dato2, dato3;
-	auto anch = entities.begin();
+	auto it = entities.begin();
 
 	while (!file.eof()) // Lectura de objetos.
 	{
@@ -47,7 +53,7 @@ void PlayState::readMap()
 		}
 		else if (objeto == 7) // InfoBar no se mete en la lista.
 		{
-			info = new InfoBar(this, Point2D<double>(10, SCRHEIGHT - 30), textures[SPACESHIP], dato1);
+			info = new InfoBar(this, Point2D<double>(10, SCRHEIGHT - 30), getGame()->getTexture("as"), dato1);
 		}
 		else
 		{
@@ -86,12 +92,7 @@ void PlayState::readMap()
 			default:
 				break;
 			}
-			anch = entities.push_back(newObj); // Metemos la nueva entidad en la lista.
-
-			anch
-			anch--;
-			newObj->setListIterator(anch);
-
+			entities.push_back(newObj); // Metemos la nueva entidad en la lista
 		}
 	}
 	mother->setAlienCount(nAliens);
@@ -133,14 +134,13 @@ void PlayState::update()
 	//Actualizacion de la nave
 	mother->update();
 	info->update();
-	auto it = entities.begin();
 
 	// Updatea todos los elementos.
-	while (it != entities.end())
+	for (auto i : entities)
 	{
-		(*it).update();
-		it++;
+		i.update();
 	}
+
 
 	// --- Utilizamos el metodo erase de la clase gamelist ---
 	// 
@@ -212,9 +212,6 @@ void PlayState::fireLaser(Point2D<double>& pos, char c)
 	//cout << "Game: pium pium" << endl;
 	SceneObject* newObj = new Laser(this, pos, c, velocidadLaser, renderer);
 	entities.push_back(newObj);
-	auto it = entities.end();
-	it--;
-	newObj->setListIterator(it);
 }
 
 //int PlayState::getRandomRange(int min, int max)
@@ -225,13 +222,11 @@ void PlayState::fireLaser(Point2D<double>& pos, char c)
 bool PlayState::damage(SDL_Rect _rect, char c)
 {
 	bool end = false;
-	auto it = entities.begin();
 
 	//comprueba el hit de todos los objetos o hasta que encuentra un objeto con el que choca
-	while (it != entities.end() && !end)
+	for (auto e : entities) 
 	{
-		end = (*it).hit(_rect, c);
-		it++;
+		if (!end) end = e.hit(_rect, c);
 	}
 
 	return end;

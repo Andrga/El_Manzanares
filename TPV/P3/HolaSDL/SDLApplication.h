@@ -23,23 +23,23 @@ const double SCRHEIGHT = 600;
 
 #pragma region Texturas
 
-enum TextureName { ALIENS, BUNKER, SPACESHIP, STARS, UFOT };
+	enum TextureName { ALIENS, BUNKER, SPACESHIP, STARS, UFOT };
 
-struct textureInfo
-{
-	string name;
-	int rows;
-	int cols;
-};
+	struct textureInfo
+	{
+		string name;
+		int rows;
+		int cols;
+	};
 
-const textureInfo texturesList[NUM_TEXTURES]
-{
-		textureInfo{"aliens", 3, 2},
-		textureInfo{"bunker", 1, 4},
-		textureInfo{"spaceship", 1, 2},
-		textureInfo{"stars",1, 1},
-		textureInfo{"Ufo", 1, 2}
-};
+	textureInfo texturesList[NUM_TEXTURES]
+	{
+			textureInfo{"aliens", 3, 2},
+			textureInfo{"bunker", 1, 4},
+			textureInfo{"spaceship", 1, 2},
+			textureInfo{"stars",1, 1},
+			textureInfo{"Ufo", 1, 2}
+	};
 
 #pragma endregion
 
@@ -65,6 +65,6 @@ public:
 	void run();
 
 	//Getters
-	const Texture* getTexture(string TextureName) { return textures; }
+	const Texture* getTexture(string _textureName);
 };
 

@@ -34,7 +34,7 @@ void Alien::update()
 		}
 
 		// Comprueba si ha landeado.
-		if (position.getY() >= game->getCannonYPos())
+		if (position.getY() >= playST->getCannonYPos())
 		{
 			mothership->alienLanded();
 		}
@@ -56,18 +56,18 @@ bool Alien::hit(SDL_Rect _rect, char c)
 			switch (subtipo)
 			{
 			case 0:
-				game->addScore(30);
+				playST->addScore(30);
 				break;
 			case 1:
-				game->addScore(20);
+				playST->addScore(20);
 				break;
 			case 2:
-				game->addScore(10);
+				playST->addScore(10);
 				break;
 			default:
 				break;
 			}
-			game->hasDied(ownAnch);
+			playST->hasDied(ownAnch);
 			mothership->alienDied();
 			return true;
 		}

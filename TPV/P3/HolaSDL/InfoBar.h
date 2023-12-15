@@ -15,14 +15,13 @@ private:
 
 public:
 
+	//Constructoras / destructoras
 	InfoBar(PlayState* gam, Point2D<double> pos, const Texture* tex, int scr);
-
 	~InfoBar();
 
+	// Metodos heredados
 	void update() override;
-
 	void const render() override;
-
 	void const save(ostream& fil)override;
 };
 

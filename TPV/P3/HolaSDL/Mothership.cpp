@@ -44,7 +44,7 @@ void Mothership::alienLanded()
 }
 void Mothership::haveLanded()
 {
-	game->gameOver();
+	playST->gameOver();
 }
 void Mothership::update()
 {	

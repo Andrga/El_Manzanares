@@ -11,16 +11,18 @@ private:
 	double elapsedTime = 0;
 
 public:
-	ShooterAlien(PlayState* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot, double eTime);
 
+	//Constructoras / destructoras
+	ShooterAlien(PlayState* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot, double eTime);
 	~ShooterAlien();
 
+	// Metodos heredados.
 	void update() override;
+	void const save(ostream& fil)override;
 	
+	//Metodos de clase.
 	void shoot();
-
 	double setTime();
 
-	void const save(ostream& fil)override;
 };
 

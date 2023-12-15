@@ -14,7 +14,7 @@ void ShooterAlien::update()
 	if (elapsedTime >= reloadTime)
 	{
 		//cout << "Alien: pium pium" << endl;
-		game->fireLaser(position, 'a');
+		playST->fireLaser(position, 'a');
 		elapsedTime = 0.0;
 		reloadTime = setTime();
 	}
@@ -24,7 +24,7 @@ void ShooterAlien::update()
 
 double ShooterAlien::setTime() 
 {
-	return reloadTime = game->getRandomRange(minShootTime, maxShootTime);
+	return reloadTime = playST->getRandomRange(minShootTime, maxShootTime);
 }
 
 void const ShooterAlien::save(ostream& fil) // Guarda: tipo-posicion-subitpo-tiempoParaDisparar.

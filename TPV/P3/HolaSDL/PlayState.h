@@ -49,7 +49,7 @@ private:
 
 	//SDL_Window* window = nullptr;
 	//SDL_Renderer* renderer = nullptr;
-	array<Texture*, NUM_TEXTURES> textures;
+	//array<Texture*, NUM_TEXTURES> textures;
 	SDL_Renderer* renderer;
 
 
@@ -68,7 +68,7 @@ private:
 	void readMap();
 
 public:
-	PlayState(SDL_Renderer* rend, const array<Texture*, NUM_TEXTURES>* text);
+	PlayState(SDL_Renderer* rend);
 
 	~PlayState();
 

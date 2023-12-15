@@ -18,19 +18,18 @@ private:
 
 
 public:
-	//Laser(Game* gam, Point2D<double> pos, const Texture* tex, char ent, Vector2D<double> vel);
-	Laser(PlayState* gam, Point2D<double> pos, char ent, Vector2D<double> vel, SDL_Renderer* _renderer);
 
+	//Constructoras / destructoras
+	Laser(PlayState* playST, Point2D<double> pos, char ent, Vector2D<double> vel, SDL_Renderer* _renderer);
 	~Laser();
 	
+	// Metodos heredados.
 	void update() override;
-
 	void const render() override;
-
 	bool hit(SDL_Rect rect, char c) override;
-
 	void const save(ostream& fil)override;
 
+	// Metodos de clase.
 	void renderRect();
 };
 

@@ -28,7 +28,7 @@ void Cannon::handleEvents(SDL_Event event)
 			if (elapsedTime <= 0)
 			{
 				//cout << "Cannon: pium pium" << endl;
-				game->fireLaser(position, 'c');
+				playST->fireLaser(position, 'c');
 				elapsedTime = TIEMPODISPARO;
 			}
 			break;
@@ -55,7 +55,7 @@ bool Cannon::hit(SDL_Rect _rect, char c)
 				//cout << "Cannon lives: " << lives << endl;
 				if (lives <= 0)
 				{
-					game->gameOver();
+					playST->gameOver();
 				}
 			}
 			return true;
@@ -112,7 +112,7 @@ void const Cannon::render()
 
 }
 
-void const Cannon::save(ofstream& fil) // Guarda: tipo-posicion-vidas-tiempoParaDisparar.
+void const Cannon::save(ostream& fil) // Guarda: tipo-posicion-vidas-tiempoParaDisparar.
 {
 	fil << 0 << " " << position.getX() << " " << position.getY() << " " << lives << " " << elapsedTime << "\n";
 }

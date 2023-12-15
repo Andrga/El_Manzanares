@@ -13,14 +13,15 @@ class GameObject
 {
 
 protected:
-	PlayState* game; // Puntero al juego.
+	PlayState* playST; // Puntero al juego.
 
 public:
+
 	GameObject() {};
 
-	GameObject(PlayState* gam) : game(gam) {} // Constructora.
+	GameObject(PlayState* plST) : playST(plST) {} // Constructora.
 
-	virtual ~GameObject() = default; // Destructora.
+	~GameObject() = default; // Destructora.
 
 	virtual void const render() = 0;
 
