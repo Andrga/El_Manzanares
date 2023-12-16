@@ -71,8 +71,11 @@
     <ClCompile Include="Alien.cpp" />
     <ClCompile Include="Bunker.cpp" />
     <ClCompile Include="Cannon.cpp" />
+    <ClCompile Include="EndState.cpp" />
     <ClCompile Include="FileFormatError.cpp" />
     <ClCompile Include="FileNotFoundError.cpp" />
+    <ClCompile Include="MainMenuState.cpp" />
+    <ClCompile Include="PauseState.cpp" />
     <ClCompile Include="SDLApplication.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -93,8 +96,11 @@
     <ClInclude Include="Bunker.h" />
     <ClInclude Include="Cannon.h" />
     <ClInclude Include="checkML.h" />
+    <ClInclude Include="EndState.h" />
     <ClInclude Include="FileFormatError.h" />
     <ClInclude Include="FileNotFoundError.h" />
+    <ClInclude Include="MainMenuState.h" />
+    <ClInclude Include="PauseState.h" />
     <ClInclude Include="SDLApplication.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="gameList.h" />

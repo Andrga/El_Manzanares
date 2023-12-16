@@ -67,11 +67,13 @@ public:
 	~PlayState();
 
 	//Metodos overrided
-	const void render() override;
+	void render() const override;
 	void update() override;
 	void run();
 	void handleEvent();
-	const void save(ostream& file) override;
+	void save(ostream&) const override;
+	bool onEnter() override;
+	bool onExit() override;
 
 	//Metodos de clase
 	bool damage(SDL_Rect _rect, char c);
@@ -81,6 +83,7 @@ public:
 	void cargado();
 	void invencible() { canion->setInvincible(); }
 	void addScore(int points) { score += points; }
+	void hasDied(GameList<GameObject, true>::anchor);
 
 	//Getters
 	const int getRandomRange(int min, int max) { return  uniform_int_distribution<int>(min, max)(randomGenerator); }

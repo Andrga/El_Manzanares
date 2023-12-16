@@ -71,7 +71,7 @@ public:
 
 	//Metodos base
 	void update() { stateMachine.update(); }
-	void render() const {stateMachine.render(); }
+	void render() const;
 	void run();
 
 	//Getters

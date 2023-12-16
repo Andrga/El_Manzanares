@@ -127,7 +127,7 @@ void PlayState::update()
 	//itElims.clear(); // Limpia la lista de objetos a eliminar.
 }
 
-const void PlayState::render()
+void PlayState::render() const
 {
 	SDL_RenderClear(renderer);
 
@@ -146,12 +146,11 @@ const void PlayState::render()
 void PlayState::handleEvent()
 {
 	SDL_Event event;
-	while (SDL_PollEvent(&event) && !endGame)
+	while (SDL_PollEvent(&event))
 	{
 		if (event.key.keysym.sym == SDLK_ESCAPE) // Salida del juego.
 		{
 			cout << "Has cerrado el juego." << endl;
-			endGame = true;
 		}
 		else if (event.key.keysym.sym == SDLK_s) // Guardado en archivo.
 		{
@@ -206,8 +205,6 @@ bool PlayState::damage(SDL_Rect _rect, char c)
 
 void PlayState::gameOver()
 {
-	_gameOver = true;
-	endGame = true;
 }
 
 void PlayState::hasDied(GameList<SceneObject, false>::anchor anch)
@@ -233,7 +230,7 @@ void PlayState::hasDied(GameList<SceneObject, false>::anchor anch)
 //	file.close(); // Cierra el archivo.
 //}
 
-const void PlayState::save(ostream& file)
+void PlayState::save(ostream& file) const
 {
 	for (auto i : entities)
 	{
@@ -283,6 +280,15 @@ void PlayState::cargado()
 	}
 }
 #pragma endregion
+
+bool PlayState::onEnter() {
+	cout << "Entrando MainMenu\n";
+	return true;
+}
+bool PlayState::onExit() {
+	cout << "Saliendo MainMenu\n";
+	return true;
+}
 
 //void PlayState::invencible() // Para poner la nave invencible, llamado por el UFO.
 //{
