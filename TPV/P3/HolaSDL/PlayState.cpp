@@ -50,7 +50,7 @@ void PlayState::readMap()
 		}
 		else if (objeto == 7) // InfoBar no se mete en la lista.
 		{
-			info = new InfoBar(this, getGame(), Point2D<double>(10, SCRHEIGHT - 30), getGame()->getTexture("spaceship"), dato1);
+			info = new InfoBar(this, getGame(), Point2D<double>(10, SCRHEIGHT - 30), getGame()->getTexture(SPACESHIP), dato1);
 		}
 		else
 		{
@@ -59,26 +59,26 @@ void PlayState::readMap()
 			{
 			case 0: // Cannon.
 				file >> lives >> dato3;
-				canion = new Cannon(this, Point2D<double>(dato1, dato2), getGame()->getTexture("spaceship"), lives, dato3);
+				canion = new Cannon(this, Point2D<double>(dato1, dato2), getGame()->getTexture(SPACESHIP), lives, dato3);
 				newObj = canion;
 				break;
 			case 1: // Aliens.
 				file >> subtAlien;
-				newObj = new Alien(this, Point2D<double>(dato1, dato2), subtAlien, getGame()->getTexture("aliens"), mother);
+				newObj = new Alien(this, Point2D<double>(dato1, dato2), subtAlien, getGame()->getTexture(ALIENS), mother);
 				nAliens++;
 				break;
 			case 2: // ShooterAliens.
 				file >> subtAlien >> dato3;
-				newObj = new ShooterAlien(this, Point2D<double>(dato1, dato2), subtAlien, getGame()->getTexture("aliens"), mother, dato3);
+				newObj = new ShooterAlien(this, Point2D<double>(dato1, dato2), subtAlien, getGame()->getTexture(ALIENS), mother, dato3);
 				nAliens++;
 				break;
 			case 4: // Bunkers.
 				file >> lives;
-				newObj = new Bunker(this, lives, Point2D<double>(dato1, dato2), getGame()->getTexture("bunker"));
+				newObj = new Bunker(this, lives, Point2D<double>(dato1, dato2), getGame()->getTexture(BUNKER));
 				break;
 			case 5: // UFO.
 				file >> state >> dato3;
-				newObj = new UFO(this, Point2D<double>(dato1, dato2), getGame()->getTexture("Ufo"), state, dato3);
+				newObj = new UFO(this, Point2D<double>(dato1, dato2), getGame()->getTexture(UFOT), state, dato3);
 				break;
 			case 6: // Lasers.
 				char c;
@@ -99,32 +99,6 @@ void PlayState::readMap()
 #pragma endregion
 
 void PlayState::run() {
-	startTime = SDL_GetTicks();
-
-
-	while (!endGame && mother->getAlienCount() > 0)
-	{
-		handleEvent();
-		frameTime = SDL_GetTicks() - startTime;
-		if (frameTime > TIMEBETWEENFRAMES)
-		{
-			update();
-			startTime = SDL_GetTicks();
-		}
-		render();
-
-	}
-
-	if (_gameOver)
-	{
-		//system("color 04");
-		cout << "GAME OVER" << endl;
-		//system("color 07");
-	}
-	else if (mother->getAlienCount() <= 0)
-	{
-		cout << "WIN" << endl;
-	}
 }
 
 void PlayState::update()
@@ -157,7 +131,7 @@ const void PlayState::render()
 {
 	SDL_RenderClear(renderer);
 
-	getGame()->getTexture("stars")->render();// Fondo
+	getGame()->getTexture(STARS)->render();// Fondo
 
 	// Actualizacion del render
 	for (auto i : entities)

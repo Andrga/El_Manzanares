@@ -16,9 +16,9 @@ int main(int argc, char* argv[])
 
 	try
 	{
-		SDLApplication* game = new SDLApplication();
-		game->run();
-		delete game;
+		SDLApplication* sdlApp = new SDLApplication();
+		sdlApp->run();
+		delete sdlApp;
 	}
 	catch (FileNotFoundError& e)
 	{

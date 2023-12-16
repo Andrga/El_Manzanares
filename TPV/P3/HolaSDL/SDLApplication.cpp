@@ -1,8 +1,11 @@
 #include "SDLApplication.h"
 
+
+#pragma region Configuracion y setting del juego
 SDLApplication::SDLApplication() {
 
 	setupGame();
+
 }
 
 SDLApplication::~SDLApplication()
@@ -34,21 +37,35 @@ void SDLApplication::setupGame()
 	SDL_RenderClear(renderer);
 
 }
+#pragma endregion
 
+
+//Bucle del juego
 void SDLApplication::run() {
 
+	startTime = SDL_GetTicks();
+
+
+	while (!endGame)
+	{
+
+		frameTime = SDL_GetTicks() - startTime;
+		if (frameTime > TIMEBETWEENFRAMES)
+		{
+			update();
+			startTime = SDL_GetTicks();
+		}
+		render();
+
+	}
 }
 
-Texture* SDLApplication::getTexture(string _textureName) const
+
+void SDLApplication::render() const 
 {
-	int i = 0;
-	bool enc = false;
+	SDL_RenderClear(renderer);
 
-	while (i <= NUM_TEXTURES && !enc)
-	{
-		texturesList[i].name == _textureName ? enc = true : i++;
-	}
+	stateMachine.render();
 
-	if (enc) { return textures[i]; }
-	else { return textures[0]; }
+	SDL_RenderPresent(renderer);
 }

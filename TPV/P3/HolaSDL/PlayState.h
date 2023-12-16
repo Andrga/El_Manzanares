@@ -36,8 +36,6 @@ const string MAP_PATH = "assets/maps/";
 const double velocidadAlien = 100;
 const double velocidadCannon = 15;
 const Vector2D<double> velocidadLaser(0, 10);
-const double FRAMERATE = 20;
-const double TIMEBETWEENFRAMES = 1000 / FRAMERATE;
 
 class PlayState : public GameState
 {
@@ -59,10 +57,6 @@ private:
 	mt19937_64 randomGenerator;
 
 	string map = MAP_PATH;
-	uint32_t frameTime;
-	uint32_t startTime;
-	bool endGame = false;
-	bool _gameOver = false;
 	int score = 0;
 
 	void readMap();

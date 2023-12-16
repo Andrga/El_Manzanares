@@ -3,12 +3,7 @@
 #include "PlayState.h"
 #include "SDL.h"
 
-/*Laser::Laser(Game* gam, Point2D<double> pos, const Texture* tex, char ent, Vector2D<double> vel)
-	: SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), entity(ent), velocidad(vel)
-{
 
-}
-*/
 Laser::Laser(PlayState* playST, Point2D<double> pos, char ent, Vector2D<double> vel, SDL_Renderer* _renderer)
 	: SceneObject(playST, pos, 3, 21,nullptr), entity(ent), velocidad(vel), renderer(_renderer)
 {
