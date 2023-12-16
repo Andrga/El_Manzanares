@@ -8,6 +8,7 @@ using namespace std;
 
 class SDLApplication;
 class GameState;
+class PlayState;
 
 //template <class T>
 class GameObject

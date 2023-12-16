@@ -18,6 +18,7 @@ SDLApplication::~SDLApplication()
 void SDLApplication::setupGame()
 {
 	SDL_Init(SDL_INIT_EVERYTHING);
+	window = SDL_CreateWindow("SPACE INAVERS", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCRWIDTH, SCRHEIGHT, SDL_WINDOW_SHOWN);
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 
@@ -44,28 +45,50 @@ void SDLApplication::setupGame()
 void SDLApplication::run() {
 
 	startTime = SDL_GetTicks();
-
+	stateMachine->replaceState(new MainMenuState(this));
 
 	while (!endGame)
 	{
-
 		frameTime = SDL_GetTicks() - startTime;
 		if (frameTime > TIMEBETWEENFRAMES)
 		{
+			handleEvents();
 			update();
+			render();
 			startTime = SDL_GetTicks();
 		}
-		render();
 
 	}
 }
 
 
-void SDLApplication::render() const 
+void SDLApplication::render() const
 {
 	SDL_RenderClear(renderer);
 
-	stateMachine.render();
+	stateMachine->render();
 
 	SDL_RenderPresent(renderer);
+}
+
+void SDLApplication::handleEvents()
+{
+	SDL_Event event;
+
+	while (SDL_PollEvent(&event))
+	{
+		if (event.key.keysym.sym == SDLK_ESCAPE) // Salida del juego.
+		{
+			cout << "Has cerrado el juego." << endl;
+			endGame = true;
+		}
+		else if (event.key.keysym.sym == (SDLK_s))
+		{
+			stateMachine->replaceState(new PlayState(renderer, this));
+		}
+		else // Guardado en archivo.
+		{
+			stateMachine->handleEvent(event);
+		}
+	}
 }

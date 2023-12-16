@@ -7,8 +7,8 @@
 
 #pragma region constructora/destructora
 
-PlayState::PlayState(SDL_Renderer* rend)
-	: renderer(rend)
+PlayState::PlayState(SDL_Renderer* rend, SDLApplication* _sdlApp)
+	: renderer(rend), GameState(_sdlApp)
 {
 
 	cargado();
@@ -98,9 +98,6 @@ void PlayState::readMap()
 
 #pragma endregion
 
-void PlayState::run() {
-}
-
 void PlayState::update()
 {
 	//Actualizacion de la nave
@@ -143,38 +140,16 @@ void PlayState::render() const
 	SDL_RenderPresent(renderer); // Presentacion del render.
 }
 
-void PlayState::handleEvent()
+void PlayState::handleEvent(const SDL_Event& event)
 {
-	SDL_Event event;
-	while (SDL_PollEvent(&event))
-	{
-		if (event.key.keysym.sym == SDLK_ESCAPE) // Salida del juego.
-		{
-			cout << "Has cerrado el juego." << endl;
-		}
-		else if (event.key.keysym.sym == SDLK_s) // Guardado en archivo.
-		{
-			string num;
-			cout << "Numero de guardado de partida:";
-			cin >> num;
-
-			ofstream file;
-			file.open("assets/maps/guardado" + num + ".txt");
-			save(file);
-
-			file.close();
-		}
-		//else if (event.key.keysym.sym == SDLK_l) // Cargar partida.
-		//{
-		//	save();
-		//}
-
-		else
-		{
+	//else if (event.key.keysym.sym == SDLK_l) // Cargar partida.
+	//{
+	//	save();
+	//}
 			//cout << "Game: funciona porfavor te lo rogamos Vs y c++ del amor hermoso os queremos..." << endl;
-			canion->handleEvents(event); // Input.
-		}
-	}
+			//canion->handleEvents(event); // Input.
+		
+	
 }
 
 #pragma region Dano y fin de juego

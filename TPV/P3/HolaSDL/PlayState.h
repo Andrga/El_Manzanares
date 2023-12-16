@@ -1,6 +1,5 @@
 #pragma once
 #include "SDL.h"
-//#include "SDLApplication.h"
 #include "Alien.h"
 #include "Mothership.h"
 #include "UFO.h"
@@ -11,6 +10,7 @@
 #include "Laser.h"
 #include "ShooterAlien.h"
 #include "InfoBar.h"
+#include "SceneObject.h"
 
 #include "GameState.h"
 
@@ -19,8 +19,6 @@
 #include "FileFormatError.h"
 #include "FileNotFoundError.h"
 
-
-//#include <SDL_image.h>
 #include <vector>
 #include <array>
 #include <random>
@@ -62,18 +60,19 @@ private:
 	void readMap();
 
 public:
-	PlayState(SDL_Renderer* rend);
+	PlayState(SDL_Renderer* rend, SDLApplication* _sdlApp);
 
 	~PlayState();
 
 	//Metodos overrided
-	void render() const override;
 	void update() override;
-	void run();
-	void handleEvent();
-	void save(ostream&) const override;
+	void render() const override;
+	void handleEvent(const SDL_Event& event) override;
+	void save(ostream& fil) const override;
+	//Estados
 	bool onEnter() override;
 	bool onExit() override;
+	string getStateID() const override { return"PlayST"; }
 
 	//Metodos de clase
 	bool damage(SDL_Rect _rect, char c);

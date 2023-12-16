@@ -20,6 +20,6 @@ public:
 	// Metodos que hacen cosas.
 	void update();
 	void render() const;
-	void handleEvent();
+	void handleEvent(SDL_Event& event);
 };
 

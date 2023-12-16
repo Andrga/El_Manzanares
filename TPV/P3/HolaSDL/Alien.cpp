@@ -2,6 +2,7 @@
 #include "Alien.h"
 #include "checkML.h"
 #include "Playstate.h"
+#include "SDLApplication.h"
 #pragma region Texturas
 
 

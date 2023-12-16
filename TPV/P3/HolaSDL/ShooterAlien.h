@@ -1,5 +1,4 @@
 #pragma once
-#include "PlayState.h"
 #include "Alien.h"
 
 class ShooterAlien : public Alien

@@ -8,7 +8,7 @@ private:
 	T x;
 	T y;
 public:
-	Vector2D() = default;
+	Vector2D() { Vector2D(0, 0); };
 	Vector2D(T a, T b) { x = a; y = b; }
 	//~Vector2D() { delete& x; delete& y; } destructora no funciona
 	T getX() const { return x; }

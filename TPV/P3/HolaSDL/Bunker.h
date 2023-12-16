@@ -11,7 +11,6 @@ private:
 public:
 
 	//Constructoras / destructoras
-	Bunker();
 	Bunker(PlayState* gam, int liv, Point2D<double> pos, const Texture* tex);
 	~Bunker();
 	

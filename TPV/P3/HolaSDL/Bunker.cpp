@@ -2,7 +2,6 @@
 #include "Bunker.h"
 #include "Playstate.h"
 
-
 Bunker::Bunker(PlayState* gam, int liv, Point2D<double> pos, const Texture* tex)
 	: SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), maxLives(liv)
 {

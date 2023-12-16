@@ -1,6 +1,7 @@
 #include "checkML.h"
 #include "Laser.h"
 #include "PlayState.h"
+#include "SDLApplication.h"
 #include "SDL.h"
 
 

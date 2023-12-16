@@ -3,8 +3,6 @@
 #include "Vector2D.h"
 #include "texture.h"
 
-class PlayState;
-
 class InfoBar : public GameObject
 {
 private:

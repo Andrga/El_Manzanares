@@ -3,6 +3,10 @@
 #include "texture.h"
 
 #include "GameStateMachine.h"
+#include "MainMenuState.h"
+#include "PlayState.h"
+#include "EndState.h"
+#include "PauseState.h"
 
 #include "InvadersError.h"
 #include "SDLError.h"
@@ -55,7 +59,7 @@ private:
 	array<Texture*, NUM_TEXTURES> textures;
 
 	// Maquina de estados
-	GameStateMachine stateMachine;
+	GameStateMachine* stateMachine;
 
 	// Bucle de juego
 	uint32_t frameTime;
@@ -70,9 +74,10 @@ public:
 	~SDLApplication();
 
 	//Metodos base
-	void update() { stateMachine.update(); }
+	void update() { stateMachine->update(); }
 	void render() const;
 	void run();
+	void handleEvents();
 
 	//Getters
 	Texture* getTexture(TextureName _texNam) const { return textures[_texNam]; }

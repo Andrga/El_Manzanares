@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include "Vector2D.h"
 #include "texture.h"
 #include "SceneObject.h"
@@ -31,7 +30,6 @@ private:
 public:
 
 	//Constructoras / destructoras
-	Alien();
 	Alien(PlayState* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot);
 	~Alien();
 

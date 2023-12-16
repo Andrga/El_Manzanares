@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include <vector>
 
-class PlayState;
+//class PlayState;
 
 class Mothership : public GameObject
 {
