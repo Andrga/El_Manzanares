@@ -3,11 +3,13 @@
 #include <stack>
 
 #include "GameState.h"
+#include "MainMenuState.h"
+#include "PlayState.h"
 
 using namespace std;
 class GameStateMachine
 {
-private:
+protected:
 	stack<GameState*> pilaEstados;
 public:
 	GameStateMachine();

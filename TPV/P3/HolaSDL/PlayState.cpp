@@ -126,30 +126,32 @@ void PlayState::update()
 
 void PlayState::render() const
 {
-	SDL_RenderClear(renderer);
-
 	getGame()->getTexture(STARS)->render();// Fondo
 
 	// Actualizacion del render
-	for (auto i : entities)
+	for (auto& i : entities)
 	{
 		i.render();
+		//SDL_RenderPresent(renderer);
 	}
 
 	info->render();
-	SDL_RenderPresent(renderer); // Presentacion del render.
 }
 
 void PlayState::handleEvent(const SDL_Event& event)
 {
+	if (event.type == SDL_KEYDOWN)
+	{
+		canion->handleEvents(event);
+	}
 	//else if (event.key.keysym.sym == SDLK_l) // Cargar partida.
 	//{
 	//	save();
 	//}
 			//cout << "Game: funciona porfavor te lo rogamos Vs y c++ del amor hermoso os queremos..." << endl;
 			//canion->handleEvents(event); // Input.
-		
-	
+
+
 }
 
 #pragma region Dano y fin de juego
@@ -170,9 +172,9 @@ bool PlayState::damage(SDL_Rect _rect, char c)
 	bool end = false;
 
 	//comprueba el hit de todos los objetos o hasta que encuentra un objeto con el que choca
-	for (auto e : entities) 
+	for (auto i : entities)
 	{
-		if (!end) end = e.hit(_rect, c);
+		if (!end) end = i.hit(_rect, c);
 	}
 
 	return end;
@@ -207,7 +209,7 @@ void PlayState::hasDied(GameList<SceneObject, false>::anchor anch)
 
 void PlayState::save(ostream& file) const
 {
-	for (auto i : entities)
+	for (auto& i : entities)
 	{
 		i.save(file); // Llama a los save de todas las entidades de la lista: 0=Cannon, 1=Alien, 2=ShooterAlien, 4=Bunker, 5=UFO, 6=Laser.	
 	}
@@ -257,11 +259,11 @@ void PlayState::cargado()
 #pragma endregion
 
 bool PlayState::onEnter() {
-	cout << "Entrando MainMenu\n";
+	cout << "Entrando PlayState\n";
 	return true;
 }
 bool PlayState::onExit() {
-	cout << "Saliendo MainMenu\n";
+	cout << "Saliendo PlauState\n";
 	return true;
 }
 

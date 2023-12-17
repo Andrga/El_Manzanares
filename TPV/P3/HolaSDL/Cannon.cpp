@@ -15,32 +15,28 @@ Cannon::~Cannon() {}
 void Cannon::handleEvents(SDL_Event event)
 {
 	//cout << "Cannon: tu puta madre iteradores de los cojones." << endl;
+	switch (event.key.keysym.sym)
+	{
+	case SDLK_RIGHT: // Cambio de direccion a la derecha
+		direction = 1;
+		break;
+	case SDLK_LEFT: // Cambio de direccion a la izquierda.
+		direction = -1;
+		break;
+	default:
+		direction = 0;
+		break;
+	}
 	if (event.type == SDL_KEYDOWN)
 	{
-		switch (event.key.keysym.sym)
+		//disparo
+		if (event.key.keysym.sym == SDLK_SPACE && elapsedTime <= 0)
 		{
-		case SDLK_RIGHT: // Cambio de direccion a la derecha
-			direction = 1;
-			break;
-		case SDLK_LEFT: // Cambio de direccion a la izquierda.
-			direction = -1;
-			break;
-		case SDLK_SPACE: // Disparo.
-			if (elapsedTime <= 0)
-			{
-				//cout << "Cannon: pium pium" << endl;
-				playST->fireLaser(position, 'c');
-				elapsedTime = TIEMPODISPARO;
-			}
-			break;
-		default:
-			direction = 0;
-			break;
+			//cout << "Cannon: pium pium" << endl;
+			playST->fireLaser(position, 'c');
+			elapsedTime = TIEMPODISPARO;
 		}
-	}
-	else if (event.type == SDL_KEYUP) // Cuando no hay ninguna tecla pulsada.
-	{
-		direction = 0;
+
 	}
 }
 

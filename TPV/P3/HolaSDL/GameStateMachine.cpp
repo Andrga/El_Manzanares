@@ -7,12 +7,18 @@ GameStateMachine::GameStateMachine()
 #pragma region Updates
 void GameStateMachine::update()
 {
-	//pilaEstados.top()->update();
+	if (!pilaEstados.empty())
+	{
+		pilaEstados.top()->update();
+	}
 }
 
 void GameStateMachine::render() const
 {
-	//pilaEstados.top()->render();
+	if (!pilaEstados.empty())
+	{
+		pilaEstados.top()->render();
+	}
 }
 #pragma endregion
 
@@ -24,7 +30,7 @@ void GameStateMachine::pushState(GameState* pState) {
 }
 
 void GameStateMachine::replaceState(GameState* pState) {
-	if (!pilaEstados.empty()){
+	if (!pilaEstados.empty()) {
 		if (pilaEstados.top() == pState)
 		{
 			return;
@@ -54,7 +60,9 @@ void GameStateMachine::popState()
 
 void GameStateMachine::handleEvent(SDL_Event& event)
 {
-	/*
+	pilaEstados.top()->handleEvent(event);
+
+	/*  AQUI VA EL GUARDADO NO LO BORRES (no esta hecho pero bueno :/)
 	string num;
 	cout << "Numero de guardado de partida:";
 	cin >> num;

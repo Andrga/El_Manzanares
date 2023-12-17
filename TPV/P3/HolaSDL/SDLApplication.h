@@ -26,7 +26,7 @@ const double SCRWIDTH = 800;
 const double SCRHEIGHT = 600;
 
 
-const double FRAMERATE = 20;
+const double FRAMERATE = 60;
 const double TIMEBETWEENFRAMES = 1000 / FRAMERATE;
 
 // el UFO se llama UFOT para no confundirlo con la clase.
@@ -59,7 +59,7 @@ private:
 	array<Texture*, NUM_TEXTURES> textures;
 
 	// Maquina de estados
-	GameStateMachine* stateMachine;
+	GameStateMachine stateMachine;
 
 	// Bucle de juego
 	uint32_t frameTime;
@@ -74,10 +74,33 @@ public:
 	~SDLApplication();
 
 	//Metodos base
-	void update() { stateMachine->update(); }
+	void update() { stateMachine.update(); }
 	void render() const;
 	void run();
 	void handleEvents();
+
+	//Cambio de estado
+	void playStateChange(bool sustituye)
+	{
+		sustituye ? stateMachine.replaceState(new PlayState(renderer, this)) :
+			stateMachine.pushState(new PlayState(renderer, this));
+	}
+	void mainMenuStateChange(bool sustituye)
+	{
+		sustituye ? stateMachine.replaceState(new MainMenuState(this)) :
+			stateMachine.pushState(new MainMenuState(this));
+	}
+	void pauseStateChange(bool sustituye)
+	{
+		sustituye ? stateMachine.replaceState(new PauseState(this)) :
+			stateMachine.pushState(new PauseState(this));
+	}
+	void endStateChange(bool sustituye)
+	{
+		sustituye ? stateMachine.replaceState(new EndState(this)) :
+			stateMachine.pushState(new EndState(this));
+	}
+	void popState();
 
 	//Getters
 	Texture* getTexture(TextureName _texNam) const { return textures[_texNam]; }
