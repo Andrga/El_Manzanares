@@ -10,11 +10,12 @@ private:
 
 	enum  states { OCULTO, VISIBLE, DESTRUIDO }; // Enumerado de los diferentes estados de la nave.
 	states UFOstate = OCULTO;
-	char entity = 'u';
+	char entity = 'a';
 	double elapsedTime = 0;
 	double aprearanceTime;
 	Point2D<double>posInicial;
 	int timer = 0, maxTimer = 7;
+	bool reward = false;
 
 public:
 

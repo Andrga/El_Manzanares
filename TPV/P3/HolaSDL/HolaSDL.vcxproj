@@ -79,6 +79,7 @@
     <ClCompile Include="FileNotFoundError.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="PauseState.cpp" />
+    <ClCompile Include="Reward.cpp" />
     <ClCompile Include="SDLApplication.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="GameState.cpp" />
@@ -90,6 +91,7 @@
     <ClCompile Include="Mothership.cpp" />
     <ClCompile Include="SceneObject.cpp" />
     <ClCompile Include="SDLError.cpp" />
+    <ClCompile Include="Shield.cpp" />
     <ClCompile Include="ShooterAlien.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="UFO.cpp" />
@@ -107,6 +109,7 @@
     <ClInclude Include="FileNotFoundError.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="PauseState.h" />
+    <ClInclude Include="Reward.h" />
     <ClInclude Include="SDLApplication.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="gameList.h" />
@@ -119,6 +122,7 @@
     <ClInclude Include="Mothership.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="SDLError.h" />
+    <ClInclude Include="Shield.h" />
     <ClInclude Include="ShooterAlien.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="UFO.h" />

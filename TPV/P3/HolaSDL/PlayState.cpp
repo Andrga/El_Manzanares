@@ -96,6 +96,9 @@ void PlayState::readMap()
 				file >> dato3;
 				newObj = new Bomb(this, Point2D<double>(dato1, dato2), dato3);
 				break;
+				/*case 9:
+					newObj = new Shield(this, Point2D<double>(dato1, dato2));
+					break;*/
 			default:
 				throw FileFormatError("Objeto inesperado");
 				break;
@@ -158,7 +161,20 @@ void PlayState::fireLaser(Point2D<double>& pos, char c)
 
 void PlayState::fireBomb(Point2D<double>& position)
 {
+	//cout << "Lanza bomba" << endl;
 	entities.push_back(new Bomb(this, position));
+}
+
+void PlayState::fireReward(Point2D<double>& position)
+{
+	//cout << "Lanza Rewars" << endl;
+	entities.push_back(new Reward(this, position, [this]() { canion->setInvincible(); }, sdlApp->getTexture(SHIELD)));
+}
+
+bool PlayState::mayGrantReward(SDL_Rect rect)
+{
+	SDL_Rect canionRect = canion->getRect();
+	return SDL_HasIntersection(&rect, &canionRect);
 }
 
 bool PlayState::damage(SDL_Rect _rect, char c)
@@ -203,7 +219,7 @@ void PlayState::save(ostream& file) const
 {
 	for (auto& i : entities)
 	{
-		i.save(file); // Llama a los save de todas las entidades de la lista: 0=Cannon, 1=Alien, 2=ShooterAlien, 4=Bunker, 5=UFO, 6=Laser, 8=Bomba.
+		i.save(file); // Llama a los save de todas las entidades de la lista: 0=Cannon, 1=Alien, 2=ShooterAlien, 4=Bunker, 5=UFO, 6=Laser, 8=Bomba, 9=Shield.
 	}
 	mother->save(file); // Llama al save de la MotherShip (3). La ponemos la ultima para que se pueda hacer el recuento de Aliens.
 	info->save(file); // Llama al save del infobar (7)

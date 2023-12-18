@@ -2,27 +2,26 @@
 #include "SceneObject.h"
 #include "texture.h"
 
-class Bomb : public SceneObject
+class Shield : public SceneObject
 {
 private:
-	char entity = 'a';
-	int vidas = 2;
+	char entity = 'i';
 	SDL_Renderer* renderer = nullptr;
 	Texture* tex;
-
 
 public:
 
 	//Constructoras / destructoras
-	Bomb(PlayState* playST, Point2D<double> pos, int vid = 2);
-	~Bomb();
+	Shield(PlayState* playST, Point2D<double> pos);
+	~Shield();
 
 	// Metodos heredados.
 	void update() override;
 	void render() const override;
 	bool hit(SDL_Rect rect, char c) override;
 	void save(ostream& fil) const override;
+
+	// Metodos de clase.
+	void renderRect() const;
 };
-
-
 

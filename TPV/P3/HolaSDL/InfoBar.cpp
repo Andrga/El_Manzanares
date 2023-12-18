@@ -45,7 +45,6 @@ void InfoBar::update()
 	cannonLives = playST->getCannonLives(); // Cogemos las vidas del cannon.
 	if (score != playST->returnScore()) {
 		score = playST->returnScore();
-		cout << score << endl;
 	}
 
 }
