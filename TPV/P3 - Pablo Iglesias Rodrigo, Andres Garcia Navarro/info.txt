@@ -1,0 +1,6 @@
+Pablo Iglesias Rodrigo
+Andrés García Navarro
+
+_Problemas_
+-MemoryLeacks
+-Faltan los rewards
