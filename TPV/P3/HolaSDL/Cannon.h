@@ -1,9 +1,10 @@
 #pragma once
 #include "SceneObject.h"
+#include "EventHandler.h"
 
 const double TIEMPODISPARO = 25;
 
-class Cannon : public SceneObject
+class Cannon : public EventHandler, public SceneObject
 {
 private:
 	int lives = 3; // Numero de vidas del cannon.
@@ -26,9 +27,9 @@ public:
 	void render() const override;
 	bool hit(SDL_Rect rect, char c)override;
 	void save(ostream& fil) const override;
+	void handleEvent(const SDL_Event& event) override;
 
 	// Metodos de clase.
-	void handleEvents(SDL_Event event);
 	void setInvincible();
 
 	// Getters.

@@ -20,7 +20,7 @@
 using namespace std;
 
 const string TEXTURE_ROOT = "assets/images/";
-const int NUM_TEXTURES = 5;
+const int NUM_TEXTURES = 12;
 
 const double SCRWIDTH = 800;
 const double SCRHEIGHT = 600;
@@ -30,7 +30,10 @@ const double FRAMERATE = 60;
 const double TIMEBETWEENFRAMES = 1000 / FRAMERATE;
 
 // el UFO se llama UFOT para no confundirlo con la clase.
-enum TextureName { ALIENS, BUNKER, SPACESHIP, STARS, UFOT };
+enum TextureName {
+	ALIENS, BUNKER, SPACESHIP, STARS, UFOT, MENUFONDO, NUEVAP,
+	CARGARP, SALIR, CONTINUARP, GUARDARP, FONDOP
+};
 
 
 class SDLApplication
@@ -39,18 +42,26 @@ private:
 #pragma region Texturas
 	struct textureInfo
 	{
-		string name;
+		string url;
 		int rows;
 		int cols;
 	};
 
 	textureInfo texturesList[NUM_TEXTURES]
 	{
-			textureInfo{"aliens", 3, 2},
-			textureInfo{"bunker", 1, 4},
-			textureInfo{"spaceship", 1, 2},
-			textureInfo{"stars",1, 1},
-			textureInfo{"Ufo", 1, 2}
+			textureInfo{"assets/images/aliens.png", 3, 2},
+			textureInfo{"assets/images/bunker.png", 1, 4},
+			textureInfo{"assets/images/spaceship.png", 1, 2},
+			textureInfo{"assets/images/stars.png",1, 1},
+			textureInfo{"assets/images/Ufo.png", 1, 2},
+			textureInfo{"assets/fondos/mainMenu.png", 1,1},
+			textureInfo{"assets/textos/nuevaPartida.png", 1,1},
+			textureInfo{"assets/textos/cargarPartida.png", 1,1},
+			textureInfo{"assets/textos/salir.png", 1,1},
+			textureInfo{"assets/textos/continuar.png", 1,1},
+			textureInfo{"assets/textos/guardarPartida.png", 1,1},
+			textureInfo{"assets/fondos/pausaFondo.PNG", 1,1}
+
 	};
 #pragma endregion
 
@@ -78,29 +89,15 @@ public:
 	void render() const;
 	void run();
 	void handleEvents();
+	void setEndGame(bool end)
+	{
+		endGame = end;
+		cout << "Has cerrado el juego." << endl;
+	}
 
+	SDL_Renderer* getRenderer() { return renderer; }
 	//Cambio de estado
-	void playStateChange(bool sustituye)
-	{
-		sustituye ? stateMachine.replaceState(new PlayState(renderer, this)) :
-			stateMachine.pushState(new PlayState(renderer, this));
-	}
-	void mainMenuStateChange(bool sustituye)
-	{
-		sustituye ? stateMachine.replaceState(new MainMenuState(this)) :
-			stateMachine.pushState(new MainMenuState(this));
-	}
-	void pauseStateChange(bool sustituye)
-	{
-		sustituye ? stateMachine.replaceState(new PauseState(this)) :
-			stateMachine.pushState(new PauseState(this));
-	}
-	void endStateChange(bool sustituye)
-	{
-		sustituye ? stateMachine.replaceState(new EndState(this)) :
-			stateMachine.pushState(new EndState(this));
-	}
-	void popState();
+	GameStateMachine* getStMachine() { return &stateMachine; }
 
 	//Getters
 	Texture* getTexture(TextureName _texNam) const { return textures[_texNam]; }

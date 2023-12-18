@@ -5,12 +5,14 @@
 #include "GameState.h"
 #include "MainMenuState.h"
 #include "PlayState.h"
+#include <list>
 
 using namespace std;
 class GameStateMachine
 {
 protected:
 	stack<GameState*> pilaEstados;
+	list<GameState*> eliminaEstados;
 public:
 	GameStateMachine();
 

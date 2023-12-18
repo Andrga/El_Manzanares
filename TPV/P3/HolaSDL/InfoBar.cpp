@@ -3,7 +3,7 @@
 #include "PlayState.h"
 
 
-InfoBar::InfoBar(PlayState* plST, SDLApplication* appl, Point2D<double> pos, const Texture* canTex, int scr) : GameObject(appl), playST(plST), position(pos), canTexture(canTex), score(scr)
+InfoBar::InfoBar(PlayState* plST, SDLApplication* appl, Point2D<double> pos, const Texture* canTex, int scr) : GameObject(plST), playST(plST), position(pos), canTexture(canTex), score(scr)
 {
 	pos1 = pos; // Para la muestra de vidas cogemos la posicion del infobar.
 }
@@ -16,7 +16,7 @@ void InfoBar::update()
 	if (score != playST->returnScore())
 	{
 		score = playST->returnScore();
-		cout << "SCORE: " << score << endl;
+		//cout << "SCORE: " << score << endl;
 
 	}
 	// Para mostrar las vidas restantes de la nave:
@@ -27,6 +27,7 @@ void InfoBar::update()
 	{
 		rect.x = pos1.getX() + 50 * i; // Para que aparezcan consecutivas.
 		rect.y = pos1.getY();
+		//cout << i;
 	}
 }
 

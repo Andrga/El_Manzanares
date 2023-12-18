@@ -26,8 +26,6 @@ Laser::~Laser(){}
 
 void Laser::update() 
 {
-	//cout << "Laser: " << position.getX() << " " << position.getY() << endl;
-	// Cambio de posicion y direccion.
 	if (entity == 'a') // Disparo de Alien.
 	{
 		position = position + velocidad;
@@ -36,15 +34,15 @@ void Laser::update()
 	{
 		position = position - velocidad;
 	}
+	// Actualizacion del rect.
+	rect.x = position.getX();
+	rect.y = position.getY();
 
 	//Salida de limites de la bala.
-	if (position.getY() <= 0 || position.getY() >= SCRHEIGHT-10) playST->hasDied(ownAnch);
+	if (position.getY() <= 0 || position.getY() >= SCRHEIGHT-10) playST->hasDied(scAnch);
 	//Comprueba si la bala choca.
-	if (playST->damage(rect, entity)) playST->hasDied(ownAnch);
+	if (playST->damage(rect, entity)) playST->hasDied(scAnch);
 
-	// Actualizacion del rect.
-	rect.x = position.getX() + (15); // +15 para que aparezca en el centro de la nave.
-	rect.y = position.getY();
 }
 
 void Laser::render() const

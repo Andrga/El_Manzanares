@@ -31,7 +31,7 @@ void SDLApplication::setupGame()
 	{
 		for (int i = 0; i < NUM_TEXTURES; i++)
 		{
-			textures[i] = new Texture(renderer, (TEXTURE_ROOT + texturesList[i].name + ".png").c_str(), texturesList[i].rows, texturesList[i].cols);
+			textures[i] = new Texture(renderer, texturesList[i].url.c_str(), texturesList[i].rows, texturesList[i].cols);
 
 		}
 	}
@@ -56,8 +56,8 @@ void SDLApplication::run() {
 		{
 			update();
 			startTime = SDL_GetTicks();
-			render();
 		}
+		render();
 
 	}
 }
@@ -80,8 +80,7 @@ void SDLApplication::handleEvents()
 	{
 		if (event.key.keysym.sym == SDL_QUIT) // Salida del juego.
 		{
-			cout << "Has cerrado el juego." << endl;
-			endGame = true;
+			setEndGame(true);
 		}
 		else // Guardado en archivo.
 		{

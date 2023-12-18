@@ -37,12 +37,13 @@ void GameStateMachine::replaceState(GameState* pState) {
 		}
 		if (pilaEstados.top()->onExit())
 		{
-			delete pilaEstados.top();
+			eliminaEstados.push_back(pilaEstados.top());
 			pilaEstados.pop();
 		}
 		pilaEstados.push(pState);
 		pilaEstados.top()->onEnter();
 	}
+
 }
 
 void GameStateMachine::popState()
@@ -51,7 +52,7 @@ void GameStateMachine::popState()
 	{
 		if (pilaEstados.top()->onExit())
 		{
-			delete pilaEstados.top();
+			eliminaEstados.push_back(pilaEstados.top());
 			pilaEstados.pop();
 		}
 	}
@@ -60,7 +61,21 @@ void GameStateMachine::popState()
 
 void GameStateMachine::handleEvent(SDL_Event& event)
 {
+	/*for (auto e : eliminaEstados)
+	{
+		//delete e;
+
+	}*/
 	pilaEstados.top()->handleEvent(event);
+	while (!eliminaEstados.empty()) {
+		//cout << "C++ por favor funciona te queremos mucho";
+		//GameState* aux = eliminaEstados.front();
+		eliminaEstados.pop_front();
+		
+		//delete aux;
+
+	}
+
 
 	/*  AQUI VA EL GUARDADO NO LO BORRES (no esta hecho pero bueno :/)
 	string num;

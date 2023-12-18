@@ -15,7 +15,8 @@ protected:
 	const Texture* texture = nullptr;
 	//bool alive = true;
 	SDL_Rect rect;
-	GameList<SceneObject, false>::anchor ownAnch;
+
+	GameList<SceneObject, false>::anchor scAnch;
 
 public:
 
@@ -28,6 +29,6 @@ public:
 
 	virtual bool hit(SDL_Rect _rect, char c);
 
-	void setListAnchor(GameList<SceneObject, false>::anchor& anc) { ownAnch = anc; }
+	virtual void setListAnchor(GameList<SceneObject, false>::anchor& anc) { scAnch = anc; }
 };
 

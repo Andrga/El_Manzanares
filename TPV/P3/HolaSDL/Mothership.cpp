@@ -3,7 +3,7 @@
 #include "PlayState.h"
 
 Mothership::Mothership(PlayState* plST, SDLApplication* appl) 
-	:GameObject(appl), playST(plST)
+	:GameObject(plST), playST(plST)
 {}
 bool Mothership::shouldMove()
 {

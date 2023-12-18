@@ -12,29 +12,40 @@ Cannon::Cannon(PlayState* gam, Point2D<double> pos, const Texture* tex, int liv,
 
 Cannon::~Cannon() {}
 
-void Cannon::handleEvents(SDL_Event event)
+void Cannon::handleEvent(const SDL_Event& event)
 {
 	//cout << "Cannon: tu puta madre iteradores de los cojones." << endl;
-	switch (event.key.keysym.sym)
-	{
-	case SDLK_RIGHT: // Cambio de direccion a la derecha
-		direction = 1;
-		break;
-	case SDLK_LEFT: // Cambio de direccion a la izquierda.
-		direction = -1;
-		break;
-	default:
-		direction = 0;
-		break;
-	}
 	if (event.type == SDL_KEYDOWN)
 	{
-		//disparo
-		if (event.key.keysym.sym == SDLK_SPACE && elapsedTime <= 0)
+		switch (event.key.keysym.sym)
 		{
-			//cout << "Cannon: pium pium" << endl;
-			playST->fireLaser(position, 'c');
-			elapsedTime = TIEMPODISPARO;
+		case SDLK_SPACE:
+			//disparo
+			if (elapsedTime <= 0)
+			{
+				//cout << "Cannon: pium pium" << endl;
+				playST->fireLaser(Point2D<double>(position.getX() + 15, position.getY()), 'c');
+				elapsedTime = TIEMPODISPARO;
+			}
+			break;
+		case SDLK_RIGHT: // Cambio de direccion a la derecha
+			direction = 1;
+			break;
+		case SDLK_LEFT: // Cambio de direccion a la izquierda.
+			direction = -1;
+			break;
+		default:
+			direction = 0;
+			break;
+		}
+	}
+	else if (event.type == SDL_KEYUP)
+	{
+		switch (event.key.keysym.sym)
+		{
+		default:
+			direction = 0;
+			break;
 		}
 
 	}

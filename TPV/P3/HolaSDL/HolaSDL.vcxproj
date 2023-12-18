@@ -70,8 +70,10 @@
   <ItemGroup>
     <ClCompile Include="Alien.cpp" />
     <ClCompile Include="Bunker.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Cannon.cpp" />
     <ClCompile Include="EndState.cpp" />
+    <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="FileFormatError.cpp" />
     <ClCompile Include="FileNotFoundError.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
@@ -94,9 +96,11 @@
   <ItemGroup>
     <ClInclude Include="Alien.h" />
     <ClInclude Include="Bunker.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Cannon.h" />
     <ClInclude Include="checkML.h" />
     <ClInclude Include="EndState.h" />
+    <ClInclude Include="EventHandler.h" />
     <ClInclude Include="FileFormatError.h" />
     <ClInclude Include="FileNotFoundError.h" />
     <ClInclude Include="MainMenuState.h" />

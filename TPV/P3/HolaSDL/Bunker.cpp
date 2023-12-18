@@ -28,7 +28,7 @@ bool Bunker::hit(SDL_Rect _rect, char c)
 			lives--;
 			if (lives <= 0)
 			{
-				playST->hasDied(ownAnch);
+				playST->hasDied(scAnch);
 			}
 			return true;
 		}

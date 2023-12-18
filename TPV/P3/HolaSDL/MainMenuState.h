@@ -2,12 +2,17 @@
 #include "GameState.h"
 class MainMenuState : public GameState
 {
+private:
+	Button* nuevaPartida;
+	Button* cargarPartida;
+	Button* salir;
+
 public:
-	MainMenuState(SDLApplication* _sdlApp) : GameState(_sdlApp) {}
+	MainMenuState(SDLApplication* _sdlApp);
 	void update() override;
 	void render() const override;
-	void handleEvent(const SDL_Event& event) override;
 	void save(ostream& fil) const override;
+	void handleEvent(const SDL_Event& event) override;
 
 	bool onEnter() override;
 	bool onExit() override;

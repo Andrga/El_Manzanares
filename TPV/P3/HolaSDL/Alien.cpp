@@ -3,26 +3,6 @@
 #include "checkML.h"
 #include "Playstate.h"
 #include "SDLApplication.h"
-#pragma region Texturas
-
-
-struct textureInfo
-{
-	string name;
-	int rows;
-	int cols;
-};
-
-textureInfo texturesList[NUM_TEXTURES]
-{
-		textureInfo{"aliens", 3, 2},
-		textureInfo{"bunker", 1, 4},
-		textureInfo{"spaceship", 1, 2},
-		textureInfo{"stars",1, 1},
-		textureInfo{"Ufo", 1, 2}
-};
-
-#pragma endregion
 
 // Constructora
 Alien::Alien(PlayState* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot)
@@ -88,7 +68,7 @@ bool Alien::hit(SDL_Rect _rect, char c)
 			default:
 				break;
 			}
-			playST->hasDied(ownAnch);
+			playST->hasDied(scAnch);
 			mothership->alienDied();
 			return true;
 		}

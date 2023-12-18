@@ -12,7 +12,9 @@
 #include "InfoBar.h"
 #include "SceneObject.h"
 
+
 #include "GameState.h"
+#include "EventHandler.h"
 
 #include "InvadersError.h"
 #include "SDLError.h"
@@ -31,21 +33,14 @@
 using namespace std;
 
 const string MAP_PATH = "assets/maps/";
-const double velocidadAlien = 100;
-const double velocidadCannon = 15;
-const Vector2D<double> velocidadLaser(0, 10);
+const double velocidadAlien = 5;
+const double velocidadCannon = 10;
+const Vector2D<double> velocidadLaser(0, 5);
 
 class PlayState : public GameState
 {
 private:
 	GameList<SceneObject, false> entities;
-	//std::list<SceneObject*> entities; // Lista de entidades del juego.
-	//std::list<SceneObject*>::iterator it;
-	//std::list<list<SceneObject*>::iterator> itElims; //lista de iteradores objetos a eliminar
-
-	//SDL_Window* window = nullptr;
-	//SDL_Renderer* renderer = nullptr;
-	//array<Texture*, NUM_TEXTURES> textures;
 	SDL_Renderer* renderer;
 
 
@@ -60,7 +55,7 @@ private:
 	void readMap();
 
 public:
-	PlayState(SDL_Renderer* rend, SDLApplication* _sdlApp);
+	PlayState(SDLApplication* _sdlApp, bool guardado);
 
 	~PlayState();
 
@@ -69,6 +64,7 @@ public:
 	void render() const override;
 	void handleEvent(const SDL_Event& event) override;
 	void save(ostream& fil) const override;
+
 	//Estados
 	bool onEnter() override;
 	bool onExit() override;
@@ -83,6 +79,7 @@ public:
 	void invencible() { canion->setInvincible(); }
 	void addScore(int points) { score += points; }
 	void hasDied(GameList<GameObject, true>::anchor);
+	void saveGame();
 
 	//Getters
 	const int getRandomRange(int min, int max) { return  uniform_int_distribution<int>(min, max)(randomGenerator); }
