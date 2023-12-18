@@ -26,6 +26,7 @@ public:
 	virtual void update();
 	virtual void render() const;
 	virtual void save(ostream& fil) const;
+	SDL_Rect getRect();
 
 	virtual bool hit(SDL_Rect _rect, char c);
 

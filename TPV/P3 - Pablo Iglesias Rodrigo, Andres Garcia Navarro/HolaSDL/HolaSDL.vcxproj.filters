@@ -114,6 +114,9 @@
     <ClCompile Include="Bomb.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
+    <ClCompile Include="Reward.cpp">
+      <Filter>Archivos de código fuente</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameStateMachine.h">
@@ -198,6 +201,9 @@
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
     <ClInclude Include="Bomb.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Reward.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>

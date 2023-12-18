@@ -29,7 +29,7 @@ UFO::~UFO() {}
 
 void UFO::update()
 {
-	cout << "UFO: pos inicial: " << posInicial.getX() << " UFO: pos : " << position.getX() << endl;
+	//cout << "UFO: pos inicial: " << posInicial.getX() << " UFO: pos : " << position.getX() << endl;
 
 	//cout << "UFO: aTime:  " << aprearanceTime << endl;
 	//cout << "UFO: eTime:  " << elapsedTime << endl;

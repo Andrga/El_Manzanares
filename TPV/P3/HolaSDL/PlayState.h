@@ -10,7 +10,6 @@
 #include "Laser.h"
 #include "Bomb.h"
 #include "Reward.h"
-#include "Shield.h"
 #include "ShooterAlien.h"
 #include "InfoBar.h"
 #include "SceneObject.h"

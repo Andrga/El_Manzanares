@@ -27,7 +27,5 @@ public:
 	void update() override;
 	void render() const override;
 	void save(ostream& fil) const override;
-
-	void renderScore();
 };
 

@@ -22,7 +22,7 @@ void Bomb::update()
 	rect.y = position.getY();
 
 	//Salida de limites de la bala.
-	if (position.getY() <= 0 || position.getY() >= SCRHEIGHT - 10) playST->hasDied(scAnch);
+	if (position.getY() >= SCRHEIGHT - 10) playST->hasDied(scAnch);
 	//Comprueba si la bala choca.
 	if (playST->damage(rect, entity)) {
 		vidas <= 0 ? playST->hasDied(scAnch) : vidas--;

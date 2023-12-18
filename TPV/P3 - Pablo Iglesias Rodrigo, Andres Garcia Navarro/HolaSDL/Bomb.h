@@ -22,9 +22,6 @@ public:
 	void render() const override;
 	bool hit(SDL_Rect rect, char c) override;
 	void save(ostream& fil) const override;
-
-	// Metodos de clase.
-	void renderRect() const;
 };
 
 

@@ -22,13 +22,15 @@ UFO::UFO(PlayState* gam, Point2D<double> pos, const Texture* tex, int sta, int e
 		break;
 	}
 	aprearanceTime = playST->getRandomRange(100, 500);
-	//cout << "UFO: estado inicial: " << UFOstate << endl;
+	//cout << "UFO: pos inicial: " << posInicial.getX() << endl;
 }
 
 UFO::~UFO() {}
 
 void UFO::update()
 {
+	//cout << "UFO: pos inicial: " << posInicial.getX() << " UFO: pos : " << position.getX() << endl;
+
 	//cout << "UFO: aTime:  " << aprearanceTime << endl;
 	//cout << "UFO: eTime:  " << elapsedTime << endl;
 	if (UFOstate == VISIBLE)
@@ -43,13 +45,22 @@ void UFO::update()
 			reset(); // Reseteo.
 		}
 
-		// Update rect.b
+		// Update rect.
 		rect.x = position.getX();
 		rect.y = position.getY();
 	}
 	else if (UFOstate == DESTRUIDO)
 	{
 		//cout << "UFO: ahora deberia de hacer animacion de destruirse y resetearse." << endl;
+		// Rewards y bombas:
+		if (playST->getRandomRange(0, 10) < proporcionBombas && !reward) {
+			reward = true;
+			playST->fireBomb(position);
+		}
+		else if (playST->getRandomRange(0, 10) > proporcionBombas && !reward) {
+			reward = true;
+			playST->fireReward(position);
+		}
 		if (timer >= maxTimer) // Timer para que el sprite del UFO destruido se quede en pantalla un poco.
 		{
 			timer = 0;
@@ -74,7 +85,7 @@ void UFO::render() const
 	}
 	else if (UFOstate == DESTRUIDO) // Si el UFO ha sido destruido le ponemos la textura que corresponde.
 	{
-   		texture->renderFrame(rect, texture->getNumRows() - 1, texture->getNumColumns() - 1);
+		texture->renderFrame(rect, texture->getNumRows() - 1, texture->getNumColumns() - 1);
 	}
 }
 
@@ -93,7 +104,7 @@ bool UFO::hit(SDL_Rect _rect, char c)
 			//cout << "UFO: hit" << endl;
 			//game->hasDied(ownIte); // Suponemos que no se elimina aunque lo eliminemos y lo que se hace es transportalo a la posicion de inicio.
 			playST->addScore(100);
-			playST->invencible(); // Al destruirse el UFO la nave se hace invencible durante un tiempo.
+			//playST->invencible(); // Al destruirse el UFO la nave se hace invencible durante un tiempo.
 			return true;
 		}
 	}
@@ -105,10 +116,13 @@ void UFO::reset() // Pone el estado del UFO que le corresponde y modifica el eTi
 	if (UFOstate == DESTRUIDO || UFOstate == VISIBLE)
 	{
 		//cout << "UFO: reset (des/vis)." << endl;
+		//cout << "UFO: pos inicial: " << posInicial.getX() << " UFO: pos : " << position.getX() << endl;
+		reward = false;
 		UFOstate = OCULTO;
 		position = posInicial;
+		rect.x = posInicial.getX();
 		elapsedTime = 0;
-		aprearanceTime = playST->getRandomRange(500, 1000); // Reinicimaos el tiempo para la siguiente espera.
+		aprearanceTime = playST->getRandomRange(500, 1000); // Reiniciamos el tiempo para la siguiente espera.
 	}
 	else if (UFOstate == OCULTO)
 	{

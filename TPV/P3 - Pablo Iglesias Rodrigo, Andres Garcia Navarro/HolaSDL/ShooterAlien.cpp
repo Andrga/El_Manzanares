@@ -16,12 +16,12 @@ void ShooterAlien::update()
 	if (elapsedTime >= reloadTime)
 	{
 		//cout << "Alien: pium pium" << endl;
-		if (playST->getRandomRange(0, 10) < proporcionBombas){
-			playST->fireBomb(position);
-		}
-		else {
+		//if (playST->getRandomRange(0, 10) < proporcionBombas) {
+			//playST->fireBomb(position);
+		//}
+		//else {
 			playST->fireLaser(position, 'a');
-		}
+		//}
 
 		elapsedTime = 0.0;
 		reloadTime = setTime();

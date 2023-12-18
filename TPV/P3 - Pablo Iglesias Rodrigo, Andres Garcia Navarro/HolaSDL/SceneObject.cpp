@@ -15,3 +15,13 @@ void SceneObject::render() const {}
 void SceneObject::save(ostream& fil) const {}
 
 bool SceneObject::hit(SDL_Rect _rect, char c) { return true; }
+
+SDL_Rect SceneObject::getRect()
+{
+	SDL_Rect rect;
+	rect.x = position.getX();
+	rect.y = position.getY();
+	rect.w = width;
+	rect.h = height;
+	return rect;
+}

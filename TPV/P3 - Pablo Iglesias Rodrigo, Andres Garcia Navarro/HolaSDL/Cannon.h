@@ -14,7 +14,7 @@ private:
 
 	// Parametros invencibilidad
 	bool invincible = false;
-	int timer = 0, maxTimer = 75;
+	int timer = 0, maxTimer = 200;
 
 
 public:

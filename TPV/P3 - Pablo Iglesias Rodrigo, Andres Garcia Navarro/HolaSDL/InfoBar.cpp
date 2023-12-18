@@ -38,14 +38,19 @@ InfoBar::InfoBar(PlayState* plST, SDLApplication* appl, Point2D<double> pos, int
 	}
 }
 
-InfoBar::~InfoBar() {}
+InfoBar::~InfoBar() {
+	delete[] canVid;
+	delete[] cifrPunt;
+	delete playST;
+	delete canTexture;
+	delete numTexture;
+}
 
 void InfoBar::update()
 {
 	cannonLives = playST->getCannonLives(); // Cogemos las vidas del cannon.
 	if (score != playST->returnScore()) {
 		score = playST->returnScore();
-		cout << score << endl;
 	}
 
 }

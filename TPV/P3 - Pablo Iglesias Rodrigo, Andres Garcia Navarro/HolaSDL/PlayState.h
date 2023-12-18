@@ -9,6 +9,7 @@
 #include "Bunker.h"
 #include "Laser.h"
 #include "Bomb.h"
+#include "Reward.h"
 #include "ShooterAlien.h"
 #include "InfoBar.h"
 #include "SceneObject.h"
@@ -38,7 +39,8 @@ const double velocidadAlien = 5;
 const double velocidadBomb = 5;
 const double velocidadCannon = 10;
 const Vector2D<double> velocidadLaser(0, 5);
-const int proporcionBombas = 4;
+const int proporcionBombas = 5;
+const int velocidadReward = 4;
 
 class PlayState : public GameState
 {
@@ -77,6 +79,8 @@ public:
 	bool damage(SDL_Rect _rect, char c);
 	void fireLaser(Point2D<double>& position, char c);
 	void fireBomb(Point2D<double>& position);
+	void fireReward(Point2D<double>& position);
+	bool mayGrantReward(SDL_Rect rect);
 	void gameOver();
 	void hasDied(GameList<SceneObject, false>::anchor anch);
 	void cargado();
