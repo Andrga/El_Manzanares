@@ -1,4 +1,5 @@
 #include "GameStateMachine.h"
+#include "checkML.h"
 
 GameStateMachine::GameStateMachine()
 {
@@ -61,30 +62,16 @@ void GameStateMachine::popState()
 
 void GameStateMachine::handleEvent(SDL_Event& event)
 {
-	/*for (auto e : eliminaEstados)
+	pilaEstados.top()->handleEvent(event);/*
+	for (auto e : eliminaEstados)
 	{
-		//delete e;
-
-	}*/
-	pilaEstados.top()->handleEvent(event);
-	while (!eliminaEstados.empty()) {
-		//cout << "C++ por favor funciona te queremos mucho";
-		//GameState* aux = eliminaEstados.front();
-		eliminaEstados.pop_front();
-		
-		//delete aux;
+		delete e;
 
 	}
+	
+	while (!eliminaEstados.empty()) {
+		
+		delete eliminaEstados.front();
 
-
-	/*  AQUI VA EL GUARDADO NO LO BORRES (no esta hecho pero bueno :/)
-	string num;
-	cout << "Numero de guardado de partida:";
-	cin >> num;
-
-	ofstream file;
-	file.open("assets/maps/guardado" + num + ".txt");
-	save(file);
-
-	file.close();*/
+	}*/
 }

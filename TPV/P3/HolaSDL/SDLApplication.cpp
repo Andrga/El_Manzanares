@@ -10,6 +10,11 @@ SDLApplication::SDLApplication() {
 
 SDLApplication::~SDLApplication()
 {
+	for (const Texture* t: textures)
+	{
+		delete t;
+	}
+
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();

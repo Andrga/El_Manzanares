@@ -17,11 +17,7 @@ protected:
 
 public:
 	GameState(SDLApplication* _sdlApp) : sdlApp(_sdlApp) {}
-	~GameState()
-	{
-		listeners.clear();
-		delete sdlApp;
-	}
+	virtual ~GameState() = default;
 
 	virtual void update() = 0;
 	virtual void render() const = 0;
