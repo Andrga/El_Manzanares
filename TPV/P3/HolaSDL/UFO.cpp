@@ -52,6 +52,7 @@ void UFO::update()
 	else if (UFOstate == DESTRUIDO)
 	{
 		//cout << "UFO: ahora deberia de hacer animacion de destruirse y resetearse." << endl;
+		// Rewards y bombas:
 		if (playST->getRandomRange(0, 10) < proporcionBombas && !reward) {
 			reward = true;
 			playST->fireBomb(position);
@@ -114,11 +115,12 @@ void UFO::reset() // Pone el estado del UFO que le corresponde y modifica el eTi
 {
 	if (UFOstate == DESTRUIDO || UFOstate == VISIBLE)
 	{
-		cout << "UFO: reset (des/vis)." << endl;
-		cout << "UFO: pos inicial: " << posInicial.getX() << " UFO: pos : " << position.getX() << endl;
+		//cout << "UFO: reset (des/vis)." << endl;
+		//cout << "UFO: pos inicial: " << posInicial.getX() << " UFO: pos : " << position.getX() << endl;
 		reward = false;
 		UFOstate = OCULTO;
 		position = posInicial;
+		rect.x = posInicial.getX();
 		elapsedTime = 0;
 		aprearanceTime = playST->getRandomRange(500, 1000); // Reiniciamos el tiempo para la siguiente espera.
 	}
