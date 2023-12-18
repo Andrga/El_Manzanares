@@ -33,7 +33,7 @@
 using namespace std;
 
 const string MAP_PATH = "assets/maps/";
-const double velocidadAlien = 5;
+const double velocidadAlien = 20;
 const double velocidadCannon = 10;
 const Vector2D<double> velocidadLaser(0, 5);
 

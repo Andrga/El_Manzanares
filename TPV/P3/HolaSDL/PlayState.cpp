@@ -56,7 +56,7 @@ void PlayState::readMap()
 		}
 		else if (objeto == 7) // InfoBar no se mete en la lista.
 		{
-			info = new InfoBar(this, getGame(), Point2D<double>(10, SCRHEIGHT - 30), getGame()->getTexture(SPACESHIP), dato1);
+			info = new InfoBar(this, getGame(), Point2D<double>(10, SCRHEIGHT - 30), dato1);
 		}
 		else
 		{
@@ -116,6 +116,11 @@ void PlayState::update()
 	{
 		i.update();
 	}
+
+	if(mother->getAlienCount()<=0)
+	{
+ 		sdlApp->getStMachine()->replaceState(new EndState(sdlApp, true));
+	}
 }
 
 void PlayState::render() const
@@ -164,7 +169,7 @@ bool PlayState::damage(SDL_Rect _rect, char c)
 
 void PlayState::gameOver()
 {
-	getGame()->getStMachine()->replaceState(new MainMenuState(sdlApp));
+	getGame()->getStMachine()->replaceState(new EndState(sdlApp, false));
 }
 
 void PlayState::hasDied(GameList<SceneObject, false>::anchor anch)

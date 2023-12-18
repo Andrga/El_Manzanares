@@ -78,7 +78,7 @@ void SDLApplication::handleEvents()
 
 	while (SDL_PollEvent(&event))
 	{
-		if (event.key.keysym.sym == SDL_QUIT) // Salida del juego.
+		if (event.key.keysym.sym == SDLK_e) // Salida del juego.
 		{
 			setEndGame(true);
 		}

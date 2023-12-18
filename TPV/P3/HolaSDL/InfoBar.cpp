@@ -1,11 +1,26 @@
 #include "checkML.h"
 #include "InfoBar.h"
 #include "PlayState.h"
+#include "SDLApplication.h"
 
 
-InfoBar::InfoBar(PlayState* plST, SDLApplication* appl, Point2D<double> pos, const Texture* canTex, int scr) : GameObject(plST), playST(plST), position(pos), canTexture(canTex), score(scr)
+InfoBar::InfoBar(PlayState* plST, SDLApplication* appl, Point2D<double> pos, int scr) : GameObject(plST), playST(plST), position(pos), score(scr)
 {
-	pos1 = pos; // Para la muestra de vidas cogemos la posicion del infobar.
+	cannonLives = playST->getCannonLives(); // Cogemos las vidas del cannon.
+
+	canVid = new SDL_Rect[cannonLives];
+
+	canTexture = playST->getGame()->getTexture(SPACESHIP);
+	for (int i = 0; i < cannonLives; i++)
+	{
+		// Para mostrar las vidas restantes de la nave:
+		canVid[i].w = canTexture->getFrameWidth();
+		canVid[i].h = canTexture->getFrameHeight();
+
+		//posicionado de las vidas
+		canVid[i].x = position.getX() + 50 * i; // Para que aparezcan consecutivas.
+		canVid[i].y = position.getY();
+	}
 }
 
 InfoBar::~InfoBar() {}
@@ -16,18 +31,7 @@ void InfoBar::update()
 	if (score != playST->returnScore())
 	{
 		score = playST->returnScore();
-		//cout << "SCORE: " << score << endl;
 
-	}
-	// Para mostrar las vidas restantes de la nave:
-	rect.w = canTexture->getFrameWidth();
-	rect.h = canTexture->getFrameHeight();
-
-	for (int i = 0; i < cannonLives; i++)
-	{
-		rect.x = pos1.getX() + 50 * i; // Para que aparezcan consecutivas.
-		rect.y = pos1.getY();
-		//cout << i;
 	}
 }
 
@@ -35,7 +39,7 @@ void InfoBar::render() const
 {
 	for (int i = 0; i < cannonLives; i++)
 	{
-		canTexture->renderFrame(rect, canTexture->getNumRows() - 1, canTexture->getNumColumns() - 2);
+		canTexture->renderFrame(canVid[i], canTexture->getNumRows() - 1, canTexture->getNumColumns() - 2);
 	}
 }
 

@@ -40,9 +40,6 @@ void PauseState::handleEvent(const SDL_Event& event)
 {
 	GameState::handleEvent(event); 
 }
-void PauseState::save(ostream& fil) const {
-
-}
 
 void PauseState::render() const
 {
@@ -75,35 +72,13 @@ void PauseState::continuar()
 
 void PauseState::guardarPartida()
 {
-	cout << "Inserte num de ranura de guardado: " << endl;
 	playST->saveGame();
 }
 
 void PauseState::cargarPartida()
 {
-	cout << "Inserte num de ranura de carga: " << endl;
-	/*
-	char k;
-	string file;
-
-	// lee el numero
-	cin >> k;
-
-	// crea un string con el archivo
-	file = "..\\saved\\save" + to_string(k - '0');
-
-	// crea un nuevo estado con la direccion indicada
-	GameState* ps = new PlayState(app, file);
-
-	app;
-
-	app->getgsMachine();
-
-	// crea un nuevo play state y lo remplaza con el anterior
-	app->getgsMachine()->replaceState(ps);
-
-	// quita este estado
-	app->getgsMachine()->popState();*/
+	sdlApp->getStMachine()->popState();
+	sdlApp->getStMachine()->replaceState(new PlayState(sdlApp, true));
 }
 
 void PauseState::salir()

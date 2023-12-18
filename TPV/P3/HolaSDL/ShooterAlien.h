@@ -7,7 +7,7 @@ private:
 	double reloadTime;
 	double maxShootTime = 10000;
 	double minShootTime = 500;
-	double elapsedTime = 0;
+	double elapsedTime = 500;
 
 public:
 
@@ -20,7 +20,6 @@ public:
 	void save(ostream& fil) const override;
 	
 	//Metodos de clase.
-	void shoot();
 	double setTime();
 
 };

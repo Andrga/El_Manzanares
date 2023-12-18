@@ -20,7 +20,7 @@
 using namespace std;
 
 const string TEXTURE_ROOT = "assets/images/";
-const int NUM_TEXTURES = 12;
+const int NUM_TEXTURES = 16;
 
 const double SCRWIDTH = 800;
 const double SCRHEIGHT = 600;
@@ -31,8 +31,8 @@ const double TIMEBETWEENFRAMES = 1000 / FRAMERATE;
 
 // el UFO se llama UFOT para no confundirlo con la clase.
 enum TextureName {
-	ALIENS, BUNKER, SPACESHIP, STARS, UFOT, MENUFONDO, NUEVAP,
-	CARGARP, SALIR, CONTINUARP, GUARDARP, FONDOP
+	ALIENS, BUNKER, SPACESHIP, STARS, UFOT, NUMS, MENUFONDO, NUEVAP,
+	CARGARP, SALIR, CONTINUARP, GUARDARP, FONDOP, VOLVERM, GOV, WIN
 };
 
 
@@ -54,13 +54,17 @@ private:
 			textureInfo{"assets/images/spaceship.png", 1, 2},
 			textureInfo{"assets/images/stars.png",1, 1},
 			textureInfo{"assets/images/Ufo.png", 1, 2},
+			textureInfo{"assets/images/numbers.png", 1, 10},
 			textureInfo{"assets/fondos/mainMenu.png", 1,1},
 			textureInfo{"assets/textos/nuevaPartida.png", 1,1},
 			textureInfo{"assets/textos/cargarPartida.png", 1,1},
 			textureInfo{"assets/textos/salir.png", 1,1},
 			textureInfo{"assets/textos/continuar.png", 1,1},
 			textureInfo{"assets/textos/guardarPartida.png", 1,1},
-			textureInfo{"assets/fondos/pausaFondo.PNG", 1,1}
+			textureInfo{"assets/fondos/pausaFondo.PNG", 1,1},
+			textureInfo{"assets/textos/volverAlMenu.png", 1,1},
+			textureInfo{"assets/textos/gameOver.png", 1,1},
+			textureInfo{"assets/textos/hasGanado.png", 1,1}
 
 	};
 #pragma endregion
