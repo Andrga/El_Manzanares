@@ -4,6 +4,7 @@
 #include "SDLApplication.h"
 #include "SDL.h"
 
+using namespace std;
 
 Laser::Laser(PlayState* playST, Point2D<double> pos, char ent, Vector2D<double> vel)
 	: SceneObject(playST, pos, 3, 21,nullptr), entity(ent), velocidad(vel), renderer(playST->getGame()->getRenderer())

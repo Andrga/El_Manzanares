@@ -2,6 +2,9 @@
 #include "SDLApplication.h"
 #include "GameState.h"
 #include "Button.h"
+#include "checkML.h"
+
+using namespace std;
 
 MainMenuState::MainMenuState(SDLApplication* _sdlApp)
 	: GameState(_sdlApp)

@@ -17,10 +17,10 @@ public:
 
 	// Metodos heredados.
 	void update() override;
-	void save(ostream& fil) const override;
+	void save(std::ostream& fil) const override;
 	
 	//Metodos de clase.
-	double setTime();
+	double setTime() const;
 
 };
 

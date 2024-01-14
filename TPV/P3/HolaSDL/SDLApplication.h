@@ -17,9 +17,9 @@
 #include <vector>
 #include <array>
 
-using namespace std;
+//using namespace std;
 
-const string TEXTURE_ROOT = "assets/images/";
+const std::string TEXTURE_ROOT = "assets/images/";
 const int NUM_TEXTURES = 18;
 
 const double SCRWIDTH = 800;
@@ -42,7 +42,7 @@ private:
 #pragma region Texturas
 	struct textureInfo
 	{
-		string url;
+		std::string url;
 		int rows;
 		int cols;
 	};
@@ -74,10 +74,10 @@ private:
 
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
-	array<Texture*, NUM_TEXTURES> textures;
+	std::array<Texture*, NUM_TEXTURES> textures;
 
 	// Maquina de estados
-	GameStateMachine stateMachine;
+	GameStateMachine* stateMachine = new GameStateMachine();
 
 	// Bucle de juego
 	uint32_t frameTime;
@@ -92,19 +92,15 @@ public:
 	~SDLApplication();
 
 	//Metodos base
-	void update() { stateMachine.update(); }
+	void update() { stateMachine->update(); }
 	void render() const;
 	void run();
 	void handleEvents();
-	void setEndGame(bool end)
-	{
-		endGame = end;
-		cout << "Has cerrado el juego." << endl;
-	}
+	void setEndGame(bool end);
 
-	SDL_Renderer* getRenderer() { return renderer; }
+	SDL_Renderer* getRenderer() const { return renderer; }
 	//Cambio de estado
-	GameStateMachine* getStMachine() { return &stateMachine; }
+	GameStateMachine* getStMachine() const { return stateMachine; }
 
 	//Getters
 	Texture* getTexture(TextureName _texNam) const { return textures[_texNam]; }

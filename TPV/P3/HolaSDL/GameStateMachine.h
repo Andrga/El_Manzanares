@@ -7,12 +7,12 @@
 #include "PlayState.h"
 #include <list>
 
-using namespace std;
+//using namespace std;
 class GameStateMachine
 {
 protected:
-	stack<GameState*> pilaEstados;
-	list<GameState*> eliminaEstados;
+	std::stack<GameState*> pilaEstados;
+	std::list<GameState*> eliminaEstados;
 public:
 	GameStateMachine();
 
@@ -24,6 +24,6 @@ public:
 	// Metodos que hacen cosas.
 	void update();
 	void render() const;
-	void handleEvent(SDL_Event& event);
+	void handleEvent(const SDL_Event& event);
 };
 

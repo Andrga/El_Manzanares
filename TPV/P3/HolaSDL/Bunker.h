@@ -18,6 +18,6 @@ public:
 	void update() override;
 	void render() const override;
 	bool hit(SDL_Rect rect, char c) override;
-	void save(ostream& fil) const override;
+	void save(std::ostream& fil) const override;
 };
 

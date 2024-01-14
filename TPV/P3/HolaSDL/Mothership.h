@@ -34,7 +34,7 @@ public:
 	// Metodos heredados
 	void update() override;
 	void render() const override;
-	void save(ostream& fil) const override;
+	void save(std::ostream& fil) const override;
 
 	// Metodos de clase
 	void alienDied();
@@ -44,7 +44,7 @@ public:
 	bool shouldMove();
 
 	//Getters / Setters
-	int getLevel() { return level; }
+	int getLevel() const { return level; }
 	int getAlienCount() const;
 	int getDirection() const { return direction; } // Devuelve la direccion de movimiento.
 

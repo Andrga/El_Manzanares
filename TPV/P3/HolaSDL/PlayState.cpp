@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 
+using namespace std;
+
 #pragma region constructora/destructora
 
 PlayState::PlayState(SDLApplication* _sdlApp, bool guardado)
@@ -152,20 +154,20 @@ void PlayState::handleEvent(const SDL_Event& event)
 }
 
 #pragma region Dano y fin de juego
-void PlayState::fireLaser(Point2D<double>& pos, char c)
+void PlayState::fireLaser(const Point2D<double>& pos, char c)
 {
 	//cout << "Game: pium pium" << endl;
 	SceneObject* newObj = new Laser(this, pos, c, velocidadLaser);
 	entities.push_back(newObj);
 }
 
-void PlayState::fireBomb(Point2D<double>& position)
+void PlayState::fireBomb(const Point2D<double>& position)
 {
 	//cout << "Lanza bomba" << endl;
 	entities.push_back(new Bomb(this, position));
 }
 
-void PlayState::fireReward(Point2D<double>& position)
+void PlayState::fireReward(const Point2D<double>& position)
 {
 	//cout << "Lanza Rewars" << endl;
 	entities.push_back(new Reward(this, position, [this]() { canion->setInvincible(); }, sdlApp->getTexture(SHIELD)));
@@ -215,7 +217,7 @@ void PlayState::saveGame()
 
 	save(file);
 }
-void PlayState::save(ostream& file) const
+void PlayState::save(std::ostream& file) const
 {
 	for (auto& i : entities)
 	{
@@ -243,4 +245,8 @@ bool PlayState::onEnter() {
 bool PlayState::onExit() {
 	cout << "Saliendo PlauState\n";
 	return true;
+}
+
+int PlayState::getRandomRange(int min, int max) {
+	return  uniform_int_distribution<int>(min, max)(randomGenerator);
 }

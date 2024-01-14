@@ -2,6 +2,8 @@
 #include "Mothership.h"
 #include "PlayState.h"
 
+using namespace std;
+
 Mothership::Mothership(PlayState* plST, SDLApplication* appl) 
 	:GameObject(plST), playST(plST)
 {}

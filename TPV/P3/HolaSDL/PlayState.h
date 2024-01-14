@@ -32,9 +32,11 @@
 #include <fstream>
 #include <random>
 
-using namespace std;
+//using namespace std;
 
-const string MAP_PATH = "assets/maps/";
+const std::string MAP_PATH = "assets/maps/";
+
+
 const double velocidadAlien = 5;
 const double velocidadBomb = 5;
 const double velocidadCannon = 10;
@@ -52,9 +54,9 @@ private:
 	Cannon* canion = nullptr;
 	Mothership* mother = new Mothership(this, getGame());
 	InfoBar* info = nullptr;
-	mt19937_64 randomGenerator;
+	std::mt19937_64 randomGenerator;
 
-	string map = MAP_PATH;
+	std::string map = MAP_PATH;
 	int score = 0;
 
 	void readMap();
@@ -68,18 +70,18 @@ public:
 	void update() override;
 	void render() const override;
 	void handleEvent(const SDL_Event& event) override;
-	void save(ostream& fil) const override;
+	void save(std::ostream& fil) const override;
 
 	//Estados
 	bool onEnter() override;
 	bool onExit() override;
-	string getStateID() const override { return"PlayST"; }
+	std::string getStateID() const override { return"PlayST"; }
 
 	//Metodos de clase
 	bool damage(SDL_Rect _rect, char c);
-	void fireLaser(Point2D<double>& position, char c);
-	void fireBomb(Point2D<double>& position);
-	void fireReward(Point2D<double>& position);
+	void fireLaser(const Point2D<double>& position, char c);
+	void fireBomb(const Point2D<double>& position);
+	void fireReward(const Point2D<double>& position);
 	bool mayGrantReward(SDL_Rect rect);
 	void gameOver();
 	void hasDied(GameList<SceneObject, false>::anchor anch);
@@ -90,9 +92,9 @@ public:
 	void saveGame();
 
 	//Getters
-	const int getRandomRange(int min, int max) { return  uniform_int_distribution<int>(min, max)(randomGenerator); }
-	const int getCannonLives() { return canion->getLives(); }
-	const int returnScore() { return score; }
-	const double getCannonYPos() { return canion->getPos().getY(); }
+	int getRandomRange(int min, int max);
+	int getCannonLives() const { return canion->getLives(); }
+	int returnScore() const { return score; }
+	const double getCannonYPos() const { return canion->getPos().getY(); }
 };
 

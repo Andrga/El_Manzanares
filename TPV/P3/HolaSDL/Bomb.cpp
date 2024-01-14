@@ -5,6 +5,7 @@
 #include "SceneObject.h"
 #include "SDL.h"
 
+using namespace std;
 
 Bomb::Bomb(PlayState* playST, Point2D<double> pos, int vid)
 	: SceneObject(playST, pos, playST->getGame()->getTexture(BOMB)->getFrameWidth(), playST->getGame()->getTexture(BOMB)->getFrameHeight(), nullptr), vidas(vid)

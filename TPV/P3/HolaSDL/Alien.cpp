@@ -1,8 +1,10 @@
 #include "checkML.h"
 #include "Alien.h"
 #include "checkML.h"
-#include "Playstate.h"
+#include "PlayState.h"
 #include "SDLApplication.h"
+
+using namespace std;
 
 // Constructora
 Alien::Alien(PlayState* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot)

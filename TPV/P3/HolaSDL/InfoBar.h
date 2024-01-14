@@ -2,7 +2,12 @@
 #include "GameObject.h"
 #include "Vector2D.h"
 #include "texture.h"
-#include <array>
+
+// Constante para el maximo numero de digitos de la puntuacion
+const int MAX_DIGITS = 4;
+
+// Vidas maximas del cannon.
+constexpr int MAX_CANNON_LIVES = 3;
 
 class InfoBar : public GameObject
 {
@@ -14,8 +19,8 @@ private:
 	Texture* canTexture;
 	Texture* numTexture;
 
-	SDL_Rect* canVid;
-	SDL_Rect* cifrPunt;
+	SDL_Rect canVid[MAX_CANNON_LIVES];
+	SDL_Rect cifrPunt[MAX_DIGITS];
 
 public:
 
@@ -26,6 +31,6 @@ public:
 	// Metodos heredados
 	void update() override;
 	void render() const override;
-	void save(ostream& fil) const override;
+	void save(std::ostream& fil) const override;
 };
 

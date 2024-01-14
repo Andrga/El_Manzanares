@@ -30,12 +30,12 @@ void ShooterAlien::update()
 	//cout << elapsedTime << endl;
 }
 
-double ShooterAlien::setTime()
+double ShooterAlien::setTime() const
 {
-	return reloadTime = playST->getRandomRange(minShootTime, maxShootTime);
+	return playST->getRandomRange(minShootTime, maxShootTime);
 }
 
-void ShooterAlien::save(ostream& fil) const // Guarda: tipo-posicion-subitpo-tiempoParaDisparar.
+void ShooterAlien::save(std::ostream& fil) const // Guarda: tipo-posicion-subitpo-tiempoParaDisparar.
 {
 	fil << 2 << " " << position.getX() << " " << position.getY() << "  " << 0 << " " << elapsedTime << "\n";
 }

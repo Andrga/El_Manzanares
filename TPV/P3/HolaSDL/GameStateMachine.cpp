@@ -60,7 +60,7 @@ void GameStateMachine::popState()
 }
 #pragma endregion
 
-void GameStateMachine::handleEvent(SDL_Event& event)
+void GameStateMachine::handleEvent(const SDL_Event& event)
 {
 	pilaEstados.top()->handleEvent(event);/*
 	for (auto e : eliminaEstados)

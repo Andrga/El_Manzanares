@@ -6,7 +6,7 @@
 
 #include "gameList.h"
 
-using namespace std;
+//using namespace std;
 
 class SDLApplication;
 class GameState;
@@ -36,9 +36,9 @@ public:
 
 	virtual void update() = 0;
 
-	virtual void save(ostream& fil) const = 0;
+	virtual void save(std::ostream& fil) const = 0;
 	
-	virtual void setListAnchor(GameList<GameObject, true>::anchor& anc) { objAnch = anc; }
+	virtual void setListAnchor(const GameList<GameObject, true>::anchor& anc) { objAnch = anc; }
 
-	virtual GameList<GameObject, true>::anchor& getListAnchor() { return objAnch; }
+	const virtual GameList<GameObject, true>::anchor& getListAnchor() const { return objAnch; }
 };

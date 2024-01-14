@@ -1,13 +1,15 @@
 #include "checkML.h"
 #include "Cannon.h"
-#include "Playstate.h"
+#include "PlayState.h"
 #include "SDLApplication.h"
 
+using namespace std;
 
 Cannon::Cannon(PlayState* gam, Point2D<double> pos, const Texture* tex, int liv, int eTime)
-	: SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), lives(liv), elapsedTime(eTime)
+	: SceneObject(gam, pos, tex->getFrameWidth(), tex->getFrameHeight(), tex), elapsedTime(eTime)
 {
-
+	// En caso de que queramos ampliar las vidas durante la ejecucion del juego
+	liv > MAX_CANNON_LIVES ? lives = MAX_CANNON_LIVES : lives = liv;
 }
 
 Cannon::~Cannon() {}

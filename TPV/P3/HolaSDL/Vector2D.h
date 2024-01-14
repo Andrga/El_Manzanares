@@ -15,19 +15,19 @@ public:
 	T getY() const { return y; }
 
 	//Sobrecargas de operadores
-	Vector2D operator+(Vector2D other)
+	Vector2D operator+(Vector2D other) const
 	{
 		return Vector2D(x + other.x, y + other.y);
 	}
-	Vector2D operator-(Vector2D other)
+	Vector2D operator-(Vector2D other) const
 	{
 		return Vector2D(x - other.x, y - other.y);
 	}
-	T operator*(Vector2D other)
+	T operator*(Vector2D other) const
 	{
 		return ((x * other.x) + (y * other.y));
 	}
-	Vector2D operator*(T other)
+	Vector2D operator*(T other) const
 	{
 		return Vector2D(other * x, other * y);
 	}

@@ -4,6 +4,6 @@
 class SDLError : public InvadersError
 {
 public:
-	SDLError(const string& mes) : InvadersError(mes) {}
+	SDLError(const std::string& mes) : InvadersError(mes) {}
 };
 

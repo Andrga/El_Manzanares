@@ -2,25 +2,26 @@
 #include "SDLApplication.h"
 #include "Button.h"
 #include "GameStateMachine.h"
+#include "checkML.h"
 
+using namespace std;
 
 EndState::EndState(SDLApplication* _sdlApp, bool win) : GameState(_sdlApp)
 {
-	rect = new SDL_Rect;
-	rect->y = 100;
+	rect.y = 100;
 	if (win)
 	{
-		rect->x = 300;
+		rect.x = 300;
 		tex = sdlApp->getTexture(WIN);
 	}
 	else
 	{
-		rect->x = 300;
+		rect.x = 300;
 		tex = sdlApp->getTexture(GOV);
 
 	}
-	rect->w = tex->getFrameWidth();
-	rect->h = tex->getFrameHeight();
+	rect.w = tex->getFrameWidth();
+	rect.h = tex->getFrameHeight();
 
 	volverMenu = new Button(this, sdlApp->getTexture(VOLVERM), Point2D<double>(250, 250));
 	salir = new Button(this, sdlApp->getTexture(SALIR), Point2D<double>(350, 400));
@@ -43,7 +44,7 @@ void EndState::update()
 void EndState::render() const
 {
 	sdlApp->getTexture(STARS)->render();
-	tex->render(*rect);
+	tex->render(rect);
 
 	for (GameObject& a : objs) {
 		a.render();

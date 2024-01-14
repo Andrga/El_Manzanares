@@ -25,11 +25,11 @@ public:
 	//Metodos heredados
 	virtual void update();
 	virtual void render() const;
-	virtual void save(ostream& fil) const;
+	virtual void save(std::ostream& fil) const;
 	SDL_Rect getRect();
 
 	virtual bool hit(SDL_Rect _rect, char c);
 
-	virtual void setListAnchor(GameList<SceneObject, false>::anchor& anc) { scAnch = anc; }
+	virtual void setListAnchor(const GameList<SceneObject, false>::anchor& anc) { scAnch = anc; }
 };
 

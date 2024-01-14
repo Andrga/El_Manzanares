@@ -12,7 +12,7 @@ void SceneObject::update(){}
 
 void SceneObject::render() const {}
 
-void SceneObject::save(ostream& fil) const {}
+void SceneObject::save(std::ostream& fil) const {}
 
 bool SceneObject::hit(SDL_Rect _rect, char c) { return true; }
 

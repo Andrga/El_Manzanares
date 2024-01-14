@@ -23,8 +23,8 @@ public:
 	void update() override;
 	void render() const override;
 	void handleEvent(const SDL_Event& event) override;
-	void save(ostream& fil) const override {}
-	string getStateID() const override { return"PauseST"; }
+	void save(std::ostream& fil) const override {}
+	std::string getStateID() const override { return"PauseST"; }
 
 	bool onEnter() override;
 	bool onExit() override;

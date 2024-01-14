@@ -1,12 +1,12 @@
 #pragma once
 #include "SceneObject.h"
 #include "checkML.h"
-#include "cannon.h"
+#include "Cannon.h"
 #include <functional> 
 #include "texture.h"
 
 
-using SDLEventCallback = function<void(void)>;
+using SDLEventCallback = std::function<void(void)>;
 
 class Reward:public SceneObject
 {

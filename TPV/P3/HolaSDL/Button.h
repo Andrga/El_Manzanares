@@ -9,7 +9,7 @@
 #include "GameState.h"
 
 
-using SDLEventCallback = function<void(void)>;
+using SDLEventCallback = std::function<void(void)>;
 
 class Button :public EventHandler, public GameObject
 {
@@ -24,7 +24,7 @@ private:
 	SDL_Point point;	// guarda posicion del cursor en click
 	SDL_Rect destRect;	// rectangulo del render
 
-	list<SDLEventCallback> eventsCB;
+	std::list<SDLEventCallback> eventsCB;
 	Point2D<double> position;
 	Texture* texture;
 	int currentFrame;
@@ -39,7 +39,7 @@ public:
 	void render() const override;
 	void update() override;
 	void handleEvent(const SDL_Event& event) override;
-	void save(ostream& fil) const {};
+	void save(std::ostream& fil) const {};
 
 	// Metodos de clase.
 	void connectButton(SDLEventCallback buttonCallback);

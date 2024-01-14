@@ -3,6 +3,6 @@
 class FileNotFoundError : public InvadersError
 {
 public:
-	FileNotFoundError(const string& mes) : InvadersError(mes) {}
+	FileNotFoundError(const std::string& mes) : InvadersError(mes) {}
 };
 

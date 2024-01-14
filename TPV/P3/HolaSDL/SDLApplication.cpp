@@ -1,5 +1,7 @@
 #include "SDLApplication.h"
+#include "checkML.h"
 
+using namespace std;
 
 #pragma region Configuracion y setting del juego
 SDLApplication::SDLApplication() {
@@ -50,7 +52,7 @@ void SDLApplication::setupGame()
 void SDLApplication::run() {
 
 	startTime = SDL_GetTicks();
-	stateMachine.pushState(new MainMenuState(this));
+	stateMachine->pushState(new MainMenuState(this));
 
 	while (!endGame)
 	{
@@ -72,7 +74,7 @@ void SDLApplication::render() const
 {
 	SDL_RenderClear(renderer);
 
-	stateMachine.render();
+	stateMachine->render();
 
 	SDL_RenderPresent(renderer);
 }
@@ -89,7 +91,13 @@ void SDLApplication::handleEvents()
 		}
 		else // Guardado en archivo.
 		{
-			stateMachine.handleEvent(event);
+			stateMachine->handleEvent(event);
 		}
 	}
+}
+
+void SDLApplication::setEndGame(bool end)
+{
+	endGame = end;
+	cout << "Has cerrado el juego." << endl;
 }

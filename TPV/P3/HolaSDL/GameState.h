@@ -12,7 +12,7 @@ class GameState
 {
 protected:
 	GameList<GameObject, true> objs;
-	list<EventHandler*> listeners;
+	std::list<EventHandler*> listeners;
 	SDLApplication* sdlApp;
 
 public:
@@ -25,11 +25,11 @@ public:
 	{
 		for(EventHandler* e:listeners){ e->handleEvent(event); }
 	}
-	virtual void save(ostream& fil) const = 0;
+	virtual void save(std::ostream& fil) const = 0;
 
 	virtual bool onEnter() = 0;
 	virtual bool onExit() = 0;
-	virtual string getStateID() const = 0;
+	virtual std::string getStateID() const = 0;
 
 
 

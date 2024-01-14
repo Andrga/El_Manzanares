@@ -4,6 +4,8 @@
 #include "checkML.h"
 #include "SDLApplication.h"
 
+using namespace std;
+
 PauseState::PauseState(SDLApplication* _sdlApp, PlayState* _playST) : GameState(_sdlApp), playST(_playST)
 {
 	continuarB = new Button(this, sdlApp->getTexture(CONTINUARP), Point2D<double>(285, 100));

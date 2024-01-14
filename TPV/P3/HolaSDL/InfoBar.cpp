@@ -3,13 +3,14 @@
 #include "PlayState.h"
 #include "SDLApplication.h"
 
+using namespace std;
 
 InfoBar::InfoBar(PlayState* plST, SDLApplication* appl, Point2D<double> pos, int scr) : GameObject(plST), playST(plST), position(pos), score(scr)
 {
 	cannonLives = playST->getCannonLives(); // Cogemos las vidas del cannon.
 
 	// Rects para las vidas del cañon
-	canVid = new SDL_Rect[cannonLives];
+	// canVid = new SDL_Rect[cannonLives];
 
 	canTexture = playST->getGame()->getTexture(SPACESHIP);
 	for (int i = 0; i < cannonLives; i++)
@@ -24,10 +25,8 @@ InfoBar::InfoBar(PlayState* plST, SDLApplication* appl, Point2D<double> pos, int
 	}
 
 	// Rects para la puntuacion
-	cifrPunt = new SDL_Rect[4];
-
 	numTexture = playST->getGame()->getTexture(NUMS);
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < MAX_DIGITS; i++)
 	{
 
 		cifrPunt[i].w = numTexture->getFrameWidth();
@@ -39,9 +38,14 @@ InfoBar::InfoBar(PlayState* plST, SDLApplication* appl, Point2D<double> pos, int
 }
 
 InfoBar::~InfoBar() {
-	delete[] canVid;
-	delete[] cifrPunt;
+	// Elimina los arrays
+	//delete[] canVid;
+	//delete[] cifrPunt;
+
+	// Elimina la referencia al playstate
 	delete playST;
+
+	// Elimina las referencias a las texturas
 	delete canTexture;
 	delete numTexture;
 }

@@ -26,14 +26,14 @@ public:
 	void update() override;
 	void render() const override;
 	bool hit(SDL_Rect rect, char c)override;
-	void save(ostream& fil) const override;
+	void save(std::ostream& fil) const override;
 	void handleEvent(const SDL_Event& event) override;
 
 	// Metodos de clase.
 	void setInvincible();
 
 	// Getters.
-	int getLives() { return lives; }
-	Point2D<double> getPos() { return position; }
+	int getLives() const { return lives; }
+	Point2D<double> getPos() const { return position; }
 };
 
