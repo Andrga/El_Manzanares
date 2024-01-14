@@ -26,6 +26,13 @@ MainMenuState::MainMenuState(SDLApplication* _sdlApp)
 	salir->connectButton([this]() {sdlApp->setEndGame(true); });
 }
 
+
+MainMenuState::~MainMenuState() {
+	delete nuevaPartida;
+	delete cargarPartida;
+	delete salir;
+}
+
 void MainMenuState::update() {
 	for (GameObject& e : objs)
 	{

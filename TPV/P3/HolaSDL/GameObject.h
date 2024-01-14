@@ -30,7 +30,10 @@ public:
 	GameObject(SDLApplication* sdlap) : sdlAppl(sdlap) {
 		gameST = nullptr;
 	}
-	virtual ~GameObject() {}; // Destructora.
+	virtual ~GameObject() {
+		delete
+	
+	}; // Destructora.
 
 	virtual void render() const = 0;
 

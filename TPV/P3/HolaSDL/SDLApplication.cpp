@@ -17,6 +17,8 @@ SDLApplication::~SDLApplication()
 		delete t;
 	}
 
+	delete stateMachine;
+
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
 	SDL_Quit();

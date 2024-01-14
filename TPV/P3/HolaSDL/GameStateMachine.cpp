@@ -3,6 +3,7 @@
 
 GameStateMachine::GameStateMachine()
 {
+
 }
 
 #pragma region Updates
@@ -11,6 +12,14 @@ void GameStateMachine::update()
 	if (!pilaEstados.empty())
 	{
 		pilaEstados.top()->update();
+	}
+
+	const int cantStates = eliminaEstados.size();
+
+	for (int i = 0; i < cantStates; i++)
+	{
+		delete eliminaEstados.top();
+		eliminaEstados.pop();
 	}
 }
 
@@ -38,7 +47,7 @@ void GameStateMachine::replaceState(GameState* pState) {
 		}
 		if (pilaEstados.top()->onExit())
 		{
-			eliminaEstados.push_back(pilaEstados.top());
+			eliminaEstados.push(pilaEstados.top());
 			pilaEstados.pop();
 		}
 		pilaEstados.push(pState);
@@ -53,7 +62,7 @@ void GameStateMachine::popState()
 	{
 		if (pilaEstados.top()->onExit())
 		{
-			eliminaEstados.push_back(pilaEstados.top());
+			eliminaEstados.push(pilaEstados.top());
 			pilaEstados.pop();
 		}
 	}
@@ -62,16 +71,5 @@ void GameStateMachine::popState()
 
 void GameStateMachine::handleEvent(const SDL_Event& event)
 {
-	pilaEstados.top()->handleEvent(event);/*
-	for (auto e : eliminaEstados)
-	{
-		delete e;
-
-	}
-	
-	while (!eliminaEstados.empty()) {
-		
-		delete eliminaEstados.front();
-
-	}*/
+	pilaEstados.top()->handleEvent(event);
 }

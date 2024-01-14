@@ -12,7 +12,7 @@ class GameStateMachine
 {
 protected:
 	std::stack<GameState*> pilaEstados;
-	std::list<GameState*> eliminaEstados;
+	std::stack<GameState*> eliminaEstados;
 public:
 	GameStateMachine();
 
