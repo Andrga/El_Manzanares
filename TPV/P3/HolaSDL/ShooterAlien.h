@@ -1,6 +1,8 @@
 #pragma once
 #include "Alien.h"
 
+constexpr int ID_SHOOTERALIEN = 2;
+
 class ShooterAlien : public Alien
 {
 private:

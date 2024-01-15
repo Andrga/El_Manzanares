@@ -37,5 +37,5 @@ double ShooterAlien::setTime() const
 
 void ShooterAlien::save(std::ostream& fil) const // Guarda: tipo-posicion-subitpo-tiempoParaDisparar.
 {
-	fil << 2 << " " << position.getX() << " " << position.getY() << "  " << 0 << " " << elapsedTime << "\n";
+	fil << ID_SHOOTERALIEN << " " << position.getX() << " " << position.getY() << "  " << 0 << " " << elapsedTime << "\n";
 }

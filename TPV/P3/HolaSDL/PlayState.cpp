@@ -78,7 +78,7 @@ void PlayState::readMap()
 				newObj = new Alien(this, Point2D<double>(dato1, dato2), subtAlien, getGame()->getTexture(ALIENS), mother);
 				nAliens++;
 				break;
-			case 2: // ShooterAliens.
+			case ID_SHOOTERALIEN: // ShooterAliens.
 				file >> subtAlien >> dato3;
 				newObj = new ShooterAlien(this, Point2D<double>(dato1, dato2), subtAlien, getGame()->getTexture(ALIENS), mother, dato3);
 				nAliens++;
@@ -96,13 +96,13 @@ void PlayState::readMap()
 				file >> c;
 				newObj = new Laser(this, Point2D<double>(dato1, dato2), c, velocidadLaser);
 				break;
-			case 8: // Lasers.
-				file >> dato3;
-				newObj = new Bomb(this, Point2D<double>(dato1, dato2), dato3);
-				break;
-				/*case 9:
-					newObj = new Shield(this, Point2D<double>(dato1, dato2));
-					break;*/
+			//case 8: // Lasers.
+			//	file >> dato3;
+			//	newObj = new Bomb(this, Point2D<double>(dato1, dato2), dato3);
+			//	break;
+			//	/*case 9:
+			//		newObj = new Shield(this, Point2D<double>(dato1, dato2));
+			//		break;*/
 			default:
 				throw FileFormatError("Objeto inesperado");
 				break;
