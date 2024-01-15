@@ -37,7 +37,7 @@ InfoBar::InfoBar(PlayState* plST, SDLApplication* appl, Point2D<double> pos, int
 	}
 }
 
-InfoBar::~InfoBar() {
+/*InfoBar::~InfoBar() {
 	// Elimina los arrays
 	//delete[] canVid;
 	//delete[] cifrPunt;
@@ -48,7 +48,7 @@ InfoBar::~InfoBar() {
 	// Elimina las referencias a las texturas
 	delete canTexture;
 	delete numTexture;
-}
+}*/
 
 void InfoBar::update()
 {

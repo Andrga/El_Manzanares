@@ -9,7 +9,7 @@ private:
 
 public:
 	MainMenuState(SDLApplication* _sdlApp);
-	~MainMenuState();
+	//~MainMenuState();
 	void update() override;
 	void render() const override;
 	void save(std::ostream& fil) const override;

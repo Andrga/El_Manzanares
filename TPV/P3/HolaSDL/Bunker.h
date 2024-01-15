@@ -12,7 +12,7 @@ public:
 
 	//Constructoras / destructoras
 	Bunker(PlayState* gam, int liv, Point2D<double> pos, const Texture* tex);
-	~Bunker();
+	//~Bunker();
 	
 	// Metodos heredados
 	void update() override;

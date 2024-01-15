@@ -47,7 +47,7 @@ const int velocidadReward = 4;
 class PlayState : public GameState
 {
 private:
-	GameList<SceneObject, false> entities;
+	GameList<SceneObject> entities;
 	SDL_Renderer* renderer;
 
 
@@ -60,11 +60,10 @@ private:
 	int score = 0;
 
 	void readMap();
+	void addSceneObject(SceneObject* obj);
 
 public:
 	PlayState(SDLApplication* _sdlApp, bool guardado);
-
-	~PlayState();
 
 	//Metodos overrided
 	void update() override;
@@ -79,16 +78,16 @@ public:
 
 	//Metodos de clase
 	bool damage(SDL_Rect _rect, char c);
+	void hasDied(GameList<SceneObject, false>::anchor scAnch, GameList<GameObject, true>::anchor objAnch);
 	void fireLaser(const Point2D<double>& position, char c);
 	void fireBomb(const Point2D<double>& position);
 	void fireReward(const Point2D<double>& position);
 	bool mayGrantReward(SDL_Rect rect);
 	void gameOver();
-	void hasDied(GameList<SceneObject, false>::anchor anch);
 	void cargado();
 	void invencible() { canion->setInvincible(); }
 	void addScore(int points) { score += points; }
-	void hasDied(GameList<GameObject, true>::anchor);
+	//void hasDied(GameList<GameObject, true>::anchor);
 	void saveGame();
 
 	//Getters

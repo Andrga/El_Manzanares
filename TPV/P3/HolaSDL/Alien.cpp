@@ -13,7 +13,7 @@ Alien::Alien(PlayState* gam, Point2D<double> pos, int sub, const Texture* tex, M
 	posYAnt = pos.getY();
 }
 
-Alien::~Alien() {} // Destructora.
+//Alien::~Alien() {} // Destructora.
 
 void Alien::update()
 {
@@ -41,6 +41,9 @@ void Alien::update()
 		{
 			mothership->alienLanded();
 		}
+	}
+	else {
+		//cout<<"No mueve";
 	}
 }
 
@@ -70,7 +73,7 @@ bool Alien::hit(SDL_Rect _rect, char c)
 			default:
 				break;
 			}
-			playST->hasDied(scAnch);
+			playST->hasDied(scAnch, objAnch);
 			mothership->alienDied();
 			return true;
 		}

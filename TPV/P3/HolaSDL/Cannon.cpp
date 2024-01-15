@@ -12,7 +12,7 @@ Cannon::Cannon(PlayState* gam, Point2D<double> pos, const Texture* tex, int liv,
 	liv > MAX_CANNON_LIVES ? lives = MAX_CANNON_LIVES : lives = liv;
 }
 
-Cannon::~Cannon() {}
+//Cannon::~Cannon() {}
 
 void Cannon::handleEvent(const SDL_Event& event)
 {

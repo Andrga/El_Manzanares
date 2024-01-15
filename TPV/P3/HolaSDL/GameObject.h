@@ -30,10 +30,7 @@ public:
 	GameObject(SDLApplication* sdlap) : sdlAppl(sdlap) {
 		gameST = nullptr;
 	}
-	virtual ~GameObject() {
-		delete
-	
-	}; // Destructora.
+	virtual ~GameObject()= default; // Destructora.
 
 	virtual void render() const = 0;
 
@@ -41,7 +38,7 @@ public:
 
 	virtual void save(std::ostream& fil) const = 0;
 	
-	virtual void setListAnchor(const GameList<GameObject, true>::anchor& anc) { objAnch = anc; }
+	void setListAnchor(GameList<GameObject, true>::anchor anc) { objAnch = anc; }
 
-	const virtual GameList<GameObject, true>::anchor& getListAnchor() const { return objAnch; }
+	const GameList<GameObject, true>::anchor& getListAnchor() const { return objAnch; }
 };

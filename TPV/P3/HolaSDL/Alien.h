@@ -31,7 +31,7 @@ public:
 
 	//Constructoras / destructoras
 	Alien(PlayState* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot);
-	~Alien();
+	//~Alien();
 
 	// Metodos heredados.
 	void update() override;

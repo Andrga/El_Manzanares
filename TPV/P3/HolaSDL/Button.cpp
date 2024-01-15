@@ -9,10 +9,6 @@ Button::Button(GameState* gamSt, Texture* tex, Point2D<double> pos)
 	destRect = SDL_Rect{ (int)pos.getX(), (int)pos.getY(), texture->getFrameWidth(), texture->getFrameHeight()};
 }
 
-Button::~Button() {
-	delete texture;
-}
-
 void Button::update()
 {
 	SDL_GetMouseState(&point.x, &point.y);

@@ -9,7 +9,7 @@ Reward::Reward(PlayState* playST, Point2D<double> pos, SDLEventCallback rew, Tex
 	: SceneObject(playST, pos, _tex->getFrameWidth(), _tex->getFrameHeight(), nullptr), rewardCallback(rew), tex(_tex)
 {}
 
-Reward::~Reward() {}
+//Reward::~Reward() {}
 
 void Reward::update()
 {
@@ -19,11 +19,11 @@ void Reward::update()
 	rect.y = position.getY();
 
 	//Salida de limites del reward.
-	if (position.getY() <= 0 || position.getY() >= SCRHEIGHT - 10) playST->hasDied(scAnch);
+	if (position.getY() <= 0 || position.getY() >= SCRHEIGHT - 10) playST->hasDied(scAnch, objAnch);
 
 	if (playST->mayGrantReward(rect)) {
 		rewardCallback();
-		playST->hasDied(scAnch);
+		playST->hasDied(scAnch, objAnch);
 	}
 
 }

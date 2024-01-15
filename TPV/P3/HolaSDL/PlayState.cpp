@@ -23,10 +23,9 @@ PlayState::PlayState(SDLApplication* _sdlApp, bool guardado)
 	}
 	readMap();
 
-}
-
-PlayState::~PlayState()
-{
+	// Anadir mothership e infobar a la lista de objetos
+	addObject(mother);
+	addObject(info);
 }
 
 void PlayState::readMap()
@@ -55,10 +54,13 @@ void PlayState::readMap()
 		{
 			file >> dato3;
 			mother->setMotherParams(dato1, dato2, dato3);
+			//objs.push_back(mother);
+
 		}
 		else if (objeto == 7) // InfoBar no se mete en la lista.
 		{
 			info = new InfoBar(this, getGame(), Point2D<double>(10, SCRHEIGHT - 30), dato1);
+			//objs.push_back(info);
 		}
 		else
 		{
@@ -105,26 +107,26 @@ void PlayState::readMap()
 				throw FileFormatError("Objeto inesperado");
 				break;
 			}
-			entities.push_back(newObj); // Metemos la nueva entidad en la lista
+
+			addSceneObject(newObj);
 		}
 	}
 	mother->setAlienCount(nAliens);
+}
+
+void PlayState::addSceneObject(SceneObject* obj) {
+	addObject(obj);
+	entities.push_back(obj); // Metemos la nueva entidad en la lista
+
+	cout << "obj añadido";
 }
 
 #pragma endregion
 
 void PlayState::update()
 {
-	//Actualizacion de la nave
-	mother->update();
-	info->update();
-
-	// Updatea todos los elementos.
-	for (auto& i : entities)
-	{
-		i.update();
-	}
-
+	// Update de la clase base.
+	GameState::update();
 	if (mother->getAlienCount() <= 0)
 	{
 		sdlApp->getStMachine()->replaceState(new EndState(sdlApp, true));
@@ -135,13 +137,17 @@ void PlayState::render() const
 {
 	getGame()->getTexture(STARS)->render();// Fondo
 
+	//Render de la clase base
+	GameState::render();
+
 	// Actualizacion del render
-	for (auto& i : entities)
+	/*
+	for (auto& i : objs)
 	{
 		i.render();
-	}
+	}*/
 
-	info->render();
+	//info->render();
 }
 
 void PlayState::handleEvent(const SDL_Event& event)
@@ -158,19 +164,21 @@ void PlayState::fireLaser(const Point2D<double>& pos, char c)
 {
 	//cout << "Game: pium pium" << endl;
 	SceneObject* newObj = new Laser(this, pos, c, velocidadLaser);
-	entities.push_back(newObj);
+	addSceneObject(newObj);
 }
 
 void PlayState::fireBomb(const Point2D<double>& position)
 {
 	//cout << "Lanza bomba" << endl;
-	entities.push_back(new Bomb(this, position));
+	addSceneObject(new Bomb(this, position));
+	//entities.push_back(new Bomb(this, position));
 }
 
 void PlayState::fireReward(const Point2D<double>& position)
 {
 	//cout << "Lanza Rewars" << endl;
-	entities.push_back(new Reward(this, position, [this]() { canion->setInvincible(); }, sdlApp->getTexture(SHIELD)));
+	addSceneObject(new Reward(this, position, [this]() { canion->setInvincible(); }, sdlApp->getTexture(SHIELD)));
+	//entities.push_back(new Reward(this, position, [this]() { canion->setInvincible(); }, sdlApp->getTexture(SHIELD)));
 }
 
 bool PlayState::mayGrantReward(SDL_Rect rect)
@@ -192,17 +200,14 @@ bool PlayState::damage(SDL_Rect _rect, char c)
 
 	return end;
 }
-
+void PlayState::hasDied(GameList<SceneObject, false>::anchor scAnch, GameList<GameObject, true>::anchor objAnch) {
+	entities.erase(scAnch);
+	eraseObject(objAnch);
+}
 void PlayState::gameOver()
 {
 	getGame()->getStMachine()->replaceState(new EndState(sdlApp, false));
 }
-
-void PlayState::hasDied(GameList<SceneObject, false>::anchor anch)
-{
-	entities.erase(anch);
-}
-
 #pragma endregion
 
 #pragma region Carga y guardado

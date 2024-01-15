@@ -34,7 +34,7 @@ private:
 
 public:
 	Button(GameState* gamSt, Texture* tex, Point2D<double> pos);
-	~Button();
+	//~Button();
 
 	// Metodos heredados.
 	void render() const override;

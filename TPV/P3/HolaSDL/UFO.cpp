@@ -25,7 +25,7 @@ UFO::UFO(PlayState* gam, Point2D<double> pos, const Texture* tex, int sta, int e
 	//cout << "UFO: pos inicial: " << posInicial.getX() << endl;
 }
 
-UFO::~UFO() {}
+//UFO::~UFO() {}
 
 void UFO::update()
 {

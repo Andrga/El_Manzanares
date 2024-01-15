@@ -15,7 +15,7 @@ public:
 
 	//Constructoras / destructoras
 	Laser(PlayState* playST, Point2D<double> pos, char ent, Vector2D<double> vel);
-	~Laser();
+	//~Laser();
 	
 	// Metodos heredados.
 	void update() override;

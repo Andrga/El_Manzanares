@@ -15,7 +15,7 @@ public:
 
 	//Constructoras / destructoras
 	Bomb(PlayState* playST, Point2D<double> pos, int vid = 2);
-	~Bomb();
+	//~Bomb();
 
 	// Metodos heredados.
 	void update() override;

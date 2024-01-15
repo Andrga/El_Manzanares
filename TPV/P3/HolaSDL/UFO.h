@@ -21,7 +21,7 @@ public:
 
 	//Constructoras / destructoras
 	UFO(PlayState* gam, Point2D<double> pos, const Texture* tex, int sta, int eTime);
-	~UFO();
+	//~UFO();
 
 	// Metodos heredados.
 	void update()override;

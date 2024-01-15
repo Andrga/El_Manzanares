@@ -13,7 +13,7 @@ Bomb::Bomb(PlayState* playST, Point2D<double> pos, int vid)
 	tex = playST->getGame()->getTexture(BOMB);
 }
 
-Bomb::~Bomb() {}
+//Bomb::~Bomb() {}
 
 void Bomb::update()
 {
@@ -23,10 +23,10 @@ void Bomb::update()
 	rect.y = position.getY();
 
 	//Salida de limites de la bala.
-	if (position.getY() >= SCRHEIGHT - 10) playST->hasDied(scAnch);
+	if (position.getY() >= SCRHEIGHT - 10) playST->hasDied(scAnch, objAnch);
 	//Comprueba si la bala choca.
 	if (playST->damage(rect, entity)) {
-		vidas <= 0 ? playST->hasDied(scAnch) : vidas--;
+		vidas <= 0 ? playST->hasDied(scAnch, objAnch) : vidas--;
 	}
 
 }

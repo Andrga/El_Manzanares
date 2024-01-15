@@ -15,8 +15,8 @@ protected:
 	const Texture* texture = nullptr;
 	//bool alive = true;
 	SDL_Rect rect;
+	GameList<SceneObject>::anchor scAnch; // interador identificador
 
-	GameList<SceneObject, false>::anchor scAnch;
 
 public:
 

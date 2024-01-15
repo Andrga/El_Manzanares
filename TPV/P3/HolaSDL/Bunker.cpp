@@ -13,7 +13,7 @@ Bunker::Bunker(PlayState* gam, int liv, Point2D<double> pos, const Texture* tex)
 
 }
 
-Bunker::~Bunker() {}
+//Bunker::~Bunker() {}
 
 bool Bunker::hit(SDL_Rect _rect, char c)
 {
@@ -30,7 +30,7 @@ bool Bunker::hit(SDL_Rect _rect, char c)
 			lives--;
 			if (lives <= 0)
 			{
-				playST->hasDied(scAnch);
+				playST->hasDied(scAnch, objAnch);
 			}
 			return true;
 		}

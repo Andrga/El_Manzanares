@@ -26,7 +26,7 @@ public:
 
 	//Constructoras / destructoras
 	InfoBar(PlayState* plST, SDLApplication* appl, Point2D<double> pos, int scr);
-	~InfoBar();
+	//~InfoBar();
 
 	// Metodos heredados
 	void update() override;

@@ -13,7 +13,7 @@ public:
 
 	//Constructoras / destructoras
 	ShooterAlien(PlayState* gam, Point2D<double> pos, int sub, const Texture* tex, Mothership* mot, double eTime);
-	~ShooterAlien();
+	//~ShooterAlien();
 
 	// Metodos heredados.
 	void update() override;

@@ -20,7 +20,7 @@ public:
 
 	//Constructoras / destructoras
 	Reward(PlayState* playST, Point2D<double> pos, SDLEventCallback rew, Texture* _tex);
-	~Reward();
+	//~Reward();
 
 	// Metodos heredados.
 	void update() override;

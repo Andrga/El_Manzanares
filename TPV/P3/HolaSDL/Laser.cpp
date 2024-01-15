@@ -23,7 +23,7 @@ Laser::Laser(PlayState* playST, Point2D<double> pos, char ent, Vector2D<double> 
 	}
 }
 
-Laser::~Laser(){}
+//Laser::~Laser(){}
 
 void Laser::update() 
 {
@@ -40,9 +40,9 @@ void Laser::update()
 	rect.y = position.getY();
 
 	//Salida de limites de la bala.
-	if (position.getY() <= 0 || position.getY() >= SCRHEIGHT-10) playST->hasDied(scAnch);
+	if (position.getY() <= 0 || position.getY() >= SCRHEIGHT-10) playST->hasDied(scAnch, objAnch);
 	//Comprueba si la bala choca.
-	if (playST->damage(rect, entity)) playST->hasDied(scAnch);
+	if (playST->damage(rect, entity)) playST->hasDied(scAnch, objAnch);
 
 }
 
