@@ -1,0 +1,6 @@
+Pablo Iglesias Rodrigo
+Andrés García Navarro
+
+_Problemas_
+- MemoryLeacks
+- A veces tenemos un error en el gamelist y no sabemos por que se produce
