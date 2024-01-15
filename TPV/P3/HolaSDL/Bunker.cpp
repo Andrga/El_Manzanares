@@ -48,5 +48,5 @@ void Bunker::render()const
 
 void Bunker::save(ostream& fil) const // Guarda: tipo-posicion-vidas.
 {
-	fil << 4 << " " << position.getX() << " " << position.getY() << " " << lives << "\n";
+	fil << ID_BUNKER << " " << position.getX() << " " << position.getY() << " " << lives << "\n";
 }

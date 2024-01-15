@@ -1,6 +1,8 @@
 #pragma once
 #include "SceneObject.h"
 
+constexpr int ID_BUNKER = 4;
+
 class Bunker : public SceneObject
 {
 private:

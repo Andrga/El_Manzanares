@@ -2,6 +2,8 @@
 #include "SceneObject.h"
 #include "texture.h"
 
+constexpr int ID_BOMBA = 4;
+
 class Bomb : public SceneObject
 {
 private:

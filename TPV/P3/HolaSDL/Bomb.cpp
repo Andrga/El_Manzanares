@@ -47,3 +47,8 @@ bool Bomb::hit(SDL_Rect _rect, char c)
 	}
 	return false;
 }
+
+void Bomb::save(ostream& fil) const // Guarda: tipo-posicion-quienHaDisparado.
+{
+	fil << ID_BOMBA << " " << position.getX() << " " << position.getY() << " " << vidas << "\n";
+}
