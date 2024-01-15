@@ -7,19 +7,19 @@
 using namespace std;
 
 Laser::Laser(PlayState* playST, Point2D<double> pos, char ent, Vector2D<double> vel)
-	: SceneObject(playST, pos, 3, 21,nullptr), entity(ent), velocidad(vel), renderer(playST->getGame()->getRenderer())
+	: SceneObject(playST, pos, WIDTH_LASER, HEIGHT_LASER,nullptr), entity(ent), velocidad(vel), renderer(playST->getGame()->getRenderer())
 {
 	if (entity == 'c')
 	{
-		color.r = 255;
-		color.g = 87;
-		color.b = 51;
+		color.r = COL_CANNON_R;
+		color.g = COL_CANNON_G;
+		color.b = COL_CANNON_B;
 	}
 	else
 	{
-		color.r = 53;
-		color.g = 255;
-		color.b = 255;
+		color.r = COL_ALIEN_R;
+		color.g = COL_ALIEN_G;
+		color.b = COL_ALIEN_B;
 	}
 }
 
@@ -40,7 +40,7 @@ void Laser::update()
 	rect.y = position.getY();
 
 	//Salida de limites de la bala.
-	if (position.getY() <= 0 || position.getY() >= SCRHEIGHT-10) playST->hasDied(scAnch, objAnch);
+	if (position.getY() <= 0 || position.getY() >= SCRHEIGHT-HEIGHT_LASER) playST->hasDied(scAnch, objAnch);
 	//Comprueba si la bala choca.
 	if (playST->damage(rect, entity)) playST->hasDied(scAnch, objAnch);
 
@@ -67,5 +67,5 @@ bool Laser::hit(SDL_Rect _rect, char c)
 
 void Laser::save(ostream& fil) const // Guarda: tipo-posicion-quienHaDisparado.
 {
-	fil << 6 << " " << position.getX() << " " << position.getY() << " " << entity << "\n";
+	fil << ID_LASER << " " << position.getX() << " " << position.getY() << " " << entity << "\n";
 }

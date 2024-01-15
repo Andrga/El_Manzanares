@@ -20,7 +20,7 @@ InfoBar::InfoBar(PlayState* plST, SDLApplication* appl, Point2D<double> pos, int
 		canVid[i].h = canTexture->getFrameHeight();
 
 		//posicionado de las vidas
-		canVid[i].x = position.getX() + 50 * i; // Para que aparezcan consecutivas.
+		canVid[i].x = position.getX() + DIGIT_PITH * i; // Para que aparezcan consecutivas.
 		canVid[i].y = position.getY();
 	}
 
@@ -32,8 +32,8 @@ InfoBar::InfoBar(PlayState* plST, SDLApplication* appl, Point2D<double> pos, int
 		cifrPunt[i].w = numTexture->getFrameWidth();
 		cifrPunt[i].h = numTexture->getFrameHeight();
 
-		cifrPunt[i].x = (position.getX() + 50 * (i + 1)) + 400; // Para que aparezcan consecutivas.
-		cifrPunt[i].y = position.getY() - 10;
+		cifrPunt[i].x = (position.getX() + DIGIT_PITH * (i + 1)) + X_OFFSET; // Para que aparezcan consecutivas.
+		cifrPunt[i].y = position.getY() - Y_OFFSET;
 	}
 }
 
@@ -67,16 +67,17 @@ void InfoBar::render() const
 	}
 
 	int scoreAux = score;
-	int i = 3;
+	int i = MAX_DIGITS-1;
 	while (scoreAux > 0 && i >= 0)
 	{
-		numTexture->renderFrame(cifrPunt[i], 0, scoreAux % 10);
+		// dividimos entre 10 porque cogemos el digito derecho para asignarlo a los rect de derecha a izquierda
+		numTexture->renderFrame(cifrPunt[i], 0, scoreAux % DIGIT_DIV);
 		i--;
-		scoreAux = scoreAux / 10;
+		scoreAux = scoreAux / DIGIT_DIV;
 	}
 }
 
 void InfoBar::save(ostream& fil) const // Guarda: tipo-score.
 {
-	fil << 7 << " " << score << "\n";
+	fil << ID_INFOBAR << " " << score << "\n";
 }

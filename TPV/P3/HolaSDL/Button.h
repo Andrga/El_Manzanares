@@ -40,7 +40,7 @@ public:
 	void render() const override;
 	void update() override;
 	void handleEvent(const SDL_Event& event) override;
-	void save(std::ostream& fil) const {};
+	void save(std::ostream& fil) const override{} ;
 
 	// Metodos de clase.
 	void connectButton(SDLEventCallback buttonCallback);

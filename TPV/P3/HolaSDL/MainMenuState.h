@@ -1,5 +1,10 @@
 #pragma once
 #include "GameState.h"
+
+constexpr int	POS_NUEVA_PARTIDAX(200), POS_NUEVA_PARTIDAY(150),
+				POS_CARGAR_PARTIDAX(200), POS_CARGAR_PARTIDAY(200),
+				POS_SALIR_MPRX(200), POS_SALIR_MPRY(250);
+
 class MainMenuState : public GameState
 {
 private:

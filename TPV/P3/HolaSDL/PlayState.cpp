@@ -118,7 +118,6 @@ void PlayState::addSceneObject(SceneObject* obj) {
 	addObject(obj);
 	entities.push_back(obj); // Metemos la nueva entidad en la lista
 
-	cout << "obj añadido";
 }
 
 #pragma endregion

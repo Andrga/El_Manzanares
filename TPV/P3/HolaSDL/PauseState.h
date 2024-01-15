@@ -1,6 +1,13 @@
 #pragma once
 #include "GameState.h"
 #include "EventHandler.h"
+#include "Vector2D.h"
+
+constexpr double POS_CONTINUARX(285), POS_CONTINUARY(100),
+				POS_GUARDARX(214), POS_GUARDARY(200),
+				POS_CARGARX(225), POS_CARGARY(300),
+				POS_SALIR_PAX(330), POS_SALIR_PAY(400);
+
 
 class PauseState : public GameState
 {

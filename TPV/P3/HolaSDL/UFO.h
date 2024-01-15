@@ -1,7 +1,10 @@
 #pragma once
 #include "SceneObject.h"
 
-const double TIEMPOAPARICION = 100;
+constexpr double TIEMPOAPARICION = 100;
+
+// porcentaje maximo de aparicion de  objetos
+constexpr int MAX_APPEARANCE_PERCENTAJE = 10;
 
 
 class UFO : public SceneObject

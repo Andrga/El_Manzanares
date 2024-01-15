@@ -8,10 +8,10 @@ using namespace std;
 
 PauseState::PauseState(SDLApplication* _sdlApp, PlayState* _playST) : GameState(_sdlApp), playST(_playST)
 {
-	continuarB = new Button(this, sdlApp->getTexture(CONTINUARP), Point2D<double>(285, 100));
-	guardarB = new Button(this, sdlApp->getTexture(GUARDARP), Point2D<double>(214, 200));
-	cargarB = new Button(this, sdlApp->getTexture(CARGARP), Point2D<double>(225, 300));
-	salirB = new Button(this, sdlApp->getTexture(SALIR), Point2D<double>(330, 400));
+	continuarB = new Button(this, sdlApp->getTexture(CONTINUARP), Point2D<double>(POS_CONTINUARX, POS_CONTINUARY));
+	guardarB = new Button(this, sdlApp->getTexture(GUARDARP), Point2D<double>(POS_GUARDARX, POS_GUARDARY));
+	cargarB = new Button(this, sdlApp->getTexture(CARGARP), Point2D<double>(POS_CARGARX, POS_CARGARY));
+	salirB = new Button(this, sdlApp->getTexture(SALIR), Point2D<double>(POS_SALIR_PAX, POS_SALIR_PAY));
 
 	addObject(continuarB);
 	addObject(guardarB);

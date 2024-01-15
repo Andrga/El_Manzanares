@@ -8,23 +8,22 @@ using namespace std;
 
 EndState::EndState(SDLApplication* _sdlApp, bool win) : GameState(_sdlApp)
 {
-	rect.y = 100;
+	rect.y = POS_TITLE_FIN_Y;
+	rect.x = POS_TITLE_FIN_X;
 	if (win)
 	{
-		rect.x = 300;
 		tex = sdlApp->getTexture(WIN);
 	}
 	else
 	{
-		rect.x = 300;
 		tex = sdlApp->getTexture(GOV);
 
 	}
 	rect.w = tex->getFrameWidth();
 	rect.h = tex->getFrameHeight();
 
-	volverMenu = new Button(this, sdlApp->getTexture(VOLVERM), Point2D<double>(250, 250));
-	salir = new Button(this, sdlApp->getTexture(SALIR), Point2D<double>(350, 400));
+	volverMenu = new Button(this, sdlApp->getTexture(VOLVERM), Point2D<double>(POS_VOLVER_X, POS_VOLVER_Y));
+	salir = new Button(this, sdlApp->getTexture(SALIR), Point2D<double>(POS_SALIR_ENX, POS_SALIR_ENY));
 
 	addObject(volverMenu);
 	addObject(salir);

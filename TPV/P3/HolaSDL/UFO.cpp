@@ -53,11 +53,11 @@ void UFO::update()
 	{
 		//cout << "UFO: ahora deberia de hacer animacion de destruirse y resetearse." << endl;
 		// Rewards y bombas:
-		if (playST->getRandomRange(0, 10) < proporcionBombas && !reward) {
+		if (playST->getRandomRange(0, MAX_APPEARANCE_PERCENTAJE) < proporcionBombas && !reward) {
 			reward = true;
 			playST->fireBomb(position);
 		}
-		else if (playST->getRandomRange(0, 10) > proporcionBombas && !reward) {
+		else if (playST->getRandomRange(0, MAX_APPEARANCE_PERCENTAJE) > proporcionBombas && !reward) {
 			reward = true;
 			playST->fireReward(position);
 		}

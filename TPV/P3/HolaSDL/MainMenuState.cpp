@@ -9,9 +9,9 @@ using namespace std;
 MainMenuState::MainMenuState(SDLApplication* _sdlApp)
 	: GameState(_sdlApp)
 {
-	nuevaPartida = new Button(this, sdlApp->getTexture(NUEVAP), Point2D<double>(200, 150));
-	cargarPartida = new Button(this, sdlApp->getTexture(CARGARP), Point2D<double>(200, 200));
-	salir = new Button(this, sdlApp->getTexture(SALIR), Point2D<double>(200, 250));
+	nuevaPartida = new Button(this, sdlApp->getTexture(NUEVAP), Point2D<double>(POS_NUEVA_PARTIDAX, POS_NUEVA_PARTIDAY));
+	cargarPartida = new Button(this, sdlApp->getTexture(CARGARP), Point2D<double>(POS_CARGAR_PARTIDAX, POS_CARGAR_PARTIDAY));
+	salir = new Button(this, sdlApp->getTexture(SALIR), Point2D<double>(POS_SALIR_MPRX, POS_SALIR_MPRY));
 
 	addObject(nuevaPartida);
 	addObject(cargarPartida);
