@@ -91,7 +91,7 @@ void UFO::render() const
 
 void UFO::save(std::ostream& fil) const // Guarda: tipo-posicion-estado-tiempoParaAparecer.
 {
-	fil << 5 << " " << position.getX() << " " << position.getY() << "  " << UFOstate << " " << elapsedTime << "\n";
+	fil << ID_UFO << " " << position.getX() << " " << position.getY() << "  " << UFOstate << " " << elapsedTime << "\n";
 }
 
 bool UFO::hit(SDL_Rect _rect, char c)

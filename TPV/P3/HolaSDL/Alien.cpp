@@ -84,5 +84,5 @@ bool Alien::hit(SDL_Rect _rect, char c)
 
 void Alien::save(ostream& fil) const // Guarda: tipo-posicion-subtipo.
 {
-	fil << 1 << " " << position.getX() << " " << position.getY() << " " << subtipo << " " << "\n";
+	fil << ID_ALIEN << " " << position.getX() << " " << position.getY() << " " << subtipo << " " << "\n";
 }

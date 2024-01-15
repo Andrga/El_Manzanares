@@ -124,7 +124,7 @@ void Cannon::render() const
 
 void Cannon::save(ostream& fil) const // Guarda: tipo-posicion-vidas-tiempoParaDisparar.
 {
-	fil << 0 << " " << position.getX() << " " << position.getY() << " " << lives << " " << elapsedTime << "\n";
+	fil << ID_CANNON << " " << position.getX() << " " << position.getY() << " " << lives << " " << elapsedTime << "\n";
 }
 
 void Cannon::setInvincible()

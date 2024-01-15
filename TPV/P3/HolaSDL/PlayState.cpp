@@ -57,7 +57,7 @@ void PlayState::readMap()
 			//objs.push_back(mother);
 
 		}
-		else if (objeto == 7) // InfoBar no se mete en la lista.
+		else if (objeto == ID_INFOBAR) // InfoBar no se mete en la lista.
 		{
 			info = new InfoBar(this, getGame(), Point2D<double>(10, SCRHEIGHT - 30), dato1);
 			//objs.push_back(info);
@@ -67,13 +67,13 @@ void PlayState::readMap()
 			SceneObject* newObj;
 			switch (objeto)
 			{
-			case 0: // Cannon.
+			case ID_CANNON: // Cannon.
 				file >> lives >> dato3;
 				canion = new Cannon(this, Point2D<double>(dato1, dato2), getGame()->getTexture(SPACESHIP), lives, dato3);
 				newObj = canion;
 				addEventListener(canion);
 				break;
-			case 1: // Aliens.
+			case ID_ALIEN: // Aliens.
 				file >> subtAlien;
 				newObj = new Alien(this, Point2D<double>(dato1, dato2), subtAlien, getGame()->getTexture(ALIENS), mother);
 				nAliens++;
@@ -87,11 +87,11 @@ void PlayState::readMap()
 				file >> lives;
 				newObj = new Bunker(this, lives, Point2D<double>(dato1, dato2), getGame()->getTexture(BUNKER));
 				break;
-			case 5: // UFO.
+			case ID_UFO: // UFO.
 				file >> state >> dato3;
 				newObj = new UFO(this, Point2D<double>(dato1, dato2), getGame()->getTexture(UFOT), state, dato3);
 				break;
-			case 6: // Lasers.
+			case ID_LASER: // Lasers.
 				char c;
 				file >> c;
 				newObj = new Laser(this, Point2D<double>(dato1, dato2), c, velocidadLaser);

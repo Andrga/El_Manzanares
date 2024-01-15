@@ -4,6 +4,8 @@
 #include "SceneObject.h"
 #include "Mothership.h"
 
+constexpr int ID_ALIEN(1);
+
 class Alien : public SceneObject
 {
 private:

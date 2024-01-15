@@ -3,6 +3,7 @@
 #include "EventHandler.h"
 
 const double TIEMPODISPARO = 25;
+constexpr int ID_CANNON = 0;
 
 class Cannon : public EventHandler, public SceneObject
 {

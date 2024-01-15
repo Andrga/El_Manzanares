@@ -4,7 +4,8 @@
 constexpr double TIEMPOAPARICION = 100;
 
 // porcentaje maximo de aparicion de  objetos
-constexpr int MAX_APPEARANCE_PERCENTAJE = 10;
+constexpr int MAX_APPEARANCE_PERCENTAJE = 10,
+ID_UFO(5);
 
 
 class UFO : public SceneObject

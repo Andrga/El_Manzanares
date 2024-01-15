@@ -26,7 +26,7 @@ void Bomb::update()
 	if (position.getY() >= SCRHEIGHT - 10) playST->hasDied(scAnch, objAnch);
 	//Comprueba si la bala choca.
 	if (playST->damage(rect, entity)) {
-		if (vidas <= 0)
+		if (vidas <= 1)
 			playST->hasDied(scAnch, objAnch);
 		else
 			vidas--;
