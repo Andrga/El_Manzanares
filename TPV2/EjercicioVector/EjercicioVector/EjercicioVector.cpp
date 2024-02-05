@@ -119,38 +119,51 @@ void print_vector(const std::vector<T>& v) {
 }
 
 void test0() {
+	std::cout << "------------TEST 0------------" << std::endl;
+
 	std::vector<A> v;
 	v.push_back(A(1));
 
+	print_stats();
 	std::cout << "------------BUENOS DIAS------------" << std::endl;
 }
 
 void test1() {
+	std::cout << "------------TEST 1------------" << std::endl;
+
 	std::vector<A> v;
 	A x(1);
 	v.push_back(x);
-
+	
+	print_stats();
 	std::cout << "------------BUENOS DIAS------------" << std::endl;
 }
 
 void test2() {
+	std::cout << "------------TEST 2------------" << std::endl;
+
 	std::vector<A> v;
 	A x(1);
 	v.push_back(std::move(x));
 
+	print_stats();
 	std::cout << "------------BUENOS DIAS------------" << std::endl;
 }
 
 void test3() {
+	std::cout << "------------TEST 3------------" << std::endl;
+
 	std::vector<A> v;
 	v.emplace_back(1);
 
+	print_stats();
 	std::cout << "------------BUENOS DIAS------------" << std::endl;
 }
 
 void test4() {
-	std::vector<A> v;
+	std::cout << "------------TEST 4------------" << std::endl;
 
+	std::vector<A> v;
 	for (int i = 0; i < 10; i++) {
 		std::cout << "# adding " << i << " using emplace_back" << std::endl;
 		if (v.capacity() == v.size()) {
@@ -158,9 +171,14 @@ void test4() {
 		}
 		v.emplace_back(i);
 	}
+
+	print_stats();
+	std::cout << "------------BUENOS DIAS------------" << std::endl;
 }
 
 void test5() {
+	std::cout << "------------TEST 5------------" << std::endl;
+
 	std::vector<A> v;
 	v.reserve(20);
 	for (int i = 0; i < 10; i++) {
@@ -170,6 +188,9 @@ void test5() {
 		}
 		v.emplace_back(i);
 	}
+
+	print_stats();
+	std::cout << "------------BUENOS DIAS------------" << std::endl;
 }
 
 int main(int, char**) {
