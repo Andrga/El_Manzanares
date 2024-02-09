@@ -55,8 +55,11 @@ RegularPolygon::render(dmat4 const& modelViewMat) const
 	if (mMesh != nullptr) {
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		upload(aMat);
+		glColor4d(mColor.r, mColor.g, mColor.b, mColor.a);
+		glColor4d(1, 0,0, 1);
 		glLineWidth(2);
 		mMesh->render();
 		glLineWidth(1);
+		glColor4d(1, 1, 1, 1);
 	}
 }

@@ -81,22 +81,14 @@ Mesh* Mesh::generateRegularPolygon(GLuint num, GLdouble r) {
 
 	GLdouble x, y;
 
-	for (int i = 0; i <= num; i++)
+	//mesh->vVertices.emplace_back(r * glm::cos(glm::radians((90 / num))), r * glm::cos(glm::radians((90 / num))), 0.0);
+
+	for (int i = 0; i < num; i++)
 	{
-		x = 0 + r * glm::cos(glm::radians((360.0 / num) * i));		
+		x = 0 + r * glm::cos(glm::radians((360.0 / num) * i));
 		y = 0 + r * glm::sin(glm::radians((360.0 / num) * i));
 		mesh->vVertices.emplace_back(x, y, 0.0);
 	}
 
-	mesh->vColors.reserve(mesh->mNumVertices);
-
-	for (int i = 0; i <= num; i++)
-	{
-		mesh->vColors.emplace_back(0.0, 0.0, 0.0, 1.0);
-	}
-
-	/*std::vector<glm::dvec3> vertices;
-	vertices.reserve(num);
-	glDrawArrays(GL_LINE_LOOP, 0, num);*/
 	return mesh;
 }
