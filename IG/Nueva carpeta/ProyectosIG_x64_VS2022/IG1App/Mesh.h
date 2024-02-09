@@ -18,6 +18,8 @@ public:
 	Mesh& operator=(const Mesh& m) = delete; // no copy assignment
 
 	static Mesh* generateRegularPolygon(GLuint num, GLdouble r); // generate a regular polygon
+	static Mesh* generateRGBTriangle( GLdouble r); //
+
 
 	virtual void render() const;
 

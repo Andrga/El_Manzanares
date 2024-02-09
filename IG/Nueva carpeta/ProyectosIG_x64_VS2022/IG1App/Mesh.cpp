@@ -88,6 +88,32 @@ Mesh* Mesh::generateRegularPolygon(GLuint num, GLdouble r) {
 		x = 0 + r * glm::cos(glm::radians((360.0 / num) * i));
 		y = 0 + r * glm::sin(glm::radians((360.0 / num) * i));
 		mesh->vVertices.emplace_back(x, y, 0.0);
+		//mesh->vVertices.emplace_back(r * cos(radians((360.0 / num) * i)), r * sin(radians((360.0 / num) * i)), 0.0); //Se supone que pone el resto de vértices
+
+	}
+
+	return mesh;
+}
+// Genera un triangulo RGB:
+Mesh* Mesh::generateRGBTriangle( GLdouble r) {
+	Mesh* mesh = new Mesh();
+
+	glPolygonMode(GL_FRONT, GL_FILL);
+
+	mesh->mNumVertices = 3;
+	mesh->vVertices.reserve(mesh->mNumVertices);
+
+	GLdouble x, y;
+
+	//mesh->vVertices.emplace_back(r * glm::cos(glm::radians((90 / num))), r * glm::cos(glm::radians((90 / num))), 0.0);
+
+	for (int i = 0; i < 3; i++)
+	{
+		x = 0 + r * glm::cos(glm::radians((360.0 / 3) * i));
+		y = 0 + r * glm::sin(glm::radians((360.0 / 3) * i));
+		mesh->vVertices.emplace_back(x, y, 0.0);
+		//mesh->vVertices.emplace_back(r * cos(radians((360.0 / num) * i)), r * sin(radians((360.0 / num) * i)), 0.0); //Se supone que pone el resto de vértices
+
 	}
 
 	return mesh;
