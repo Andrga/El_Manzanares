@@ -143,7 +143,6 @@ Mesh* Mesh::generateRectangle(GLdouble w, GLdouble h) { // Genera un rectangulo:
 
 	return mesh;
 }
-//------Ejercicio8:
 Mesh* Mesh::generateRGBRectangle(GLdouble w, GLdouble h) { // Genera un rectangulo:
 	Mesh* mesh = generateRectangle(w, h);
 
@@ -161,4 +160,8 @@ Mesh* Mesh::generateRGBRectangle(GLdouble w, GLdouble h) { // Genera un rectangu
 	mesh->vColors.emplace_back(1.0, 0.0, 0.0, 1.0); // Rojo.
 
 	return mesh;
+}
+
+Mesh* Mesh::generateCube(GLdouble l) {
+
 }

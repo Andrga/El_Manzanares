@@ -27,7 +27,7 @@ Scene::init()
 	/*gObjects.push_back(new RGBTriangle(200.0)); // Triangulo RGB.
 	gObjects[gObjects.size() - 1]->setColor(dvec4(0, 1, 1, 1));*/
 	//------Ejercicio8:
-	gObjects.push_back(new RGBRectangle(100.0, 200.0));
+	//gObjects.push_back(new RGBRectangle(100.0, 200.0));
 	//Ejercicio9:
 
 
