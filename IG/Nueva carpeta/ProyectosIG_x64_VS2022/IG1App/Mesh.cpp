@@ -70,8 +70,8 @@ Mesh::createRGBAxes(GLdouble l)
 	return mesh;
 }
 
-// Generate a regular polygon
-Mesh* Mesh::generateRegularPolygon(GLuint num, GLdouble r) {
+//------Ejercicio 2:
+Mesh* Mesh::generateRegularPolygon(GLuint num, GLdouble r) {// Generate a regular polygon
 	Mesh* mesh = new Mesh();
 
 	mesh->mPrimitive = GL_LINE_LOOP;
@@ -85,8 +85,8 @@ Mesh* Mesh::generateRegularPolygon(GLuint num, GLdouble r) {
 
 	for (int i = 0; i < num; i++)
 	{
-		x = 0 + r * glm::cos(glm::radians((360.0 / num) * i));
-		y = 0 + r * glm::sin(glm::radians((360.0 / num) * i));
+		x = 0 + r * glm::cos(glm::radians(90.0) + glm::radians((360.0 / num) * i));
+		y = 0 + r * glm::sin(glm::radians(90.0) + glm::radians((360.0 / num) * i));
 		mesh->vVertices.emplace_back(x, y, 0.0);
 		//mesh->vVertices.emplace_back(r * cos(radians((360.0 / num) * i)), r * sin(radians((360.0 / num) * i)), 0.0); //Se supone que pone el resto de vértices
 
@@ -94,11 +94,12 @@ Mesh* Mesh::generateRegularPolygon(GLuint num, GLdouble r) {
 
 	return mesh;
 }
-// Genera un triangulo RGB:
-Mesh* Mesh::generateRGBTriangle( GLdouble r) {
+//------Ejercicio6:
+Mesh* Mesh::generateRGBTriangle(GLdouble r) { // Genera un triangulo RGB:
 	Mesh* mesh = new Mesh();
 
 	glPolygonMode(GL_FRONT, GL_FILL);
+	glPolygonMode(GL_BACK, GL_LINE); // Ejercicio7.
 
 	mesh->mNumVertices = 3;
 	mesh->vVertices.reserve(mesh->mNumVertices);
@@ -109,12 +110,55 @@ Mesh* Mesh::generateRGBTriangle( GLdouble r) {
 
 	for (int i = 0; i < 3; i++)
 	{
-		x = 0 + r * glm::cos(glm::radians((360.0 / 3) * i));
-		y = 0 + r * glm::sin(glm::radians((360.0 / 3) * i));
-		mesh->vVertices.emplace_back(x, y, 0.0);
+		x = 0 + r * glm::cos(glm::radians(90.0) + glm::radians((360.0 / 3) * i));
+		y = 0 + r * glm::sin(glm::radians(90.0) + glm::radians((360.0 / 3) * i));
+		mesh->vVertices.emplace_back(x, y, 1.0);
 		//mesh->vVertices.emplace_back(r * cos(radians((360.0 / num) * i)), r * sin(radians((360.0 / num) * i)), 0.0); //Se supone que pone el resto de vértices
 
 	}
+	mesh->vColors.reserve(mesh->mNumVertices);
+	// red
+	mesh->vColors.emplace_back(1.0, 0.0, 0.0, 1.0);
+	// green
+	mesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0);
+	// blue
+	mesh->vColors.emplace_back(0.0, 0.0, 1.0, 1.0);
+
+
+	return mesh;
+}
+//------Ejercicio8:
+Mesh* Mesh::generateRectangle(GLdouble w, GLdouble h) { // Genera un rectangulo:
+	Mesh* mesh = new Mesh();
+
+	mesh->mPrimitive = GL_TRIANGLE_STRIP;
+
+	mesh->mNumVertices = 4;
+	mesh->vVertices.reserve(mesh->mNumVertices);
+
+	mesh->vVertices.emplace_back(h / 2, -w / 2, 0); //1
+	mesh->vVertices.emplace_back(-h / 2, -w / 2, 0); //3
+	mesh->vVertices.emplace_back(h / 2, w / 2, 0); //2
+	mesh->vVertices.emplace_back(-h / 2, w / 2, 0); //4
+
+	return mesh;
+}
+//------Ejercicio8:
+Mesh* Mesh::generateRGBRectangle(GLdouble w, GLdouble h) { // Genera un rectangulo:
+	Mesh* mesh = generateRectangle(w, h);
+
+	glPolygonMode(GL_FRONT, GL_FILL);
+	glPolygonMode(GL_BACK, GL_LINE);
+
+	mesh->mNumVertices = 4;
+	mesh->vVertices.reserve(mesh->mNumVertices);
+
+
+	mesh->vColors.reserve(mesh->mNumVertices);
+	mesh->vColors.emplace_back(0.0, 0.0, 1.0, 1.0); // Azul.
+	mesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0); // Verde.
+	mesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0); // Verde.
+	mesh->vColors.emplace_back(1.0, 0.0, 0.0, 1.0); // Rojo.
 
 	return mesh;
 }

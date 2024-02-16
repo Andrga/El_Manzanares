@@ -18,14 +18,18 @@ Scene::init()
 
 	//------Ejes:
 	gObjects.push_back(new EjesRGB(400.0));
-	//------Ejercicio 5:
-	//gObjects.push_back(new RegularPolygon(3, 200.0)); // Triangulo cian.
-	//gObjects[gObjects.size() - 1]->setColor(dvec4(0, 1, 1, 1));
-	//gObjects.push_back(new RegularPolygon(100, 200.0)); // Circulo morado.
-	//gObjects[gObjects.size() - 1]->setColor(dvec4(1, 0, 0.8, 1));
-//------Ejercicio 6:
-	gObjects.push_back(new RGBTriangle(200.0)); // Triangulo RGB.
-	//gObjects[gObjects.size() - 1]->setColor(dvec4(0, 1, 1, 1));
+	//------Ejercicio5:
+		//gObjects.push_back(new RegularPolygon(3, 200.0)); // Triangulo cian.
+		//gObjects[gObjects.size() - 1]->setColor(dvec4(0, 1, 1, 1));
+		//gObjects.push_back(new RegularPolygon(100, 200.0)); // Circulo morado.
+		//gObjects[gObjects.size() - 1]->setColor(dvec4(1, 0, 0.8, 1));
+	//------Ejercicio6:
+	/*gObjects.push_back(new RGBTriangle(200.0)); // Triangulo RGB.
+	gObjects[gObjects.size() - 1]->setColor(dvec4(0, 1, 1, 1));*/
+	//------Ejercicio8:
+	gObjects.push_back(new RGBRectangle(100.0, 200.0));
+	//Ejercicio9:
+
 
 
 }

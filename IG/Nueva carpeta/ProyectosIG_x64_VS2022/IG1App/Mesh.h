@@ -17,8 +17,12 @@ public:
 	Mesh(const Mesh& m) = delete;            // no copy constructor
 	Mesh& operator=(const Mesh& m) = delete; // no copy assignment
 
-	static Mesh* generateRegularPolygon(GLuint num, GLdouble r); // generate a regular polygon
-	static Mesh* generateRGBTriangle( GLdouble r); //
+	static Mesh* generateRegularPolygon(GLuint num, GLdouble r); //Ejercicio2.
+	static Mesh* generateRGBTriangle(GLdouble r); // Ejercicio6.
+	static Mesh* generateRectangle(GLdouble w, GLdouble h); // Ejercicio8.
+	static Mesh* generateRGBRectangle(GLdouble w, GLdouble h); // Ejercicio8.
+	static Mesh* generateCube(GLdouble l); // Ejercicio9.
+
 
 
 	virtual void render() const;
@@ -29,7 +33,7 @@ public:
 
 protected:
 	GLuint mPrimitive =
-	  GL_TRIANGLES;          // graphic primitive: GL_POINTS, GL_LINES, GL_TRIANGLES, ...
+		GL_TRIANGLES;          // graphic primitive: GL_POINTS, GL_LINES, GL_TRIANGLES, ...
 	GLuint mNumVertices = 0; // number of elements ( = vVertices.size())
 	std::vector<glm::dvec3> vVertices; // vertex array
 	std::vector<glm::dvec4> vColors;   // color array

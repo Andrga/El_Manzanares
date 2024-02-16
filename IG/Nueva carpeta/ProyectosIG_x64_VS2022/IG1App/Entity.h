@@ -41,7 +41,7 @@ public:
 	~EjesRGB();
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
-
+//------Ejercicio3:
 class RegularPolygon : public Abs_Entity
 {
 public:
@@ -49,7 +49,7 @@ public:
 	~RegularPolygon();
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
-
+//------Ejercicio6:
 class RGBTriangle : public Abs_Entity
 {
 public:
@@ -57,5 +57,20 @@ public:
 	~RGBTriangle();
 	virtual void render(glm::dmat4 const& modelViewMat) const;
 };
-
+//------Ejercicio8:
+class RGBRectangle : public Abs_Entity
+{
+public:
+	explicit RGBRectangle(GLdouble w, GLdouble h);
+	~RGBRectangle();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+};
+//------Ejercicio9:
+class Cube : public Abs_Entity
+{
+public:
+	explicit Cube(GLdouble l);
+	~Cube();
+	virtual void render(glm::dmat4 const& modelViewMat) const;
+};
 #endif //_H_Entities_H_
