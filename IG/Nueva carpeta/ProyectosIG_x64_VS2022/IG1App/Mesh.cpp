@@ -149,7 +149,6 @@ Mesh* Mesh::generateRGBRectangle(GLdouble w, GLdouble h) { // Genera un rectangu
 	glPolygonMode(GL_FRONT, GL_FILL);
 	glPolygonMode(GL_BACK, GL_LINE);
 
-	mesh->mNumVertices = 4;
 	mesh->vVertices.reserve(mesh->mNumVertices);
 
 
@@ -162,6 +161,104 @@ Mesh* Mesh::generateRGBRectangle(GLdouble w, GLdouble h) { // Genera un rectangu
 	return mesh;
 }
 
+//------Ejercicio9.
 Mesh* Mesh::generateCube(GLdouble l) {
+	Mesh* mesh = new Mesh();
 
+	mesh->mPrimitive = GL_TRIANGLE_STRIP;
+
+	glPolygonMode(GL_FRONT, GL_FILL);
+	glPolygonMode(GL_BACK, GL_POINT);
+
+	GLdouble m = l / 2;
+
+	mesh->mNumVertices = 14;
+	mesh->vVertices.reserve(mesh->mNumVertices);
+
+	mesh->vVertices.emplace_back(-m, -m, -m); // 4.
+	mesh->vVertices.emplace_back(m, -m, -m); // 3.
+	mesh->vVertices.emplace_back(-m, -m, m); // 2.
+	mesh->vVertices.emplace_back(m, -m, m); // 1.
+	mesh->vVertices.emplace_back(m, m, m); // 5.
+	mesh->vVertices.push_back(mesh->vVertices[1]); // 3.
+	mesh->vVertices.emplace_back(m, m, -m); // 8.
+	mesh->vVertices.emplace_back(-m, m, -m); // 7.
+	mesh->vVertices.push_back(mesh->vVertices[4]); // 5.
+	mesh->vVertices.emplace_back(-m, m, m); // 6.
+	mesh->vVertices.push_back(mesh->vVertices[2]); // 2.
+	mesh->vVertices.push_back(mesh->vVertices[7]); // 7.
+	mesh->vVertices.push_back(mesh->vVertices[0]); // 4.
+	mesh->vVertices.push_back(mesh->vVertices[1]); // 3.
+
+
+	/*
+	mesh->vVertices.push_back(mesh->vVertices[x]); // Repetidos.
+	mesh->vVertices.emplace_back(l, -l, l); // 1.
+	mesh->vVertices.emplace_back(-l, -l, l); // 2.
+	mesh->vVertices.emplace_back(l, -l, -l); // 3.
+	mesh->vVertices.emplace_back(-l, -l, -l); // 4.
+	mesh->vVertices.emplace_back(l, l, l); // 5.
+	mesh->vVertices.emplace_back(-l, l, l); // 6.
+	mesh->vVertices.emplace_back(-l, l, -l); // 7.
+	mesh->vVertices.emplace_back(l, l, -l); // 8.
+	*/
+
+	return mesh;
+}
+
+//------Ejercicio10.
+Mesh* Mesh::generateRGBCubeTriangles(GLdouble length) {
+
+	Mesh* mesh = new Mesh();
+
+	mesh->mPrimitive = GL_TRIANGLES;
+
+	glPolygonMode(GL_FRONT, GL_FILL);
+	glPolygonMode(GL_BACK, GL_POINT);
+
+	GLdouble m = length / 2;
+
+	mesh->mNumVertices = 36;
+
+	mesh->vVertices.reserve(mesh->mNumVertices);
+	// Cara arriba.
+	mesh->vVertices.emplace_back(-m, -m, -m); // 4.
+	mesh->vVertices.emplace_back(-m, m, m); // 6.
+	mesh->vVertices.emplace_back(m, m, m); // 5.
+	mesh->vVertices.push_back(mesh->vVertices[0]); // 4.
+	mesh->vVertices.emplace_back(m, -m, -m); // 3.
+	mesh->vVertices.push_back(mesh->vVertices[1]); // 6.
+	// Cara abajo.
+	/*
+	mesh->vVertices.emplace_back(m, -m, m); // 1.
+	mesh->vVertices.emplace_back(-m, -m, m); // 2.
+	mesh->vVertices.emplace_back(m, m, -m); // 8.
+	mesh->vVertices.emplace_back(-m, m, -m); // 7.
+	mesh->vVertices.push_back(mesh->vVertices[6]); // 4.
+	mesh->vVertices.push_back(mesh->vVertices[7]); // 8.*/
+
+
+	mesh->vColors.reserve(mesh->mNumVertices);
+	// Cara arriba.
+	mesh->vColors.emplace_back(1.0, 0.0, 1.0, 1.0); // Azul.
+	mesh->vColors.emplace_back(1.0, 0.0, 1.0, 1.0); // Azul.
+	mesh->vColors.emplace_back(1.0, 0.0, 1.0, 1.0); // Azul.
+	mesh->vColors.emplace_back(0.0, 1.0, 1.0, 1.0); // Azul.
+	mesh->vColors.emplace_back(0.0, 1.0, 1.0, 1.0); // Azul.
+	mesh->vColors.emplace_back(0.0, 1.0, 1.0, 1.0); // Azul.
+	//Cara abajo
+	mesh->vColors.emplace_back(1.0, 1.0, 1.0, 1.0); // Azul.
+	mesh->vColors.emplace_back(1.0, 1.0, 1.0, 1.0); // Azul.
+	mesh->vColors.emplace_back(1.0, 1.0, 1.0, 1.0); // Azul.
+	mesh->vColors.emplace_back(0.0, 0.0, 1.0, 1.0); // Azul.
+	mesh->vColors.emplace_back(0.0, 0.0, 1.0, 1.0); // Azul.
+	mesh->vColors.emplace_back(0.0, 0.0, 1.0, 1.0); // Azul.
+
+
+	/*
+	mesh->vColors.emplace_back(0.0, 0.0, 1.0, 1.0); // Azul.
+	mesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0); // Verde.
+	mesh->vColors.emplace_back(1.0, 0.0, 0.0, 1.0); // Rojo.
+	*/
+	return mesh;
 }

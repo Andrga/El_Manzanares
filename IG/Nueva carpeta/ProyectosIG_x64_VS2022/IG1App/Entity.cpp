@@ -110,7 +110,7 @@ void RGBRectangle::render(dmat4 const& modelViewMat)const
 Cube::Cube(GLdouble l)
 	: Abs_Entity()
 {
-	mMesh = Mesh::generateCube(GLdouble l);
+	mMesh = Mesh::generateCube(l);
 }
 Cube::~Cube()
 {
@@ -118,6 +118,28 @@ Cube::~Cube()
 	mMesh = nullptr;
 };
 void Cube::render(dmat4 const& modelViewMat)const
+{
+	if (mMesh != nullptr) {
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		upload(aMat);
+		glLineWidth(2);
+		mMesh->render();
+		//glDrawArrays(GL_TRIANGLES, 0, 3);
+		glLineWidth(1);
+	}
+}
+//------Ejercicio9:
+RGBCube::RGBCube(GLdouble l)
+	: Abs_Entity()
+{
+	mMesh = Mesh::generateRGBCubeTriangles(l);
+}
+RGBCube::~RGBCube()
+{
+	delete mMesh;
+	mMesh = nullptr;
+};
+void RGBCube::render(dmat4 const& modelViewMat)const
 {
 	if (mMesh != nullptr) {
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication

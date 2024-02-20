@@ -28,8 +28,10 @@ Scene::init()
 	gObjects[gObjects.size() - 1]->setColor(dvec4(0, 1, 1, 1));*/
 	//------Ejercicio8:
 	//gObjects.push_back(new RGBRectangle(100.0, 200.0));
-	//Ejercicio9:
-
+	//------Ejercicio9:
+	//gObjects.push_back(new Cube(100.0));
+	//------Ejercicio10:
+	gObjects.push_back(new RGBCube(100.0));
 
 
 }

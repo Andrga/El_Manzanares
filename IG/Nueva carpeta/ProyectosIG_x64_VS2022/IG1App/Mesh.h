@@ -22,7 +22,7 @@ public:
 	static Mesh* generateRectangle(GLdouble w, GLdouble h); // Ejercicio8.
 	static Mesh* generateRGBRectangle(GLdouble w, GLdouble h); // Ejercicio8.
 	static Mesh* generateCube(GLdouble l); // Ejercicio9.
-
+	static Mesh* generateRGBCubeTriangles(GLdouble length); // Ejercicio10.
 
 
 	virtual void render() const;
