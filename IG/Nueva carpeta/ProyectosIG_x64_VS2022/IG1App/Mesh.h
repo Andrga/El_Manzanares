@@ -24,7 +24,7 @@ public:
 	static Mesh* generateCube(GLdouble l); // Ejercicio9.
 	static Mesh* generateRGBCubeTriangles(GLdouble length); // Ejercicio10.
 
-
+	
 	virtual void render() const;
 
 	GLuint size() const { return mNumVertices; }; // number of elements
