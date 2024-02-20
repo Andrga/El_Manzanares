@@ -40,10 +40,14 @@ IG1App::init()
 	mViewPort =
 	  new Viewport(mWinW, mWinH); // glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT)
 	mCamera = new Camera(mViewPort);
-	mScene = new Scene;
+	scenes[0] = new Scene;
+	scenes[1] = new Scene;
+
+	scenes[0]->addEntity(new RGBRectangle(100.0, 200.0));
+	scenes[0]->addEntity(new RGBTriangle(200.0));
 
 	mCamera->set2D();
-	mScene->init();
+	//mScene->init();
 }
 
 void

@@ -12,6 +12,8 @@
 #include "Scene.h"
 #include "Viewport.h"
 
+const int NSCENES = 2;
+
 class IG1App
 {
 public:
@@ -56,6 +58,8 @@ protected:
 	Camera* mCamera = nullptr;
 	// Graphics objects of the scene
 	Scene* mScene = nullptr;
+	// Array scenas
+	Scene* scenes[NSCENES];
 
 	bool mStop = false; // main event processing loop
 	int mWinId = 0;     // window's identifier

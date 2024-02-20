@@ -22,6 +22,8 @@ public:
 	Scene(const Scene& s) = delete;            // no copy constructor
 	Scene& operator=(const Scene& s) = delete; // no copy assignment
 
+	void addEntity(Abs_Entity* ent);
+
 	void init();
 
 	void render(Camera const& cam) const;

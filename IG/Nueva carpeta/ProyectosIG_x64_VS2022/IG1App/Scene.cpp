@@ -31,10 +31,16 @@ Scene::init()
 	//------Ejercicio9:
 	//gObjects.push_back(new Cube(100.0));
 	//------Ejercicio10:
-	gObjects.push_back(new RGBCube(100.0));
+	//gObjects.push_back(new RGBCube(100.0));
 
 
 }
+
+void Scene::addEntity(Abs_Entity* ent) {
+
+	gObjects.push_back(ent);
+}
+
 void
 Scene::free()
 { // release memory and resources
