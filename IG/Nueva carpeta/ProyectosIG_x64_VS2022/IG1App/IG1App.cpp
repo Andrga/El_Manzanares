@@ -38,16 +38,24 @@ IG1App::init()
 	// create the scene after creating the context
 	// allocate memory and resources
 	mViewPort =
-	  new Viewport(mWinW, mWinH); // glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT)
+		new Viewport(mWinW, mWinH); // glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT)
 	mCamera = new Camera(mViewPort);
+
 	scenes[0] = new Scene;
 	scenes[1] = new Scene;
 
-	scenes[0]->addEntity(new RGBRectangle(100.0, 200.0));
-	scenes[0]->addEntity(new RGBTriangle(200.0));
+	scenes[1]->addEntity(new RGBCube(100.0));
+	scenes[0]->addEntity(new RGBRectangle(200.0, 300.0));
+	scenes[0]->addEntity(new RGBTriangle(50.0));
+	scenes[0]->addEntity(new RegularPolygon(100, 200.0));
+
 
 	mCamera->set2D();
-	//mScene->init();
+
+	for (auto e : scenes) {
+		e->init();
+	}
+	mScene = scenes[1];
 }
 
 void
@@ -67,11 +75,11 @@ IG1App::iniWinOpenGL()
 	// glutInitWindowPosition (140, 140);
 
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE |
-	                    GLUT_DEPTH /*| GLUT_STENCIL*/); // RGBA colors, double buffer, depth
-	                                                    // buffer and stencil buffer
+		GLUT_DEPTH /*| GLUT_STENCIL*/); // RGBA colors, double buffer, depth
+	// buffer and stencil buffer
 
 	mWinId = glutCreateWindow(
-	  "IG1App"); // with its associated OpenGL context, return window's identifier
+		"IG1App"); // with its associated OpenGL context, return window's identifier
 
 	// Callback registration
 	glutReshapeFunc(s_resize);
@@ -124,29 +132,35 @@ IG1App::key(unsigned char key, int x, int y)
 	bool need_redisplay = true;
 
 	switch (key) {
-		case 27:                     // Escape key
-			glutLeaveMainLoop(); // stops main loop and destroy the OpenGL context
-			break;
-		case '+':
-			mCamera->setScale(+0.01); // zoom in  (increases the scale)
-			break;
-		case '-':
-			mCamera->setScale(-0.01); // zoom out (decreases the scale)
-			break;
-		case 'l':
-			mCamera->set3D();
-			break;
-		case 'o':
-			mCamera->set2D();
-			break;
-		default:
-			need_redisplay = false;
-			break;
+	case 27:                     // Escape key
+		glutLeaveMainLoop(); // stops main loop and destroy the OpenGL context
+		break;
+	case '+':
+		mCamera->setScale(+0.01); // zoom in  (increases the scale)
+		break;
+	case '-':
+		mCamera->setScale(-0.01); // zoom out (decreases the scale)
+		break;
+	case 'l':
+		mCamera->set3D();
+		break;
+	case 'o':
+		mCamera->set2D();
+		break;
+	case '0':
+		mScene = scenes[0];
+		break;
+	case '1':
+		mScene = scenes[1];
+		break;
+	default:
+		need_redisplay = false;
+		break;
 	} // switch
 
 	if (need_redisplay)
 		glutPostRedisplay(); // marks the window as needing to be redisplayed -> calls to
-		                     // display()
+	// display()
 }
 
 void
@@ -156,30 +170,30 @@ IG1App::specialKey(int key, int x, int y)
 	int mdf = glutGetModifiers(); // returns the modifiers (Shift, Ctrl, Alt)
 
 	switch (key) {
-		case GLUT_KEY_RIGHT:
-			if (mdf == GLUT_ACTIVE_CTRL)
-				mCamera->pitch(-1); // rotates -1 on the X axis
-			else
-				mCamera->pitch(1); // rotates 1 on the X axis
-			break;
-		case GLUT_KEY_LEFT:
-			if (mdf == GLUT_ACTIVE_CTRL)
-				mCamera->yaw(1); // rotates 1 on the Y axis
-			else
-				mCamera->yaw(-1); // rotate -1 on the Y axis
-			break;
-		case GLUT_KEY_UP:
-			mCamera->roll(1); // rotates 1 on the Z axis
-			break;
-		case GLUT_KEY_DOWN:
-			mCamera->roll(-1); // rotates -1 on the Z axis
-			break;
-		default:
-			need_redisplay = false;
-			break;
+	case GLUT_KEY_RIGHT:
+		if (mdf == GLUT_ACTIVE_CTRL)
+			mCamera->pitch(-1); // rotates -1 on the X axis
+		else
+			mCamera->pitch(1); // rotates 1 on the X axis
+		break;
+	case GLUT_KEY_LEFT:
+		if (mdf == GLUT_ACTIVE_CTRL)
+			mCamera->yaw(1); // rotates 1 on the Y axis
+		else
+			mCamera->yaw(-1); // rotate -1 on the Y axis
+		break;
+	case GLUT_KEY_UP:
+		mCamera->roll(1); // rotates 1 on the Z axis
+		break;
+	case GLUT_KEY_DOWN:
+		mCamera->roll(-1); // rotates -1 on the Z axis
+		break;
+	default:
+		need_redisplay = false;
+		break;
 	} // switch
 
 	if (need_redisplay)
 		glutPostRedisplay(); // marks the window as needing to be redisplayed -> calls to
-		                     // display()
+	// display()
 }
