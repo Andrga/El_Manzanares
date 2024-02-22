@@ -46,7 +46,7 @@ IG1App::init()
 
 	scenes[1]->addEntity(new RGBCube(100.0));
 	scenes[0]->addEntity(new RGBRectangle(200.0, 300.0));
-	scenes[0]->addEntity(new RGBTriangle(50.0));
+	scenes[0]->addEntity(new RGBTriangle(50.0, 200.0, 0.0));
 	scenes[0]->addEntity(new RegularPolygon(100, 200.0));
 
 
@@ -55,7 +55,7 @@ IG1App::init()
 	for (auto e : scenes) {
 		e->init();
 	}
-	mScene = scenes[1];
+	mScene = scenes[0];
 }
 
 void
@@ -153,6 +153,9 @@ IG1App::key(unsigned char key, int x, int y)
 	case '1':
 		mScene = scenes[1];
 		break;
+	case 'u':
+		update();
+		break;
 	default:
 		need_redisplay = false;
 		break;
@@ -161,6 +164,11 @@ IG1App::key(unsigned char key, int x, int y)
 	if (need_redisplay)
 		glutPostRedisplay(); // marks the window as needing to be redisplayed -> calls to
 	// display()
+}
+
+//------Ejercicio13:
+void IG1App::update() {
+	mScene->update();
 }
 
 void

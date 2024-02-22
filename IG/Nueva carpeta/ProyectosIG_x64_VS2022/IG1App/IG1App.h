@@ -30,6 +30,9 @@ public:
 	// Graphics objects of the scene
 	Scene const& scene() { return *mScene; };
 
+	//------Ejercicio13:
+	void update();
+
 	void run();   // the main event processing loop
 	void close(); // the application
 

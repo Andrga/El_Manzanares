@@ -12,12 +12,6 @@ Abs_Entity::upload(dmat4 const& modelViewMat) const
 	glLoadMatrixd(value_ptr(modelViewMat)); // transfers modelView matrix to the GPU
 }
 
-//------Ejercicio13:
-void Abs_Entity::update()
-{
-
-}
-
 EjesRGB::EjesRGB(GLdouble l)
 	: Abs_Entity()
 {
@@ -72,6 +66,25 @@ RGBTriangle::RGBTriangle(GLdouble r)
 {
 	mMesh = Mesh::generateRGBTriangle(r);
 }
+
+//------Ejercicio14:
+RGBTriangle::RGBTriangle(GLdouble r, GLdouble x, GLdouble y) :
+	RGBTriangle(r)
+{
+	parentR = x;
+	mModelMat = translate(mModelMat, dvec3(x, y, 0));
+}
+
+
+void RGBTriangle::update() {
+
+	mModelMat = rotate(mModelMat, radians(5.0), dvec3(0, 0.0, 1.0));
+
+	mModelMat = translate(mModelMat, dvec3(0, 17, 0));
+
+
+}
+
 RGBTriangle::~RGBTriangle()
 {
 	delete mMesh;
@@ -100,6 +113,7 @@ RGBRectangle::~RGBRectangle()
 	delete mMesh;
 	mMesh = nullptr;
 };
+
 void RGBRectangle::render(dmat4 const& modelViewMat)const
 {
 	if (mMesh != nullptr) {
@@ -134,7 +148,7 @@ void Cube::render(dmat4 const& modelViewMat)const
 		glLineWidth(1);
 	}
 }
-//------Ejercicio9:
+//------Ejercicio10:
 RGBCube::RGBCube(GLdouble l)
 	: Abs_Entity()
 {

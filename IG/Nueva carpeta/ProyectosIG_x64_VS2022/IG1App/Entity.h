@@ -10,7 +10,7 @@ class Abs_Entity // abstract class
 {
 public:
 	Abs_Entity()
-	  : mModelMat(1.0), mColor(1){}; // 4x4 identity matrix
+		: mModelMat(1.0), mColor(1) {}; // 4x4 identity matrix
 	virtual ~Abs_Entity() = default;
 
 	Abs_Entity(const Abs_Entity& e) = delete;            // no copy constructor
@@ -26,7 +26,7 @@ public:
 	void setModelMat(glm::dmat4 const& aMat) { mModelMat = aMat; };
 
 	//------Ejercicio13:
-	void update();
+	virtual void update() {};
 
 protected:
 	Mesh* mMesh = nullptr; // the mesh
@@ -56,9 +56,20 @@ public:
 class RGBTriangle : public Abs_Entity
 {
 public:
-	explicit RGBTriangle( GLdouble r);
+	explicit RGBTriangle(GLdouble r);
+	//------Ejercicio14:
+	explicit RGBTriangle(GLdouble r, GLdouble x, GLdouble y);
+
+	void update() override;
+
 	~RGBTriangle();
 	virtual void render(glm::dmat4 const& modelViewMat) const;
+
+private:
+	//------Ejercicio15:
+	GLdouble angle = 5.0;
+	GLdouble parentR;
+	GLuint actualStep = 0;
 };
 //------Ejercicio8:
 class RGBRectangle : public Abs_Entity
