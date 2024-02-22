@@ -68,7 +68,9 @@ public:
 private:
 	//------Ejercicio15:
 	GLdouble angle = 5.0;
+	GLdouble actualAngle;
 	GLdouble parentR;
+	glm::dvec3 pos;
 	GLuint actualStep = 0;
 };
 //------Ejercicio8:

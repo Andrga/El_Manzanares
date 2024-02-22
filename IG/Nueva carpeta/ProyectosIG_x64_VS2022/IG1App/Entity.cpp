@@ -72,15 +72,42 @@ RGBTriangle::RGBTriangle(GLdouble r, GLdouble x, GLdouble y) :
 	RGBTriangle(r)
 {
 	parentR = x;
+	pos = dvec3(x, y, 0);
 	mModelMat = translate(mModelMat, dvec3(x, y, 0));
 }
 
 
 void RGBTriangle::update() {
+	//------Ejercicio 15:
 
-	mModelMat = rotate(mModelMat, radians(5.0), dvec3(0, 0.0, 1.0));
+	// Deshacemos rotacion y ponemos el triangulo en el (0.0.0).
+	mModelMat = rotate(mModelMat, radians(- actualAngle), dvec3(0, 0.0, 1.0));
+	mModelMat = translate(mModelMat, -pos);
 
-	mModelMat = translate(mModelMat, dvec3(0, 17, 0));
+	// Calculamos la nueva posicion exacta del triangulo usando las ecuaciones de la circunferencia.
+	pos = dvec3(0 + parentR * glm::cos(glm::radians((360.0 / 100) * actualStep)),
+		0 + parentR * glm::sin(glm::radians((360.0 / 100) * actualStep)), 0);
+
+	// Actualizamos los parametros utilizados para marcar cuanto lleva girado el triangulo.
+	// Posicion.
+	actualStep++;
+	if (actualStep >= 100)
+	{
+		actualStep = 0;
+	}
+
+	mModelMat = translate(mModelMat, pos);
+
+	// Rotacion.
+	actualAngle -= 5.0;
+
+	if (actualAngle <= -360) {
+		actualAngle = 0;
+	}
+
+	// Giramos nuevamente el triangulo.
+	mModelMat = rotate(mModelMat, radians(actualAngle), dvec3(0, 0.0, 1.0));
+
 
 
 }
