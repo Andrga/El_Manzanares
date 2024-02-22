@@ -77,6 +77,8 @@ Scene::render(Camera const& cam) const
 
 //------Ejercicio13:
 void Scene::update() {
+
+	glutPostRedisplay();
 	for (Abs_Entity* el : gObjects) {
 		el->update();
 	}

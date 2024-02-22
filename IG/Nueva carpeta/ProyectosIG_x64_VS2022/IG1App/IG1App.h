@@ -14,6 +14,11 @@
 
 const int NSCENES = 2;
 
+//------Ejercicio11:
+// Array scenas
+static Scene* scenes[NSCENES];
+static int actualscene = 0;
+
 class IG1App
 {
 public:
@@ -28,10 +33,10 @@ public:
 	// Camera position, view volume and projection
 	Camera const& camera() { return *mCamera; };
 	// Graphics objects of the scene
-	Scene const& scene() { return *mScene; };
+	Scene const& scene() { return *scenes[actualscene]; };
 
 	//------Ejercicio13:
-	void update();
+	static void update();
 
 	void run();   // the main event processing loop
 	void close(); // the application
@@ -60,9 +65,7 @@ protected:
 	// Camera position, view volume and projection
 	Camera* mCamera = nullptr;
 	// Graphics objects of the scene
-	Scene* mScene = nullptr;
-	// Array scenas
-	Scene* scenes[NSCENES];
+	// Scene* mScene = nullptr;
 
 	bool mStop = false; // main event processing loop
 	int mWinId = 0;     // window's identifier

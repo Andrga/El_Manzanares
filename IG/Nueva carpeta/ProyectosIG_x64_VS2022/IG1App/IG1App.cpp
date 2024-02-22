@@ -55,7 +55,7 @@ IG1App::init()
 	for (auto e : scenes) {
 		e->init();
 	}
-	mScene = scenes[0];
+	actualscene= 0;
 }
 
 void
@@ -94,8 +94,9 @@ IG1App::iniWinOpenGL()
 void
 IG1App::free()
 { // release memory and resources
-	delete mScene;
-	mScene = nullptr;
+	for (auto e : scenes) {
+		delete e;
+	}
 	delete mCamera;
 	mCamera = nullptr;
 	delete mViewPort;
@@ -108,7 +109,7 @@ IG1App::display() const
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clears the back buffer
 
-	mScene->render(*mCamera); // uploads the viewport and camera to the GPU
+	scenes[actualscene]->render(*mCamera); // uploads the viewport and camera to the GPU
 
 	glutSwapBuffers(); // swaps the front and back buffer
 }
@@ -148,14 +149,17 @@ IG1App::key(unsigned char key, int x, int y)
 		mCamera->set2D();
 		break;
 	case '0':
-		mScene = scenes[0];
+		actualscene = 0;
 		break;
 	case '1':
-		mScene = scenes[1];
+		actualscene = 1;
 		break;
 	case 'u':
 		update();
 		break;
+		//------Ejercicio16:
+	case 'U':
+		glutIdleFunc(update);
 	default:
 		need_redisplay = false;
 		break;
@@ -168,7 +172,8 @@ IG1App::key(unsigned char key, int x, int y)
 
 //------Ejercicio13:
 void IG1App::update() {
-	mScene->update();
+	//------Ejercicio16:
+	scenes[actualscene]->update();
 }
 
 void
