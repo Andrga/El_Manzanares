@@ -32,6 +32,8 @@ protected:
 	Mesh* mMesh = nullptr; // the mesh
 	glm::dmat4 mModelMat;  // modeling matrix
 	glm::dvec4 mColor; //Color de la mesh
+	GLdouble actualAngle; // Angulo
+	glm::dvec3 pos; // Posicion
 
 	// transfers modelViewMat to the GPU
 	virtual void upload(glm::dmat4 const& mModelViewMat) const;
@@ -42,7 +44,7 @@ class EjesRGB : public Abs_Entity
 public:
 	explicit EjesRGB(GLdouble l);
 	~EjesRGB();
-	virtual void render(glm::dmat4 const& modelViewMat) const;
+	void render(glm::dmat4 const& modelViewMat) const;
 };
 //------Ejercicio3:
 class RegularPolygon : public Abs_Entity
@@ -50,7 +52,7 @@ class RegularPolygon : public Abs_Entity
 public:
 	explicit RegularPolygon(GLuint num, GLdouble r);
 	~RegularPolygon();
-	virtual void render(glm::dmat4 const& modelViewMat) const;
+	void render(glm::dmat4 const& modelViewMat) const;
 };
 //------Ejercicio6:
 class RGBTriangle : public Abs_Entity
@@ -63,14 +65,13 @@ public:
 	void update() override;
 
 	~RGBTriangle();
-	virtual void render(glm::dmat4 const& modelViewMat) const;
+	void render(glm::dmat4 const& modelViewMat) const;
 
 private:
 	//------Ejercicio15:
 	GLdouble angle = 5.0;
-	GLdouble actualAngle;
+	
 	GLdouble parentR;
-	glm::dvec3 pos;
 	GLuint actualStep = 0;
 };
 //------Ejercicio8:
@@ -79,7 +80,7 @@ class RGBRectangle : public Abs_Entity
 public:
 	explicit RGBRectangle(GLdouble w, GLdouble h);
 	~RGBRectangle();
-	virtual void render(glm::dmat4 const& modelViewMat) const;
+	void render(glm::dmat4 const& modelViewMat) const;
 };
 //------Ejercicio9:
 class Cube : public Abs_Entity
@@ -87,7 +88,7 @@ class Cube : public Abs_Entity
 public:
 	explicit Cube(GLdouble l);
 	~Cube();
-	virtual void render(glm::dmat4 const& modelViewMat) const;
+	void render(glm::dmat4 const& modelViewMat) const;
 };
 //------Ejercicio10:
 class RGBCube : public Abs_Entity
@@ -95,6 +96,14 @@ class RGBCube : public Abs_Entity
 public:
 	explicit RGBCube(GLdouble l);
 	~RGBCube();
-	virtual void render(glm::dmat4 const& modelViewMat) const;
+
+	//------Ejercicio17:
+	void update() override;
+	void render(glm::dmat4 const& modelViewMat) const;
+
+private:
+	glm::dvec3 rotAxe;
+	GLdouble actualAngle = 0;
+
 };
 #endif //_H_Entities_H_

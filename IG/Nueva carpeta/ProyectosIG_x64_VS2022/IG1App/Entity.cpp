@@ -81,7 +81,7 @@ void RGBTriangle::update() {
 	//------Ejercicio 15:
 
 	// Deshacemos rotacion y ponemos el triangulo en el (0.0.0).
-	mModelMat = rotate(mModelMat, radians(- actualAngle), dvec3(0, 0.0, 1.0));
+	mModelMat = rotate(mModelMat, radians(-actualAngle), dvec3(0, 0.0, 1.0));
 	mModelMat = translate(mModelMat, -pos);
 
 	// Calculamos la nueva posicion exacta del triangulo usando las ecuaciones de la circunferencia.
@@ -180,12 +180,39 @@ RGBCube::RGBCube(GLdouble l)
 	: Abs_Entity()
 {
 	mMesh = Mesh::generateRGBCubeTriangles(l);
+	actualAngle = 0;
+	rotAxe = dvec3(1.0, 0.0, 0.0);
 }
 RGBCube::~RGBCube()
 {
 	delete mMesh;
 	mMesh = nullptr;
 };
+
+//-------Ejercicio17:
+void RGBCube::update() {
+
+	if (actualAngle >= 180) {
+		actualAngle = 0;
+
+		if (rotAxe == dvec3(1.0, 0.0, 0.0))
+		{
+			rotAxe = dvec3(0.0, 0.0, 1.0);
+		}
+		else if (rotAxe == dvec3(0.0, 0.0, 1.0)) {
+
+			rotAxe = dvec3(0.0, 1.0, 0.0);
+		}
+		else if (rotAxe == dvec3(0.0, 1.0, 0.0)) {
+
+			rotAxe = dvec3(1.0, 0.0, 0.0);
+		}
+	}
+
+	mModelMat = rotate(mModelMat, radians(1.0), rotAxe);
+	actualAngle += 1;
+}
+
 void RGBCube::render(dmat4 const& modelViewMat)const
 {
 	if (mMesh != nullptr) {
