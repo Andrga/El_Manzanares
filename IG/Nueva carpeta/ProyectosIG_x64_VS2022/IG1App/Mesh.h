@@ -23,6 +23,8 @@ public:
 	static Mesh* generateRGBRectangle(GLdouble w, GLdouble h, GLdouble z); // Ejercicio8.
 	static Mesh* generateCube(GLdouble l); // Ejercicio9.
 	static Mesh* generateRGBCubeTriangles(GLdouble length); // Ejercicio10.
+	
+	static Mesh* generateRectangleTexCor(GLdouble w, GLdouble h); // Ejercicio 19.
 
 
 	virtual void render() const;

@@ -69,7 +69,8 @@ Mesh::createRGBAxes(GLdouble l)
 
 	return mesh;
 }
-
+// Region con los apartados de la P1:
+#pragma region P1
 //------Ejercicio 2:
 Mesh* Mesh::generateRegularPolygon(GLuint num, GLdouble r) {// Generate a regular polygon
 	Mesh* mesh = new Mesh();
@@ -140,7 +141,7 @@ Mesh* Mesh::generateRectangle(GLdouble w, GLdouble h, GLdouble d) { // Genera un
 	//mesh->vVertices.emplace_back(-w / 2, -h / 2, d / 2); //3
 	//mesh->vVertices.emplace_back(w / 2, h / 2, -d / 2); //2
 	//mesh->vVertices.emplace_back(-w / 2, h / 2, d / 2); //4
-	
+
 	mesh->vVertices.emplace_back(-w / 2, -h / 2, -d / 2); //1
 	mesh->vVertices.emplace_back(-w / 2, h / 2, d / 2); //3
 	mesh->vVertices.emplace_back(w / 2, -h / 2, -d / 2); //2
@@ -299,3 +300,10 @@ Mesh* Mesh::generateRGBCubeTriangles(GLdouble length) {
 
 	return mesh;
 }
+#pragma endregion
+// Region con los apartados de la P2:
+#pragma region P2
+// Ejercicio 19.
+/*Mesh* Mesh::generateRectangleTexCor(GLdouble w, GLdouble h) {
+}*/
+#pragma endregion
