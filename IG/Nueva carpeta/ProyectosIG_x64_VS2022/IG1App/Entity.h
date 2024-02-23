@@ -70,7 +70,7 @@ public:
 private:
 	//------Ejercicio15:
 	GLdouble angle = 5.0;
-	
+
 	GLdouble parentR;
 	GLuint actualStep = 0;
 };
@@ -78,7 +78,7 @@ private:
 class RGBRectangle : public Abs_Entity
 {
 public:
-	explicit RGBRectangle(GLdouble w, GLdouble h);
+	explicit RGBRectangle(GLdouble w, GLdouble h, GLdouble z);
 	~RGBRectangle();
 	void render(glm::dmat4 const& modelViewMat) const;
 };
@@ -105,5 +105,13 @@ private:
 	glm::dvec3 rotAxe;
 	GLdouble actualAngle = 0;
 
+};
+//------Ejercicio18:
+class Ground : public Abs_Entity
+{
+public:
+	explicit Ground(GLdouble w, GLdouble h, GLdouble z);
+	~Ground();
+	void render(glm::dmat4 const& modelViewMat) const;
 };
 #endif //_H_Entities_H_

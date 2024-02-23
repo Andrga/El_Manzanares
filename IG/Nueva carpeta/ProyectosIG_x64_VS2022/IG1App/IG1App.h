@@ -12,7 +12,7 @@
 #include "Scene.h"
 #include "Viewport.h"
 
-const int NSCENES = 2;
+const int NSCENES = 3;
 
 //------Ejercicio11:
 // Array scenas

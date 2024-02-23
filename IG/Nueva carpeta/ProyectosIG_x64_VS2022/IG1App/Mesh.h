@@ -19,12 +19,12 @@ public:
 
 	static Mesh* generateRegularPolygon(GLuint num, GLdouble r); //Ejercicio2.
 	static Mesh* generateRGBTriangle(GLdouble r); // Ejercicio6.
-	static Mesh* generateRectangle(GLdouble w, GLdouble h); // Ejercicio8.
-	static Mesh* generateRGBRectangle(GLdouble w, GLdouble h); // Ejercicio8.
+	static Mesh* generateRectangle(GLdouble w, GLdouble h, GLdouble z); // Ejercicio8.
+	static Mesh* generateRGBRectangle(GLdouble w, GLdouble h, GLdouble z); // Ejercicio8.
 	static Mesh* generateCube(GLdouble l); // Ejercicio9.
 	static Mesh* generateRGBCubeTriangles(GLdouble length); // Ejercicio10.
 
-	
+
 	virtual void render() const;
 
 	GLuint size() const { return mNumVertices; }; // number of elements

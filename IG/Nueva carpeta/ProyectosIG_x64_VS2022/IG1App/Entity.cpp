@@ -130,10 +130,10 @@ void RGBTriangle::render(dmat4 const& modelViewMat)const
 }
 
 //------Ejercicio8:
-RGBRectangle::RGBRectangle(GLdouble w, GLdouble h)
+RGBRectangle::RGBRectangle(GLdouble w, GLdouble h, GLdouble z)
 	: Abs_Entity()
 {
-	mMesh = Mesh::generateRGBRectangle(w, h);
+	mMesh = Mesh::generateRGBRectangle(w, h, z);
 }
 RGBRectangle::~RGBRectangle()
 {
@@ -214,6 +214,29 @@ void RGBCube::update() {
 }
 
 void RGBCube::render(dmat4 const& modelViewMat)const
+{
+	if (mMesh != nullptr) {
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		upload(aMat);
+		glLineWidth(2);
+		mMesh->render();
+		//glDrawArrays(GL_TRIANGLES, 0, 3);
+		glLineWidth(1);
+	}
+}
+//------Ejercicio8:
+Ground::Ground(GLdouble w, GLdouble h, GLdouble d)
+	: Abs_Entity()
+{
+	mMesh = Mesh::generateRectangle(w, h, d);
+}
+Ground::~Ground()
+{
+	delete mMesh;
+	mMesh = nullptr;
+};
+
+void Ground::render(dmat4 const& modelViewMat)const
 {
 	if (mMesh != nullptr) {
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication

@@ -43,11 +43,13 @@ IG1App::init()
 
 	scenes[0] = new Scene;
 	scenes[1] = new Scene;
+	scenes[2] = new Scene;
 
 	scenes[1]->addEntity(new RGBCube(100.0));
-	scenes[0]->addEntity(new RGBRectangle(200.0, 300.0));
+	scenes[0]->addEntity(new RGBRectangle(300.0, 200.0, 0.0));
 	scenes[0]->addEntity(new RGBTriangle(50.0, 200.0, 0.0));
 	scenes[0]->addEntity(new RegularPolygon(100, 200.0));
+	scenes[2]->addEntity(new Ground(200.0, 0.0, 200.0));
 
 
 	mCamera->set2D();
@@ -55,7 +57,7 @@ IG1App::init()
 	for (auto e : scenes) {
 		e->init();
 	}
-	actualscene= 0;
+	actualscene = 2;
 }
 
 void
@@ -153,6 +155,9 @@ IG1App::key(unsigned char key, int x, int y)
 		break;
 	case '1':
 		actualscene = 1;
+		break;
+	case '2':
+		actualscene = 2;
 		break;
 	case 'u':
 		update();

@@ -128,7 +128,7 @@ Mesh* Mesh::generateRGBTriangle(GLdouble r) { // Genera un triangulo RGB:
 	return mesh;
 }
 //------Ejercicio8:
-Mesh* Mesh::generateRectangle(GLdouble w, GLdouble h) { // Genera un rectangulo:
+Mesh* Mesh::generateRectangle(GLdouble w, GLdouble h, GLdouble d) { // Genera un rectangulo:
 	Mesh* mesh = new Mesh();
 
 	mesh->mPrimitive = GL_TRIANGLE_STRIP;
@@ -136,15 +136,20 @@ Mesh* Mesh::generateRectangle(GLdouble w, GLdouble h) { // Genera un rectangulo:
 	mesh->mNumVertices = 4;
 	mesh->vVertices.reserve(mesh->mNumVertices);
 
-	mesh->vVertices.emplace_back(h / 2, -w / 2, 0); //1
-	mesh->vVertices.emplace_back(-h / 2, -w / 2, 0); //3
-	mesh->vVertices.emplace_back(h / 2, w / 2, 0); //2
-	mesh->vVertices.emplace_back(-h / 2, w / 2, 0); //4
+	//mesh->vVertices.emplace_back(w / 2, -h / 2, -d / 2); //1
+	//mesh->vVertices.emplace_back(-w / 2, -h / 2, d / 2); //3
+	//mesh->vVertices.emplace_back(w / 2, h / 2, -d / 2); //2
+	//mesh->vVertices.emplace_back(-w / 2, h / 2, d / 2); //4
+	
+	mesh->vVertices.emplace_back(-w / 2, -h / 2, -d / 2); //1
+	mesh->vVertices.emplace_back(-w / 2, h / 2, d / 2); //3
+	mesh->vVertices.emplace_back(w / 2, -h / 2, -d / 2); //2
+	mesh->vVertices.emplace_back(w / 2, h / 2, d / 2); //4
 
 	return mesh;
 }
-Mesh* Mesh::generateRGBRectangle(GLdouble w, GLdouble h) { // Genera un rectangulo:
-	Mesh* mesh = generateRectangle(w, h);
+Mesh* Mesh::generateRGBRectangle(GLdouble w, GLdouble h, GLdouble z) { // Genera un rectangulo:
+	Mesh* mesh = generateRectangle(w, h, z);
 
 	glPolygonMode(GL_FRONT, GL_FILL);
 	glPolygonMode(GL_BACK, GL_LINE);
