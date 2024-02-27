@@ -1,0 +1,39 @@
+{
+
+  "fonts" : [
+    { "id" : "ARIAL16", "file" : "resources/fonts/ARIAL.ttf", "size": 16 },
+    { "id" : "ARIAL24", "file" : "resources/fonts/ARIAL.ttf", "size": 24 },
+    { "id" : "ARIAL48", "file" : "resources/fonts/ARIAL.ttf", "size": 48 }
+  ],
+  
+  "images" : [
+    { "id" : "fighter", "file" : "resources/images/fighter.png" },
+    { "id" : "fire", "file" : "resources/images/fire.png"},
+    { "id" : "heart", "file" : "resources/images/heart.png"},
+    { "id" : "asteroid", "file" : "resources/images/asteroid.png"},
+    { "id" : "asteroid_gold", "file" : "resources/images/asteroid_gold.png"},
+    { "id" : "star", "file" : "resources/images/star.png"},
+    { "id" : "black-hole", "file" : "resources/images/black-hole.png"},
+    { "id" : "missle", "file" : "resources/images/missle.png"}
+  ],
+  
+  "messages" : [
+    { "id" : "newgame", "text" : "Press any key to start a new game.", "font" : "ARIAL24", "color" : "0x0000ffff" },
+    { "id" : "newround", "text" : "Press ENTER to start the round.", "font" : "ARIAL24", "color" : "0x0000ffff" },
+    { "id" : "gameover_lost", "text" : "Game Over Loser! Press ENTER to continue.", "font" : "ARIAL24", "color" : "0x0000ffff" },
+    { "id" : "gameover_won", "text" : "Game Over Champion! Press ENTER to continue.", "font" : "ARIAL24", "color" : "0x0000ffff" },
+    { "id" : "paused", "text" : "Paused! Press any key to resume.", "font" : "ARIAL24", "color" : "0x0000ffff" }
+  ],
+  
+  "sounds" : [
+    { "id" : "fire", "file" : "resources/sound/fire.wav" },
+    { "id" : "gunshot", "file" : "resources/sound/gunshot.wav" },
+    { "id" : "explosion", "file" : "resources/sound/explosion.wav" },
+    { "id" : "thrust", "file" : "resources/sound/thrust.wav" }
+  ],
+
+  "musics" : [
+    
+  ]
+
+}
