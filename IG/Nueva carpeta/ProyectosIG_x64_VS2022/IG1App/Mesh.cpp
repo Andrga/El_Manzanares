@@ -29,8 +29,15 @@ Mesh::render() const
 			// each component, stride, pointer
 		}
 
-		draw();
+		if (vTexCoords.size() > 0)
+		{
+			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+			glTexCoordPointer(2, GL_DOUBLE, 0, vTexCoords.data());
+		}
 
+		draw();
+		
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_VERTEX_ARRAY);
 	}
@@ -71,7 +78,7 @@ Mesh::createRGBAxes(GLdouble l)
 }
 // Region con los apartados de la P1:
 #pragma region P1
-//------Ejercicio 2:
+//------Ejercicio2:
 Mesh* Mesh::generateRegularPolygon(GLuint num, GLdouble r) {// Generate a regular polygon
 	Mesh* mesh = new Mesh();
 
@@ -159,10 +166,15 @@ Mesh* Mesh::generateRGBRectangle(GLdouble w, GLdouble h, GLdouble z) { // Genera
 
 
 	mesh->vColors.reserve(mesh->mNumVertices);
-	mesh->vColors.emplace_back(0.0, 0.0, 1.0, 1.0); // Azul.
-	mesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0); // Verde.
-	mesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0); // Verde.
-	mesh->vColors.emplace_back(1.0, 0.0, 0.0, 1.0); // Rojo.
+	//mesh->vColors.emplace_back(0.0, 0.0, 1.0, 1.0); // Azul.
+	//mesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0); // Verde.
+	//mesh->vColors.emplace_back(0.0, 1.0, 0.0, 1.0); // Verde.
+	//mesh->vColors.emplace_back(1.0, 0.0, 0.0, 1.0); // Rojo.
+
+	mesh->vColors.emplace_back(1.0, 1.0, 1.0, 1.0); // Blanco.
+	mesh->vColors.emplace_back(1.0, 1.0, 1.0, 1.0); // Blanco.
+	mesh->vColors.emplace_back(1.0, 1.0, 1.0, 1.0); // Blanco.
+	mesh->vColors.emplace_back(1.0, 1.0, 1.0, 1.0); // Blanco.
 
 	return mesh;
 }
@@ -303,7 +315,18 @@ Mesh* Mesh::generateRGBCubeTriangles(GLdouble length) {
 #pragma endregion
 // Region con los apartados de la P2:
 #pragma region P2
-// Ejercicio 19.
-/*Mesh* Mesh::generateRectangleTexCor(GLdouble w, GLdouble h) {
-}*/
+// Ejercicio19.
+Mesh* Mesh::generateRectangleTexCor(GLdouble w, GLdouble h) {
+	Mesh* m = generateRGBRectangle(w, 0, h);
+	m->vTexCoords.reserve(m->mNumVertices);
+	for (int i = 0; i < 4; i++)
+	{
+		m->vTexCoords.emplace_back(glm::dvec2(m->vVertices[i].x, m->vVertices[i].z));
+	}
+	/*m->vTexCoords.emplace_back(glm::dvec2(m->vVertices[0].x, m->vVertices[0].z));
+	m->vTexCoords.emplace_back(glm::dvec2(m->vVertices[1].x, m->vVertices[1].z));
+	m->vTexCoords.emplace_back(glm::dvec2(m->vVertices[2].x, m->vVertices[2].z));
+	m->vTexCoords.emplace_back(glm::dvec2(m->vVertices[3].x, m->vVertices[3].z));*/
+	return m;
+}
 #pragma endregion

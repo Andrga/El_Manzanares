@@ -6,6 +6,7 @@
 
 #include "Camera.h"
 #include "Entity.h"
+#include "Texture.h"
 
 #include <vector>
 
@@ -40,6 +41,7 @@ protected:
 	int mId;
 
 	std::vector<Abs_Entity*> gObjects; // Entities (graphic objects) of the scene
+	std::vector<Texture*> gTextures; // Entidades
 };
 
 #endif //_H_Scene_H_

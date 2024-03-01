@@ -3,7 +3,7 @@
 #define _H_Texture_H_
 
 #include <GL/freeglut.h>
-#include <glm.hpp>
+#include <glm/glm.hpp>
 #include "Pixmap32RGBA.h"
 #include <string>
 

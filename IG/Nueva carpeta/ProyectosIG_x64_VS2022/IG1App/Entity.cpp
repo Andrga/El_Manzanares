@@ -224,18 +224,20 @@ void RGBCube::render(dmat4 const& modelViewMat)const
 		glLineWidth(1);
 	}
 }
-//------Ejercicio8:
-Ground::Ground(GLdouble w, GLdouble h, GLdouble d)
+
+//------Ejercicio18:
+Ground::Ground(GLdouble w, GLdouble h, GLdouble d, std::string t)
 	: Abs_Entity()
 {
 	mMesh = Mesh::generateRectangle(w, h, d);
+	texture = new Texture();
+	setTexture(t);
 }
 Ground::~Ground()
 {
 	delete mMesh;
 	mMesh = nullptr;
 };
-
 void Ground::render(dmat4 const& modelViewMat)const
 {
 	if (mMesh != nullptr) {

@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 
 #include "Mesh.h"
+#include "Texture.h"
 
 class Abs_Entity // abstract class
 {
@@ -109,9 +110,15 @@ private:
 //------Ejercicio18:
 class Ground : public Abs_Entity
 {
+private:
+	Texture* texture;
+
 public:
-	explicit Ground(GLdouble w, GLdouble h, GLdouble z);
+	explicit Ground(GLdouble w, GLdouble h, GLdouble z, std::string t);
 	~Ground();
 	void render(glm::dmat4 const& modelViewMat) const;
+	void setTexture(std::string text) const {
+		texture->load(text, 255);
+	}
 };
 #endif //_H_Entities_H_

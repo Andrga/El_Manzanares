@@ -7,7 +7,7 @@
 
 #include <GL/freeglut.h>
 #include <string>
-#include <glm.hpp>
+#include <glm/glm.hpp>
 
 
 class PixMap32RGBA {   
