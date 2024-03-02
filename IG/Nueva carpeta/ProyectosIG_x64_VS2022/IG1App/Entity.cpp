@@ -226,13 +226,27 @@ void RGBCube::render(dmat4 const& modelViewMat)const
 }
 
 //------Ejercicio18:
-Ground::Ground(GLdouble w, GLdouble h, GLdouble d, std::string t)
+Ground::Ground(GLdouble w, GLdouble d, std::string t)
 	: Abs_Entity()
 {
-	mMesh = Mesh::generateRectangle(w, h, d);
+	mMesh = Mesh::generateRectangleTexCor(w, d);
+	mModelMat = rotate(mModelMat, radians(90.0), dvec3(0.0, 1.0, 0.0));
+
 	texture = new Texture();
 	setTexture(t);
 }
+
+//------Ejercicio20:
+Ground::Ground(GLdouble w, GLdouble d, GLuint rw, GLuint rh, std::string t)
+	: Abs_Entity()
+{
+	mMesh = Mesh::generateRectangleTexCor(w, d, rw, rh);
+	mModelMat = rotate(mModelMat, radians(90.0), dvec3(0.0, 1.0, 0.0));
+
+	texture = new Texture();
+	setTexture(t);
+}
+
 Ground::~Ground()
 {
 	delete mMesh;
@@ -242,10 +256,69 @@ void Ground::render(dmat4 const& modelViewMat)const
 {
 	if (mMesh != nullptr) {
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		texture->bind(GL_MODULATE); // Modulate mezcla el color con la textura
 		upload(aMat);
 		glLineWidth(2);
 		mMesh->render();
-		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		glLineWidth(1);
+		texture->unbind();
+
+	}
+}
+
+BoxOutline::BoxOutline(GLdouble lenght)
+	:Abs_Entity()
+{
+	mMesh = Mesh::generateBoxOutlineTexCor(lenght);
+}
+
+BoxOutline::BoxOutline(GLdouble lenght, std::string t)
+	:BoxOutline(lenght)
+{
+	outTexture = new Texture();
+	setTexture(outTexture, t);
+	setTexture(intTexture, t);
+}
+BoxOutline::BoxOutline(GLdouble lenght, std::string iT, std::string oT)
+	:BoxOutline(lenght)
+{
+
+	outTexture = new Texture();
+	intTexture = new Texture();
+
+	setTexture(intTexture, oT);
+	setTexture(outTexture, iT);
+}
+
+BoxOutline::~BoxOutline()
+{
+	delete mMesh;
+	mMesh = nullptr;
+}
+
+void BoxOutline::render(dmat4 const& modelViewMat)const
+{
+	if (mMesh != nullptr) {
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		outTexture->bind(GL_MODULATE); // Modulate mezcla el color con la textura
+		glCullFace(GL_BACK);
+		upload(aMat);
+		glLineWidth(2);
+		mMesh->render();
+		glLineWidth(1);
+		outTexture->unbind();
+		glEnable(GL_CULL_FACE);
+
+		intTexture->bind(GL_MODULATE); // Modulate mezcla el color con la textura
+		glCullFace(GL_FRONT);
+		upload(aMat);
+		glLineWidth(2);
+		mMesh->render();
+		glLineWidth(1);
+		intTexture->unbind();
+
+		glEnable(GL_CULL_FACE);
 	}
 }

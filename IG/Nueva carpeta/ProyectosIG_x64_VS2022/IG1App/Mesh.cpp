@@ -33,10 +33,11 @@ Mesh::render() const
 		{
 			glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 			glTexCoordPointer(2, GL_DOUBLE, 0, vTexCoords.data());
+
 		}
 
 		draw();
-		
+
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_VERTEX_ARRAY);
@@ -136,6 +137,7 @@ Mesh* Mesh::generateRGBTriangle(GLdouble r) { // Genera un triangulo RGB:
 	return mesh;
 }
 //------Ejercicio8:
+
 Mesh* Mesh::generateRectangle(GLdouble w, GLdouble h, GLdouble d) { // Genera un rectangulo:
 	Mesh* mesh = new Mesh();
 
@@ -317,16 +319,76 @@ Mesh* Mesh::generateRGBCubeTriangles(GLdouble length) {
 #pragma region P2
 // Ejercicio19.
 Mesh* Mesh::generateRectangleTexCor(GLdouble w, GLdouble h) {
-	Mesh* m = generateRGBRectangle(w, 0, h);
+	auto m = generateRectangle(w, 0, h);
 	m->vTexCoords.reserve(m->mNumVertices);
-	for (int i = 0; i < 4; i++)
-	{
-		m->vTexCoords.emplace_back(glm::dvec2(m->vVertices[i].x, m->vVertices[i].z));
-	}
-	/*m->vTexCoords.emplace_back(glm::dvec2(m->vVertices[0].x, m->vVertices[0].z));
-	m->vTexCoords.emplace_back(glm::dvec2(m->vVertices[1].x, m->vVertices[1].z));
-	m->vTexCoords.emplace_back(glm::dvec2(m->vVertices[2].x, m->vVertices[2].z));
-	m->vTexCoords.emplace_back(glm::dvec2(m->vVertices[3].x, m->vVertices[3].z));*/
+
+	m->vTexCoords.emplace_back(0, 0);
+	m->vTexCoords.emplace_back(1, 0);
+	m->vTexCoords.emplace_back(0, 1);
+	m->vTexCoords.emplace_back(1, 1);
 	return m;
 }
+
+//------Ejercicio20
+Mesh* Mesh::generateRectangleTexCor(GLdouble w, GLdouble h, GLuint rw, GLuint rh) {
+	auto m = generateRectangle(w, 0, h);
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	m->vTexCoords.reserve(m->mNumVertices);
+
+	m->vTexCoords.emplace_back(0, 0);
+	m->vTexCoords.emplace_back(rw, 0);
+	m->vTexCoords.emplace_back(0, rh);
+	m->vTexCoords.emplace_back(rw, rh);
+
+	return m;
+}
+
+//------Ejercicio22
+Mesh* Mesh::generateBoxOutline(GLdouble length) {
+	Mesh* mesh = new Mesh();
+
+	mesh->mPrimitive = GL_TRIANGLE_STRIP;
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	GLdouble m = length / 2;
+
+	mesh->mNumVertices = 14;
+	mesh->vVertices.reserve(mesh->mNumVertices);
+
+	mesh->vVertices.emplace_back(-m, m, -m); // 1.
+	mesh->vVertices.emplace_back(-m, -m, -m); // 2.
+	mesh->vVertices.emplace_back(-m, m, m); // 3.
+	mesh->vVertices.emplace_back(-m, -m, m); // 4.
+	mesh->vVertices.emplace_back(m, m, m); // 5.
+	mesh->vVertices.emplace_back(m, -m, m); // 6.
+	mesh->vVertices.emplace_back(m, m, -m); // 7.
+	mesh->vVertices.emplace_back(m, -m, -m); // 8.
+	mesh->vVertices.push_back(mesh->vVertices[0]); // 1.
+	mesh->vVertices.push_back(mesh->vVertices[1]); // 2.
+
+	return mesh;
+}
+
+//------Ejercicio 23:
+Mesh* Mesh::generateBoxOutlineTexCor(GLdouble longitud) {
+	auto m = generateBoxOutline(longitud);
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	m->vTexCoords.reserve(m->mNumVertices);
+
+	for (int i = 0; i < 4; i++)
+	{
+		m->vTexCoords.emplace_back(1, 0);
+		m->vTexCoords.emplace_back(1, 1);
+		m->vTexCoords.emplace_back(0, 0);
+		m->vTexCoords.emplace_back(0, 1);
+	}
+
+	return m;
+}
+
 #pragma endregion

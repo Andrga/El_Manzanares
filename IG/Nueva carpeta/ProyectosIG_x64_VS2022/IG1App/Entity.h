@@ -114,10 +114,29 @@ private:
 	Texture* texture;
 
 public:
-	explicit Ground(GLdouble w, GLdouble h, GLdouble z, std::string t);
+	explicit Ground(GLdouble w, GLdouble d, std::string t);
+	explicit Ground(GLdouble w, GLdouble d, GLuint rw, GLuint rh, std::string t);
 	~Ground();
 	void render(glm::dmat4 const& modelViewMat) const;
 	void setTexture(std::string text) const {
+		texture->load(text, 255);
+	}
+};
+
+//------Ejercicio 22:
+class BoxOutline : public Abs_Entity
+{
+private:
+	Texture* outTexture;
+	Texture* intTexture;
+
+public:
+	explicit BoxOutline(GLdouble lenght);
+	explicit BoxOutline(GLdouble lenght, std::string t);
+	explicit BoxOutline(GLdouble lenght, std::string iT, std::string oT);
+	~BoxOutline();
+	void render(glm::dmat4 const& modelViewMat) const;
+	void setTexture( Texture* texture, std::string text) const {
 		texture->load(text, 255);
 	}
 };

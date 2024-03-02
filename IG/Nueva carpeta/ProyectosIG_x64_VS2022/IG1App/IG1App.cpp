@@ -49,7 +49,8 @@ IG1App::init()
 	scenes[0]->addEntity(new RGBRectangle(300.0, 200.0, 0.0));
 	scenes[0]->addEntity(new RGBTriangle(50.0, 200.0, 0.0));
 	scenes[0]->addEntity(new RegularPolygon(100, 200.0));
-	scenes[2]->addEntity(new Ground(200.0, 0.0, 200.0, "./texturas/baldosaC.bmp"));
+	//scenes[2]->addEntity(new Ground(200.0, 200.0, 4, 4, "../bmps/baldosaC.bmp"));
+	scenes[2]->addEntity(new BoxOutline(500, "../bmps/container.bmp", "../bmps/papelE.bmp"));
 
 
 	mCamera->set2D();

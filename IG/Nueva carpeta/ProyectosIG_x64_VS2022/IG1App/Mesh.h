@@ -19,12 +19,21 @@ public:
 
 	static Mesh* generateRegularPolygon(GLuint num, GLdouble r); //Ejercicio2.
 	static Mesh* generateRGBTriangle(GLdouble r); // Ejercicio6.
-	static Mesh* generateRectangle(GLdouble w, GLdouble h, GLdouble z); // Ejercicio8.
+	/// <param name="w">With</param>
+	/// <param name="h">Height</param>
+	/// <param name="d">Depth</param>
+	static Mesh* generateRectangle(GLdouble w, GLdouble h, GLdouble d); // Ejercicio8.
 	static Mesh* generateRGBRectangle(GLdouble w, GLdouble h, GLdouble z); // Ejercicio8.
 	static Mesh* generateCube(GLdouble l); // Ejercicio9.
 	static Mesh* generateRGBCubeTriangles(GLdouble length); // Ejercicio10.
-	
+
+	/// <param name="w">With</param>
+	/// <param name="h">Height</param>
+	/// <param name="d">Depth</param>
 	static Mesh* generateRectangleTexCor(GLdouble w, GLdouble h); // Ejercicio 19.
+	static Mesh* generateRectangleTexCor(GLdouble w, GLdouble h, GLuint rw, GLuint rh); // Ejercicio 20.
+	static Mesh* generateBoxOutline(GLdouble length);// Ejercicio 21
+	static Mesh* generateBoxOutlineTexCor(GLdouble longitud); // Ejercicio 23.
 
 
 	virtual void render() const;
