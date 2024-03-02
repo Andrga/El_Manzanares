@@ -322,3 +322,28 @@ void BoxOutline::render(dmat4 const& modelViewMat)const
 		glEnable(GL_CULL_FACE);
 	}
 }
+
+Star3D::Star3D(GLdouble re, GLuint np, GLdouble h) 
+	:Abs_Entity()
+{
+	mMesh = Mesh::generateStar3D(re, np, h);
+}
+
+
+Star3D::~Star3D()
+{
+	delete mMesh;
+	mMesh = nullptr;
+}
+
+void Star3D::render(dmat4 const& modelViewMat)const
+{
+	if (mMesh != nullptr) {
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		upload(aMat);
+		glLineWidth(2);
+		mMesh->render();
+		//glDrawArrays(GL_TRIANGLES, 0, 3);
+		glLineWidth(1);
+	}
+}

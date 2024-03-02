@@ -391,4 +391,37 @@ Mesh* Mesh::generateBoxOutlineTexCor(GLdouble longitud) {
 	return m;
 }
 
+//------Ejercicio 25:
+Mesh* Mesh::generateStar3D(GLdouble re, GLuint np, GLdouble h) {
+	Mesh* mesh = new Mesh();
+
+
+	mesh->mPrimitive = GL_TRIANGLE_FAN;
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	mesh->mNumVertices = np + 2;
+	mesh->vVertices.reserve(mesh->mNumVertices);
+
+	mesh->vVertices.emplace_back(0, 0, 0);
+
+	GLdouble x, y, r = re;
+
+	//mesh->vVertices.emplace_back(r * glm::cos(glm::radians((90 / num))), r * glm::cos(glm::radians((90 / num))), 0.0);
+
+	for (int i = 0; i < np; i++)
+	{
+		i % 2 == 0 ? r = re : r = (re / 2);
+
+		x = 0 + r * glm::cos(glm::radians((360.0 / np) * i));
+		y = 0 + r * glm::sin(glm::radians((360.0 / np) * i));
+
+		mesh->vVertices.emplace_back(x, y, h);
+	}
+
+	mesh->vVertices.push_back(mesh->vVertices[1]); // 1.
+	
+	return mesh;
+}
+
 #pragma endregion

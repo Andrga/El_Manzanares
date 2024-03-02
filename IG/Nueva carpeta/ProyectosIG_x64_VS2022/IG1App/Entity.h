@@ -136,7 +136,23 @@ public:
 	explicit BoxOutline(GLdouble lenght, std::string iT, std::string oT);
 	~BoxOutline();
 	void render(glm::dmat4 const& modelViewMat) const;
-	void setTexture( Texture* texture, std::string text) const {
+	void setTexture(Texture* texture, std::string text) const {
+		texture->load(text, 255);
+	}
+};
+
+//------Ejercicio 26:
+class Star3D : public Abs_Entity
+{
+private:
+	Texture* outTexture;
+	Texture* intTexture;
+
+public:
+	explicit Star3D(GLdouble re, GLuint np, GLdouble h);
+	~Star3D();
+	void render(glm::dmat4 const& modelViewMat) const;
+	void setTexture(Texture* texture, std::string text) const {
 		texture->load(text, 255);
 	}
 };
