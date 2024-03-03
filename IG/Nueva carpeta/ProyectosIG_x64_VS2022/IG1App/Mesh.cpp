@@ -44,8 +44,7 @@ Mesh::render() const
 	}
 }
 
-Mesh*
-Mesh::createRGBAxes(GLdouble l)
+Mesh* Mesh::createRGBAxes(GLdouble l)
 {
 	Mesh* mesh = new Mesh();
 
@@ -137,7 +136,6 @@ Mesh* Mesh::generateRGBTriangle(GLdouble r) { // Genera un triangulo RGB:
 	return mesh;
 }
 //------Ejercicio8:
-
 Mesh* Mesh::generateRectangle(GLdouble w, GLdouble h, GLdouble d) { // Genera un rectangulo:
 	Mesh* mesh = new Mesh();
 
@@ -180,7 +178,6 @@ Mesh* Mesh::generateRGBRectangle(GLdouble w, GLdouble h, GLdouble z) { // Genera
 
 	return mesh;
 }
-
 //------Ejercicio9.
 Mesh* Mesh::generateCube(GLdouble l) {
 	Mesh* mesh = new Mesh();
@@ -225,7 +222,6 @@ Mesh* Mesh::generateCube(GLdouble l) {
 
 	return mesh;
 }
-
 //------Ejercicio10:
 Mesh* Mesh::generateRGBCubeTriangles(GLdouble length) {
 
@@ -328,7 +324,6 @@ Mesh* Mesh::generateRectangleTexCor(GLdouble w, GLdouble h) {
 	m->vTexCoords.emplace_back(1, 1);
 	return m;
 }
-
 //------Ejercicio20
 Mesh* Mesh::generateRectangleTexCor(GLdouble w, GLdouble h, GLuint rw, GLuint rh) {
 	auto m = generateRectangle(w, 0, h);
@@ -344,7 +339,6 @@ Mesh* Mesh::generateRectangleTexCor(GLdouble w, GLdouble h, GLuint rw, GLuint rh
 
 	return m;
 }
-
 //------Ejercicio22
 Mesh* Mesh::generateBoxOutline(GLdouble length) {
 	Mesh* mesh = new Mesh();
@@ -371,7 +365,6 @@ Mesh* Mesh::generateBoxOutline(GLdouble length) {
 
 	return mesh;
 }
-
 //------Ejercicio 23:
 Mesh* Mesh::generateBoxOutlineTexCor(GLdouble longitud) {
 	auto m = generateBoxOutline(longitud);
@@ -390,7 +383,6 @@ Mesh* Mesh::generateBoxOutlineTexCor(GLdouble longitud) {
 
 	return m;
 }
-
 //------Ejercicio 25:
 Mesh* Mesh::generateStar3D(GLdouble re, GLuint np, GLdouble h) {
 	Mesh* mesh = new Mesh();
@@ -420,8 +412,29 @@ Mesh* Mesh::generateStar3D(GLdouble re, GLuint np, GLdouble h) {
 	}
 
 	mesh->vVertices.push_back(mesh->vVertices[1]); // 1.
-	
+
 	return mesh;
+}
+//------Ejercicio28:
+Mesh* Mesh::generateStar3DTexCor(GLdouble re, GLuint np, GLdouble h) {
+	auto m = generateStar3D(re, np, h);
+
+	m->vTexCoords.reserve(m->mNumVertices);
+
+	m->vTexCoords.emplace_back(0, 0);
+	m->vTexCoords.emplace_back(0, 1);
+	m->vTexCoords.emplace_back(1, 0);
+	m->vTexCoords.emplace_back(1, 1);
+	m->vTexCoords.emplace_back(0, 0);
+	m->vTexCoords.emplace_back(0, 1);
+	m->vTexCoords.emplace_back(1, 0);
+	m->vTexCoords.emplace_back(1, 1);
+	m->vTexCoords.emplace_back(0, 0);
+	m->vTexCoords.emplace_back(0, 1);
+	m->vTexCoords.emplace_back(1, 0);
+	m->vTexCoords.emplace_back(1, 1);
+
+	return m;
 }
 
 #pragma endregion

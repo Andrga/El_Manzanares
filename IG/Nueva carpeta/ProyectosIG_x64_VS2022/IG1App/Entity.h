@@ -145,11 +145,11 @@ public:
 class Star3D : public Abs_Entity
 {
 private:
-	Texture* outTexture;
-	Texture* intTexture;
+	Texture* texture;
 
 public:
 	explicit Star3D(GLdouble re, GLuint np, GLdouble h);
+	Star3D(GLdouble re, GLuint np, GLdouble h, std::string t);
 	~Star3D();
 	void render(glm::dmat4 const& modelViewMat) const;
 	void setTexture(Texture* texture, std::string text) const {

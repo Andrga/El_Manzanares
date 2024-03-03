@@ -35,7 +35,6 @@ EjesRGB::render(dmat4 const& modelViewMat) const
 		glLineWidth(1);
 	}
 }
-
 //------Ejercicio3:
 RegularPolygon::RegularPolygon(GLuint num, GLdouble r)
 	: Abs_Entity()
@@ -59,14 +58,12 @@ void RegularPolygon::render(dmat4 const& modelViewMat) const
 		glColor4d(1, 1, 1, 1);
 	}
 }
-
 //------Ejercicio6:
 RGBTriangle::RGBTriangle(GLdouble r)
 	: Abs_Entity()
 {
 	mMesh = Mesh::generateRGBTriangle(r);
 }
-
 //------Ejercicio14:
 RGBTriangle::RGBTriangle(GLdouble r, GLdouble x, GLdouble y) :
 	RGBTriangle(r)
@@ -75,8 +72,6 @@ RGBTriangle::RGBTriangle(GLdouble r, GLdouble x, GLdouble y) :
 	pos = dvec3(x, y, 0);
 	mModelMat = translate(mModelMat, dvec3(x, y, 0));
 }
-
-
 void RGBTriangle::update() {
 	//------Ejercicio 15:
 
@@ -111,7 +106,6 @@ void RGBTriangle::update() {
 
 
 }
-
 RGBTriangle::~RGBTriangle()
 {
 	delete mMesh;
@@ -128,7 +122,6 @@ void RGBTriangle::render(dmat4 const& modelViewMat)const
 		glLineWidth(1);
 	}
 }
-
 //------Ejercicio8:
 RGBRectangle::RGBRectangle(GLdouble w, GLdouble h, GLdouble z)
 	: Abs_Entity()
@@ -140,7 +133,6 @@ RGBRectangle::~RGBRectangle()
 	delete mMesh;
 	mMesh = nullptr;
 };
-
 void RGBRectangle::render(dmat4 const& modelViewMat)const
 {
 	if (mMesh != nullptr) {
@@ -152,7 +144,6 @@ void RGBRectangle::render(dmat4 const& modelViewMat)const
 		glLineWidth(1);
 	}
 }
-
 //------Ejercicio9:
 Cube::Cube(GLdouble l)
 	: Abs_Entity()
@@ -188,7 +179,6 @@ RGBCube::~RGBCube()
 	delete mMesh;
 	mMesh = nullptr;
 };
-
 //-------Ejercicio17:
 void RGBCube::update() {
 
@@ -212,7 +202,6 @@ void RGBCube::update() {
 	mModelMat = rotate(mModelMat, radians(1.0), rotAxe);
 	actualAngle += 1;
 }
-
 void RGBCube::render(dmat4 const& modelViewMat)const
 {
 	if (mMesh != nullptr) {
@@ -224,7 +213,6 @@ void RGBCube::render(dmat4 const& modelViewMat)const
 		glLineWidth(1);
 	}
 }
-
 //------Ejercicio18:
 Ground::Ground(GLdouble w, GLdouble d, std::string t)
 	: Abs_Entity()
@@ -235,7 +223,6 @@ Ground::Ground(GLdouble w, GLdouble d, std::string t)
 	texture = new Texture();
 	setTexture(t);
 }
-
 //------Ejercicio20:
 Ground::Ground(GLdouble w, GLdouble d, GLuint rw, GLuint rh, std::string t)
 	: Abs_Entity()
@@ -246,7 +233,6 @@ Ground::Ground(GLdouble w, GLdouble d, GLuint rw, GLuint rh, std::string t)
 	texture = new Texture();
 	setTexture(t);
 }
-
 Ground::~Ground()
 {
 	delete mMesh;
@@ -266,13 +252,11 @@ void Ground::render(dmat4 const& modelViewMat)const
 
 	}
 }
-
 BoxOutline::BoxOutline(GLdouble lenght)
 	:Abs_Entity()
 {
 	mMesh = Mesh::generateBoxOutlineTexCor(lenght);
 }
-
 BoxOutline::BoxOutline(GLdouble lenght, std::string t)
 	:BoxOutline(lenght)
 {
@@ -290,13 +274,11 @@ BoxOutline::BoxOutline(GLdouble lenght, std::string iT, std::string oT)
 	setTexture(intTexture, oT);
 	setTexture(outTexture, iT);
 }
-
 BoxOutline::~BoxOutline()
 {
 	delete mMesh;
 	mMesh = nullptr;
 }
-
 void BoxOutline::render(dmat4 const& modelViewMat)const
 {
 	if (mMesh != nullptr) {
@@ -322,31 +304,37 @@ void BoxOutline::render(dmat4 const& modelViewMat)const
 		glEnable(GL_CULL_FACE);
 	}
 }
-
-Star3D::Star3D(GLdouble re, GLuint np, GLdouble h)
-	:Abs_Entity()
+//------Ejercicio26:
+Star3D::Star3D(GLdouble re, GLuint np, GLdouble h) : Abs_Entity()
 {
 	mMesh = Mesh::generateStar3D(re, np, h);
 }
+Star3D::Star3D(GLdouble re, GLuint np, GLdouble h, std::string t) :Star3D(re, np, h) {
 
+	texture = new Texture;
 
+	setTexture(texture, t);
+}
 Star3D::~Star3D()
 {
 	delete mMesh;
 	mMesh = nullptr;
 }
-
 void Star3D::render(dmat4 const& modelViewMat)const
 {
 	if (mMesh != nullptr) {
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		texture->bind(GL_MODULATE); // Modulate mezcla el color con la textura
 		upload(aMat);
 		glLineWidth(2);
 		mMesh->render();
 		glLineWidth(1);
 		dmat4 aMat2 = aMat * glm::rotate(dmat4(1), glm::radians(180.0), dvec3(1.0, 0.0, 0.0)); // Rotamos la matriz y la volvemos a renderizar.
+		glLineWidth(2);
 		upload(aMat2);
 		mMesh->render();
+		texture->unbind();
 	}
 	//if (mMesh != nullptr) {
 	//	dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
@@ -356,7 +344,9 @@ void Star3D::render(dmat4 const& modelViewMat)const
 	//	glLineWidth(1);
 	//}
 }
-
+//------Ejercicio27:
 void Star3D::update() {
 
+	mModelMat = rotate(mModelMat, radians(1.0), dvec3(0.0, 0.0, 1.0)); // Movimiento en el eje Z.
+	mModelMat = rotate(dmat4(1.0), radians(1.0), dvec3(0.0, 1.0, 0.0)) * mModelMat; // Movimiento en el eje Y.
 }

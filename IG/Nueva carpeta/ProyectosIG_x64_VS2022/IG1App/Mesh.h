@@ -35,11 +35,12 @@ public:
 	/// <param name="w">With</param>
 	/// <param name="h">Height</param>
 	/// <param name="d">Depth</param>
-	static Mesh* generateRectangleTexCor(GLdouble w, GLdouble h); // Ejercicio 19.
-	static Mesh* generateRectangleTexCor(GLdouble w, GLdouble h, GLuint rw, GLuint rh); // Ejercicio 20.
-	static Mesh* generateBoxOutline(GLdouble length);// Ejercicio 21.
-	static Mesh* generateBoxOutlineTexCor(GLdouble longitud); // Ejercicio 23.
-	static Mesh* generateStar3D(GLdouble re, GLuint np, GLdouble h); // Ejercicio 25.
+	static Mesh* generateRectangleTexCor(GLdouble w, GLdouble h); // Ejercicio19.
+	static Mesh* generateRectangleTexCor(GLdouble w, GLdouble h, GLuint rw, GLuint rh); // Ejercicio20.
+	static Mesh* generateBoxOutline(GLdouble length);// Ejercicio21.
+	static Mesh* generateBoxOutlineTexCor(GLdouble longitud); // Ejercicio23.
+	static Mesh* generateStar3D(GLdouble re, GLuint np, GLdouble h); // Ejercicio25.
+	static Mesh* generateStar3DTexCor(GLdouble re, GLuint np, GLdouble h); // Ejercicio28.
 #pragma endregion
 
 
