@@ -323,7 +323,7 @@ void BoxOutline::render(dmat4 const& modelViewMat)const
 	}
 }
 
-Star3D::Star3D(GLdouble re, GLuint np, GLdouble h) 
+Star3D::Star3D(GLdouble re, GLuint np, GLdouble h)
 	:Abs_Entity()
 {
 	mMesh = Mesh::generateStar3D(re, np, h);
@@ -343,7 +343,20 @@ void Star3D::render(dmat4 const& modelViewMat)const
 		upload(aMat);
 		glLineWidth(2);
 		mMesh->render();
-		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		glLineWidth(1);
+		dmat4 aMat2 = aMat * glm::rotate(dmat4(1), glm::radians(180.0), dvec3(1.0, 0.0, 0.0)); // Rotamos la matriz y la volvemos a renderizar.
+		upload(aMat2);
+		mMesh->render();
 	}
+	//if (mMesh != nullptr) {
+	//	dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+	//	upload(aMat);
+	//	glLineWidth(2);
+	//	mMesh->render();
+	//	glLineWidth(1);
+	//}
+}
+
+void Star3D::update() {
+
 }

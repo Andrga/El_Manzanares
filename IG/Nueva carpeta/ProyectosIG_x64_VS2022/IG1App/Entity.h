@@ -155,5 +155,6 @@ public:
 	void setTexture(Texture* texture, std::string text) const {
 		texture->load(text, 255);
 	}
+	void update() override; // Ejercicio27.
 };
 #endif //_H_Entities_H_

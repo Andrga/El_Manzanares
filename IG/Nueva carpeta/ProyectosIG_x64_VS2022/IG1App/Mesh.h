@@ -40,7 +40,6 @@ public:
 	static Mesh* generateBoxOutline(GLdouble length);// Ejercicio 21.
 	static Mesh* generateBoxOutlineTexCor(GLdouble longitud); // Ejercicio 23.
 	static Mesh* generateStar3D(GLdouble re, GLuint np, GLdouble h); // Ejercicio 25.
-
 #pragma endregion
 
 
