@@ -17,6 +17,8 @@ public:
 	Mesh(const Mesh& m) = delete;            // no copy constructor
 	Mesh& operator=(const Mesh& m) = delete; // no copy assignment
 
+#pragma region P1
+
 	static Mesh* generateRegularPolygon(GLuint num, GLdouble r); //Ejercicio2.
 	static Mesh* generateRGBTriangle(GLdouble r); // Ejercicio6.
 	/// <param name="w">With</param>
@@ -27,13 +29,19 @@ public:
 	static Mesh* generateCube(GLdouble l); // Ejercicio9.
 	static Mesh* generateRGBCubeTriangles(GLdouble length); // Ejercicio10.
 
+#pragma endregion
+#pragma region P2
+
 	/// <param name="w">With</param>
 	/// <param name="h">Height</param>
 	/// <param name="d">Depth</param>
 	static Mesh* generateRectangleTexCor(GLdouble w, GLdouble h); // Ejercicio 19.
 	static Mesh* generateRectangleTexCor(GLdouble w, GLdouble h, GLuint rw, GLuint rh); // Ejercicio 20.
-	static Mesh* generateBoxOutline(GLdouble length);// Ejercicio 21
+	static Mesh* generateBoxOutline(GLdouble length);// Ejercicio 21.
 	static Mesh* generateBoxOutlineTexCor(GLdouble longitud); // Ejercicio 23.
+	static Mesh* generateStar3D(GLdouble re, GLuint np, GLdouble h); // Ejercicio 25.
+
+#pragma endregion
 
 
 	virtual void render() const;
