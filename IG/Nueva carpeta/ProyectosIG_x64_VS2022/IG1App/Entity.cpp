@@ -309,7 +309,11 @@ Star3D::Star3D(GLdouble re, GLuint np, GLdouble h) : Abs_Entity()
 {
 	mMesh = Mesh::generateStar3D(re, np, h);
 }
-Star3D::Star3D(GLdouble re, GLuint np, GLdouble h, std::string t) :Star3D(re, np, h) {
+Star3D::Star3D(GLdouble re, GLuint np, GLdouble h, std::string t)
+//:Star3D(re, np, h) // Me estas tocando los cojones somos tontos tontos claro que no hacia texturas porque no llamabamos al que hacia texturas...
+{
+
+	mMesh = Mesh::generateStar3DTexCor(re, np, h); // Hay que hacer esto.
 
 	texture = new Texture;
 
@@ -324,25 +328,18 @@ void Star3D::render(dmat4 const& modelViewMat)const
 {
 	if (mMesh != nullptr) {
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		texture->bind(GL_MODULATE); // Modulate mezcla el color con la textura
+		texture->bind(GL_REPLACE); // Modulate mezcla el color con la textura
 		upload(aMat);
 		glLineWidth(2);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		mMesh->render();
-		glLineWidth(1);
+
 		dmat4 aMat2 = aMat * glm::rotate(dmat4(1), glm::radians(180.0), dvec3(1.0, 0.0, 0.0)); // Rotamos la matriz y la volvemos a renderizar.
 		glLineWidth(2);
 		upload(aMat2);
 		mMesh->render();
 		texture->unbind();
 	}
-	//if (mMesh != nullptr) {
-	//	dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
-	//	upload(aMat);
-	//	glLineWidth(2);
-	//	mMesh->render();
-	//	glLineWidth(1);
-	//}
 }
 //------Ejercicio27:
 void Star3D::update() {

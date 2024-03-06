@@ -387,6 +387,7 @@ Mesh* Mesh::generateBoxOutlineTexCor(GLdouble longitud) {
 Mesh* Mesh::generateStar3D(GLdouble re, GLuint np, GLdouble h) {
 	Mesh* mesh = new Mesh();
 
+	np *= 2;
 
 	mesh->mPrimitive = GL_TRIANGLE_FAN;
 
@@ -405,11 +406,19 @@ Mesh* Mesh::generateStar3D(GLdouble re, GLuint np, GLdouble h) {
 	{
 		i % 2 == 0 ? r = re : r = (re / 2);
 
-		x = 0 + r * glm::cos(glm::radians((360.0 / np) * i));
-		y = 0 + r * glm::sin(glm::radians((360.0 / np) * i));
+		x = 0 + r * glm::cos(glm::radians((360.0 / (np)) * i));
+		y = 0 + r * glm::sin(glm::radians((360.0 / (np)) * i));
 
 		mesh->vVertices.emplace_back(x, y, h);
-	}
+	}/*for (int i = 0; i < np*2; i++)
+	{
+		i % 2 == 0 ? r = re : r = (re / 2);
+
+		x = 0 + r * glm::cos(glm::radians((360.0 / (np*2+1)) * i));
+		y = 0 + r * glm::sin(glm::radians((360.0 / (np*2+1)) * i));
+
+		mesh->vVertices.emplace_back(x, y, h);
+	}*/
 
 	mesh->vVertices.push_back(mesh->vVertices[1]); // 1.
 
@@ -426,13 +435,11 @@ Mesh* Mesh::generateStar3DTexCor(GLdouble re, GLuint np, GLdouble h) {
 	for (int i = 0; i < 4; i++)
 	{
 		m->vTexCoords.emplace_back(0, 0);
-		m->vTexCoords.emplace_back(0.5, 0);
-		m->vTexCoords.emplace_back(0, 0);
 		m->vTexCoords.emplace_back(0, 0.5);
+		m->vTexCoords.emplace_back(0, 0);
+		m->vTexCoords.emplace_back(0.5, 0);
 	}
-	m->vTexCoords.emplace_back(0.5, 0.5);
-
-
+	m->vTexCoords.emplace_back(0, 0);
 
 	return m;
 }

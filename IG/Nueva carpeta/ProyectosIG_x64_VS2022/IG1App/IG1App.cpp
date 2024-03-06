@@ -52,7 +52,8 @@ IG1App::init()
 	//scenes[2]->addEntity(new Ground(200.0, 200.0, 4, 4, "../bmps/baldosaC.bmp"));
 	//scenes[2]->addEntity(new BoxOutline(500, "../bmps/container.bmp", "../bmps/papelE.bmp"));
 	//scenes[2]->addEntity(new Star3D(300,12,200));
-	scenes[2]->addEntity(new Star3D(300, 12, 200, "../bmps/baldosaP.bmp"));
+	scenes[2]->addEntity(new Star3D(200, 8, 200, "../bmps/baldosaP.bmp"));
+	//scenes[2]->addEntity(new Star3D(200, 8, 200));
 
 
 	mCamera->set2D();
