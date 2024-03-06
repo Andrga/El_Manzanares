@@ -421,11 +421,18 @@ Mesh* Mesh::generateStar3DTexCor(GLdouble re, GLuint np, GLdouble h) {
 
 	m->vTexCoords.reserve(m->mNumVertices);
 
-	m->vTexCoords.emplace_back(0, 0);
-	m->vTexCoords.emplace_back(0, 0.5);
 	m->vTexCoords.emplace_back(0.5, 0.5);
-	m->vTexCoords.emplace_back(0, 0);
-	
+
+	for (int i = 0; i < 4; i++)
+	{
+		m->vTexCoords.emplace_back(0, 0);
+		m->vTexCoords.emplace_back(0.5, 0);
+		m->vTexCoords.emplace_back(0, 0);
+		m->vTexCoords.emplace_back(0, 0.5);
+	}
+	m->vTexCoords.emplace_back(0.5, 0.5);
+
+
 
 	return m;
 }
