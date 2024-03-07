@@ -1,4 +1,5 @@
 #include "Texture.h"
+#include "Mesh.h"
 
 //-------------------------------------------------------------------------
 
@@ -63,5 +64,5 @@ void Texture::setWrap(GLuint wp) // GL_REPEAT, GL_CLAMP
 }
 //-------------------------------------------------------------------------
 void Texture::loadColorBuffer(GLsizei width, GLsizei height, GLuint buffer = GL_FRONT) {
-
+	Mesh::generateRectangleTexCor(width, height);
 }
