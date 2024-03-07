@@ -63,6 +63,40 @@ void Texture::setWrap(GLuint wp) // GL_REPEAT, GL_CLAMP
   glBindTexture(GL_TEXTURE_2D, 0); 
 }
 //-------------------------------------------------------------------------
-void Texture::loadColorBuffer(GLsizei width, GLsizei height, GLuint buffer = GL_FRONT) {
-	Mesh::generateRectangleTexCor(width, height);
+void Texture::loadColorBuffer(GLsizei width, GLsizei height, GLuint buffer) {
+	//establecer tamaño textura
+	mWidth = width;
+	mHeight = height;
+
+
+	//verificar si buffer es valido
+	if (buffer != GL_FRONT && buffer != GL_BACK) {
+		return;
+	}
+
+	//generar textura
+	glGenTextures(1, &mId);
+	glBindTexture(GL_TEXTURE_2D, mId);
+
+	bind(GL_REPLACE);
+
+	//modificar buffer
+	GLenum format = GL_RGBA;
+	if (buffer == GL_FRONT) {
+		glReadBuffer(GL_FRONT);
+	}
+	else
+		glReadBuffer(GL_BACK);
+
+	//copiar en la textura activa el contenido del buffer
+	glCopyTexImage2D(GL_TEXTURE_2D, 0, format, 0, 0, width, height, 0);
+
+	//restaurar buffer
+	glReadBuffer(GL_BACK);
+
+	unbind();
+
+	//desvincular textura
+	glBindTexture(GL_TEXTURE_2D, 0);
+
 }
