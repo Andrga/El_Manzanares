@@ -358,7 +358,7 @@ GlassParapet::GlassParapet(GLdouble lenght, std::string t)
 	:GlassParapet(lenght)
 {
 	texture = new Texture();
-	setTexture(texture, t, 128);
+	setTexture(texture, t, 100);
 }
 GlassParapet::~GlassParapet()
 {

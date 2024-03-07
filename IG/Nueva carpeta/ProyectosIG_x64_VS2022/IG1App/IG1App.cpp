@@ -76,7 +76,9 @@ IG1App::iniWinOpenGL()
 
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
 
-	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH); // Para el blending.
+	//glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH); // Para el blending.
+	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_STENCIL);
+
 
 	glutInitWindowSize(mWinW, mWinH); // window size
 	// glutInitWindowPosition (140, 140);
@@ -114,7 +116,8 @@ void
 IG1App::display() const
 { // double buffering
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clears the back buffer
+	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clears the back buffer
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT |GL_STENCIL_BUFFER_BIT);
 
 	scenes[actualscene]->render(*mCamera); // uploads the viewport and camera to the GPU
 
