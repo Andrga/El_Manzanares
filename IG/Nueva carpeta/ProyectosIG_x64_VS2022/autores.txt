@@ -2,3 +2,5 @@ Pablo Iglesias Rodrigo
 Andrés García Navarro
 
 Realizados apartados 1-17 (La 17 rota con centro en (0,0,0) y no sobre los ejes como en el ejemplo)
+
+Hecho en Windows 10 y 11.

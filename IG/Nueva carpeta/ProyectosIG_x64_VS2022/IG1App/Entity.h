@@ -172,4 +172,19 @@ public:
 		texture->load(text, alpha);
 	}
 };
+//------Ejercicio36:
+class Photo : public Abs_Entity
+{
+private:
+	Texture* texture;
+
+public: 
+	explicit Photo(GLdouble lenght);
+	~Photo();
+	void render(glm::dmat4 const& modelViewMat) const;
+	void update() override;
+	void setTexture(Texture* texture, std::string text, GLubyte alpha) const {
+		texture->load(text, alpha);
+	}
+};
 #endif //_H_Entities_H_

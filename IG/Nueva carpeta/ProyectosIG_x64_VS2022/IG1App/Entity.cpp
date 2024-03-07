@@ -380,3 +380,38 @@ void GlassParapet::render(dmat4 const& modelViewMat)const
 		texture->unbind();
 	}
 }
+
+Photo::Photo(GLdouble lenght)
+	:Abs_Entity()
+{
+	texture = new Texture();
+	texture->loadColorBuffer(800, 600);
+
+	mMesh = Mesh::generateRGBRectangle(600, 400,0);
+	//setTexture(texture, , 100);
+}
+Photo::~Photo()
+{
+	delete mMesh;
+	mMesh = nullptr;
+}
+
+void Photo::render(dmat4 const& modelViewMat)const
+{
+	if (mMesh != nullptr) {
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		//glEnable(GL_BLEND);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+		texture->bind(GL_MODULATE);// GL_REPLACE, GL_MODULATE, GL_ADD
+		upload(aMat);
+		glLineWidth(2);
+		mMesh->render();
+		glLineWidth(1);
+		texture->unbind();
+	}
+}
+void Photo::update()
+{
+	texture->loadColorBuffer(800.0, 600.0, GL_FRONT);
+}
