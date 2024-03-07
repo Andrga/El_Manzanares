@@ -349,7 +349,7 @@ Mesh* Mesh::generateBoxOutline(GLdouble length) {
 
 	GLdouble m = length / 2;
 
-	mesh->mNumVertices = 14;
+	mesh->mNumVertices = 10;
 	mesh->vVertices.reserve(mesh->mNumVertices);
 
 	mesh->vVertices.emplace_back(-m, m, -m); // 1.

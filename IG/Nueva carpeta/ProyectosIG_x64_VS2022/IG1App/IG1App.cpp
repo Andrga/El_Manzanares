@@ -52,9 +52,8 @@ IG1App::init()
 	//scenes[2]->addEntity(new Ground(200.0, 200.0, 4, 4, "../bmps/baldosaC.bmp"));
 	//scenes[2]->addEntity(new BoxOutline(500, "../bmps/container.bmp", "../bmps/papelE.bmp"));
 	//scenes[2]->addEntity(new Star3D(300,12,200));
-	scenes[2]->addEntity(new Star3D(200, 8, 200, "../bmps/baldosaP.bmp"));
-	//scenes[2]->addEntity(new Star3D(200, 8, 200));
-
+	//scenes[2]->addEntity(new Star3D(200, 8, 200, "../bmps/baldosaP.bmp")); // Ejercicio28.
+	scenes[2]->addEntity(new GlassParapet(200, "../bmps/windowV.bmp")); // Ejercicio31.
 
 	mCamera->set2D();
 
@@ -76,6 +75,8 @@ IG1App::iniWinOpenGL()
 	glutInitContextFlags(GLUT_DEBUG);                   // GLUT_FORWARD_COMPATIBLE
 
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
+
+	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH); // Para el blending.
 
 	glutInitWindowSize(mWinW, mWinH); // window size
 	// glutInitWindowPosition (140, 140);

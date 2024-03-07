@@ -123,7 +123,7 @@ public:
 	}
 };
 
-//------Ejercicio 22:
+//------Ejercicio22:
 class BoxOutline : public Abs_Entity
 {
 private:
@@ -141,7 +141,7 @@ public:
 	}
 };
 
-//------Ejercicio 26:
+//------Ejercicio26:
 class Star3D : public Abs_Entity
 {
 private:
@@ -156,5 +156,20 @@ public:
 		texture->load(text, 255);
 	}
 	void update() override; // Ejercicio27.
+};
+//------Ejercicio31:
+class GlassParapet : public Abs_Entity
+{
+private:
+	Texture* texture;
+
+public:
+	explicit GlassParapet(GLdouble lenght);
+	explicit GlassParapet(GLdouble lenght, std::string t);
+	~GlassParapet();
+	void render(glm::dmat4 const& modelViewMat) const;
+	void setTexture(Texture* texture, std::string text, GLubyte alpha) const {
+		texture->load(text, alpha);
+	}
 };
 #endif //_H_Entities_H_

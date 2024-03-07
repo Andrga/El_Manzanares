@@ -252,6 +252,7 @@ void Ground::render(dmat4 const& modelViewMat)const
 
 	}
 }
+//------Ejercicio22:
 BoxOutline::BoxOutline(GLdouble lenght)
 	:Abs_Entity()
 {
@@ -341,9 +342,41 @@ void Star3D::render(dmat4 const& modelViewMat)const
 		texture->unbind();
 	}
 }
-//------Ejercicio27:
+//----Ejercicio27:
 void Star3D::update() {
 
 	mModelMat = rotate(mModelMat, radians(1.0), dvec3(0.0, 0.0, 1.0)); // Movimiento en el eje Z.
 	mModelMat = rotate(dmat4(1.0), radians(1.0), dvec3(0.0, 1.0, 0.0)) * mModelMat; // Movimiento en el eje Y.
+}
+//------Ejercicio31:
+GlassParapet::GlassParapet(GLdouble lenght)
+	:Abs_Entity()
+{
+	mMesh = Mesh::generateBoxOutlineTexCor(lenght);
+}
+GlassParapet::GlassParapet(GLdouble lenght, std::string t)
+	:GlassParapet(lenght)
+{
+	texture = new Texture();
+	setTexture(texture, t, 128);
+}
+GlassParapet::~GlassParapet()
+{
+	delete mMesh;
+	mMesh = nullptr;
+}
+void GlassParapet::render(dmat4 const& modelViewMat)const
+{
+	if (mMesh != nullptr) {
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		//glEnable(GL_BLEND);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+		texture->bind(GL_MODULATE);// GL_REPLACE, GL_MODULATE, GL_ADD
+		upload(aMat);
+		glLineWidth(2);
+		mMesh->render();
+		glLineWidth(1);
+		texture->unbind();
+	}
 }
