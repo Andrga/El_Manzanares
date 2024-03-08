@@ -146,6 +146,7 @@ class Star3D : public Abs_Entity
 {
 private:
 	Texture* texture;
+	GLdouble angle = 0;
 
 public:
 	explicit Star3D(GLdouble re, GLuint np, GLdouble h);

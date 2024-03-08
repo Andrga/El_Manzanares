@@ -303,6 +303,7 @@ BoxOutline::~BoxOutline()
 void BoxOutline::render(dmat4 const& modelViewMat)const
 {
 	if (mMesh != nullptr) {
+		glEnable(GL_CULL_FACE);
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		outTexture->bind(GL_MODULATE); // Modulate mezcla el color con la textura
@@ -322,7 +323,7 @@ void BoxOutline::render(dmat4 const& modelViewMat)const
 		glLineWidth(1);
 		intTexture->unbind();
 
-		glEnable(GL_CULL_FACE);
+		glDisable(GL_CULL_FACE);
 	}
 }
 //------Ejercicio26:
@@ -336,6 +337,7 @@ Star3D::Star3D(GLdouble re, GLuint np, GLdouble h, std::string t)
 
 	mMesh = Mesh::generateStar3DTexCor(re, np, h); // Hay que hacer esto.
 
+	mModelMat = translate(dmat4(1), dvec3(0, 200, 0));
 	texture = new Texture;
 
 	setTexture(texture, t);
@@ -350,6 +352,7 @@ Star3D::~Star3D()
 void Star3D::render(dmat4 const& modelViewMat)const
 {
 	if (mMesh != nullptr) {
+		glDisable(GL_CULL_FACE);
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		texture->bind(GL_REPLACE); // Modulate mezcla el color con la textura
 		upload(aMat);
@@ -367,9 +370,12 @@ void Star3D::render(dmat4 const& modelViewMat)const
 }
 //----Ejercicio27:
 void Star3D::update() {
+	angle++;
 
-	mModelMat = rotate(mModelMat, radians(1.0), dvec3(0.0, 0.0, 1.0)); // Movimiento en el eje Z.
-	mModelMat = rotate(dmat4(1.0), radians(1.0), dvec3(0.0, 1.0, 0.0)) * mModelMat; // Movimiento en el eje Y.
+	mModelMat = translate(dmat4(1), dvec3(0, 200, 0))
+		* rotate(dmat4(1), radians(angle), dvec3(0.0, 0.0, 1.0)) // Movimiento en el eje Z.
+		* rotate(dmat4(1), radians(angle), dvec3(0.0, 1.0, 0.0)); // Movimiento en el eje Y.
+
 }
 //------Ejercicio31:
 GlassParapet::GlassParapet(GLdouble lenght)
@@ -414,9 +420,9 @@ Photo::Photo(GLdouble lenght)
 
 	mMesh = Mesh::generateRectangleTexCor(100, 66.66);
 	mModelMat = rotate(mModelMat, radians(180.0), dvec3(1.0, 0.0, 0.0)) // rotacion
-		* translate(mModelMat, dvec3(0.0,-1.0,0.0));
+		* translate(mModelMat, dvec3(0.0, -1.0, 0.0));
 
-		//setTexture(texture, , 100);
+	//setTexture(texture, , 100);
 }
 Photo::~Photo()
 {

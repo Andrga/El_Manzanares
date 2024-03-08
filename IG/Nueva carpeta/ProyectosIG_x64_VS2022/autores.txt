@@ -3,4 +3,6 @@ Andrés García Navarro
 
 Realizados apartados 18-38 (Sin apartados opcionales)
 
+La estrella no termina de girar como debería
+
 Hecho en Windows 10 y 11.
