@@ -70,13 +70,14 @@ void Texture::loadColorBuffer(GLsizei width, GLsizei height, GLuint buffer) {
 	mHeight = height;
 
 	init();
+
+	glReadBuffer(buffer);
+
 	bind(GL_REPLACE);
 
-	//copiar en la textura activa el contenido del buffer
+
 	glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 0, 0, width, height, 0);
 
-	//restaurar buffer
-	glReadBuffer(buffer);
 
 	unbind();
 }

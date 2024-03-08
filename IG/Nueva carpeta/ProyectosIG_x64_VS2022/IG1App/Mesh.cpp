@@ -106,8 +106,8 @@ Mesh* Mesh::generateRegularPolygon(GLuint num, GLdouble r) {// Generate a regula
 Mesh* Mesh::generateRGBTriangle(GLdouble r) { // Genera un triangulo RGB:
 	Mesh* mesh = new Mesh();
 
-	glPolygonMode(GL_FRONT, GL_FILL);
-	glPolygonMode(GL_BACK, GL_LINE); // Ejercicio7.
+	//glPolygonMode(GL_FRONT, GL_FILL);
+	//glPolygonMode(GL_BACK, GL_LINE); // Ejercicio7.
 
 	mesh->mNumVertices = 3;
 	mesh->vVertices.reserve(mesh->mNumVertices);
@@ -159,8 +159,8 @@ Mesh* Mesh::generateRectangle(GLdouble w, GLdouble h, GLdouble d) { // Genera un
 Mesh* Mesh::generateRGBRectangle(GLdouble w, GLdouble h, GLdouble z) { // Genera un rectangulo:
 	Mesh* mesh = generateRectangle(w, h, z);
 
-	glPolygonMode(GL_FRONT, GL_FILL);
-	glPolygonMode(GL_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT, GL_FILL);
+	//glPolygonMode(GL_BACK, GL_LINE);
 
 	mesh->vVertices.reserve(mesh->mNumVertices);
 
@@ -184,8 +184,8 @@ Mesh* Mesh::generateCube(GLdouble l) {
 
 	mesh->mPrimitive = GL_TRIANGLE_STRIP;
 
-	glPolygonMode(GL_FRONT, GL_FILL);
-	glPolygonMode(GL_BACK, GL_POINT);
+	//glPolygonMode(GL_FRONT, GL_FILL);
+	//glPolygonMode(GL_BACK, GL_POINT);
 
 	GLdouble m = l / 2;
 
@@ -229,8 +229,8 @@ Mesh* Mesh::generateRGBCubeTriangles(GLdouble length) {
 
 	mesh->mPrimitive = GL_TRIANGLES;
 
-	glPolygonMode(GL_FRONT, GL_FILL);
-	glPolygonMode(GL_BACK, GL_POINT);
+	//glPolygonMode(GL_FRONT, GL_FILL);
+	//glPolygonMode(GL_BACK, GL_POINT);
 
 	GLdouble m = length / 2;
 
@@ -328,7 +328,7 @@ Mesh* Mesh::generateRectangleTexCor(GLdouble w, GLdouble h) {
 Mesh* Mesh::generateRectangleTexCor(GLdouble w, GLdouble h, GLuint rw, GLuint rh) {
 	auto m = generateRectangle(w, 0, h);
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	m->vTexCoords.reserve(m->mNumVertices);
 
@@ -345,7 +345,7 @@ Mesh* Mesh::generateBoxOutline(GLdouble length) {
 
 	mesh->mPrimitive = GL_TRIANGLE_STRIP;
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	GLdouble m = length / 2;
 
@@ -369,7 +369,7 @@ Mesh* Mesh::generateBoxOutline(GLdouble length) {
 Mesh* Mesh::generateBoxOutlineTexCor(GLdouble longitud) {
 	auto m = generateBoxOutline(longitud);
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	m->vTexCoords.reserve(m->mNumVertices);
 
@@ -391,7 +391,7 @@ Mesh* Mesh::generateStar3D(GLdouble re, GLuint np, GLdouble h) {
 
 	mesh->mPrimitive = GL_TRIANGLE_FAN;
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 	mesh->mNumVertices = np + 2;
 	mesh->vVertices.reserve(mesh->mNumVertices);
@@ -410,15 +410,7 @@ Mesh* Mesh::generateStar3D(GLdouble re, GLuint np, GLdouble h) {
 		y = 0 + r * glm::sin(glm::radians((360.0 / (np)) * i));
 
 		mesh->vVertices.emplace_back(x, y, h);
-	}/*for (int i = 0; i < np*2; i++)
-	{
-		i % 2 == 0 ? r = re : r = (re / 2);
-
-		x = 0 + r * glm::cos(glm::radians((360.0 / (np*2+1)) * i));
-		y = 0 + r * glm::sin(glm::radians((360.0 / (np*2+1)) * i));
-
-		mesh->vVertices.emplace_back(x, y, h);
-	}*/
+	}
 
 	mesh->vVertices.push_back(mesh->vVertices[1]); // 1.
 

@@ -28,7 +28,7 @@ public:
   
   void setWrap(GLuint wp);  // GL_REPEAT, GL_CLAMP 
 
-  void loadColorBuffer(GLsizei width, GLsizei height, GLuint buffer = GL_FRONT); // Ejercicio35.
+  void loadColorBuffer(GLsizei width, GLsizei height, GLuint buffer = GL_BACK); // Ejercicio35.
 
 protected:
 

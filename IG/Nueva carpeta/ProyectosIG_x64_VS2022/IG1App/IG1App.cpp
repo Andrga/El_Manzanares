@@ -49,7 +49,7 @@ IG1App::init()
 	scenes[0]->addEntity(new RGBRectangle(300.0, 200.0, 0.0));
 	scenes[0]->addEntity(new RGBTriangle(50.0, 200.0, 0.0));
 	scenes[0]->addEntity(new RegularPolygon(100, 200.0));
-	//scenes[2]->addEntity(new Ground(200.0, 200.0, 4, 4, "../bmps/baldosaC.bmp"));
+	scenes[2]->addEntity(new Ground(200.0, 200.0, 4, 4, "../bmps/baldosaC.bmp"));
 	scenes[2]->addEntity(new BoxOutline(200, "../bmps/container.bmp", "../bmps/papelE.bmp"));
 	//scenes[2]->addEntity(new Star3D(300,12,200));
 	//scenes[2]->addEntity(new Star3D(200, 8, 200, "../bmps/baldosaP.bmp")); // Ejercicio28.

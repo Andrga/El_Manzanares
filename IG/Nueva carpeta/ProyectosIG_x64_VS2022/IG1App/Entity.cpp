@@ -49,6 +49,7 @@ RegularPolygon::~RegularPolygon()
 void RegularPolygon::render(dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr) {
+		glPolygonMode(GL_FRONT, GL_FILL);
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		upload(aMat);
 		glColor4d(mColor.r, mColor.g, mColor.b, mColor.a);
@@ -114,6 +115,9 @@ RGBTriangle::~RGBTriangle()
 void RGBTriangle::render(dmat4 const& modelViewMat)const
 {
 	if (mMesh != nullptr) {
+		glPolygonMode(GL_FRONT, GL_FILL);
+		glPolygonMode(GL_BACK, GL_FILL); // Ejercicio7.
+
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		upload(aMat);
 		glLineWidth(2);
@@ -136,12 +140,16 @@ RGBRectangle::~RGBRectangle()
 void RGBRectangle::render(dmat4 const& modelViewMat)const
 {
 	if (mMesh != nullptr) {
+		glPolygonMode(GL_FRONT, GL_FILL);
+		glPolygonMode(GL_BACK, GL_FILL);
+
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		upload(aMat);
 		glLineWidth(2);
 		mMesh->render();
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		glLineWidth(1);
+
 	}
 }
 //------Ejercicio9:
@@ -158,6 +166,9 @@ Cube::~Cube()
 void Cube::render(dmat4 const& modelViewMat)const
 {
 	if (mMesh != nullptr) {
+		glPolygonMode(GL_FRONT, GL_FILL);
+		glPolygonMode(GL_BACK, GL_POINT);
+
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		upload(aMat);
 		glLineWidth(2);
@@ -205,6 +216,9 @@ void RGBCube::update() {
 void RGBCube::render(dmat4 const& modelViewMat)const
 {
 	if (mMesh != nullptr) {
+		glPolygonMode(GL_FRONT, GL_POINT);
+		glPolygonMode(GL_BACK, GL_FILL);
+
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		upload(aMat);
 		glLineWidth(2);
@@ -228,7 +242,8 @@ Ground::Ground(GLdouble w, GLdouble d, GLuint rw, GLuint rh, std::string t)
 	: Abs_Entity()
 {
 	mMesh = Mesh::generateRectangleTexCor(w, d, rw, rh);
-	mModelMat = rotate(mModelMat, radians(90.0), dvec3(0.0, 1.0, 0.0));
+	mModelMat = rotate(mModelMat, radians(90.0), dvec3(0.0, 1.0, 0.0)) *
+		rotate(mModelMat, radians(180.0), dvec3(1.0, 0.0, 0.0));
 
 	texture = new Texture();
 	setTexture(t);
@@ -237,6 +252,8 @@ Ground::~Ground()
 {
 	delete mMesh;
 	mMesh = nullptr;
+	delete texture;
+	texture = nullptr;
 };
 void Ground::render(dmat4 const& modelViewMat)const
 {
@@ -249,7 +266,6 @@ void Ground::render(dmat4 const& modelViewMat)const
 		mMesh->render();
 		glLineWidth(1);
 		texture->unbind();
-
 	}
 }
 //------Ejercicio22:
@@ -279,6 +295,10 @@ BoxOutline::~BoxOutline()
 {
 	delete mMesh;
 	mMesh = nullptr;
+	delete outTexture;
+	outTexture = nullptr;
+	delete intTexture;
+	intTexture = nullptr;
 }
 void BoxOutline::render(dmat4 const& modelViewMat)const
 {
@@ -324,6 +344,8 @@ Star3D::~Star3D()
 {
 	delete mMesh;
 	mMesh = nullptr;
+	delete texture;
+	texture = nullptr;
 }
 void Star3D::render(dmat4 const& modelViewMat)const
 {
@@ -340,6 +362,7 @@ void Star3D::render(dmat4 const& modelViewMat)const
 		upload(aMat2);
 		mMesh->render();
 		texture->unbind();
+
 	}
 }
 //----Ejercicio27:
@@ -364,6 +387,8 @@ GlassParapet::~GlassParapet()
 {
 	delete mMesh;
 	mMesh = nullptr;
+	delete texture;
+	texture = nullptr;
 }
 void GlassParapet::render(dmat4 const& modelViewMat)const
 {
@@ -387,31 +412,39 @@ Photo::Photo(GLdouble lenght)
 	texture = new Texture();
 	texture->loadColorBuffer(800, 600);
 
-	mMesh = Mesh::generateRGBRectangle(600, 400,0);
-	//setTexture(texture, , 100);
+	mMesh = Mesh::generateRectangleTexCor(100, 66.66);
+	mModelMat = rotate(mModelMat, radians(180.0), dvec3(1.0, 0.0, 0.0)) // rotacion
+		* translate(mModelMat, dvec3(0.0,-1.0,0.0));
+
+		//setTexture(texture, , 100);
 }
 Photo::~Photo()
 {
 	delete mMesh;
 	mMesh = nullptr;
+	delete texture;
+	texture = nullptr;
 }
 
 void Photo::render(dmat4 const& modelViewMat)const
 {
 	if (mMesh != nullptr) {
-		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
-		//glEnable(GL_BLEND);
+
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-		texture->bind(GL_MODULATE);// GL_REPLACE, GL_MODULATE, GL_ADD
+		texture->bind(GL_REPLACE);// GL_REPLACE, GL_MODULATE, GL_ADD
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		upload(aMat);
 		glLineWidth(2);
 		mMesh->render();
 		glLineWidth(1);
 		texture->unbind();
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 	}
 }
+
 void Photo::update()
 {
-	texture->loadColorBuffer(800.0, 600.0, GL_FRONT);
+	texture->loadColorBuffer(800, 600, GL_BACK);
 }
