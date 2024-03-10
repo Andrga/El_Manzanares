@@ -10,11 +10,10 @@ class InputHandler;
 
 class AsteroidsFacade;
 class FighterFacade;
-class BlackHoleFacade;
 
 class NewRoundState: public GameState {
 public:
-	NewRoundState(AsteroidsFacade *ast_mngr, FighterFacade *fighter_mngr, BlackHoleFacade* BlackHole_mngr);
+	NewRoundState(AsteroidsFacade *ast_mngr, FighterFacade *fighter_mngr);
 	virtual ~NewRoundState();
 	void enter() override;
 	void leave() override;
@@ -26,6 +25,5 @@ private:
 	InputHandler &ihdlr;
 	AsteroidsFacade *ast_mngr_;
 	FighterFacade *fighter_mngr_;
-	BlackHoleFacade* BlackHole_mngr_;
 };
 

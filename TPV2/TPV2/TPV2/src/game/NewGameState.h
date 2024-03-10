@@ -8,7 +8,6 @@
 class Texture;
 class InputHandler;
 class FighterFacade;
-class BlackHoleFacade;
 
 class NewGameState: public GameState {
 public:
@@ -22,6 +21,5 @@ private:
 	SDL_Rect dest_;
 	InputHandler &ihdlr;
 	FighterFacade *fighter_mngr_;
-	BlackHoleFacade *BlackHole_mngr_;
 };
 
