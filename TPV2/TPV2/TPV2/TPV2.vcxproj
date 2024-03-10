@@ -45,6 +45,8 @@
     <ClInclude Include="src\game\Game.h" />
     <ClInclude Include="src\game\GameOverState.h" />
     <ClInclude Include="src\game\GameState.h" />
+    <ClInclude Include="src\game\MissileFacade.h" />
+    <ClInclude Include="src\game\MissileUtils.h" />
     <ClInclude Include="src\game\NewGameState.h" />
     <ClInclude Include="src\game\NewRoundState.h" />
     <ClInclude Include="src\game\PausedState.h" />
@@ -87,6 +89,7 @@
     <ClCompile Include="src\game\FighterUtils.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\game\GameOverState.cpp" />
+    <ClCompile Include="src\game\MissileUtils.cpp" />
     <ClCompile Include="src\game\NewGameState.cpp" />
     <ClCompile Include="src\game\NewRoundState.cpp" />
     <ClCompile Include="src\game\PausedState.cpp" />

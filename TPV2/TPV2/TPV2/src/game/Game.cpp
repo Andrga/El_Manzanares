@@ -17,6 +17,7 @@
 #include "AsteroidsUtils.h"
 #include "BlackHoleUtils.h"
 #include "FighterUtils.h"
+#include "MissileUtils.h"
 
 #include "GameOverState.h"
 #include "NewGameState.h"
@@ -27,14 +28,14 @@
 using ecs::Manager;
 
 Game::Game() :
-		mngr_(new Manager()), //
-		ihdlr(ih()), //
-		current_state_(nullptr), //
-		paused_state_(nullptr), //
-		runing_state_(nullptr), //
-		newgame_state_(nullptr), //
-		newround_state_(nullptr), //
-		gameover_state_(nullptr) {
+	mngr_(new Manager()), //
+	ihdlr(ih()), //
+	current_state_(nullptr), //
+	paused_state_(nullptr), //
+	runing_state_(nullptr), //
+	newgame_state_(nullptr), //
+	newround_state_(nullptr), //
+	gameover_state_(nullptr) {
 
 }
 
@@ -46,18 +47,19 @@ void Game::init() {
 
 	// initialise the SDLUtils singleton
 	SDLUtils::init("ASTEROIDS", 800, 600,
-			"resources/config/asteroids.resources.json");
+		"resources/config/asteroids.resources.json");
 
-	AsteroidsFacade *ast_facede = new AsteroidsUtils();
-	BlackHoleFacade *bh_facede = new BlackHoleUtils();
-	FighterFacade *fighter_facede = new FighterUtils();
+	AsteroidsFacade* ast_facede = new AsteroidsUtils();
+	BlackHoleFacade* bh_facede = new BlackHoleUtils();
+	FighterFacade* fighter_facede = new FighterUtils();
+	MissileFacade* missile_facede = new MissileUtils();
 
 	fighter_facede->create_fighter();
 
 	paused_state_ = new PausedState();
 	runing_state_ = new RunningState(ast_facede, fighter_facede, bh_facede);
 	newgame_state_ = new NewGameState(fighter_facede);
-	newround_state_ = new NewRoundState(ast_facede, fighter_facede, bh_facede);
+	newround_state_ = new NewRoundState(ast_facede, fighter_facede, bh_facede, missile_facede);
 	gameover_state_ = new GameOverState();
 
 	current_state_ = newgame_state_;
@@ -67,10 +69,10 @@ void Game::init() {
 
 void Game::start() {
 
-// a boolean to exit the loop
+	// a boolean to exit the loop
 	bool exit = false;
 
-	auto &ihdlr = ih();
+	auto& ihdlr = ih();
 
 	while (!exit) {
 		Uint32 startTime = sdlutils().currRealTime();
@@ -90,6 +92,4 @@ void Game::start() {
 		if (frameTime < 10)
 			SDL_Delay(10 - frameTime);
 	}
-
 }
-

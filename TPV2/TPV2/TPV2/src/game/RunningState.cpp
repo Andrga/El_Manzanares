@@ -12,6 +12,7 @@
 #include "AsteroidsFacade.h"
 #include "FighterFacade.h"
 #include "BlackHoleFacade.h"
+#include "MissileFacade.h"
 
 #include "Game.h"
 
@@ -49,13 +50,17 @@ void RunningState::update() {
 	auto fighter = mngr->getHandler(ecs::hdlr::FIGHTER);
 	auto& asteroids = mngr->getEntities(ecs::grp::ASTEROIDS);
 	auto& holes = mngr->getEntities(ecs::grp::HOLES);
+	auto& missiles = mngr->getEntities(ecs::grp::MISSILES);
 
-	// update
+	//------UPDATE:
 	mngr->update(fighter);
 	for (auto a : asteroids) {
 		mngr->update(a);
 	}
 	for (auto h : holes) { // Update de los agujeros negros
+		mngr->update(h);
+	}
+	for (auto h : missiles) { // Update de los missiles.
 		mngr->update(h);
 	}
 

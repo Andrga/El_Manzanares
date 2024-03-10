@@ -1,13 +1,17 @@
 #pragma once
 #include "BlackHoleUtils.h"
+
 #include "Game.h"
+
 #include "../components/Image.h"
-//#include "RotateComponent.h"
+
 #include "../components/Transform.h"
 
 #include "../sdlutils/SDLUtils.h"
 
 #include "../ecs/Manager.h"
+
+//#include "RotateComponent.h"
 
 constexpr float HOLE_SIZE = 50;
 
