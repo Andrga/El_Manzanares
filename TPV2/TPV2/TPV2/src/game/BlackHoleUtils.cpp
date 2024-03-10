@@ -1,7 +1,7 @@
 #pragma once
 #include "BlackHoleUtils.h"
 #include "Game.h"
-#include "ImageRenderer.h"
+#include "../components"
 #include "RotateComponent.h"
 #include "../components/Transform.h"
 
