@@ -17,11 +17,12 @@
 #include "Game.h"
 
 RunningState::RunningState(AsteroidsFacade* ast_mngr,
-	FighterFacade* fighter_mngr, BlackHoleFacade* hole_manager) :
+	FighterFacade* fighter_mngr, BlackHoleFacade* hole_manager, MissileFacade* mis_manager) :
 	ihdlr(ih()), //
 	ast_mngr_(ast_mngr), //
 	fighter_mngr_(fighter_mngr), //
 	hole_mngr_(hole_manager), // Manager de los Blackholes
+	missile_manager(mis_manager),
 	lastTimeGeneratedAsteroids_() {
 }
 
@@ -60,20 +61,23 @@ void RunningState::update() {
 	for (auto h : holes) { // Update de los agujeros negros
 		mngr->update(h);
 	}
-	for (auto h : missiles) { // Update de los missiles.
-		mngr->update(h);
+	for (auto m : missiles) { // Update de los missiles.
+		mngr->update(m);
 	}
 
 	// check collisions
 	checkCollisions();
 
-	// render
+	//------RENDER:
 	sdlutils().clearRenderer();
 	for (auto a : asteroids) {
 		mngr->render(a);
 	}
 	for (auto h : holes) { // Render de los agujeros negros
 		mngr->render(h);
+	}
+	for (auto m : missiles) { // Render de los misiles.
+		mngr->render(m);
 	}
 	mngr->render(fighter);
 	sdlutils().presentRenderer();
