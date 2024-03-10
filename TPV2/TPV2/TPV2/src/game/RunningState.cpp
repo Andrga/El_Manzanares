@@ -179,43 +179,6 @@ void RunningState::checkCollisions() {
 		}
 	}
 
-	//-----Colisiones con los misiles:
-	auto num_of_missiles = missiles.size();
-	for (size_t i = 0u; i < num_of_missiles; i++)
-	{
-		auto missile = asteroids[i];
-		if (!mngr->isAlive(missile)) {
-			continue;
-		}
-
-		//----MISILES CON NAVE:
-		auto missileTR = mngr->getComponent<Transform>(missile);
-		if (Collisions::collidesWithRotation(
-			fighterTR->getPos(), fighterTR->getWidth(), fighterTR->getHeight(), fighterTR->getRot(),
-			missileTR->getPos(), missileTR->getWidth(), missileTR->getHeight(), missileTR->getRot())) 
-		{
-			std::cout << "\nMisil pum nave.\n";
-			onFigherDeath();
-			return;
-		}
-
-		//----MISILES CON BALAS:
-		for (Gun::Bullet& b : *fighterGUN) {
-			if (b.used) {
-				if (Collisions::collidesWithRotation(
-					b.pos, b.width, b.height, b.rot,
-					missileTR->getPos(), missileTR->getWidth(), missileTR->getHeight(), missileTR->getRot())) 
-				{
-					//ast_mngr_->split_astroid(a);
-					std::cout << "\nMisil pum bala.\n";
-					b.used = false;
-					sdlutils().soundEffects().at("explosion").play();
-					continue;
-				}
-			}
-		}
-	}
-
 	// blackholes
 	auto num_of_blackholes = blackholes.size();
 	for (auto i = 0; i < num_of_blackholes; i++) {
@@ -237,10 +200,49 @@ void RunningState::checkCollisions() {
 			return;
 		}
 	}
+
+	//-----Colisiones con los misiles:
+	auto num_of_missiles = missiles.size();
+	for (auto i = 0u; i < num_of_missiles; i++)
+	{
+		auto missile = missiles[i];
+		if (!mngr->isAlive(missile)) {
+			//std::cout << "\nbuenos dias\n";
+			continue;
+		}
+		//std::cout << "\nHola?\n";
+
+		//----MISILES CON NAVE:
+		auto missileTR = mngr->getComponent<Transform>(missile);
+		if (Collisions::collidesWithRotation(
+			fighterTR->getPos(), fighterTR->getWidth(), fighterTR->getHeight(), fighterTR->getRot(),
+			missileTR->getPos(), missileTR->getWidth(), missileTR->getHeight(), missileTR->getRot()))
+		{
+			std::cout << "\nMisil pum nave.\n";
+			onFigherDeath();
+			return;
+		}
+
+		//----MISILES CON BALAS:
+		for (Gun::Bullet& b : *fighterGUN) {
+			if (b.used) {
+				if (Collisions::collidesWithRotation(
+					b.pos, b.width, b.height, b.rot,
+					missileTR->getPos(), missileTR->getWidth(), missileTR->getHeight(), missileTR->getRot()))
+				{
+					std::cout << "\nMisil pum bala.\n";
+					mngr->setAlive(missile, false);
+					b.used = false;
+					sdlutils().soundEffects().at("explosion").play();
+					continue;
+				}
+			}
+		}
+	}
 }
 
 void RunningState::onFigherDeath() {
-	sdlutils().soundEffects().at("explosion").play();
+	//sdlutils().soundEffects().at("explosion").play();
 	if (fighter_mngr_->update_lives(-1) > 0)
 		Game::instance()->setState(Game::NEWROUND);
 	else
