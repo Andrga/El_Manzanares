@@ -14,12 +14,13 @@
 
 #include "Game.h"
 
-RunningState::RunningState(AsteroidsFacade *ast_mngr,
-		FighterFacade *fighter_mngr) :
-		ihdlr(ih()), //
-		ast_mngr_(ast_mngr), //
-		fighter_mngr_(fighter_mngr), //
-		lastTimeGeneratedAsteroids_() {
+RunningState::RunningState(AsteroidsFacade* ast_mngr,
+	FighterFacade* fighter_mngr, BlackHoleFacade* hole_manager) :
+	ihdlr(ih()), //
+	ast_mngr_(ast_mngr), //
+	fighter_mngr_(fighter_mngr), //
+	hole_mngr_(hole_manager), // Manager de los Blackholes
+	lastTimeGeneratedAsteroids_() {
 }
 
 RunningState::~RunningState() {
@@ -45,12 +46,16 @@ void RunningState::update() {
 	}
 
 	auto fighter = mngr->getHandler(ecs::hdlr::FIGHTER);
-	auto &asteroids = mngr->getEntities(ecs::grp::ASTEROIDS);
+	auto& asteroids = mngr->getEntities(ecs::grp::ASTEROIDS);
+	auto& holes = mngr->getEntities(ecs::grp::HOLES);
 
 	// update
 	mngr->update(fighter);
 	for (auto a : asteroids) {
 		mngr->update(a);
+	}
+	for (auto h : holes) { // Update de los agujeros negros
+		mngr->update(h);
 	}
 
 	// check collisions
@@ -60,6 +65,9 @@ void RunningState::update() {
 	sdlutils().clearRenderer();
 	for (auto a : asteroids) {
 		mngr->render(a);
+	}
+	for (auto h : holes) { // Render de los agujeros negros
+		mngr->render(h);
 	}
 	mngr->render(fighter);
 	sdlutils().presentRenderer();
@@ -80,7 +88,7 @@ void RunningState::enter() {
 void RunningState::checkCollisions() {
 	auto mngr = Game::instance()->getMngr();
 	auto fighter = mngr->getHandler(ecs::hdlr::FIGHTER);
-	auto &asteroids = mngr->getEntities(ecs::grp::ASTEROIDS);
+	auto& asteroids = mngr->getEntities(ecs::grp::ASTEROIDS);
 	auto fighterTR = mngr->getComponent<Transform>(fighter);
 	auto fighterGUN = mngr->getComponent<Gun>(fighter);
 
@@ -93,30 +101,30 @@ void RunningState::checkCollisions() {
 		// asteroid with fighter
 		auto aTR = mngr->getComponent<Transform>(a);
 		if (Collisions::collidesWithRotation( //
-				fighterTR->getPos(), //
-				fighterTR->getWidth(), //
-				fighterTR->getHeight(), //
-				fighterTR->getRot(), //
-				aTR->getPos(), //
-				aTR->getWidth(), //
-				aTR->getHeight(), //
-				aTR->getRot())) {
+			fighterTR->getPos(), //
+			fighterTR->getWidth(), //
+			fighterTR->getHeight(), //
+			fighterTR->getRot(), //
+			aTR->getPos(), //
+			aTR->getWidth(), //
+			aTR->getHeight(), //
+			aTR->getRot())) {
 			onFigherDeath();
 			return;
 		}
 
 		// asteroid with bullets
-		for (Gun::Bullet &b : *fighterGUN) {
+		for (Gun::Bullet& b : *fighterGUN) {
 			if (b.used) {
 				if (Collisions::collidesWithRotation( //
-						b.pos, //
-						b.width, //
-						b.height, //
-						b.rot, //
-						aTR->getPos(), //
-						aTR->getWidth(), //
-						aTR->getHeight(), //
-						aTR->getRot())) {
+					b.pos, //
+					b.width, //
+					b.height, //
+					b.rot, //
+					aTR->getPos(), //
+					aTR->getWidth(), //
+					aTR->getHeight(), //
+					aTR->getRot())) {
 					ast_mngr_->split_astroid(a);
 					b.used = false;
 					sdlutils().soundEffects().at("explosion").play();

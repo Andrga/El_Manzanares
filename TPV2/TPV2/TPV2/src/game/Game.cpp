@@ -7,17 +7,20 @@
 #include "../components/Image.h"
 #include "../components/ShowAtOpossiteSide.h"
 #include "../components/Transform.h"
+
 #include "../ecs/Manager.h"
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../utils/Vector2D.h"
 #include "../utils/Collisions.h"
+
 #include "AsteroidsUtils.h"
+#include "BlackHoleUtils.h"
 #include "FighterUtils.h"
+
 #include "GameOverState.h"
 #include "NewGameState.h"
 #include "NewRoundState.h"
-
 #include "PausedState.h"
 #include "RunningState.h"
 
@@ -46,12 +49,13 @@ void Game::init() {
 			"resources/config/asteroids.resources.json");
 
 	AsteroidsFacade *ast_facede = new AsteroidsUtils();
+	BlackHoleFacade *bh_facede = new BlackHoleUtils();
 	FighterFacade *fighter_facede = new FighterUtils();
 
 	fighter_facede->create_fighter();
 
 	paused_state_ = new PausedState();
-	runing_state_ = new RunningState(ast_facede, fighter_facede);
+	runing_state_ = new RunningState(ast_facede, fighter_facede, bh_facede);
 	newgame_state_ = new NewGameState(fighter_facede);
 	newround_state_ = new NewRoundState(ast_facede, fighter_facede);
 	gameover_state_ = new GameOverState();
