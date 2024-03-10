@@ -37,6 +37,8 @@
     <ClInclude Include="src\ecs\Manager.h" />
     <ClInclude Include="src\game\AsteroidsFacade.h" />
     <ClInclude Include="src\game\AsteroidsUtils.h" />
+    <ClInclude Include="src\game\BlackHoleFacade.h" />
+    <ClInclude Include="src\game\BlackHoleUtils.h" />
     <ClInclude Include="src\game\ecs_defs.h" />
     <ClInclude Include="src\game\FighterFacade.h" />
     <ClInclude Include="src\game\FighterUtils.h" />
@@ -81,6 +83,7 @@
     <ClCompile Include="src\components\Transform.cpp" />
     <ClCompile Include="src\ecs\Manager.cpp" />
     <ClCompile Include="src\game\AsteroidsUtils.cpp" />
+    <ClCompile Include="src\game\BlackHoleUtils.cpp" />
     <ClCompile Include="src\game\FighterUtils.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\game\GameOverState.cpp" />

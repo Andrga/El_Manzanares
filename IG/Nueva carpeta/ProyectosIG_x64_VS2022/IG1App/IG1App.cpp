@@ -53,7 +53,7 @@ IG1App::init()
 	scenes[2]->addEntity(new BoxOutline(200, "../bmps/container.bmp", "../bmps/papelE.bmp"));
 	//scenes[2]->addEntity(new Star3D(300,12,200));
 	scenes[2]->addEntity(new Star3D(100, 8, 100, "../bmps/baldosaP.bmp")); // Ejercicio28.
-	scenes[2]->addEntity(new GlassParapet(200, "../bmps/windowV.bmp")); // Ejercicio31.
+	scenes[2]->addEntity(new GlassParapet(300, "../bmps/windowV.bmp")); // Ejercicio31.
 	scenes[2]->addEntity(new Photo(500)); // Ejercicio31.
 
 	mCamera->set2D();

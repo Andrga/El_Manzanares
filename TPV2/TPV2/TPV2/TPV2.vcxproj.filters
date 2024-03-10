@@ -195,6 +195,12 @@
     <ClInclude Include="src\ecs\ecs_defs_example.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
+    <ClInclude Include="src\game\BlackHoleFacade.h">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
+    <ClInclude Include="src\game\BlackHoleUtils.h">
+      <Filter>Header Files\game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\json\JSONValue.cpp">
@@ -283,6 +289,9 @@
     </ClCompile>
     <ClCompile Include="src\ecs\Manager.cpp">
       <Filter>Source Files\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\BlackHoleUtils.cpp">
+      <Filter>Source Files\game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -6,6 +6,7 @@
 class Vector2D;
 class RandomNumberGenerator;
 
+
 class AsteroidsUtils: public AsteroidsFacade {
 public:
 	AsteroidsUtils();

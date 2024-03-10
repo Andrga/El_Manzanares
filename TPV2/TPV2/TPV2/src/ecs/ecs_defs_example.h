@@ -20,7 +20,8 @@
 //
 #define _GRPS_LIST_ \
 	STAR, \
-	ASTEROID
+	ASTEROID,\
+	HOLES
 
 // Handlers list - must have at least one element
 //
