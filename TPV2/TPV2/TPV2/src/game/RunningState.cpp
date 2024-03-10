@@ -104,7 +104,6 @@ void RunningState::checkCollisions() {
 	auto fighterGUN = mngr->getComponent<Gun>(fighter);
 
 	auto num_of_asteroids = asteroids.size();
-	auto num_of_asteroids = blackholes.size();
 	for (auto i = 0u; i < num_of_asteroids; i++) {
 		auto a = asteroids[i];
 		if (!mngr->isAlive(a))
@@ -147,11 +146,12 @@ void RunningState::checkCollisions() {
 
 		// BlackHoles with asteroids
 		for (auto& h : blackholes) {
+		auto bhTrans = mngr->getComponent<Transform>(h);
 			if (Collisions::collidesWithRotation( //
-				h, //
-				h.width, //
-				h.height, //
-				h.rot, //
+				bhTrans->getPos(), //
+				bhTrans->getWidth(), //
+				bhTrans->getHeight(), //
+				bhTrans->getRot(), //
 				aTR->getPos(), //
 				aTR->getWidth(), //
 				aTR->getHeight(), //
