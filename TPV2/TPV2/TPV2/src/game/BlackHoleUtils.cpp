@@ -48,7 +48,7 @@ void BlackHoleUtils::create_blackholes(int n) {
 			HOLE_SIZE,
 			0.0f
 		);
-		mngr_->addComponent<Image>(ent, &sdlutils().images().at("black_hole"));
+		mngr_->addComponent<Image>(ent, &sdlutils().images().at("black-hole"));
 	}
 }
 void BlackHoleUtils::remove_all_blackholes() {

@@ -5,15 +5,19 @@
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/macros.h"
 #include "../sdlutils/SDLUtils.h"
+
 #include "AsteroidsFacade.h"
 #include "FighterFacade.h"
+#include "BlackHoleFacade.h"
+
 #include "Game.h"
 NewRoundState::NewRoundState(AsteroidsFacade *ast_mngr,
-		FighterFacade *fighter_mngr) :
+		FighterFacade *fighter_mngr, BlackHoleFacade * BlackHole_mngr) :
 		msg_(sdlutils().msgs().at("newround")), //
 		ihdlr(ih()), //
 		ast_mngr_(ast_mngr), //
-		fighter_mngr_(fighter_mngr) {
+		fighter_mngr_(fighter_mngr),
+		BlackHole_mngr_(BlackHole_mngr){ //
 	float x = (sdlutils().width() - msg_.width()) / 2;
 	float y = (sdlutils().height() - msg_.height()) / 2;
 	dest_ = build_sdlrect(x, y, msg_.width(), msg_.height());
@@ -30,6 +34,8 @@ void NewRoundState::update() {
 		fighter_mngr_->reset_fighter();
 		ast_mngr_->remove_all_asteroids();
 		ast_mngr_->create_asteroids(10);
+		BlackHole_mngr_->remove_all_blackholes();
+		BlackHole_mngr_->create_blackholes(10);
 		Game::instance()->setState(Game::RUNNING);
 	}
 	sdlutils().clearRenderer();

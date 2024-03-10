@@ -8,6 +8,7 @@
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../utils/Collisions.h"
+
 #include "AsteroidsFacade.h"
 #include "FighterFacade.h"
 #include "BlackHoleFacade.h"
@@ -89,6 +90,7 @@ void RunningState::checkCollisions() {
 	auto mngr = Game::instance()->getMngr();
 	auto fighter = mngr->getHandler(ecs::hdlr::FIGHTER);
 	auto& asteroids = mngr->getEntities(ecs::grp::ASTEROIDS);
+	auto& blackholes = mngr->getEntities(ecs::grp::HOLES);
 	auto fighterTR = mngr->getComponent<Transform>(fighter);
 	auto fighterGUN = mngr->getComponent<Gun>(fighter);
 
