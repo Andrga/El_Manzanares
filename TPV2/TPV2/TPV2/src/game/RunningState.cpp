@@ -61,8 +61,23 @@ void RunningState::update() {
 	for (auto h : holes) { // Update de los agujeros negros
 		mngr->update(h);
 	}
-	for (auto m : missiles) { // Update de los missiles.
+	for (auto m : missiles) { // Update de los miSssssileSss.
 		mngr->update(m);
+	}
+	for (auto m : missiles)
+	{
+		// Actualizacion de la rotacion del misil.
+		auto missileTransform = mngr->getComponent<Transform>(m); // Transform del misil.
+		auto missileVelocity = missileTransform->getVel(); // Velocidad del misil.
+		float newRotation = Vector2D(0, -1).angle(missileVelocity); // Actualizamos la rotacion del misil.
+		missileTransform->setRot(newRotation);
+		// Comprobacion de salida de limites de la pantalla.
+		int missileX = missileTransform->getPos().getX();
+		int missileY = missileTransform->getPos().getY();
+		if (missileX < 0 || missileX > sdlutils().width() || missileY < 0 || missileY > sdlutils().height()) {
+			mngr->setAlive(m, false);
+			std::cout << "\nMisil fuera de rango.\n";
+		}
 	}
 
 	// check collisions
@@ -100,6 +115,7 @@ void RunningState::checkCollisions() {
 	auto fighter = mngr->getHandler(ecs::hdlr::FIGHTER);
 	auto& asteroids = mngr->getEntities(ecs::grp::ASTEROIDS);
 	auto& blackholes = mngr->getEntities(ecs::grp::HOLES);
+	auto& missiles = mngr->getEntities(ecs::grp::MISSILES);
 	auto fighterTR = mngr->getComponent<Transform>(fighter);
 	auto fighterGUN = mngr->getComponent<Gun>(fighter);
 
@@ -146,7 +162,7 @@ void RunningState::checkCollisions() {
 
 		// BlackHoles with asteroids
 		for (auto& h : blackholes) {
-		auto bhTrans = mngr->getComponent<Transform>(h);
+			auto bhTrans = mngr->getComponent<Transform>(h);
 			if (Collisions::collidesWithRotation( //
 				bhTrans->getPos(), //
 				bhTrans->getWidth(), //
@@ -163,7 +179,42 @@ void RunningState::checkCollisions() {
 			}
 		}
 	}
+	//-----Colisiones con los misiles:
+	auto num_of_missiles = missiles.size();
+	for (size_t i = 0u; i < num_of_missiles; i++)
+	{
+		auto missile = asteroids[i];
+		if (!mngr->isAlive(missile)) {
+			continue;
+		}
 
+		//----MISILES CON NAVE:
+		auto missileTR = mngr->getComponent<Transform>(missile);
+		if (Collisions::collidesWithRotation(
+			fighterTR->getPos(), fighterTR->getWidth(), fighterTR->getHeight(), fighterTR->getRot(),
+			missileTR->getPos(), missileTR->getWidth(), missileTR->getHeight(), missileTR->getRot())) 
+		{
+			std::cout << "\nMisil pum nave.\n";
+			onFigherDeath();
+			return;
+		}
+
+		//----MISILES CON BALAS:
+		for (Gun::Bullet& b : *fighterGUN) {
+			if (b.used) {
+				if (Collisions::collidesWithRotation(
+					b.pos, b.width, b.height, b.rot,
+					missileTR->getPos(), missileTR->getWidth(), missileTR->getHeight(), missileTR->getRot())) 
+				{
+					//ast_mngr_->split_astroid(a);
+					std::cout << "\nMisil pum bala.\n";
+					b.used = false;
+					sdlutils().soundEffects().at("explosion").play();
+					continue;
+				}
+			}
+		}
+	}
 }
 
 void RunningState::onFigherDeath() {
