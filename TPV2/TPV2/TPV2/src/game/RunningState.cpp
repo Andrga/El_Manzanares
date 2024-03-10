@@ -10,6 +10,7 @@
 #include "../utils/Collisions.h"
 #include "AsteroidsFacade.h"
 #include "FighterFacade.h"
+#include "BlackHoleFacade.h"
 
 #include "Game.h"
 

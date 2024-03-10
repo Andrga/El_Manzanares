@@ -8,6 +8,7 @@
 class InputHandler;
 class AsteroidsFacade;
 class FighterFacade;
+class BlackHodeFacade;
 
 class RunningState: public GameState {
 public:
