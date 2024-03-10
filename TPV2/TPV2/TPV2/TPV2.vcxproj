@@ -27,6 +27,7 @@
     <ClInclude Include="src\components\Health.h" />
     <ClInclude Include="src\components\Image.h" />
     <ClInclude Include="src\components\ImageWithFrames.h" />
+    <ClInclude Include="src\components\RotateComponent.h" />
     <ClInclude Include="src\components\ShowAtOpossiteSide.h" />
     <ClInclude Include="src\components\TowardsDestination.h" />
     <ClInclude Include="src\components\Transform.h" />
@@ -80,6 +81,7 @@
     <ClCompile Include="src\components\Health.cpp" />
     <ClCompile Include="src\components\Image.cpp" />
     <ClCompile Include="src\components\ImageWithFrames.cpp" />
+    <ClCompile Include="src\components\RotateComponent.cpp" />
     <ClCompile Include="src\components\ShowAtOpossiteSide.cpp" />
     <ClCompile Include="src\components\TowardsDestination.cpp" />
     <ClCompile Include="src\components\Transform.cpp" />

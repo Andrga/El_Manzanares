@@ -15,8 +15,8 @@
 
 
 AsteroidsUtils::AsteroidsUtils() :
-		rand_(sdlutils().rand()), width_(sdlutils().width()), height_(
-				sdlutils().height()) {
+	rand_(sdlutils().rand()), width_(sdlutils().width()), height_(
+		sdlutils().height()) {
 }
 
 AsteroidsUtils::~AsteroidsUtils() {
@@ -60,7 +60,7 @@ void AsteroidsUtils::create_asteroids(int n) {
 
 		Vector2D p = Vector2D(x, y);
 		Vector2D c = Vector2D(width_ / 2 + rand_.nextInt(-100, 100),
-				height_ / 2 + rand_.nextInt(-100, 100));
+			height_ / 2 + rand_.nextInt(-100, 100));
 
 		Vector2D v = (c - p).normalize() * (rand_.nextInt(1, 10) / 10.0f);
 
@@ -71,8 +71,8 @@ void AsteroidsUtils::create_asteroids(int n) {
 
 }
 
-void AsteroidsUtils::generateAsteroid(const Vector2D &p, const Vector2D &v,
-		int g) {
+void AsteroidsUtils::generateAsteroid(const Vector2D& p, const Vector2D& v,
+	int g) {
 
 	auto mngr = Game::instance()->getMngr();
 
@@ -83,12 +83,12 @@ void AsteroidsUtils::generateAsteroid(const Vector2D &p, const Vector2D &v,
 	mngr->addComponent<Generations>(a, g);
 
 	mngr->addComponent<ImageWithFrames>(a, //
-			&sdlutils().images().at("asteroid"), //
-			5, 6, //
-			0, 0, //
-			85, 95, //
-			0, 0, //
-			5, 6);
+		&sdlutils().images().at("asteroid"), //
+		5, 6, //
+		0, 0, //
+		85, 95, //
+		0, 0, //
+		5, 6);
 
 	int move_style = rand_.nextInt(0, 5);
 	switch (move_style) {
@@ -111,8 +111,8 @@ void AsteroidsUtils::split_astroid(ecs::entity_t a) {
 	auto tr = mngr->getComponent<Transform>(a);
 	auto gn = mngr->getComponent<Generations>(a);
 
-	auto &p = tr->getPos();
-	auto &v = tr->getVel();
+	auto& p = tr->getPos();
+	auto& v = tr->getVel();
 
 	int g = gn->getGenerations() - 1;
 
@@ -125,4 +125,14 @@ void AsteroidsUtils::split_astroid(ecs::entity_t a) {
 			generateAsteroid(p + v.rotate(r) * 2 * w, v.rotate(r) * 1.1f, g);
 		}
 	}
+}
+
+void AsteroidsUtils::move_asteroid(entity_t a) {
+
+	auto transform = Game::instance()->getMngr()->getComponent<Transform>(a);
+
+	Vector2D pos(rand_.nextInt(0, sdlutils().width()),
+		rand_.nextInt(0, sdlutils().height()));
+
+	transform->getPos() = pos;
 }

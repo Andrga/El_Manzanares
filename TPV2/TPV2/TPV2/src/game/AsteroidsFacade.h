@@ -14,5 +14,6 @@ public:
 	virtual void create_asteroids(int n) = 0;
 	virtual void remove_all_asteroids() = 0;
 	virtual void split_astroid(entity_t a) = 0;
+	virtual void move_asteroid(entity_t a) = 0;
 };
 

@@ -172,13 +172,13 @@ void RunningState::checkCollisions() {
 				aTR->getWidth(), //
 				aTR->getHeight(), //
 				aTR->getRot())) {
-				ast_mngr_->split_astroid(a);
-				sdlutils().soundEffects().at("explosion").play();
+				ast_mngr_->move_asteroid(a);
 				continue;
 
 			}
 		}
 	}
+
 	//-----Colisiones con los misiles:
 	auto num_of_missiles = missiles.size();
 	for (size_t i = 0u; i < num_of_missiles; i++)
@@ -213,6 +213,28 @@ void RunningState::checkCollisions() {
 					continue;
 				}
 			}
+		}
+	}
+
+	// blackholes
+	auto num_of_blackholes = blackholes.size();
+	for (auto i = 0; i < num_of_blackholes; i++) {
+		if (!mngr->isAlive(blackholes[i]))
+			continue;
+
+		// blackhole with fighter
+		auto transformBH = mngr->getComponent<Transform>(blackholes[i]);
+		if (Collisions::collidesWithRotation( //
+			fighterTR->getPos(), //
+			fighterTR->getWidth(), //
+			fighterTR->getHeight(), //
+			fighterTR->getRot(), //
+			transformBH->getPos(), //
+			transformBH->getWidth(), //
+			transformBH->getHeight(), //
+			transformBH->getRot())) {
+			onFigherDeath();
+			return;
 		}
 	}
 }
