@@ -4,6 +4,7 @@
 #include "Game.h"
 
 #include "../components/Image.h"
+#include "../components/RotateComponent.h"
 
 #include "../components/Transform.h"
 
@@ -53,6 +54,7 @@ void BlackHoleUtils::create_blackholes(int n) {
 			0.0f
 		);
 		mngr_->addComponent<Image>(ent, &sdlutils().images().at("black-hole"));
+		mngr_->addComponent<RotateComponent>(ent);
 	}
 }
 void BlackHoleUtils::remove_all_blackholes() {

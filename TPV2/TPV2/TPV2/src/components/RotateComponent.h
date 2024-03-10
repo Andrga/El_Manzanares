@@ -8,7 +8,7 @@ public:
 	__CMPID_DECL__(ecs::cmp::ROTATE)
 
 	RotateComponent();
-	RotateComponent(float);
+	RotateComponent(float rot);
 	void initComponent() override;
 	void update() override;
 

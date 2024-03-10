@@ -39,7 +39,7 @@ void NewRoundState::update() {
 		ast_mngr_->create_asteroids(10);
 
 		BlackHole_mngr_->remove_all_blackholes();
-		BlackHole_mngr_->create_blackholes(10);
+		BlackHole_mngr_->create_blackholes(5);
 
 		missile_mngr_->remove_all_missiles();
 		missile_mngr_->create_missiles();
