@@ -27,6 +27,6 @@ private:
 	BlackHoleFacade *hole_mngr_;
 	MissileFacade* missile_manager;
 	Uint32 lastTimeGeneratedAsteroids_;
-
+	Uint32 lastTimeGeneratedMissiles_;
 };
 

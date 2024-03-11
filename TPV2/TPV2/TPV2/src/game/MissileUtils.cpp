@@ -33,7 +33,9 @@ void MissileUtils::create_missiles() {
 		y = 0;
 
 	//------Para cambiar la posicion de aparicion aleatoriamente:
-	int spawnPoint = rand_.nextInt(0, 3);
+	int spawnPoint = rand_.nextInt(0, 4);
+	//int spawnPoint = 2;
+	std::cout << spawnPoint << std::endl;
 	switch (spawnPoint)
 	{
 	case 0: // Arriba izquierda.
@@ -41,12 +43,12 @@ void MissileUtils::create_missiles() {
 		y = 0;
 		break;
 	case 1: // Arriba derecha.
-		x = 0;
 		x = screenWidth;
+		y = 0;
 		break;
 	case 2: // Abajo izquierda.
-		x = screenHeight;
-		y = 0;
+		x = 0;
+		y = screenHeight;
 		break;
 	case 3: // Abajo derecha.
 		x = screenWidth;
@@ -66,7 +68,8 @@ void MissileUtils::create_missiles() {
 
 	//------Velocidad y direccion del misil:
 	Vector2D direction = (fighterPos - pos).normalize(); // Direccion normalizada.
-	int speed = rand_.nextInt(1, 3);  // Velocidad aleatoria entre 1 y 3 como dice el enunciado.
+	int speed = rand_.nextInt(1, 4);  // Velocidad aleatoria entre 1 y 3 como dice el enunciado.
+	//int speed = 10; // Para testing
 	Vector2D velocity = direction * speed; // Vector velocidad.
 
 	//------Mete los componente a la entidad.
