@@ -359,7 +359,7 @@ void Star3D::render(dmat4 const& modelViewMat)const
 		glLineWidth(2);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		mMesh->render();
-
+		// Se puedo usar el escalado negativo.
 		dmat4 aMat2 = aMat * glm::rotate(dmat4(1), glm::radians(180.0), dvec3(1.0, 0.0, 0.0)); // Rotamos la matriz y la volvemos a renderizar.
 		glLineWidth(2);
 		upload(aMat2);
@@ -396,6 +396,7 @@ GlassParapet::~GlassParapet()
 	delete texture;
 	texture = nullptr;
 }
+// NOTA: Renderizar primero los objetos opacos y despues los translucidos para que renderice las partes transparentes bien.
 void GlassParapet::render(dmat4 const& modelViewMat)const
 {
 	if (mMesh != nullptr) {
