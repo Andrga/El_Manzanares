@@ -62,7 +62,7 @@ protected:
 
 	void setVM();
 	void setPM();
-	// Apartado39:
+	//------Ejercicio39:
 	glm::dvec3 mRight, mUpward, mFront;
 	glm::dvec3 row(glm::dmat4 mat, glm::uint i);
 	void setAxes();

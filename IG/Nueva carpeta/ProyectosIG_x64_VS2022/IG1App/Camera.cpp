@@ -29,6 +29,7 @@ void
 Camera::setVM()
 {
 	mViewMat = lookAt(mEye, mLook, mUp); // glm::lookAt defines the view matrix
+	setAxes(); // Ejercicio40.
 }
 
 void
@@ -110,7 +111,7 @@ Camera::uploadPM() const
 	glLoadMatrixd(value_ptr(mProjMat)); // transfers projection matrix to the GPU
 	glMatrixMode(GL_MODELVIEW);
 }
-// Apartado39:
+//------Ejercicio39:
 glm::dvec3 Camera::row(glm::dmat4 mat, glm::uint i) {
 	return mat[i];
 }
