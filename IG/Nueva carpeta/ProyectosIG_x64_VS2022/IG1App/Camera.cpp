@@ -2,18 +2,18 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-// #include <glm/gtc/matrix_access.hpp>
+#include <glm/gtc/matrix_access.hpp>
 
 using namespace glm;
 
 Camera::Camera(Viewport* vp)
-  : mViewMat(1.0)
-  , mProjMat(1.0)
-  , xRight(vp->width() / 2.0)
-  , xLeft(-xRight)
-  , yTop(vp->height() / 2.0)
-  , yBot(-yTop)
-  , mViewPort(vp)
+	: mViewMat(1.0)
+	, mProjMat(1.0)
+	, xRight(vp->width() / 2.0)
+	, xLeft(-xRight)
+	, yTop(vp->height() / 2.0)
+	, yBot(-yTop)
+	, mViewPort(vp)
 {
 	setPM();
 }
@@ -95,11 +95,11 @@ Camera::setPM()
 {
 	if (bOrto) { //  if orthogonal projection
 		mProjMat = ortho(xLeft * mScaleFact,
-		                 xRight * mScaleFact,
-		                 yBot * mScaleFact,
-		                 yTop * mScaleFact,
-		                 mNearVal,
-		                 mFarVal);
+			xRight * mScaleFact,
+			yBot * mScaleFact,
+			yTop * mScaleFact,
+			mNearVal,
+			mFarVal);
 		// glm::ortho defines the orthogonal projection matrix
 	}
 }
@@ -112,12 +112,24 @@ Camera::uploadPM() const
 	glMatrixMode(GL_MODELVIEW);
 }
 //------Ejercicio39:
-glm::dvec3 Camera::row(glm::dmat4 mat, glm::uint i) {
-	return mat[i];
-}
-
 void Camera::setAxes() {
 	mRight = row(mViewMat, 0);
 	mUpward = row(mViewMat, 1);
 	mFront = -row(mViewMat, 2);
+}
+//------Ejercicio41:
+void Camera::moveLR(GLdouble cs) { // Izquierda/derecha.
+	mEye += mRight * cs;
+	mLook += mRight * cs;
+	setVM();
+}
+void Camera::moveFB(GLdouble cs) { // Alante/atras
+	mEye += mFront * cs;
+	mLook += mFront * cs;
+	setVM();
+}
+void Camera::moveUD(GLdouble cs) { // Arriba/abajo
+	mEye += mUpward * cs;
+	mLook += mUpward * cs;
+	setVM();
 }

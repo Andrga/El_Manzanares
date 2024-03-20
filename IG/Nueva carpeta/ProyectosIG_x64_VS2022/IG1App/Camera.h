@@ -64,8 +64,11 @@ protected:
 	void setPM();
 	//------Ejercicio39:
 	glm::dvec3 mRight, mUpward, mFront;
-	glm::dvec3 row(glm::dmat4 mat, glm::uint i);
 	void setAxes();
+	//------Ejercicio41:
+	void moveLR(GLdouble cs); // A izquierda/A derecha
+	void moveFB(GLdouble cs); // Adelante/Atras
+	void moveUD(GLdouble cs); // Arriba/Abajo
 };
 
 #endif //_H_Camera_H_
