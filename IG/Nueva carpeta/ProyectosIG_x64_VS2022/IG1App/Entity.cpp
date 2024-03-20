@@ -35,6 +35,7 @@ EjesRGB::render(dmat4 const& modelViewMat) const
 		glLineWidth(1);
 	}
 }
+#pragma region P1
 //------Ejercicio3:
 RegularPolygon::RegularPolygon(GLuint num, GLdouble r)
 	: Abs_Entity()
@@ -227,6 +228,9 @@ void RGBCube::render(dmat4 const& modelViewMat)const
 		glLineWidth(1);
 	}
 }
+#pragma endregion
+
+#pragma region P2
 //------Ejercicio18:
 Ground::Ground(GLdouble w, GLdouble d, std::string t)
 	: Abs_Entity()
@@ -455,3 +459,8 @@ void Photo::update()
 {
 	texture->loadColorBuffer(800, 600, GL_BACK);
 }
+#pragma endregion
+
+#pragma region P3
+
+#pragma endregion

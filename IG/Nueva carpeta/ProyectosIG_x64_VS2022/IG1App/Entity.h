@@ -47,6 +47,7 @@ public:
 	~EjesRGB();
 	void render(glm::dmat4 const& modelViewMat) const;
 };
+#pragma region P1
 //------Ejercicio3:
 class RegularPolygon : public Abs_Entity
 {
@@ -107,6 +108,9 @@ private:
 	GLdouble actualAngle = 0;
 
 };
+#pragma endregion
+
+#pragma region P2
 //------Ejercicio18:
 class Ground : public Abs_Entity
 {
@@ -188,4 +192,6 @@ public:
 		texture->load(text, alpha);
 	}
 };
+#pragma endregion
+
 #endif //_H_Entities_H_
