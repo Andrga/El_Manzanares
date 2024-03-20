@@ -42,9 +42,11 @@ public:
 	};
 
 protected:
-	glm::dvec3 mEye = {0.0, 0.0, 500.0}; // camera's position
-	glm::dvec3 mLook = {0.0, 0.0, 0.0};  // target's position
-	glm::dvec3 mUp = {0.0, 1.0, 0.0};    // the up vector
+	glm::dvec3 mEye = { 0.0, 0.0, 500.0 }; // camera's position
+	glm::dvec3 mLook = { 0.0, 0.0, 0.0 };  // target's position
+	glm::dvec3 mUp = { 0.0, 1.0, 0.0 };    // the up vector
+
+
 
 	glm::dmat4 mViewMat;   // view matrix = inverse of modeling matrix
 	void uploadVM() const; // transfers viewMat to the GPU
@@ -55,12 +57,15 @@ protected:
 	GLdouble xRight, xLeft, yTop, yBot;     // size of scene visible area
 	GLdouble mNearVal = 1, mFarVal = 10000; // view volume
 	GLdouble mScaleFact = 1;                // scale factor
-	bool bOrto = true;                      // orthogonal or perspective projection
-
+	bool bOrto = true;
 	Viewport* mViewPort; // the viewport
 
 	void setVM();
 	void setPM();
+	// Apartado39:
+	glm::dvec3 mRight, mUpward, mFront;
+	glm::dvec3 row(glm::dmat4 mat, glm::uint i);
+	void setAxes();
 };
 
 #endif //_H_Camera_H_
