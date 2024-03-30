@@ -90,6 +90,12 @@ Camera::setScale(GLdouble s)
 	setPM();
 }
 
+// ------Ejercicio 42:
+void Camera::changePrj()
+{
+	bOrto = !bOrto;
+}
+
 void
 Camera::setPM()
 {

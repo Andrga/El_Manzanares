@@ -41,6 +41,9 @@ public:
 		uploadPM();
 	};
 
+	// ------Ejercicio 42:
+	void changePrj();
+
 protected:
 	glm::dvec3 mEye = { 0.0, 0.0, 500.0 }; // camera's position
 	glm::dvec3 mLook = { 0.0, 0.0, 0.0 };  // target's position
