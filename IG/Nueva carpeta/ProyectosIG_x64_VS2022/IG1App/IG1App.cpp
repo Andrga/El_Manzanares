@@ -118,7 +118,7 @@ IG1App::display() const
 { // double buffering
 
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clears the back buffer
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT |GL_STENCIL_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 	scenes[actualscene]->render(*mCamera); // uploads the viewport and camera to the GPU
 
@@ -176,8 +176,11 @@ IG1App::key(unsigned char key, int x, int y)
 		glutIdleFunc(update);
 		break;
 		//------ Ejercicio 44:
-	case 'p': 
+	case 'p':
 		mCamera->changePrj();
+		break;
+	case 'c':
+		mCamera->setCenital();
 		break;
 	default:
 		need_redisplay = false;

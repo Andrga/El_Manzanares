@@ -49,8 +49,11 @@ public:
 	void yawReal(GLdouble cs);
 	void rollReal(GLdouble cs);
 
-	//------Elercicio48:
+	//------Ejercicio48:
 	void orbit(GLdouble incAng, GLdouble incY);
+
+	//------Ejercicio50:
+	void setCenital();
 
 protected:
 	glm::dvec3 mEye = { 0.0, 0.0, 500.0 }; // camera's position
