@@ -38,6 +38,9 @@ Camera::set2D()
 	mEye = dvec3(0, 0, 500);
 	mLook = dvec3(0, 0, 0);
 	mUp = dvec3(0, 1, 0);
+	// ------Ejercicio49:
+	mRadio = 900;
+	mAng = -45;
 	setVM();
 }
 
@@ -47,6 +50,9 @@ Camera::set3D()
 	mEye = dvec3(500, 500, 500);
 	mLook = dvec3(0, 10, 0);
 	mUp = dvec3(0, 1, 0);
+	// ------Ejercicio49:
+	mRadio = 0;
+	mAng = 0;
 	setVM();
 }
 
@@ -94,6 +100,7 @@ Camera::setScale(GLdouble s)
 void Camera::changePrj()
 {
 	bOrto = !bOrto;
+	setPM();
 }
 
 void
@@ -107,6 +114,15 @@ Camera::setPM()
 			mNearVal,
 			mFarVal);
 		// glm::ortho defines the orthogonal projection matrix
+	}
+	else // ------ Ejercicio 43:
+	{
+		mProjMat = frustum(xLeft * mScaleFact,
+			xRight * mScaleFact,
+			yBot * mScaleFact,
+			yTop * mScaleFact,
+			mNearVal * 500,
+			mFarVal);
 	}
 }
 
@@ -137,5 +153,30 @@ void Camera::moveFB(GLdouble cs) { // Alante/atras
 void Camera::moveUD(GLdouble cs) { // Arriba/abajo
 	mEye += mUpward * cs;
 	mLook += mUpward * cs;
+	setVM();
+}
+
+void Camera::pitchReal(GLdouble cs)
+{
+	mViewMat = rotate(mViewMat, glm::radians(cs), mRight);
+}
+
+void Camera::yawReal(GLdouble cs)
+{
+	mViewMat = rotate(mViewMat, glm::radians(cs), mUpward);
+}
+
+void Camera::rollReal(GLdouble cs)
+{
+	mViewMat = rotate(mViewMat, glm::radians(cs), mFront);
+}
+
+//------Ejercicio48:
+void Camera::orbit(GLdouble incAng, GLdouble incY)
+{
+	mAng += incAng;
+	mEye.x = mLook.x + cos(radians(mAng)) * mRadio;
+	mEye.z = mLook.z - sin(radians(mAng)) * mRadio;
+	mEye.y += incY;
 	setVM();
 }

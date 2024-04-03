@@ -174,6 +174,11 @@ IG1App::key(unsigned char key, int x, int y)
 		//------Ejercicio16:
 	case 'U':
 		glutIdleFunc(update);
+		break;
+		//------ Ejercicio 44:
+	case 'p': 
+		mCamera->changePrj();
+		break;
 	default:
 		need_redisplay = false;
 		break;
@@ -199,21 +204,21 @@ IG1App::specialKey(int key, int x, int y)
 	switch (key) {
 	case GLUT_KEY_RIGHT:
 		if (mdf == GLUT_ACTIVE_CTRL)
-			mCamera->pitch(-1); // rotates -1 on the X axis
+			mCamera->pitchReal(-1); // rotates -1 on the X axis
 		else
-			mCamera->pitch(1); // rotates 1 on the X axis
+			mCamera->pitchReal(1); // rotates 1 on the X axis
 		break;
 	case GLUT_KEY_LEFT:
 		if (mdf == GLUT_ACTIVE_CTRL)
-			mCamera->yaw(1); // rotates 1 on the Y axis
+			mCamera->yawReal(1); // rotates 1 on the Y axis
 		else
-			mCamera->yaw(-1); // rotate -1 on the Y axis
+			mCamera->yawReal(-1); // rotate -1 on the Y axis
 		break;
 	case GLUT_KEY_UP:
-		mCamera->roll(1); // rotates 1 on the Z axis
+		mCamera->rollReal(1); // rotates 1 on the Z axis
 		break;
 	case GLUT_KEY_DOWN:
-		mCamera->roll(-1); // rotates -1 on the Z axis
+		mCamera->rollReal(-1); // rotates -1 on the Z axis
 		break;
 	default:
 		need_redisplay = false;

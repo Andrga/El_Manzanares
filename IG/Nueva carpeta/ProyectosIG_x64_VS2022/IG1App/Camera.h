@@ -44,10 +44,21 @@ public:
 	// ------Ejercicio 42:
 	void changePrj();
 
+	//------Ejercicio46:
+	void pitchReal(GLdouble cs);
+	void yawReal(GLdouble cs);
+	void rollReal(GLdouble cs);
+
+	//------Elercicio48:
+	void orbit(GLdouble incAng, GLdouble incY);
+
 protected:
 	glm::dvec3 mEye = { 0.0, 0.0, 500.0 }; // camera's position
 	glm::dvec3 mLook = { 0.0, 0.0, 0.0 };  // target's position
 	glm::dvec3 mUp = { 0.0, 1.0, 0.0 };    // the up vector
+
+	//------Ejercicio48:
+	GLdouble mRadio = 0, mAng = 0;
 
 
 
@@ -72,6 +83,8 @@ protected:
 	void moveLR(GLdouble cs); // A izquierda/A derecha
 	void moveFB(GLdouble cs); // Adelante/Atras
 	void moveUD(GLdouble cs); // Arriba/Abajo
+
+
 };
 
 #endif //_H_Camera_H_
