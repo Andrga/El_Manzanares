@@ -27,16 +27,17 @@ void IG1App::mouse(int button, int state, int x, int y)
 
 void IG1App::motion(int x, int y)
 {
-	glm::dvec2 mp, newXY(x, y);
-	mp = newXY - mMouseCoord;
+	glm::dvec2 mp(mMouseCoord.x - x, mMouseCoord.y - y);
+	//mp = newXY - mMouseCoord;
 
 	if (mMouseButt == 1) {
-		mCamera->orbit(mp.x * 0.01, mp.y);
+		mCamera->orbit(mp.x * 0.01, mp.y * 0.1);
 	}
 	else if (mMouseButt == 0) {
-		mCamera->moveLR(mp.x);
-		mCamera->moveUD(mp.y);
+		mCamera->moveLR(mp.x * 0.01);
+		mCamera->moveUD(-mp.y * 0.01);
 	}
+	glutPostRedisplay();
 }
 
 void IG1App::mouseWheel(int n, int d, int x, int y)
@@ -44,7 +45,7 @@ void IG1App::mouseWheel(int n, int d, int x, int y)
 	int teclasPulsadas = glutGetModifiers();
 
 	if (teclasPulsadas <= 0) {
-		mCamera->moveFB(d);
+		mCamera->moveFB(d / 10);
 	}
 	else if (teclasPulsadas == GLUT_ACTIVE_CTRL) {
 		mCamera->setScale(d);
