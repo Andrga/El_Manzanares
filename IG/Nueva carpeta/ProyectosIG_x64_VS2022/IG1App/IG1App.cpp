@@ -30,10 +30,10 @@ void IG1App::motion(int x, int y)
 	glm::dvec2 mp(mMouseCoord.x - x, mMouseCoord.y - y);
 	//mp = newXY - mMouseCoord;
 
-	if (mMouseButt == 1) {
+	if (mMouseButt == 0) { // Click izquierdo.
 		mCamera->orbit(mp.x * 0.01, mp.y * 0.1);
 	}
-	else if (mMouseButt == 0) {
+	else if (mMouseButt == 2) { // Click derecho.
 		mCamera->moveLR(mp.x * 0.01);
 		mCamera->moveUD(-mp.y * 0.01);
 	}
