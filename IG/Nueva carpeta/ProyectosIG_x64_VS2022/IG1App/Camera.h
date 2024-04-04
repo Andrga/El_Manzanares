@@ -41,6 +41,11 @@ public:
 		uploadPM();
 	};
 
+	//------Ejercicio41:
+	void moveLR(GLdouble cs); // A izquierda/A derecha
+	void moveFB(GLdouble cs); // Adelante/Atras
+	void moveUD(GLdouble cs); // Arriba/Abajo
+
 	// ------Ejercicio 42:
 	void changePrj();
 
@@ -82,10 +87,6 @@ protected:
 	//------Ejercicio39:
 	glm::dvec3 mRight, mUpward, mFront;
 	void setAxes();
-	//------Ejercicio41:
-	void moveLR(GLdouble cs); // A izquierda/A derecha
-	void moveFB(GLdouble cs); // Adelante/Atras
-	void moveUD(GLdouble cs); // Arriba/Abajo
 
 
 };

@@ -19,6 +19,40 @@ IG1App::close()
 	free();
 }
 
+void IG1App::mouse(int button, int state, int x, int y)
+{
+	mMouseCoord = glm::dvec2(x, y);
+	mMouseButt = button;
+}
+
+void IG1App::motion(int x, int y)
+{
+	glm::dvec2 mp, newXY(x, y);
+	mp = newXY - mMouseCoord;
+
+	if (mMouseButt == 1) {
+		mCamera->orbit(mp.x * 0.01, mp.y);
+	}
+	else if (mMouseButt == 0) {
+		mCamera->moveLR(mp.x);
+		mCamera->moveUD(mp.y);
+	}
+}
+
+void IG1App::mouseWheel(int n, int d, int x, int y)
+{
+	int teclasPulsadas = glutGetModifiers();
+
+	if (teclasPulsadas <= 0) {
+		mCamera->moveFB(d);
+	}
+	else if (teclasPulsadas == GLUT_ACTIVE_CTRL) {
+		mCamera->setScale(d);
+	}
+
+	glutPostRedisplay();
+}
+
 void
 IG1App::run() // enters the main event processing loop
 {
@@ -97,6 +131,11 @@ IG1App::iniWinOpenGL()
 	glutSpecialFunc(s_specialKey);
 	glutDisplayFunc(s_display);
 
+	//------Ejercicio53:
+	glutMouseFunc(s_mouse);
+	glutMotionFunc(s_motion);
+	glutMouseWheelFunc(s_mouseWheel);
+
 	cout << glGetString(GL_VERSION) << '\n';
 	cout << glGetString(GL_VENDOR) << '\n';
 }
@@ -120,7 +159,29 @@ IG1App::display() const
 	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clears the back buffer
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
-	scenes[actualscene]->render(*mCamera); // uploads the viewport and camera to the GPU
+	//------Ejercicio51:
+	if (m2Vistas) {
+		mViewPort->setSize(mWinW / 2, mWinH);
+		mCamera->setSize(mViewPort->width(), mViewPort->height());
+
+
+		mViewPort->setPos(0, 0);
+		scenes[actualscene]->render(*mCamera); // uploads the viewport and camera to the GPU
+
+		Camera mCamera2 = *mCamera;
+		mViewPort->setPos(mWinW / 2, 0);
+		mCamera2.setCenital();
+		scenes[actualscene]->render(mCamera2); // uploads the viewport and camera to the GPU
+
+	}
+	else
+	{
+		mViewPort->setSize(mWinW, mWinH);
+		mViewPort->setPos(0, 0);
+		mCamera->setSize(mViewPort->width(), mViewPort->height());
+		scenes[actualscene]->render(*mCamera); // uploads the viewport and camera to the GPU
+	}
+
 
 	glutSwapBuffers(); // swaps the front and back buffer
 }
@@ -179,8 +240,8 @@ IG1App::key(unsigned char key, int x, int y)
 	case 'p':
 		mCamera->changePrj();
 		break;
-	case 'c':
-		mCamera->setCenital();
+	case 'k':
+		m2Vistas = !m2Vistas;
 		break;
 	default:
 		need_redisplay = false;

@@ -41,8 +41,10 @@ public:
 	void run();   // the main event processing loop
 	void close(); // the application
 
+	
+
 protected:
-	IG1App(){};
+	IG1App() {};
 	~IG1App() { close(); };
 
 	void init();
@@ -71,6 +73,22 @@ protected:
 	int mWinId = 0;     // window's identifier
 	int mWinW = 800;    // window's width
 	int mWinH = 600;    // window's height
+
+	//------Ejercicio51:
+	bool m2Vistas = false;
+
+	//------Ejercicio52:
+	glm::dvec2 mMouseCoord;
+	int mMouseButt;
+
+	//------Ejercicio53:
+	static void s_mouse(int button, int state, int x, int y) { s_ig1app.mouse(button, state, x, y); };
+	static void s_motion(int x, int y) { s_ig1app.motion(x, y); };
+	static void s_mouseWheel(int n, int d, int x, int y) { s_ig1app.mouseWheel(n, d, x, y); };
+
+	void mouse(int button, int state, int x, int y);
+	void motion(int x, int y);
+	void mouseWheel(int n, int d, int x, int y);
 };
 
 #endif //_H_IG1App_H_
