@@ -21,8 +21,6 @@ mono_crash.*
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
-x64/
-x86/
 [Ww][Ii][Nn]32/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
@@ -300,7 +298,7 @@ node_modules/
 *.dsw
 *.dsp
 
-# Visual Studio 6 technical files
+# Visual Studio 6 technical files 
 *.ncb
 *.aps
 
@@ -395,4 +393,3 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-TPV2/TPV2/bin/TPV2Debug.exe
