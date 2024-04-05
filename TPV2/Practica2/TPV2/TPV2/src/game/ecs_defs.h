@@ -8,7 +8,8 @@
 	TRANSFORM, \
 	IMAGE, \
 	STARMOTION, \
-	POINTS
+	POINTS, \
+	LIFE_COMPONENT
 
 // Groups list - must have at least one element
 //

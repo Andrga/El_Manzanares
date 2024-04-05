@@ -4,6 +4,7 @@
 
 #include "../components/Image.h"
 #include "../components/Transform.h"
+#include "../components/LifeComponent.h"
 #include "../ecs/Manager.h"
 #include "../sdlutils/macros.h"
 #include "../sdlutils/SDLUtils.h"
@@ -24,6 +25,7 @@ void RenderSystem::update() {
 	drawMsgs();
 	drawStars();
 	drawPacMan();
+	drawLifes();
 }
 
 void RenderSystem::drawStars() {
@@ -42,6 +44,12 @@ void RenderSystem::drawPacMan() {
 	auto tex = mngr_->getComponent<Image>(e)->tex_;
 	draw(tr, tex);
 
+}
+
+void RenderSystem::drawLifes()
+{
+	auto e = mngr_->getHandler(ecs::hdlr::PACMAN);
+	mngr_->getComponent<LifeComponent>(e)->render();
 }
 
 

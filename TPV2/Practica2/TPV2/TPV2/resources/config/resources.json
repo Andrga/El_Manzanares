@@ -10,7 +10,8 @@
     { "id" : "sdl_logo", "file" : "resources/images/SDL_logo.png" },
     { "id" : "tennis_ball", "file" : "resources/images/tennis_ball.png" },
     { "id" : "star", "file" : "resources/images/star.png"},
-    { "id" : "pacman", "file" : "resources/images/pacman.png"}
+    { "id" : "pacman", "file" : "resources/images/pacman.png"},
+    { "id" : "heart", "file" : "resources/images/heart.png"}
   ],
   
   "messages" : [

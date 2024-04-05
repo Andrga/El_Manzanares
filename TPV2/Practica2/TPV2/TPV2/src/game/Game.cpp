@@ -70,7 +70,7 @@ void Game::start() {
 		gameCtrlSys_->update();
 		collisionSys_->update();
 
-		//mngr_->refresh();
+		mngr_->refresh();
 
 		sdlutils().clearRenderer();
 		renderSys_->update();

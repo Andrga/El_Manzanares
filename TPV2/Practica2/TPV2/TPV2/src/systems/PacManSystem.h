@@ -16,6 +16,7 @@ public:
 	void initSystem() override;
 	void update() override;
 private:
+	float speed_;
 	Transform *pmTR_;
 };
 
