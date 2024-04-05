@@ -19,7 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="i.h" />
     <ClInclude Include="src\components\Image.h" />
+    <ClInclude Include="src\components\InmuneComponent.h" />
     <ClInclude Include="src\components\LifeComponent.h" />
     <ClInclude Include="src\components\Points.h" />
     <ClInclude Include="src\components\StarMotion.h" />

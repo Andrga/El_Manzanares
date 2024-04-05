@@ -180,6 +180,12 @@
     <ClInclude Include="src\components\LifeComponent.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
+    <ClInclude Include="i.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\components\InmuneComponent.h">
+      <Filter>Header Files\components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\json\JSONValue.cpp">
@@ -234,7 +240,7 @@
       <Filter>Source Files\ecs</Filter>
     </ClCompile>
     <ClCompile Include="src\components\LifeComponent.cpp">
-      <Filter>Source Files\components</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

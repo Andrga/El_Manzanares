@@ -20,7 +20,7 @@ public:
 
 	int getActualLifes() { return lifes_; }
 	Texture* getLifeTexture() { return lifeText_; }
-	void resetlifes() { lifes_ = maxLifes_; }
+	void resetLifes() { lifes_ = maxLifes_; }
 	void render() override;
 
 private:

@@ -15,6 +15,11 @@ public:
 	virtual ~PacManSystem();
 	void initSystem() override;
 	void update() override;
+
+	// Resetea la posicion del PacMan
+	void resetPos();
+	void resetLifes();
+
 private:
 	float speed_;
 	Transform *pmTR_;

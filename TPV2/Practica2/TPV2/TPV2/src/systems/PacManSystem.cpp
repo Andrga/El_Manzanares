@@ -5,12 +5,13 @@
 #include "../components/Image.h"
 #include "../components/Transform.h"
 #include "../components/LifeComponent.h"
+#include "../components/InmuneComponent.h"
 #include "../ecs/Manager.h"
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
 
 PacManSystem::PacManSystem() :
-		pmTR_(nullptr), speed_(-5) {
+	pmTR_(nullptr), speed_(-5) {
 }
 
 PacManSystem::~PacManSystem() {
@@ -28,16 +29,17 @@ void PacManSystem::initSystem() {
 	pmTR_->init(Vector2D(x, y), Vector2D(), s, s, 0.0f);
 	mngr_->addComponent<Image>(pacman, &sdlutils().images().at("pacman"));
 	mngr_->addComponent<LifeComponent>(pacman);
+	mngr_->addComponent<InmuneComponent>(pacman);
 
 }
 
 void PacManSystem::update() {
 
-	auto &ihldr = ih();
+	auto& ihldr = ih();
 
 	if (ihldr.keyDownEvent()) {
 
-		if (ihldr.isKeyDown(SDL_SCANCODE_RIGHT)) { 
+		if (ihldr.isKeyDown(SDL_SCANCODE_RIGHT)) {
 
 			// Rota derecha
 			pmTR_->rot_ += 90.0f;
@@ -45,7 +47,8 @@ void PacManSystem::update() {
 			// Cambia la direccion
 			pmTR_->vel_ = Vector2D(0, speed_).rotate(pmTR_->rot_);
 
-		} else if (ihldr.isKeyDown(SDL_SCANCODE_LEFT)) { 
+		}
+		else if (ihldr.isKeyDown(SDL_SCANCODE_LEFT)) {
 
 			// Rota izquierda
 			pmTR_->rot_ -= 90.0f;
@@ -53,7 +56,8 @@ void PacManSystem::update() {
 			// Settea velocidad
 			pmTR_->vel_ = Vector2D(0, speed_).rotate(pmTR_->rot_);
 
-		} else if (ihldr.isKeyDown(SDL_SCANCODE_UP)) { 
+		}
+		else if (ihldr.isKeyDown(SDL_SCANCODE_UP)) {
 
 			// Settea la velocidad a speed_
 			pmTR_->vel_ = Vector2D(0, speed_);
@@ -61,7 +65,8 @@ void PacManSystem::update() {
 			// Settea velocidad
 			pmTR_->vel_ = Vector2D(0, speed_).rotate(pmTR_->rot_);
 
-		} else if (ihldr.isKeyDown(SDL_SCANCODE_DOWN)) { 
+		}
+		else if (ihldr.isKeyDown(SDL_SCANCODE_DOWN)) {
 
 			// Settea la velocidad a 0
 			pmTR_->vel_ = Vector2D(0, 0);
@@ -77,7 +82,8 @@ void PacManSystem::update() {
 	if (pmTR_->pos_.getX() < 0) {
 		pmTR_->pos_.setX(0.0f);
 		pmTR_->vel_.set(0.0f, 0.0f);
-	} else if (pmTR_->pos_.getX() + pmTR_->width_ > sdlutils().width()) {
+	}
+	else if (pmTR_->pos_.getX() + pmTR_->width_ > sdlutils().width()) {
 		pmTR_->pos_.setX(sdlutils().width() - pmTR_->width_);
 		pmTR_->vel_.set(0.0f, 0.0f);
 	}
@@ -86,9 +92,26 @@ void PacManSystem::update() {
 	if (pmTR_->pos_.getY() < 0) {
 		pmTR_->pos_.setY(0.0f);
 		pmTR_->vel_.set(0.0f, 0.0f);
-	} else if (pmTR_->pos_.getY() + pmTR_->height_ > sdlutils().height()) {
+	}
+	else if (pmTR_->pos_.getY() + pmTR_->height_ > sdlutils().height()) {
 		pmTR_->pos_.setY(sdlutils().height() - pmTR_->height_);
 		pmTR_->vel_.set(0.0f, 0.0f);
 	}
 
+}
+
+void PacManSystem::resetPos()
+{
+	auto e = mngr_->getHandler(ecs::hdlr::PACMAN);
+	auto eTrans =mngr_->getComponent<Transform>(e);
+	auto s = 50.0f;
+	auto x = (sdlutils().width() - s) / 2.0f;
+	auto y = (sdlutils().height() - s) / 2.0f;
+	eTrans->pos_ = Vector2D(x, y);
+}
+
+void PacManSystem::resetLifes()
+{
+	auto e = mngr_->getHandler(ecs::hdlr::PACMAN);
+	mngr_->getComponent<LifeComponent>(e)->resetLifes();
 }

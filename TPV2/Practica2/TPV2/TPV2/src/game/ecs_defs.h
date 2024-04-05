@@ -9,7 +9,8 @@
 	IMAGE, \
 	STARMOTION, \
 	POINTS, \
-	LIFE_COMPONENT
+	LIFE_COMPONENT, \
+	IMNUNE_COMPONENT
 
 // Groups list - must have at least one element
 //
