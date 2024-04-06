@@ -13,6 +13,12 @@
 #include "../utils/Vector2D.h"
 #include "../utils/Collisions.h"
 
+#include "NewGameState.h"
+#include "NewRoundState.h"
+#include "RunningState.h"
+#include "PauseState.h"
+#include "GameOverState.h"
+
 using ecs::Manager;
 
 Game::Game() :
@@ -21,7 +27,8 @@ Game::Game() :
 		gameCtrlSys_(), //
 		startsSys_(), //
 		renderSys_(), //
-		collisionSys_() {
+		collisionSys_() 
+{
 
 }
 

@@ -1,6 +1,9 @@
 #include "NewRoundState.h"
+#include "Game.h"
+#include "../sdlutils/InputHandler.h"
+#include "../sdlutils/SDLUtils.h"
 
-NewRoundState::NewRoundState(){
+NewRoundState::NewRoundState() {
 
 }
 
