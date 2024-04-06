@@ -2,9 +2,8 @@
 #include "../ecs/Component.h"
 #include "../sdlutils/SDLUtils.h"
 
-class InmuneComponent : public ecs::Component
+struct InmuneComponent : public ecs::Component
 {
-public:
 	__CMPID_DECL__(ecs::cmp::IMNUNE_COMPONENT);
 	InmuneComponent(bool inmune = false) : inmune_(inmune) {
 	};
@@ -12,10 +11,10 @@ public:
 	virtual ~InmuneComponent() {
 	};
 
-	bool getInmune() { return inmune_; }
+	void setInmune(bool inmune) {
+		inmune_ = inmune;
+	};
 
-
-private:
 	bool inmune_;
 };
 

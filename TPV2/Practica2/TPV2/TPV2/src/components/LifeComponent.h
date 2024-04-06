@@ -5,9 +5,8 @@
 
 class Texture;
 
-class LifeComponent : public ecs::Component
+struct LifeComponent : public ecs::Component
 {
-public:
 	__CMPID_DECL__(ecs::cmp::LIFE_COMPONENT);
 	LifeComponent(int maxLifes = 3, const std::string texture = "heart");
 
@@ -23,7 +22,6 @@ public:
 	void resetLifes() { lifes_ = maxLifes_; }
 	void render() override;
 
-private:
 	int lifes_;
 	int maxLifes_;
 

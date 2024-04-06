@@ -55,6 +55,7 @@ private:
 	ecs::System* startsSys_;
 	ecs::System* renderSys_;
 	ecs::System* collisionSys_;
+	ecs::System* ghostSys_;
 
 	GameState* current_state_; // Estado acutal.
 	GameState* paused_state_; // Estado de pausa.
