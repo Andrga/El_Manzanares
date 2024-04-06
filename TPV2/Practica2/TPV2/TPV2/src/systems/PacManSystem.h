@@ -18,6 +18,7 @@ public:
 
 	// Resetea la posicion del PacMan
 	void resetPos();
+	// Resetea la vida del PacMan
 	void resetLifes();
 
 private:
