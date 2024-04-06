@@ -21,6 +21,11 @@ private:
 	// Mueve fantasma
 	void moveGhosts();
 
+	// Cantidad de fantasmas
 	int currentGhosts_;
 	int ghostLimit_;
+
+	// Cuenta atras generacion de fantasmas
+	float maxSpawnTime_;
+	float currentTime_;
 };

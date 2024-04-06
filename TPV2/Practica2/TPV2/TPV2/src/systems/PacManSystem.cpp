@@ -11,7 +11,7 @@
 #include "../sdlutils/SDLUtils.h"
 
 PacManSystem::PacManSystem() :
-	pmTR_(nullptr), speed_(-5) {
+	pmTR_(nullptr), speed_(-1) {
 }
 
 PacManSystem::~PacManSystem() {
@@ -41,39 +41,41 @@ void PacManSystem::update() {
 
 		if (ihldr.isKeyDown(SDL_SCANCODE_RIGHT)) {
 
-			// Rota derecha
-			pmTR_->rot_ += 90.0f;
+            // Rota derecha
+            pmTR_->rot_ += 90.0f;
 
-			// Cambia la direccion
-			pmTR_->vel_ = pmTR_->vel_.rotate(pmTR_->rot_);
+            // Cambia la direccion
+            //pmTR_->vel_ = Vector2D(0, speed_).rotate(pmTR_->rot_);
+			pmTR_->vel_ = pmTR_->vel_.rotate(90.0f);
 
-		}
-		else if (ihldr.isKeyDown(SDL_SCANCODE_LEFT)) {
+        }
+        else if (ihldr.isKeyDown(SDL_SCANCODE_LEFT)) {
 
-			// Rota izquierda
-			pmTR_->rot_ -= 90.0f;
+            // Rota izquierda
+            pmTR_->rot_ -= 90.0f;
 
-			// Settea velocidad
-			pmTR_->vel_ = pmTR_->vel_.rotate(pmTR_->rot_);
+            // Settea velocidad
+            //pmTR_->vel_ = Vector2D(0, speed_).rotate(pmTR_->rot_);
+			pmTR_->vel_ = pmTR_->vel_.rotate(-90.0f);
 
-		}
-		else if (ihldr.isKeyDown(SDL_SCANCODE_UP)) {
+        }
+        else if (ihldr.isKeyDown(SDL_SCANCODE_UP)) {
 
-			// Settea la velocidad a speed_
-			pmTR_->vel_ = Vector2D(0, speed_);
+            // Settea la velocidad a speed
+            pmTR_->vel_ = Vector2D(0, speed_);
 
-			// Settea velocidad
-			pmTR_->vel_ = Vector2D(0, speed_).rotate(pmTR_->rot_);
+            // Settea velocidad
+            pmTR_->vel_ = Vector2D(0, speed_).rotate(pmTR_->rot_);
 
-		}
-		else if (ihldr.isKeyDown(SDL_SCANCODE_DOWN)) {
+        }
+        else if (ihldr.isKeyDown(SDL_SCANCODE_DOWN)) {
 
-			// Settea la velocidad a 0
-			pmTR_->vel_ = Vector2D(0, 0);
+            // Settea la velocidad a 0
+            pmTR_->vel_ = Vector2D(0, 0);
 
-		}
+        }
 
-	}
+    }
 
 	// move the pacman
 	pmTR_->pos_ = pmTR_->pos_ + pmTR_->vel_;
@@ -103,7 +105,7 @@ void PacManSystem::update() {
 void PacManSystem::resetPos()
 {
 	auto e = mngr_->getHandler(ecs::hdlr::PACMAN);
-	auto eTrans =mngr_->getComponent<Transform>(e);
+	auto eTrans = mngr_->getComponent<Transform>(e);
 	auto s = 50.0f;
 	auto x = (sdlutils().width() - s) / 2.0f;
 	auto y = (sdlutils().height() - s) / 2.0f;

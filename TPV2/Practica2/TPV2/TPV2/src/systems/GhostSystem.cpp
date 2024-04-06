@@ -6,7 +6,7 @@
 #include "../sdlutils/SDLUtils.h"
 
 GhostSystem::GhostSystem(int ghostLimit) :
-	ghostLimit_(ghostLimit), currentGhosts_(0)
+	ghostLimit_(ghostLimit), currentGhosts_(0), maxSpawnTime_(5)
 {
 }
 
@@ -24,7 +24,10 @@ void GhostSystem::update()
 void GhostSystem::generateGhost()
 {
 	// Si no se ha llegado al limite de fantasmas se generan
-	if (currentGhosts_ < ghostLimit_) {
+	if (maxSpawnTime_ + currentTime_ < sdlutils().virtualTimer().currTime() && currentGhosts_ < ghostLimit_) {
+
+		currentTime_ = sdlutils().virtualTimer().currTime();
+
 		// Crea entidad fantasma con sus componentes
 		auto e = mngr_->addEntity(ecs::grp::GHOSTS);
 		auto tr = mngr_->addComponent<Transform>(e);
@@ -34,6 +37,26 @@ void GhostSystem::generateGhost()
 		// Tamanio al transform
 		tr->width_ = 30;
 		tr->height_ = 30;
+
+		// Esquina en la que va a spawnear el fantasma
+		int spawnEsquina = sdlutils().rand().nextInt(0, 4);
+
+		switch (spawnEsquina)
+		{
+		case 1: // Arriba derecha
+			tr->pos_ = Vector2D(sdlutils().width() - tr->height_, 0);
+			break;
+		case 2: // Abajo izquierda
+			tr->pos_ = Vector2D(0, sdlutils().height() - tr->height_);
+			break;
+		case 3: // Abajo derecha
+			tr->pos_ = Vector2D(sdlutils().width() - tr->height_, sdlutils().height() - tr->height_);
+			break;
+		default: // Arriba izquierda
+			tr->pos_ = Vector2D(0, 0);
+			break;
+		}
+
 
 		// Aumenta el contador de fantasmas
 		currentGhosts_++;
