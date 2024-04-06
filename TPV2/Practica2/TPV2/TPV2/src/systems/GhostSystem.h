@@ -7,7 +7,7 @@ class GhostSystem : public ecs::System
 {
 public:
 	__SYSID_DECL__(ecs::sys::GHOSTS);
-	GhostSystem(int ghostLimit = 2);
+	GhostSystem(int ghostLimit = 10);
 	virtual ~GhostSystem() {};
 
 	void initSystem() override;

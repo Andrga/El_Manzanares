@@ -6,7 +6,7 @@
 #include "../sdlutils/SDLUtils.h"
 
 GhostSystem::GhostSystem(int ghostLimit) :
-	ghostLimit_(ghostLimit), currentGhosts_(0), maxSpawnTime_(5)
+	ghostLimit_(ghostLimit), currentGhosts_(0), maxSpawnTime_(2000)
 {
 }
 
@@ -78,12 +78,15 @@ void GhostSystem::moveGhosts()
 	for (auto& g : ghosts) {
 		if (mngr_->getComponent<GhostMotion>(g)->shouldUpdate(currTime))
 		{
-
+			auto gt = mngr_->getComponent<Transform>(g);
 			// Settea velocidad del fantasma
-			mngr_->getComponent<Transform>(g)->vel_ = (posPM->pos_ - mngr_->getComponent<Transform>(g)->pos_).normalize() * 5.0f;
+			mngr_->getComponent<Transform>(g)->vel_ = (posPM->pos_ - gt->pos_).normalize() * 1.1f;
 
 			// Actualiza la posicion del fantasma
-			posPM->pos_ = posPM->pos_ + posPM->vel_;
+			gt->pos_ = gt->pos_ + gt->vel_;
+
+			// Debug
+			//std::cout << gt->pos_ << std::endl;
 		}
 	}
 }
