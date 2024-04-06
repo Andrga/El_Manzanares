@@ -13,8 +13,13 @@ public:
 	void initSystem() override;
 	void update() override;
 
+	void resetGhosts();
+
 private:
+	// Genera fantasmas
 	void generateGhost();
+	// Mueve fantasma
+	void moveGhosts();
 
 	int currentGhosts_;
 	int ghostLimit_;
