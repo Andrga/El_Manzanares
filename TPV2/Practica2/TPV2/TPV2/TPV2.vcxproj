@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="i.h" />
     <ClInclude Include="src\components\GhostMotion.h" />
     <ClInclude Include="src\components\Image.h" />
+    <ClInclude Include="src\components\ImageWithFrames.h" />
     <ClInclude Include="src\components\InmuneComponent.h" />
     <ClInclude Include="src\components\LifeComponent.h" />
     <ClInclude Include="src\components\Points.h" />
@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\components\GhostMotion.cpp" />
+    <ClCompile Include="src\components\ImageWithFrames.cpp" />
     <ClCompile Include="src\components\LifeComponent.cpp" />
     <ClCompile Include="src\ecs\Manager.cpp" />
     <ClCompile Include="src\game\Game.cpp" />

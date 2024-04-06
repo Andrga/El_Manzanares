@@ -10,6 +10,7 @@
 #include "../systems/RenderSystem.h"
 #include "../systems/GameCtrlSystem.h"
 #include "../systems/StarsSystem.h"
+#include "../systems/FoodSystem.h"
 
 RunningState::RunningState(){
 
@@ -30,6 +31,7 @@ void RunningState::enter()
 	pacManSystem = Game::instance()->getMngr()->getSystem<PacManSystem>();
 	renderSystem = Game::instance()->getMngr()->getSystem<RenderSystem>();
 	starsSystem = Game::instance()->getMngr()->getSystem<StarsSystem>();
+	foodSystem = Game::instance()->getMngr()->getSystem<FoodSystem>();
 }
 
 void RunningState::update() {
@@ -46,6 +48,7 @@ void RunningState::update() {
 	pacManSystem->update();
 	renderSystem->update();
 	starsSystem->update();
+	foodSystem->update();
 
 	//Game::instance()->getMngr()->refresh(); // Esta en el bucle principal.
 }

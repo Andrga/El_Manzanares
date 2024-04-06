@@ -13,6 +13,7 @@ class GhostSystem;
 class PacManSystem;
 class RenderSystem;
 class StarsSystem;
+class FoodSystem;
 
 //class StarsSystem;
 //class AsteroidsFacade;
@@ -35,4 +36,5 @@ private:
 	PacManSystem* pacManSystem;
 	RenderSystem* renderSystem;
 	StarsSystem* starsSystem;
+	FoodSystem* foodSystem;
 };

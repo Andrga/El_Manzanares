@@ -180,9 +180,6 @@
     <ClInclude Include="src\components\LifeComponent.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
-    <ClInclude Include="i.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\components\InmuneComponent.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
@@ -211,7 +208,7 @@
       <Filter>Header Files\systems</Filter>
     </ClInclude>
     <ClInclude Include="src\systems\FoodSystem.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -291,7 +288,7 @@
       <Filter>Source Files\systems</Filter>
     </ClCompile>
     <ClCompile Include="src\systems\FoodSystem.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\systems</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

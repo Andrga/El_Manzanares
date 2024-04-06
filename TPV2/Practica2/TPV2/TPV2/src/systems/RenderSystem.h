@@ -5,6 +5,7 @@
 
 class Texture;
 struct Transform;
+struct ImageWithFrames;
 
 class RenderSystem: public ecs::System {
 public:
@@ -19,7 +20,9 @@ private:
 	void drawGhosts();
 	void drawPacMan();
 	void drawLifes();
-	void drawMsgs();
+	void drawFruits();
+	void drawImageWithFrames(ImageWithFrames*);
+	//void drawMsgs();
 	void draw(Transform *tr, Texture *tex);
 };
 

@@ -11,6 +11,7 @@
 #include "../systems/RenderSystem.h"
 #include "../systems/StarsSystem.h"
 #include "../systems/GhostSystem.h"
+#include "../systems/FoodSystem.h"
 #include "../utils/Vector2D.h"
 #include "../utils/Collisions.h"
 
@@ -57,6 +58,7 @@ void Game::init() {
 	renderSys_ = mngr_->addSystem<RenderSystem>();
 	collisionSys_ = mngr_->addSystem<CollisionsSystem>();
 	ghostSys_ = mngr_->addSystem<GhostSystem>();
+	foodSys_ = mngr_->addSystem<FoodSystem>();
 
 	// Estados:
 	newgame_state_ = new NewGameState();

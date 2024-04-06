@@ -11,13 +11,15 @@
 	POINTS, \
 	LIFE_COMPONENT, \
 	IMNUNE_COMPONENT,\
-	GHOST_MOTION
+	GHOST_MOTION,\
+	IMAGEWITHFRAMES
 
 // Groups list - must have at least one element
 //
 #define _GRPS_LIST_ \
 	STARS,\
-	GHOSTS
+	GHOSTS,\
+	FRUITS
 
 // Handlers list - must have at least one element
 //
@@ -32,5 +34,6 @@
 	RENDER, \
 	GAMECTRL, \
 	COLLISIONS, \
-	GHOSTS
+	GHOSTS, \
+	FRUITS
 
