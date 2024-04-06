@@ -22,7 +22,7 @@ class StarsSystem;
 
 class RunningState : public GameState {
 public:
-	RunningState(/*CollisionsSystem* cs, GameCtrlSystem* gcs, GhostSystem* gs, PacManSystem* ps, RenderSystem* rs, StarsSystem* ss*/);
+	RunningState();
 	virtual ~RunningState();
 	void enter() override;
 	void update() override;

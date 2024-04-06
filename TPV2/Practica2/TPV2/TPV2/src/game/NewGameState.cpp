@@ -2,6 +2,7 @@
 
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
+#include "../ecs/Manager.h"
 #include "Game.h"
 
 NewGameState::NewGameState() : ihdlr(ih())
@@ -28,6 +29,11 @@ void NewGameState::update()
 	if (ih().keyDownEvent()) // Pulsando cualquier tecla pasa al siguiente estado.
 	{
 		Game::instance()->setState(Game::NEWROUND);
+
+		// Envio del mensaje.
+		Message message;
+		message.id = _m_NEW_GAME;
+		Game::instance()->getMngr()->send(message, true);
 	}
 	messageTexture->render(messageRect);
 }

@@ -1,6 +1,7 @@
 #include "RunningState.h"
 #include "Game.h"
 #include "../sdlutils/InputHandler.h"
+#include "../ecs/Manager.h"
 
 // Includes de los sistemas
 #include "../systems/CollisionsSystem.h"
@@ -10,15 +11,9 @@
 #include "../systems/GameCtrlSystem.h"
 #include "../systems/StarsSystem.h"
 
-RunningState::RunningState(/*CollisionsSystem* cs, GameCtrlSystem* gcs, GhostSystem* gs, PacManSystem* ps, RenderSystem* rs, StarsSystem* ss*/) /*:
-	collisionsSystem(cs),
-	gameCtrlSystem(gcs),
-	ghostSystem(gs),
-	pacManSystem(ps),
-	renderSystem(rs),
-	starsSystem(ss)*/
+RunningState::RunningState(){
 
-{}
+}
 
 RunningState::~RunningState() {
 
@@ -27,6 +22,14 @@ RunningState::~RunningState() {
 void RunningState::enter()
 {
 	std::cout << "Enter RunningState." << std::endl;
+
+	// Traemos los sistemas.
+	collisionsSystem = Game::instance()->getMngr()->getSystem<CollisionsSystem>();
+	gameCtrlSystem = Game::instance()->getMngr()->getSystem<GameCtrlSystem>();
+	ghostSystem = Game::instance()->getMngr()->getSystem<GhostSystem>();
+	pacManSystem = Game::instance()->getMngr()->getSystem<PacManSystem>();
+	renderSystem = Game::instance()->getMngr()->getSystem<RenderSystem>();
+	starsSystem = Game::instance()->getMngr()->getSystem<StarsSystem>();
 }
 
 void RunningState::update() {
@@ -44,7 +47,7 @@ void RunningState::update() {
 	renderSystem->update();
 	starsSystem->update();
 
-	//Game::instance()->getMngr()->refresh(); // Se la pela.
+	//Game::instance()->getMngr()->refresh(); // Esta en el bucle principal.
 }
 
 void RunningState::leave()
