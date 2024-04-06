@@ -23,12 +23,17 @@
 using ecs::Manager;
 
 Game::Game() :
-		mngr_(), //
-		pacmanSys_(), //
-		gameCtrlSys_(), //
-		startsSys_(), //
-		renderSys_(), //
-		collisionSys_() 
+	mngr_(), //
+	pacmanSys_(), //
+	gameCtrlSys_(), //
+	startsSys_(), //
+	renderSys_(), //
+	collisionSys_(),
+	newgame_state_(nullptr),
+	newround_state_(nullptr),
+	running_state_(nullptr),
+	paused_state_(nullptr),
+	gameover_state_(nullptr)
 {
 
 }
@@ -45,7 +50,6 @@ void Game::init() {
 	// Create the manager
 	mngr_ = new Manager();
 
-
 	// add the systems
 	pacmanSys_ = mngr_->addSystem<PacManSystem>();
 	startsSys_ = mngr_->addSystem<StarsSystem>();
@@ -53,6 +57,16 @@ void Game::init() {
 	renderSys_ = mngr_->addSystem<RenderSystem>();
 	collisionSys_ = mngr_->addSystem<CollisionsSystem>();
 	ghostSys_ = mngr_->addSystem<GhostSystem>();
+
+	// Estados:
+	newgame_state_ = new NewGameState();
+	newround_state_ = new NewRoundState();
+	running_state_ = new RunningState();
+	paused_state_ = new PauseState();
+	gameover_state_ = new GameOverState();
+
+	current_state_ = newgame_state_;
+	current_state_->enter();
 }
 
 void Game::start() {
@@ -60,7 +74,7 @@ void Game::start() {
 	// a boolean to exit the loop
 	bool exit = false;
 
-	auto &ihdlr = ih();
+	auto& ihdlr = ih();
 
 	while (!exit) {
 		Uint32 startTime = sdlutils().currRealTime();
@@ -73,18 +87,23 @@ void Game::start() {
 			continue;
 		}
 
+		current_state_->update();
 
-		pacmanSys_->update();
+
+		/*pacmanSys_->update();
 		startsSys_->update();
 		gameCtrlSys_->update();
 		collisionSys_->update();
-		ghostSys_->update();
+		ghostSys_->update();*/
 
 		mngr_->refresh();
 
 		sdlutils().clearRenderer();
-		renderSys_->update();
+		renderSys_->update(); // Esto tiene que estar aqui?
 		sdlutils().presentRenderer();
+
+		// Para enviar los mensajes.
+		mngr_->flushMessagesWithSwap();
 
 		Uint32 frameTime = sdlutils().currRealTime() - startTime;
 

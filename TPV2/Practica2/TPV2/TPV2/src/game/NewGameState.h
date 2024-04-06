@@ -7,20 +7,22 @@
 
 class InputHandler;
 class Game;
+class Texture;
 //class FighterFacade;
 //class BlackHoleFacade;
 
 class NewGameState : public GameState {
 public:
-	NewGameState(Game& game_);
+	NewGameState();
 	virtual ~NewGameState();
 	void enter() override;
 	void update() override;
 	void leave() override;
 private:
-	SDL_Rect dest_;
 	InputHandler& ihdlr; // Referencia al InputHandler.
-	Game& game; // Referencia al Game.
+	Texture* messageTexture;
+	SDL_Rect messageRect;
+
 	//FighterFacade* fighter_mngr_;
 	//BlackHoleFacade* BlackHole_mngr_;
 };

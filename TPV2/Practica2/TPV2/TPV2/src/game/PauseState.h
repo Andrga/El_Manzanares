@@ -17,7 +17,7 @@ public:
 	void update() override;
 
 private:
-	//Texture& msg_;
-	//SDL_Rect dest_;
+	Texture* messageTexture;
+	SDL_Rect messageRect;
 	InputHandler& ihdlr; // Referencia al InputHandler.
 };

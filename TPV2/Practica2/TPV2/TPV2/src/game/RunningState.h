@@ -6,6 +6,15 @@
 #include "GameState.h"
 
 class InputHandler;
+
+class CollisionsSystem;
+class GameCtrlSystem;
+class GhostSystem;
+class PacManSystem;
+class RenderSystem;
+class StarsSystem;
+
+//class StarsSystem;
 //class AsteroidsFacade;
 //class FighterFacade;
 //class BlackHoleFacade;
@@ -13,20 +22,17 @@ class InputHandler;
 
 class RunningState : public GameState {
 public:
-	RunningState();
+	RunningState(/*CollisionsSystem* cs, GameCtrlSystem* gcs, GhostSystem* gs, PacManSystem* ps, RenderSystem* rs, StarsSystem* ss*/);
 	virtual ~RunningState();
 	void enter() override;
 	void update() override;
 	void leave() override;
 
 private:
-	//void checkCollisions();
-	//void onFigherDeath();
-	//InputHandler& ihdlr;
-	/*AsteroidsFacade* ast_mngr_;
-	FighterFacade* fighter_mngr_;
-	BlackHoleFacade* hole_mngr_;
-	MissileFacade* missile_manager;
-	Uint32 lastTimeGeneratedAsteroids_;
-	Uint32 lastTimeGeneratedMissiles_;*/
+	CollisionsSystem* collisionsSystem;
+	GameCtrlSystem* gameCtrlSystem;
+	GhostSystem* ghostSystem;
+	PacManSystem* pacManSystem;
+	RenderSystem* renderSystem;
+	StarsSystem* starsSystem;
 };

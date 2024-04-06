@@ -14,6 +14,6 @@ public:
 	void update() override;
 	void leave() override;
 private:
-	Texture* msg_;
-	SDL_Rect dest_;
+	Texture* messageTexture;
+	SDL_Rect messageRect;
 };

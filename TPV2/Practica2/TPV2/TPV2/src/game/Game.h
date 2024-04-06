@@ -2,12 +2,12 @@
 
 #pragma once
 
-#include <vector>
+#include "../utils/Singleton.h"
 #include "../ecs/ecs.h"
 #include "GameState.h"
-#include "../utils/Singleton.h"
+#include <vector>
 
-class Game {
+class Game : public Singleton<Game> {
 public:
 
 	// Singleton del Game.
@@ -25,12 +25,16 @@ public:
 
 	void start();
 
+	inline ecs::Manager* getMngr() {
+		return mngr_;
+	}
+
 	inline void setState(State s) {
 
 		GameState* new_state = nullptr;
 		switch (s) {
 		case RUNNING:
-			new_state = runing_state_;
+			new_state = running_state_;
 			break;
 		case PAUSED:
 			new_state = paused_state_;
@@ -47,7 +51,11 @@ public:
 		default:
 			break;
 		}
+		current_state_->leave();
+		current_state_ = new_state;
+		current_state_->enter();
 	}
+
 private:
 	ecs::Manager* mngr_;
 	ecs::System* pacmanSys_;
@@ -57,10 +65,11 @@ private:
 	ecs::System* collisionSys_;
 	ecs::System* ghostSys_;
 
+	// Estados de juego.
 	GameState* current_state_; // Estado acutal.
 	GameState* paused_state_; // Estado de pausa.
-	GameState* runing_state_; // Estado de juego.
-	GameState* newgame_state_;
-	GameState* newround_state_;
-	GameState* gameover_state_;
+	GameState* running_state_; // Estado de juego.
+	GameState* newgame_state_; // Estado de juego nuevo.
+	GameState* newround_state_; // Estado de nueva ronda.
+	GameState* gameover_state_; // EStado de fin de juego.
 };
