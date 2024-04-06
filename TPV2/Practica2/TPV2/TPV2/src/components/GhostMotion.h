@@ -7,13 +7,15 @@
 struct GhostMotion : public ecs::Component
 {
 	__CMPID_DECL__(ecs::cmp::GHOST_MOTION);
-	GhostMotion() {};
+	GhostMotion() :
+		updateFreq_(1), lastUpdate_(0)//, rot_(), sizeLimit_() 
+	{};
 
 	virtual ~GhostMotion() {
 
 	}
 
-	inline bool shouldUpdate(Uint32 currTime) {
+	bool shouldUpdate(Uint32 currTime) {
 		if (lastUpdate_ + updateFreq_ < currTime) {
 			lastUpdate_ = currTime;
 			return true;
@@ -24,8 +26,8 @@ struct GhostMotion : public ecs::Component
 	}
 
 	Uint32 updateFreq_;
-	Uint32 lastUpdate_;
+	Uint32 lastUpdate_;/*
 	float rot_;
-	float sizeLimit_;
+	float sizeLimit_;*/
 };
 

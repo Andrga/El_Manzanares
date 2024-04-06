@@ -45,7 +45,7 @@ void PacManSystem::update() {
 			pmTR_->rot_ += 90.0f;
 
 			// Cambia la direccion
-			pmTR_->vel_ = Vector2D(0, speed_).rotate(pmTR_->rot_);
+			pmTR_->vel_ = pmTR_->vel_.rotate(pmTR_->rot_);
 
 		}
 		else if (ihldr.isKeyDown(SDL_SCANCODE_LEFT)) {
@@ -54,7 +54,7 @@ void PacManSystem::update() {
 			pmTR_->rot_ -= 90.0f;
 
 			// Settea velocidad
-			pmTR_->vel_ = Vector2D(0, speed_).rotate(pmTR_->rot_);
+			pmTR_->vel_ = pmTR_->vel_.rotate(pmTR_->rot_);
 
 		}
 		else if (ihldr.isKeyDown(SDL_SCANCODE_UP)) {

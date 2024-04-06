@@ -23,14 +23,14 @@ void RenderSystem::initSystem() {
 
 void RenderSystem::update() {
 	drawMsgs();
-	drawStars();
+	drawGhosts();
 	drawPacMan();
 	drawLifes();
 }
 
-void RenderSystem::drawStars() {
+void RenderSystem::drawGhosts() {
 	// draw stars
-	for (auto e : mngr_->getEntities(ecs::grp::STARS)) {
+	for (auto e : mngr_->getEntities(ecs::grp::GHOSTS)) {
 
 		auto tr = mngr_->getComponent<Transform>(e);
 		auto tex = mngr_->getComponent<Image>(e)->tex_;
