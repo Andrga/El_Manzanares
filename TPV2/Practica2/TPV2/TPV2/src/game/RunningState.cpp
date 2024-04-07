@@ -11,7 +11,6 @@
 #include "../systems/ImmunitySystem.h"
 #include "../systems/PacManSystem.h"
 #include "../systems/RenderSystem.h"
-#include "../systems/StarsSystem.h"
 
 RunningState::RunningState() {
 
@@ -33,7 +32,6 @@ void RunningState::enter()
 	immunitySystem = Game::instance()->getMngr()->getSystem<ImmunitySystem>();
 	pacManSystem = Game::instance()->getMngr()->getSystem<PacManSystem>();
 	renderSystem = Game::instance()->getMngr()->getSystem<RenderSystem>();
-	starsSystem = Game::instance()->getMngr()->getSystem<StarsSystem>();
 }
 
 void RunningState::update() {
@@ -57,7 +55,6 @@ void RunningState::update() {
 	immunitySystem->update();
 	pacManSystem->update();
 	renderSystem->update();
-	starsSystem->update();
 
 	//Game::instance()->getMngr()->refresh(); // Esta en el bucle principal.
 }

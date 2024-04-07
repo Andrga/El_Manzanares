@@ -11,6 +11,7 @@ public:
 	};
 
 	void initSystem()override;
+	void update()override;
 
 	// Para recibir mensajes.
 	void recieve(const Message& m) override;

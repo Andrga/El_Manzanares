@@ -8,7 +8,7 @@ struct MiraculousComponent : public ecs::Component
 	__CMPID_DECL__(ecs::cmp::MIRACULOUS);
 
 	// Constructora. Pasar los numero en segundos, la constructora lo multiplica por 1000.
-	MiraculousComponent(uint32_t n);
+	MiraculousComponent();
 	// Destructora.
 	virtual ~MiraculousComponent();
 
@@ -16,6 +16,12 @@ struct MiraculousComponent : public ecs::Component
 	void initComponent() override;
 	// Update del componente.
 	void update() override;
+
+	// Resetea la miraculosidad.
+	void resetMiraculous();
+	// Vuelve a la fruta miraculosa.
+	void setMiraculous();
+
 	// Devuelve si la fruta esta milagrosa o no.
 	bool getIsMiracle() { return isMiracle; }
 

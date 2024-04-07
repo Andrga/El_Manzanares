@@ -99,6 +99,8 @@ constexpr cmpId_t cmpId = T::id;
 template<typename T>
 constexpr sysId_t sysId = T::id;
 
+// StarSystem
+
 // a macro for component identifier declaration, e.g., __CMPID_DECL__(ecs::cmp::TRANSFORM)
 // expands to:
 //

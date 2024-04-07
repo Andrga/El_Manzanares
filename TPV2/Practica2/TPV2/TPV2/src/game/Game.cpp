@@ -13,7 +13,6 @@
 #include "../systems/GameCtrlSystem.h"
 #include "../systems/PacManSystem.h"
 #include "../systems/RenderSystem.h"
-#include "../systems/StarsSystem.h"
 #include "../systems/GhostSystem.h"
 #include "../systems/FoodSystem.h"
 #include "../systems/ImmunitySystem.h"
@@ -57,7 +56,6 @@ void Game::init() {
 
 	// add the systems
 	pacmanSys_ = mngr_->addSystem<PacManSystem>();
-	startsSys_ = mngr_->addSystem<StarsSystem>();
 	gameCtrlSys_ = mngr_->addSystem<GameCtrlSystem>();
 	renderSys_ = mngr_->addSystem<RenderSystem>();
 	collisionSys_ = mngr_->addSystem<CollisionsSystem>();

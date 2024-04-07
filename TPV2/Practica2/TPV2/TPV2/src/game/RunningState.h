@@ -14,9 +14,7 @@ class GhostSystem;
 class ImmunitySystem;
 class PacManSystem;
 class RenderSystem;
-class StarsSystem;
 
-//class StarsSystem;
 //class AsteroidsFacade;
 //class FighterFacade;
 //class BlackHoleFacade;
@@ -38,5 +36,4 @@ private:
 	ImmunitySystem* immunitySystem;
 	PacManSystem* pacManSystem;
 	RenderSystem* renderSystem;
-	StarsSystem* starsSystem;
 };

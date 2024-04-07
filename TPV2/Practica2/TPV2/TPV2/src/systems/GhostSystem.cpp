@@ -97,13 +97,13 @@ void GhostSystem::collGhost(ecs::entity_t ghost)
 	auto p = mngr_->getHandler(ecs::hdlr::PACMAN);
 	if (mngr_->getComponent<InmuneComponent>(p)->getImmunity()) {
 
-		Message m;
-		m.id = _m_ROUND_OVER;
+		mngr_->setAlive(ghost, false);
 		sdlutils().soundEffects().at("pacman_eat").play(0, 1);
 	}
 	else
 	{
-		mngr_->setAlive(ghost, false);
+		Message m;
+		m.id = _m_ROUND_OVER;
 	}
 
 }
@@ -111,6 +111,7 @@ void GhostSystem::collGhost(ecs::entity_t ghost)
 void GhostSystem::resetGhosts()
 {
 	auto ghosts = mngr_->getEntities(ecs::grp::GHOSTS);
+
 	for (auto e : ghosts)
 	{
 		mngr_->setAlive(e, false);

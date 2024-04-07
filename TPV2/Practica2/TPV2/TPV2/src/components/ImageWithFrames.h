@@ -18,6 +18,10 @@ struct ImageWithFrames : ecs::Component
 	~ImageWithFrames() override;
 	void initComponent() override;
 	void render() override;
+	void changeFirstLastFrame(int first, int last) {
+		firstFrame = first;
+		lastFrame = last;
+	}
 
 
 	Texture* image_;

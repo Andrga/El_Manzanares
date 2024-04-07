@@ -5,7 +5,7 @@
 struct InmuneComponent : public ecs::Component
 {
 	__CMPID_DECL__(ecs::cmp::IMNUNE_COMPONENT);
-	InmuneComponent(bool inmune = false) : inmune_(inmune) {
+	InmuneComponent(bool inmune = true) : inmune_(inmune) {
 	};
 
 	virtual ~InmuneComponent() {

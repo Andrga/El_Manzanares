@@ -13,9 +13,9 @@ struct LifeComponent : public ecs::Component
 	virtual ~LifeComponent() {
 
 	}
-	void hit() {
-		lifes_--;
-	};
+
+	//	Choque con un fantasma
+	void hit();
 
 	int getActualLifes() { return lifes_; }
 	Texture* getLifeTexture() { return lifeText_; }

@@ -122,8 +122,13 @@ void PacManSystem::recieve(const Message& message)
 {
 	auto e = mngr_->getHandler(ecs::hdlr::PACMAN);
 	auto eImm = mngr_->getComponent<InmuneComponent>(e);
+	auto eLif = mngr_->getComponent<LifeComponent>(e);
+
 	switch (message.id)
 	{
+	case _m_PACMAN_GHOST_COLLISION:
+		eLif->hit();
+		break;
 	case  _m_IMMUNITY_END:
 		eImm->setInmune(false);
 		break;
