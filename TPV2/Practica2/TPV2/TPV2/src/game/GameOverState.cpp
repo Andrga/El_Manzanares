@@ -6,14 +6,8 @@
 #include "../ecs/Manager.h"
 #include "Game.h"
 
-GameOverState::GameOverState()
-{
+GameOverState::GameOverState() {
 
-
-	messageRect = build_sdlrect((sdlutils().width() - messageTexture->width()) / 2,
-		(sdlutils().height() - messageTexture->height()) / 2,
-		messageTexture->width(),
-		messageTexture->height());
 }
 
 GameOverState::~GameOverState() {
@@ -37,6 +31,11 @@ void GameOverState::enter()
 		messageTexture = &sdlutils().msgs().at("gameoverWin");
 		std::cout << "Has ganado." << std::endl;
 	}
+
+	messageRect = build_sdlrect((sdlutils().width() - messageTexture->width()) / 2,
+		(sdlutils().height() - messageTexture->height()) / 2,
+		messageTexture->width(),
+		messageTexture->height());
 }
 
 void GameOverState::update()
