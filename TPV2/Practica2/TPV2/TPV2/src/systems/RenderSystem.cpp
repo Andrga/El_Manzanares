@@ -31,18 +31,13 @@ void RenderSystem::update() {
 
 void RenderSystem::drawGhosts() {
 	for (auto e : mngr_->getEntities(ecs::grp::GHOSTS)) {
-
-		auto tr = mngr_->getComponent<Transform>(e);
-		auto tex = mngr_->getComponent<Image>(e)->tex_;
-		draw(tr, tex);
+		mngr_->getComponent<ImageWithFrames>(e)->render();
 	}
 }
 
 void RenderSystem::drawPacMan() {
 	auto e = mngr_->getHandler(ecs::hdlr::PACMAN);
-	auto tr = mngr_->getComponent<Transform>(e);
-	auto tex = mngr_->getComponent<Image>(e)->tex_;
-	draw(tr, tex);
+	mngr_->getComponent<ImageWithFrames>(e)->render();
 
 }
 
@@ -55,9 +50,29 @@ void RenderSystem::drawLifes()
 void RenderSystem::drawFruits()
 {
 	for (auto e : mngr_->getEntities(ecs::grp::FRUITS)) {
-
-		drawImageWithFrames(mngr_->getComponent<ImageWithFrames>(e));
+		mngr_->getComponent<ImageWithFrames>(e)->render();
 	}
+}
+
+void RenderSystem::drawMsgs() {
+	// draw the score
+	//
+	auto score = mngr_->getSystem<GameCtrlSystem>()->getScore();
+
+	Texture scoreTex(sdlutils().renderer(), std::to_string(score),
+		sdlutils().fonts().at("ARIAL24"), build_sdlcolor(0x444444ff));
+
+	SDL_Rect dest = build_sdlrect( //
+		(sdlutils().width() - scoreTex.width()) / 2.0f, //
+		10.0f, //
+		scoreTex.width(), //
+		scoreTex.height());
+
+	scoreTex.render(dest);
+
+	// draw add stars message
+	sdlutils().msgs().at("addstars").render(10, 10);
+
 }
 
 void RenderSystem::draw(Transform* tr, Texture* tex) {
@@ -65,29 +80,4 @@ void RenderSystem::draw(Transform* tr, Texture* tex) {
 
 	assert(tex != nullptr);
 	tex->render(dest, tr->rot_);
-}
-
-void RenderSystem::drawImageWithFrames(ImageWithFrames* image)
-{
-	if (image->firstFrame != image->lastFrame) // si la imagen no es estática
-		if (image->frameTimer + 50
-			< sdlutils().virtualTimer().currTime())
-		{
-			image->frameTimer = sdlutils().virtualTimer().currTime();
-			image->currentFrame++;
-			if (image->currentFrame > image->lastFrame) {
-				image->currentFrame = image->firstFrame;
-			}
-		}
-
-	SDL_Rect src = build_sdlrect(
-		image->currentFrame % image->nCols_ * image->frameWidth_,
-		image->currentFrame / image->nCols_ * image->frameHeight_,
-		image->frameWidth_, image->frameHeight_
-	);
-	SDL_Rect dst = build_sdlrect(
-		image->transform_->pos_,
-		image->transform_->width_,
-		image->transform_->height_);
-	image->image_->render(src, dst, image->transform_->rot_);
 }

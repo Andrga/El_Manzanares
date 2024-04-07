@@ -3,6 +3,7 @@
 #include "PacManSystem.h"
 
 #include "../components/Image.h"
+#include "../components/ImageWithFrames.h"
 #include "../components/Transform.h"
 #include "../components/LifeComponent.h"
 #include "../components/InmuneComponent.h"
@@ -27,7 +28,7 @@ void PacManSystem::initSystem() {
 	auto x = (sdlutils().width() - s) / 2.0f;
 	auto y = (sdlutils().height() - s) / 2.0f;
 	pmTR_->init(Vector2D(x, y), Vector2D(), s, s, 0.0f);
-	mngr_->addComponent<Image>(pacman, &sdlutils().images().at("pacman"));
+	mngr_->addComponent<ImageWithFrames>(pacman, &sdlutils().images().at("pacman_spritesheet"), 8, 8, 9, 11);
 	mngr_->addComponent<LifeComponent>(pacman);
 	mngr_->addComponent<InmuneComponent>(pacman);
 
@@ -131,6 +132,12 @@ void PacManSystem::recieve(const Message& message)
 		break;
 	case  _m_IMMUNITY_END:
 		eImm->setInmune(false);
+		break;
+	case _m_ROUND_START:
+		resetPos();
+		break;
+	case _m_NEW_GAME:
+		resetLifes();
 		break;
 	default:
 		break;

@@ -39,24 +39,25 @@ void ImageWithFrames::initComponent()
 
 void ImageWithFrames::render()
 {
-	if (sdlutils().currRealTime() > frameTimer + 10)
-	{
-		currentCol_ = (currentCol_ + 1) % (nCols_ - 1);
-		currentRow_ = (currentRow_ + 1) % (nRows_ - 1);
-		frameTimer = sdlutils().currRealTime();
-		currentFrame = currentRow_ * nCols_ + currentCol_;
-	}
+	if (firstFrame != lastFrame) // si la imagen no es estática
+		if (frameTimer + 50
+			< sdlutils().virtualTimer().currTime())
+		{
+			frameTimer = sdlutils().virtualTimer().currTime();
+			currentFrame++;
+			if (currentFrame > lastFrame) {
+				currentFrame = firstFrame;
+			}
+		}
 
-	auto frame = Vector2D(currentCol_ * frameWidth_, currentRow_ * frameHeight_);
-	const SDL_Rect srce = build_sdlrect(
-		frame,
-		frameWidth_,
-		frameHeight_
+	SDL_Rect src = build_sdlrect(
+		currentFrame % nCols_ * frameWidth_,
+		currentFrame / nCols_ * frameHeight_,
+		frameWidth_, frameHeight_
 	);
-	const SDL_Rect dest = build_sdlrect(
+	SDL_Rect dst = build_sdlrect(
 		transform_->pos_,
 		transform_->width_,
-		transform_->height_
-	);
-	image_->render(srce, dest, transform_->rot_);
+		transform_->height_);
+	image_->render(src, dst, transform_->rot_);
 }

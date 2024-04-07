@@ -21,8 +21,7 @@ private:
 	void drawPacMan();
 	void drawLifes();
 	void drawFruits();
-	void drawImageWithFrames(ImageWithFrames*);
-	//void drawMsgs();
+	void drawMsgs();
 	void draw(Transform *tr, Texture *tex);
 };
 

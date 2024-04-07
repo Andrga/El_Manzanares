@@ -2,6 +2,7 @@
 #include "../components/Transform.h"
 #include "../components/Image.h"
 #include "../components/GhostMotion.h"
+#include "../components/ImageWithFrames.h"
 #include "../components/InmuneComponent.h"
 #include "../ecs/Manager.h"
 #include "../sdlutils/SDLUtils.h"
@@ -33,7 +34,8 @@ void GhostSystem::generateGhost()
 		auto e = mngr_->addEntity(ecs::grp::GHOSTS);
 		auto tr = mngr_->addComponent<Transform>(e);
 		mngr_->addComponent<GhostMotion>(e);
-		mngr_->addComponent<Image>(e, &sdlutils().images().at("star"));
+		auto id = sdlutils().rand().nextInt(4, 7);
+		mngr_->addComponent<ImageWithFrames>(e, &sdlutils().images().at("pacman_spritesheet"), 8, 8, 32, 33);
 
 		// Tamanio al transform
 		tr->width_ = 30;

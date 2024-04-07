@@ -104,7 +104,7 @@ void FoodSystem::recieve(const Message& m) {
 	case _m_PACMAN_FOOD_COLLISION:
 		eatFruit(m.ent_collided.e);
 		break;
-	case _m_ROUND_START:
+	case _m_NEW_GAME:
 		resetFruits();
 		break;
 	default:
