@@ -19,7 +19,7 @@ void FoodSystem::initSystem() {
 			auto e = mngr_->addEntity(ecs::grp::FRUITS);
 			auto tr = mngr_->addComponent<Transform>(e);
 
-			std::cout << "LA PUTA MADRE" << std::endl;
+			// Asigna posicion
 			tr->width_ = 40;
 			tr->height_ = 40;
 			tr->pos_ = Vector2D(i + 0.5, j + 0.5) * 95;
@@ -28,4 +28,27 @@ void FoodSystem::initSystem() {
 		}
 	}
 };
+void FoodSystem::eatFruit(ecs::entity_t fruit) {
+	mngr_->setAlive(fruit, false);
+
+	auto fruits = mngr_->getEntities(ecs::grp::FRUITS);
+
+	if (fruits.size() <= 0) {
+		Message m;
+		m.id = _m_ROUND_WIN;
+		sdlutils().soundEffects().at("pacman_eat").play(0, 1);
+	}
+}
+
+void FoodSystem::recieve(const Message& m) {
+	switch (m.id)
+	{
+	case _m_PACMAN_FOOD_COLLISION:
+		eatFruit(m.ent_collided.e);
+		break;
+
+	default:
+		break;
+	}
+}
 

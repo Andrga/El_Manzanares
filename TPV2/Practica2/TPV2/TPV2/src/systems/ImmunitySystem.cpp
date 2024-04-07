@@ -18,10 +18,10 @@ void ImmunitySystem::initSystem()
 void ImmunitySystem::update()
 {
 	isImmune = mngr_->getComponent<InmuneComponent>(pacMan)->getImmunity();
-	std::cout << "Inmunidad: " << isImmune << std::endl;
+	//std::cout << "Inmunidad: " << isImmune << std::endl;
 	if (isImmune && (sdlutils().virtualTimer().currTime() - time) >= TIME_INMUNE)
 	{
-		std::cout << "Inmunidad acabada." << std::endl;
+		//std::cout << "Inmunidad acabada." << std::endl;
 		// Enviar el mensaje de que se ha acabdo la inmunidad.
 		Message message;
 		message.id = _m_IMMUNITY_END;

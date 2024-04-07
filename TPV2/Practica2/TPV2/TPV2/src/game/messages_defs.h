@@ -11,6 +11,7 @@ enum msgId : msgId_type {
 	_m_NEW_GAME, //
 	_m_ROUND_START,
 	_m_ROUND_OVER,
+	_m_ROUND_WIN,
 	_m_GAME,
 	_m_PACMAN_FOOD_COLLISION,
 	_m_PACMAN_GHOST_COLLISION,
@@ -28,15 +29,10 @@ struct Message {
 
 	union {
 		
-		// _m_STAR_EATEN
+		
 		struct {
 			ecs::entity_t e;
-		} star_eaten_data;
-
-		// _m_CREATE_STARS
-		struct {
-			unsigned int n;
-		} create_stars_data;
+		} ent_collided;
 		
 	};
 };

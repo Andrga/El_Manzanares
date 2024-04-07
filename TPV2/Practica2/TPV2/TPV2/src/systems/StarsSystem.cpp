@@ -105,10 +105,10 @@ void StarsSystem::onStarEaten(ecs::entity_t e) {
 void StarsSystem::recieve(const Message &m) {
 	switch (m.id) {
 	case _m_STAR_EATEN:
-		onStarEaten(m.star_eaten_data.e);
+		//onStarEaten(m.star_eaten_data.e);
 		break;
 	case _m_CREATE_STARS:
-		addStar(m.create_stars_data.n);
+		//addStar(m.create_stars_data.n);
 		break;
 	default:
 		break;

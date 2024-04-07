@@ -11,6 +11,11 @@ public:
 	};
 
 	void initSystem()override;
+
+	// Para recibir mensajes.
+	void recieve(const Message& m) override;
+
+	void eatFruit(ecs::entity_t fruit);
 private:
 
 	void setFruits();
