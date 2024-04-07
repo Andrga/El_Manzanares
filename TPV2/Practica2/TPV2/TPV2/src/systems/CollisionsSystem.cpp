@@ -44,7 +44,7 @@ void CollisionsSystem::update() {
 					pTR->pos_, pTR->width_, pTR->height_, //
 					eTR->pos_, eTR->width_, eTR->height_)) {
 
-				std::cout << "Colision fruta" << std::endl;
+				//std::cout << "Colision fruta" << std::endl;
 				Message m;
 				m.id = _m_PACMAN_FOOD_COLLISION;
 				m.ent_collided.e = e;
@@ -71,7 +71,7 @@ void CollisionsSystem::update() {
 				pTR->pos_, pTR->width_, pTR->height_, //
 				eTR->pos_, eTR->width_, eTR->height_)) {
 
-				std::cout << "Colision Fantasma" << std::endl;
+				//std::cout << "Colision Fantasma" << std::endl;
 				Message m;
 				m.id = _m_PACMAN_GHOST_COLLISION;
 				m.ent_collided.e = e;

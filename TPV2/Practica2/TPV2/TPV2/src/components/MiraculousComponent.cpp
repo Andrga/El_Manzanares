@@ -36,6 +36,7 @@ void MiraculousComponent::update() {
 void MiraculousComponent::resetMiraculous()
 {
 	std::cout << "Se deja de ser milagrosa." << std::endl;
+	timeToConvert = sdlutils().virtualTimer().currTime();
 	isMiracle = false;
 }
 

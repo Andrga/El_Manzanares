@@ -73,7 +73,7 @@ void FoodSystem::setFruits() {
 			uint16_t p = sdlutils().rand().nextInt(0, 10);
 			if (p == 0)
 			{
-				uint16_t n = sdlutils().rand().nextInt(10, 21);
+				uint16_t n = sdlutils().rand().nextInt(10, 11);
 				std::cout << "Fruta milagrosa" << std::endl;
 				mngr_->addComponent<MiraculousComponent>(e, n);
 			}
