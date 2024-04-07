@@ -11,7 +11,7 @@
 #include "../sdlutils/SDLUtils.h"
 
 PacManSystem::PacManSystem() :
-	pmTR_(nullptr), speed_(-1) {
+	pmTR_(nullptr), speed_(-5) {
 }
 
 PacManSystem::~PacManSystem() {

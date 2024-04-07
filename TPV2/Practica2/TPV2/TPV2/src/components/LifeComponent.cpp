@@ -15,6 +15,7 @@ void LifeComponent::hit()
 		// Mensaje se acaba el juego
 		Message m;
 		m.id = _m_GAME_OVER;
+		mngr_->send(m);
 		//sdlutils().soundEffects().at("pacman_eat").play(0, 1);
 	}
 	else
@@ -24,6 +25,7 @@ void LifeComponent::hit()
 		// Mensaje reinicia la ronda
 		Message m;
 		m.id = _m_ROUND_OVER;
+		mngr_->send(m);
 		//sdlutils().soundEffects().at("pacman_eat").play(0, 1);
 	}
 }

@@ -3,6 +3,7 @@
 #include "../sdlutils/SDLUtils.h"
 #include "../components/Transform.h"
 #include "../components/ImageWithFrames.h"
+#include "../components/InmuneComponent.h"
 #include "../components/MiraculousComponent.h"
 
 FoodSystem::FoodSystem() :
@@ -26,19 +27,27 @@ void FoodSystem::update()
 			if (!eMir->getIsMiracle() && (sdlutils().virtualTimer().currTime() - eMir->timeToConvert) >= eMir->nTime)
 			{
 				eMir->setMiraculous(); // Convierte en miraculosa
-				mngr_->getComponent<ImageWithFrames>(e)->changeFirstLastFrame(10, 13); // Cambia la imagen
+				mngr_->getComponent<ImageWithFrames>(e)->changeFirstLastFrame(13, 14); // Cambia la imagen
 			}
 			// convertir en normal
 			else if (eMir->getIsMiracle() && (sdlutils().virtualTimer().currTime() - eMir->timeToDesConvert) >= eMir->mTime)
 			{
 				eMir->resetMiraculous(); // Convierte en normal
-				mngr_->getComponent<ImageWithFrames>(e)->changeFirstLastFrame(12, 10); // Cambia la imagen
+				mngr_->getComponent<ImageWithFrames>(e)->changeFirstLastFrame(1, 2); // Cambia la imagen
 			}
 		}
 	}
 }
 
 void FoodSystem::eatFruit(ecs::entity_t fruit) {
+	auto pc = mngr_->getHandler(ecs::hdlr::PACMAN);
+	auto pcInm = mngr_->getComponent<InmuneComponent>(pc);
+
+	if (pcInm != nullptr)
+	{
+		pcInm->setInmune(true);
+	}
+
 	mngr_->setAlive(fruit, false);
 	sdlutils().soundEffects().at("pacman_eat").play(0, 1);
 
@@ -47,9 +56,10 @@ void FoodSystem::eatFruit(ecs::entity_t fruit) {
 	if (fruits.size() <= 0) {
 		Message m;
 		m.id = _m_ROUND_WIN;
-		sdlutils().soundEffects().at("pacman_eat").play(0, 1);
+		mngr_->send(m);
 	}
 }
+
 void FoodSystem::setFruits() {
 
 	for (int i = 0; i < cols_; i++)
@@ -63,8 +73,9 @@ void FoodSystem::setFruits() {
 			uint16_t p = sdlutils().rand().nextInt(0, 10);
 			if (p == 0)
 			{
+				uint16_t n = sdlutils().rand().nextInt(10, 21);
 				std::cout << "Fruta milagrosa" << std::endl;
-				mngr_->addComponent<MiraculousComponent>(e);
+				mngr_->addComponent<MiraculousComponent>(e, n);
 			}
 
 			// Asigna posicion

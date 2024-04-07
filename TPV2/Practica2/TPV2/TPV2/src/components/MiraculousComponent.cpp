@@ -2,7 +2,7 @@
 
 #include "../sdlutils/SDLUtils.h"
 
-MiraculousComponent::MiraculousComponent() :nTime()
+MiraculousComponent::MiraculousComponent(uint32_t n) :nTime(n*1000)
 
 {}
 
@@ -43,6 +43,6 @@ void MiraculousComponent::setMiraculous()
 {
 	std::cout << "Se convierte en milagrosa." << std::endl;
 	isMiracle = true;
-	mTime = sdlutils().rand().nextInt(10, 20) * 1000; // Generamos un tiempo aleatorio para que deje de ser milagrosa.
+	mTime = sdlutils().rand().nextInt(1, 5) * 1000; // Generamos un tiempo aleatorio para que deje de ser milagrosa.
 	timeToDesConvert = sdlutils().virtualTimer().currTime();
 }

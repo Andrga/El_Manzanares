@@ -8,7 +8,7 @@ struct MiraculousComponent : public ecs::Component
 	__CMPID_DECL__(ecs::cmp::MIRACULOUS);
 
 	// Constructora. Pasar los numero en segundos, la constructora lo multiplica por 1000.
-	MiraculousComponent();
+	MiraculousComponent(uint32_t n);
 	// Destructora.
 	virtual ~MiraculousComponent();
 
