@@ -1,7 +1,6 @@
 #include "ImmunitySystem.h"
 
 #include "../components/InmuneComponent.h"
-#include "../components/Transform.h"
 #include "../sdlutils/SDLUtils.h"
 #include "../ecs/Manager.h"
 
@@ -27,7 +26,6 @@ void ImmunitySystem::update()
 		Message message;
 		message.id = _m_IMMUNITY_END;
 		mngr_->send(message, true);
-		
 	}
 }
 

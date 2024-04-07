@@ -12,7 +12,8 @@
 	LIFE_COMPONENT, \
 	IMNUNE_COMPONENT,\
 	GHOST_MOTION,\
-	IMAGEWITHFRAMES
+	IMAGEWITHFRAMES, \
+	MIRACULOUS
 
 // Groups list - must have at least one element
 //

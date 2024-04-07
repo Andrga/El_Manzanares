@@ -24,6 +24,7 @@
     <ClInclude Include="src\components\ImageWithFrames.h" />
     <ClInclude Include="src\components\InmuneComponent.h" />
     <ClInclude Include="src\components\LifeComponent.h" />
+    <ClInclude Include="src\components\MiraculousComponent.h" />
     <ClInclude Include="src\components\Points.h" />
     <ClInclude Include="src\components\StarMotion.h" />
     <ClInclude Include="src\components\Transform.h" />
@@ -77,6 +78,7 @@
     <ClCompile Include="src\components\GhostMotion.cpp" />
     <ClCompile Include="src\components\ImageWithFrames.cpp" />
     <ClCompile Include="src\components\LifeComponent.cpp" />
+    <ClCompile Include="src\components\MiraculousComponent.cpp" />
     <ClCompile Include="src\ecs\Manager.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\game\GameOverState.cpp" />
