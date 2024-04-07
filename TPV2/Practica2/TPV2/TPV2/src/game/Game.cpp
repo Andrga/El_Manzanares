@@ -5,6 +5,10 @@
 #include "../ecs/Manager.h"
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
+#include "../utils/Vector2D.h"
+#include "../utils/Collisions.h"
+
+// Sistemas:
 #include "../systems/CollisionsSystem.h"
 #include "../systems/GameCtrlSystem.h"
 #include "../systems/PacManSystem.h"
@@ -12,9 +16,9 @@
 #include "../systems/StarsSystem.h"
 #include "../systems/GhostSystem.h"
 #include "../systems/FoodSystem.h"
-#include "../utils/Vector2D.h"
-#include "../utils/Collisions.h"
+#include "../systems/ImmunitySystem.h"
 
+// Estados:
 #include "NewGameState.h"
 #include "NewRoundState.h"
 #include "RunningState.h"
@@ -59,6 +63,7 @@ void Game::init() {
 	collisionSys_ = mngr_->addSystem<CollisionsSystem>();
 	ghostSys_ = mngr_->addSystem<GhostSystem>();
 	foodSys_ = mngr_->addSystem<FoodSystem>();
+	immunitySys_ = mngr_->addSystem<ImmunitySystem>();
 
 	// Estados:
 	newgame_state_ = new NewGameState();

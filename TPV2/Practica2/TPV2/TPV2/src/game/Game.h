@@ -66,6 +66,7 @@ private:
 	ecs::System* collisionSys_;
 	ecs::System* ghostSys_;
 	ecs::System* foodSys_;
+	ecs::System* immunitySys_;
 
 	// Estados de juego.
 	GameState* current_state_; // Estado acutal.

@@ -20,7 +20,8 @@ public:
 	void resetPos();
 	// Resetea la vida del PacMan
 	void resetLifes();
-
+	// Para recibir mensajes.
+	void recieve(const Message& m) override;
 private:
 	float speed_;
 	Transform *pmTR_;

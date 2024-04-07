@@ -8,12 +8,13 @@
 class InputHandler;
 
 class CollisionsSystem;
+class FoodSystem;
 class GameCtrlSystem;
 class GhostSystem;
+class ImmunitySystem;
 class PacManSystem;
 class RenderSystem;
 class StarsSystem;
-class FoodSystem;
 
 //class StarsSystem;
 //class AsteroidsFacade;
@@ -31,10 +32,11 @@ public:
 
 private:
 	CollisionsSystem* collisionsSystem;
+	FoodSystem* foodSystem;
 	GameCtrlSystem* gameCtrlSystem;
 	GhostSystem* ghostSystem;
+	ImmunitySystem* immunitySystem;
 	PacManSystem* pacManSystem;
 	RenderSystem* renderSystem;
 	StarsSystem* starsSystem;
-	FoodSystem* foodSystem;
 };
