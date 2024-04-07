@@ -26,5 +26,6 @@ void GameOverState::update()
 
 void GameOverState::leave() 
 {
+	sdlutils().virtualTimer().resume();
 	std::cout << "Leave GameOverState." << std::endl;
 }

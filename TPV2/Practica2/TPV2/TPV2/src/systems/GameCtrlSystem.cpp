@@ -2,12 +2,13 @@
 
 #include "GameCtrlSystem.h"
 
+#include "../sdlutils/InputHandler.h"
 #include "../components/Points.h"
 #include "../ecs/Manager.h"
-#include "../sdlutils/InputHandler.h"
+#include "../game/Game.h"
 
 GameCtrlSystem::GameCtrlSystem() :
-		score_() {
+	score_() {
 	// TODO Auto-generated constructor stub
 
 }
@@ -20,7 +21,7 @@ void GameCtrlSystem::initSystem() {
 }
 
 void GameCtrlSystem::update() {
-	auto &ihldr = ih();
+	auto& ihldr = ih();
 
 	if (ihldr.keyDownEvent()) {
 		if (ihldr.isKeyDown(SDL_SCANCODE_SPACE)) {
@@ -34,12 +35,17 @@ void GameCtrlSystem::update() {
 	}
 }
 
-void GameCtrlSystem::recieve(const Message &m) {
+void GameCtrlSystem::recieve(const Message& m) {
 	switch (m.id) {
-		/* Procesa eventos (Subscripcion a cosas)
-	case _m_STAR_EATEN:
-		score_ += mngr_->getComponent<Points>(m.star_eaten_data.e)->points_;
-		break;*/
+	case _m_GAME_OVER:
+		Game::instance()->setState(Game::GAMEOVER);
+		break;
+	case _m_ROUND_OVER:
+		Game::instance()->setState(Game::NEWROUND);
+		break;
+	case _m_WIN_GAME:
+		Game::instance()->setState(Game::GAMEOVER);
+		break;
 	default:
 		break;
 	}
