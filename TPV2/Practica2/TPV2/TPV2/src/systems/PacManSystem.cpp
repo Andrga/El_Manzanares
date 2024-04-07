@@ -111,6 +111,9 @@ void PacManSystem::resetPos()
 	auto x = (sdlutils().width() - s) / 2.0f;
 	auto y = (sdlutils().height() - s) / 2.0f;
 	eTrans->pos_ = Vector2D(x, y);
+
+	// Settea la velocidad a 0
+	pmTR_->vel_ = Vector2D(0, 0);
 }
 
 void PacManSystem::resetLifes()

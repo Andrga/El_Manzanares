@@ -1,5 +1,6 @@
 #include "LifeComponent.h"
 #include "../ecs/Manager.h"
+#include "InmuneComponent.h"
 
 
 LifeComponent::LifeComponent(int maxLifes, const std::string texture)
@@ -10,23 +11,27 @@ LifeComponent::LifeComponent(int maxLifes, const std::string texture)
 
 void LifeComponent::hit()
 {
-	if (lifes_ <= 0)
-	{
-		// Mensaje se acaba el juego
-		Message m;
-		m.id = _m_GAME_OVER;
-		mngr_->send(m);
-		//sdlutils().soundEffects().at("pacman_eat").play(0, 1);
-	}
-	else
-	{
-		lifes_--;
+	auto pc = mngr_->getHandler(ecs::hdlr::PACMAN);
+	auto pcInm = mngr_->getComponent<InmuneComponent>(pc);
+	if (!pcInm->getImmunity()) {
+		if (lifes_ <= 0)
+		{
+			// Mensaje se acaba el juego
+			Message m;
+			m.id = _m_GAME_OVER;
+			mngr_->send(m);
+			//sdlutils().soundEffects().at("pacman_eat").play(0, 1);
+		}
+		else
+		{
+			lifes_--;
 
-		// Mensaje reinicia la ronda
-		Message m;
-		m.id = _m_ROUND_OVER;
-		mngr_->send(m);
-		//sdlutils().soundEffects().at("pacman_eat").play(0, 1);
+			// Mensaje reinicia la ronda
+			Message m;
+			m.id = _m_ROUND_OVER;
+			mngr_->send(m);
+			//sdlutils().soundEffects().at("pacman_eat").play(0, 1);
+		}
 	}
 }
 

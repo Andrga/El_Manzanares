@@ -24,6 +24,9 @@ private:
 	// Mueve fantasma
 	void moveGhosts();
 	void collGhost(ecs::entity_t ghost);
+	// Cambia sprite
+	void changeBlueSprite();
+	void changeNormalSprite();
 
 	// Cantidad de fantasmas
 	int currentGhosts_;
@@ -32,4 +35,5 @@ private:
 	// Cuenta atras generacion de fantasmas
 	float maxSpawnTime_;
 	float currentTime_;
+
 };

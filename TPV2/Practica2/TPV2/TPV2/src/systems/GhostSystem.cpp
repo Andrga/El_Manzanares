@@ -21,6 +21,7 @@ void GhostSystem::update()
 {
 	generateGhost();
 	moveGhosts();
+
 }
 
 void GhostSystem::generateGhost()
@@ -34,8 +35,15 @@ void GhostSystem::generateGhost()
 		auto e = mngr_->addEntity(ecs::grp::GHOSTS);
 		auto tr = mngr_->addComponent<Transform>(e);
 		mngr_->addComponent<GhostMotion>(e);
-		auto id = sdlutils().rand().nextInt(4, 7);
-		mngr_->addComponent<ImageWithFrames>(e, &sdlutils().images().at("pacman_spritesheet"), 8, 8, 32, 33);
+		auto eImg = mngr_->addComponent<ImageWithFrames>(e, &sdlutils().images().at("pacman_spritesheet"), 8, 8, 57, 63);
+
+		// Si pacman es inmortal:
+		auto pc = mngr_->getHandler(ecs::hdlr::PACMAN);
+		auto pcInm = mngr_->getComponent<InmuneComponent>(pc);
+
+		if (pc != nullptr && pcInm->getImmunity()) {
+			eImg->changeFirstLastFrame(30, 31);
+		}
 
 		// Tamanio al transform
 		tr->width_ = 30;
@@ -110,6 +118,37 @@ void GhostSystem::collGhost(ecs::entity_t ghost)
 
 }
 
+void GhostSystem::changeBlueSprite()
+{
+	auto ghosts = mngr_->getEntities(ecs::grp::GHOSTS);
+	auto pc = mngr_->getHandler(ecs::hdlr::PACMAN);
+	auto pcInm = mngr_->getComponent<InmuneComponent>(pc);
+
+	for (auto e : ghosts)
+	{
+		auto eImg = mngr_->getComponent<ImageWithFrames>(e);
+
+		eImg->changeFirstLastFrame(30, 31);
+
+	}
+}
+
+void GhostSystem::changeNormalSprite()
+{
+
+	auto ghosts = mngr_->getEntities(ecs::grp::GHOSTS);
+	auto pc = mngr_->getHandler(ecs::hdlr::PACMAN);
+	auto pcInm = mngr_->getComponent<InmuneComponent>(pc);
+
+	for (auto e : ghosts)
+	{
+		auto eImg = mngr_->getComponent<ImageWithFrames>(e);
+
+		eImg->changeFirstLastFrame(57, 63);
+
+	}
+}
+
 void GhostSystem::resetGhosts()
 {
 	auto ghosts = mngr_->getEntities(ecs::grp::GHOSTS);
@@ -130,6 +169,12 @@ void GhostSystem::recieve(const Message& m)
 		break;
 	case _m_ROUND_START:
 		resetGhosts();
+		break;
+	case _m_IMMUNITY_START:
+		changeBlueSprite();
+		break;
+	case _m_IMMUNITY_END:
+		changeNormalSprite();
 		break;
 	default:
 		break;

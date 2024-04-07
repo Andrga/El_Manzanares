@@ -42,10 +42,14 @@ void FoodSystem::update()
 void FoodSystem::eatFruit(ecs::entity_t fruit) {
 	auto pc = mngr_->getHandler(ecs::hdlr::PACMAN);
 	auto pcInm = mngr_->getComponent<InmuneComponent>(pc);
+	auto fMir = mngr_->getComponent<MiraculousComponent>(fruit);
 
-	if (pcInm != nullptr)
+	if (fMir != nullptr && fMir->getIsMiracle())
 	{
 		pcInm->setInmune(true);
+		Message m;
+		m.id = _m_IMMUNITY_START;
+		mngr_->send(m);
 	}
 
 	mngr_->setAlive(fruit, false);
