@@ -15,6 +15,10 @@ struct InmuneComponent : public ecs::Component
 		inmune_ = inmune;
 	};
 
+	bool getImmunity() {
+		return inmune_;
+	}
+
 	bool inmune_;
 };
 

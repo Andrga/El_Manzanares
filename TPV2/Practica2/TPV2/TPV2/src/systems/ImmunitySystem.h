@@ -21,8 +21,9 @@ public:
 	void recieve(const Message& m) override;
 private:
 
-	bool isInmune = false;
-	uint32_t time;
+	bool isImmune = false; // Controlar cuando es inmune o no el PacMan.
+	uint32_t time; // Tiempo en el que empieza la inmunidad
 
+	ecs::entity_t pacMan; // Referencia al PacMan.
 };
 
