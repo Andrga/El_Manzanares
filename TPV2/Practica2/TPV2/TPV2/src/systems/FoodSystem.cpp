@@ -27,13 +27,13 @@ void FoodSystem::update()
 			if (!eMir->getIsMiracle() && (sdlutils().virtualTimer().currTime() - eMir->timeToConvert) >= eMir->nTime)
 			{
 				eMir->setMiraculous(); // Convierte en miraculosa
-				mngr_->getComponent<ImageWithFrames>(e)->changeFirstLastFrame(13, 14); // Cambia la imagen
+				mngr_->getComponent<ImageWithFrames>(e)->changeFirstLastFrame(13, 13); // Cambia la imagen
 			}
 			// convertir en normal
 			else if (eMir->getIsMiracle() && (sdlutils().virtualTimer().currTime() - eMir->timeToDesConvert) >= eMir->mTime)
 			{
 				eMir->resetMiraculous(); // Convierte en normal
-				mngr_->getComponent<ImageWithFrames>(e)->changeFirstLastFrame(1, 2); // Cambia la imagen
+				mngr_->getComponent<ImageWithFrames>(e)->changeFirstLastFrame(12, 12); // Cambia la imagen
 			}
 		}
 	}
@@ -73,7 +73,7 @@ void FoodSystem::setFruits() {
 			uint16_t p = sdlutils().rand().nextInt(0, 10);
 			if (p == 0)
 			{
-				uint16_t n = sdlutils().rand().nextInt(10, 11);
+				uint16_t n = sdlutils().rand().nextInt(10, 21);
 				std::cout << "Fruta milagrosa" << std::endl;
 				mngr_->addComponent<MiraculousComponent>(e, n);
 			}

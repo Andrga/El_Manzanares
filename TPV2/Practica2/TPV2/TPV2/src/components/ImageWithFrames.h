@@ -21,6 +21,7 @@ struct ImageWithFrames : ecs::Component
 	void changeFirstLastFrame(int first, int last) {
 		firstFrame = first;
 		lastFrame = last;
+		currentFrame = firstFrame;
 	}
 
 
