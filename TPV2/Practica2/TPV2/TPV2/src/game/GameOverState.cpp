@@ -17,8 +17,11 @@ void GameOverState::enter()
 	std::cout << "Enter GameOverState." << std::endl;
 }
 
-void GameOverState::update() {
-
+void GameOverState::update() 
+{
+	if (ih().keyDownEvent()) {
+		Game::instance()->setState(Game::NEWGAME);
+	}
 }
 
 void GameOverState::leave() 
