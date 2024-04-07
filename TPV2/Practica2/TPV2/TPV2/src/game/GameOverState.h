@@ -3,6 +3,9 @@
 
 #include "GameState.h"
 
+#include "../sdlutils/SDLUtils.h"
+#include "../ecs/Manager.h"
+
 class Texture;
 class InputHandler;
 
@@ -16,4 +19,6 @@ public:
 private:
 	Texture* messageTexture;
 	SDL_Rect messageRect;
+
+	ecs::entity_t pacMan; // Referencia al PacMan.
 };
