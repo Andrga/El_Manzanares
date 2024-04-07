@@ -39,7 +39,7 @@ void FoodSystem::eatFruit(ecs::entity_t fruit) {
 		sdlutils().soundEffects().at("pacman_eat").play(0, 1);
 	}
 }
-
+void FoodSystem::setFruits
 void FoodSystem::resetFruits() {
 
 	auto fruits = mngr_->getEntities(ecs::grp::FRUITS);
