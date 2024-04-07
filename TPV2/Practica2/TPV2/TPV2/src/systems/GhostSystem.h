@@ -34,6 +34,6 @@ private:
 
 	// Cuenta atras generacion de fantasmas
 	float maxSpawnTime_;
-	float currentTime_;
+	float currentSpawnTime_;
 
 };

@@ -27,9 +27,9 @@ void GhostSystem::update()
 void GhostSystem::generateGhost()
 {
 	// Si no se ha llegado al limite de fantasmas se generan
-	if (maxSpawnTime_ + currentTime_ < sdlutils().virtualTimer().currTime() && currentGhosts_ < ghostLimit_) {
+	if (maxSpawnTime_ + currentSpawnTime_ < sdlutils().virtualTimer().currTime() && currentGhosts_ < ghostLimit_) {
 
-		currentTime_ = sdlutils().virtualTimer().currTime();
+		currentSpawnTime_ = sdlutils().virtualTimer().currTime();
 
 		// Crea entidad fantasma con sus componentes
 		auto e = mngr_->addEntity(ecs::grp::GHOSTS);
@@ -40,9 +40,11 @@ void GhostSystem::generateGhost()
 		// Si pacman es inmortal:
 		auto pc = mngr_->getHandler(ecs::hdlr::PACMAN);
 		auto pcInm = mngr_->getComponent<InmuneComponent>(pc);
+		auto posPM = mngr_->getComponent<Transform>(pc);
 
 		if (pc != nullptr && pcInm->getImmunity()) {
 			eImg->changeFirstLastFrame(30, 31);
+			mngr_->getComponent<Transform>(e)->vel_ = (posPM->pos_ - tr->pos_).normalize() * 1.1f;
 		}
 
 		// Tamanio al transform
@@ -87,18 +89,19 @@ void GhostSystem::moveGhosts()
 
 	// Actualizacion de la posicion de los fantasmas
 	for (auto& g : ghosts) {
+		auto gt = mngr_->getComponent<Transform>(g);
+		auto p = sdlutils().rand().nextInt(0, 100);
+
 		if (mngr_->getComponent<GhostMotion>(g)->shouldUpdate(currTime))
 		{
-			auto gt = mngr_->getComponent<Transform>(g);
-			// Settea velocidad del fantasma
-			mngr_->getComponent<Transform>(g)->vel_ = (posPM->pos_ - gt->pos_).normalize() * 1.1f;
+			if (p < 5) {
+				// Settea velocidad del fantasma
+				mngr_->getComponent<Transform>(g)->vel_ = (posPM->pos_ - gt->pos_).normalize() * 1.1f;
+			}
 
-			// Actualiza la posicion del fantasma
-			gt->pos_ = gt->pos_ + gt->vel_;
-
-			// Debug
-			//std::cout << gt->pos_ << std::endl;
 		}
+		// Actualiza la posicion del fantasma
+		gt->pos_ = gt->pos_ + gt->vel_;
 	}
 }
 
