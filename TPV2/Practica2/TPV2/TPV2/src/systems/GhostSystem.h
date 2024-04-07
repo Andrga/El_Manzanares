@@ -15,11 +15,15 @@ public:
 
 	void resetGhosts();
 
+	// Para recibir mensajes.
+	void recieve(const Message& m) override;
+
 private:
 	// Genera fantasmas
 	void generateGhost();
 	// Mueve fantasma
 	void moveGhosts();
+	void collGhost(ecs::entity_t ghost);
 
 	// Cantidad de fantasmas
 	int currentGhosts_;

@@ -15,9 +15,10 @@ public:
 	// Para recibir mensajes.
 	void recieve(const Message& m) override;
 
+	// Come fruta
 	void eatFruit(ecs::entity_t fruit);
 private:
-
+	void resetFruits();
 	void setFruits();
 	
 	int cols_, fils_;

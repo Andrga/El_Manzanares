@@ -2,6 +2,7 @@
 #include "../components/Transform.h"
 #include "../components/Image.h"
 #include "../components/GhostMotion.h"
+#include "../components/InmuneComponent.h"
 #include "../ecs/Manager.h"
 #include "../sdlutils/SDLUtils.h"
 
@@ -91,6 +92,22 @@ void GhostSystem::moveGhosts()
 	}
 }
 
+void GhostSystem::collGhost(ecs::entity_t ghost)
+{
+	auto p = mngr_->getHandler(ecs::hdlr::PACMAN);
+	if (mngr_->getComponent<InmuneComponent>(p)->getImmunity()) {
+
+		Message m;
+		m.id = _m_ROUND_OVER;
+		sdlutils().soundEffects().at("pacman_eat").play(0, 1);
+	}
+	else
+	{
+		mngr_->setAlive(ghost, false);
+	}
+
+}
+
 void GhostSystem::resetGhosts()
 {
 	auto ghosts = mngr_->getEntities(ecs::grp::GHOSTS);
@@ -99,4 +116,19 @@ void GhostSystem::resetGhosts()
 		mngr_->setAlive(e, false);
 	}
 	currentGhosts_ = 0;
+}
+
+void GhostSystem::recieve(const Message& m)
+{
+	switch (m.id)
+	{
+	case _m_PACMAN_GHOST_COLLISION:
+		collGhost(m.ent_collided.e);
+		break;
+	case _m_ROUND_START:
+		resetGhosts();
+		break;
+	default:
+		break;
+	}
 }

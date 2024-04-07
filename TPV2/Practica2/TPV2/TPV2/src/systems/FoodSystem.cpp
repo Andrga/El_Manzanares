@@ -40,13 +40,26 @@ void FoodSystem::eatFruit(ecs::entity_t fruit) {
 	}
 }
 
+void FoodSystem::resetFruits() {
+
+	auto fruits = mngr_->getEntities(ecs::grp::FRUITS);
+	for (auto e : fruits)
+	{
+		mngr_->setAlive(e, false);
+	}
+
+	setFruits();
+}
+
 void FoodSystem::recieve(const Message& m) {
 	switch (m.id)
 	{
 	case _m_PACMAN_FOOD_COLLISION:
 		eatFruit(m.ent_collided.e);
 		break;
+	case _m_ROUND_START:
 
+		break;
 	default:
 		break;
 	}
