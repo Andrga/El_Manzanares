@@ -30,7 +30,6 @@ Game::Game() :
 	mngr_(), //
 	pacmanSys_(), //
 	gameCtrlSys_(), //
-	startsSys_(), //
 	renderSys_(), //
 	collisionSys_(),
 	newgame_state_(nullptr),
@@ -92,18 +91,12 @@ void Game::start() {
 			continue;
 		}
 
+		sdlutils().clearRenderer();
+
 		current_state_->update();
-
-
-		/*pacmanSys_->update();
-		startsSys_->update();
-		gameCtrlSys_->update();
-		collisionSys_->update();
-		ghostSys_->update();*/
 
 		mngr_->refresh();
 
-		sdlutils().clearRenderer();
 		renderSys_->update(); // Esto tiene que estar aqui?
 		sdlutils().presentRenderer();
 

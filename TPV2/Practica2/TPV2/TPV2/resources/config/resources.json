@@ -19,7 +19,7 @@
     { "id" : "PressAnyKey", "text" : "Press Any Key", "font" : "ARIAL24", "color" : "0x112233ff", "bg" : "0xffffffff" },
     { "id" : "HelloSDL", "text" : "Hello SDL!", "font" : "ARIAL48", "color" : "0x0000ffff" },
     { "id" : "addstars", "text" : "Press SPACE to add stars to eat!", "font" : "ARIAL16", "color" : "0x00ff00ff" },
-    { "id" : "newgame", "text" : "Press any key to star a game", "font" : "ARIAL16", "color" : "0x00ff00ff" },
+    { "id" : "newgame", "text" : "Press any key to start a game", "font" : "ARIAL16", "color" : "0x00ff00ff" },
     { "id" : "newround", "text" : "Press enter to star a round", "font" : "ARIAL16", "color" : "0x00ff00ff" },
     { "id" : "pause", "text" : "PAUSE", "font" : "ARIAL16", "color" : "0x00ff00ff" },
     { "id" : "gameoverLost", "text" : "You lost. Press any key to star a round", "font" : "ARIAL16", "color" : "0x00ff00ff" },

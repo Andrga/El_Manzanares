@@ -5,7 +5,6 @@
 
 #include "GameState.h"
 
-class InputHandler;
 class Game;
 class Texture;
 //class FighterFacade;
@@ -19,9 +18,8 @@ public:
 	void update() override;
 	void leave() override;
 private:
-	InputHandler& ihdlr; // Referencia al InputHandler.
-	Texture* messageTexture;
-	SDL_Rect messageRect;
+	Texture* messageTexture_;
+	SDL_Rect messageRect_;
 
 	//FighterFacade* fighter_mngr_;
 	//BlackHoleFacade* BlackHole_mngr_;

@@ -23,10 +23,10 @@ void RenderSystem::initSystem() {
 }
 
 void RenderSystem::update() {
+	drawFruits();
 	drawGhosts();
 	drawPacMan();
 	drawLifes();
-	drawFruits();
 }
 
 void RenderSystem::drawGhosts() {

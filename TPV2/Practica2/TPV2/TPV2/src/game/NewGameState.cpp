@@ -5,14 +5,14 @@
 #include "../ecs/Manager.h"
 #include "Game.h"
 
-NewGameState::NewGameState() : ihdlr(ih())
+NewGameState::NewGameState()
 {
-	messageTexture = &sdlutils().msgs().at("newgame");
+	messageTexture_ = &sdlutils().msgs().at("newgame");
 
-	messageRect = build_sdlrect((sdlutils().width() - messageTexture->width()) / 2,
-		(sdlutils().height() - messageTexture->height()) / 2,
-		messageTexture->width(),
-		messageTexture->height());
+	messageRect_ = build_sdlrect((sdlutils().width() - messageTexture_->width()) / 2,
+		(sdlutils().height() - messageTexture_->height()) / 2,
+		messageTexture_->width(),
+		messageTexture_->height());
 }
 
 NewGameState::~NewGameState() {
@@ -26,6 +26,7 @@ void NewGameState::enter()
 
 void NewGameState::update()
 {
+
 	if (ih().keyDownEvent()) // Pulsando cualquier tecla pasa al siguiente estado.
 	{
 		Game::instance()->setState(Game::NEWROUND);
@@ -35,7 +36,8 @@ void NewGameState::update()
 		message.id = _m_NEW_GAME;
 		Game::instance()->getMngr()->send(message, true);
 	}
-	messageTexture->render(messageRect);
+
+	messageTexture_->render(messageRect_);
 }
 
 void NewGameState::leave()
