@@ -16,6 +16,9 @@ public:
 	virtual ~RenderSystem();
 	void initSystem() override;
 	void update() override;
+
+	// Para recibir mensajes.
+	void recieve(const Message& m) override;
 private:
 	void drawGhosts();
 	void drawPacMan();
@@ -23,5 +26,7 @@ private:
 	void drawFruits();
 	void drawMsgs();
 	void draw(Transform *tr, Texture *tex);
+
+	bool renderThings;
 };
 

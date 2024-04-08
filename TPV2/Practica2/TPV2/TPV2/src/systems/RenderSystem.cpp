@@ -12,7 +12,7 @@
 #include "../sdlutils/Texture.h"
 #include "GameCtrlSystem.h"
 
-RenderSystem::RenderSystem() {
+RenderSystem::RenderSystem() : renderThings(false) {
 
 }
 
@@ -23,11 +23,15 @@ void RenderSystem::initSystem() {
 }
 
 void RenderSystem::update() {
-	drawFruits();
-	drawGhosts();
-	drawPacMan();
-	drawLifes();
+	if (renderThings) {
+		drawFruits();
+		drawGhosts();
+		drawPacMan();
+		drawLifes();
+	}
 }
+
+
 
 void RenderSystem::drawGhosts() {
 	for (auto e : mngr_->getEntities(ecs::grp::GHOSTS)) {
@@ -80,4 +84,22 @@ void RenderSystem::draw(Transform* tr, Texture* tex) {
 
 	assert(tex != nullptr);
 	tex->render(dest, tr->rot_);
+}
+
+void RenderSystem::recieve(const Message& m)
+{
+	switch (m.id)
+	{
+	case _m_ROUND_START:
+		renderThings = true;
+		break;
+	case _m_GAME_OVER:
+		renderThings = false;
+		break;
+	case _m_ROUND_OVER:
+		renderThings = false;
+		break;
+	default:
+		break;
+	}
 }
