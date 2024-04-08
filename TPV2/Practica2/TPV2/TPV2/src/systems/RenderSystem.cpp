@@ -96,6 +96,9 @@ void RenderSystem::recieve(const Message& m)
 	case _m_GAME_OVER:
 		renderThings = false;
 		break;
+	case _m_WIN_GAME:
+		renderThings = false;
+		break;
 	case _m_ROUND_OVER:
 		renderThings = false;
 		break;
