@@ -23,6 +23,8 @@ RunningState::~RunningState() {
 
 void RunningState::enter()
 {
+	std::cout << "Enter RunningState." << std::endl;
+
 	sdlutils().soundEffects().at("pacman_chomp").play(-1); // Sonido del movimiento del Pacman. Suena un poco rarete.
 
 	// Traemos los sistemas.
