@@ -14,7 +14,7 @@ void LifeComponent::hit()
 	auto pc = mngr_->getHandler(ecs::hdlr::PACMAN);
 	auto pcInm = mngr_->getComponent<InmuneComponent>(pc);
 	if (!pcInm->getImmunity()) {
-		if (lifes_ <= 0)
+		if (lifes_ <= 1)
 		{
 			// Mensaje se acaba el juego
 			Message m;
@@ -31,6 +31,8 @@ void LifeComponent::hit()
 			mngr_->send(m);
 		}
 		sdlutils().soundEffects().at("pacman_death").play(0, 1);
+		// Vidas actuales
+		std::cout << lifes_ << std::endl;
 	}
 }
 

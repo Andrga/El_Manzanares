@@ -9,7 +9,6 @@ enum msgId : msgId_type {
 	_m_NEW_GAME, //
 	_m_ROUND_START,
 	_m_ROUND_OVER,
-	_m_ROUND_WIN,
 	_m_GAME,
 	_m_GAME_OVER, // fin del juego
 	_m_PACMAN_FOOD_COLLISION,
@@ -27,8 +26,7 @@ struct Message {
 	// types, otherwise you will need to define constructors almost
 	// every where.
 
-	union {
-		
+	union {		
 		
 		struct {
 			ecs::entity_t e;
