@@ -22,6 +22,7 @@ NewGameState::~NewGameState() {
 void NewGameState::enter()
 {
 	std::cout << "Enter NewGameState." << std::endl;
+	sdlutils().soundEffects().at("pacman_intro").play(0, 1); // Sonido de intro del juego.
 }
 
 void NewGameState::update()
@@ -42,5 +43,5 @@ void NewGameState::update()
 
 void NewGameState::leave()
 {
-	std::cout << "Leave NewGameState." << std::endl;
+	std::cout << "Leave NewGameState.\n" << std::endl;
 }

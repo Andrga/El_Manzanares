@@ -25,5 +25,6 @@ public:
 private:
 	float speed_;
 	Transform *pmTR_;
+	bool soundPlaying = false;
 };
 

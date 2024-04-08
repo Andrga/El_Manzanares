@@ -39,5 +39,5 @@ void NewRoundState::update()
 
 void NewRoundState::leave() 
 {
-	std::cout << "Leave NewRoundState." << std::endl;
+	std::cout << "Leave NewRoundState.\n" << std::endl;
 }

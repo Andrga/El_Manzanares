@@ -14,13 +14,12 @@ void LifeComponent::hit()
 	auto pc = mngr_->getHandler(ecs::hdlr::PACMAN);
 	auto pcInm = mngr_->getComponent<InmuneComponent>(pc);
 	if (!pcInm->getImmunity()) {
-		if (lifes_ <= 0)
+		if (lifes_ < 0)
 		{
 			// Mensaje se acaba el juego
 			Message m;
 			m.id = _m_GAME_OVER;
 			mngr_->send(m);
-			//sdlutils().soundEffects().at("pacman_eat").play(0, 1);
 		}
 		else
 		{
@@ -30,8 +29,8 @@ void LifeComponent::hit()
 			Message m;
 			m.id = _m_ROUND_OVER;
 			mngr_->send(m);
-			//sdlutils().soundEffects().at("pacman_eat").play(0, 1);
 		}
+		sdlutils().soundEffects().at("pacman_death").play(0, 1);
 	}
 }
 

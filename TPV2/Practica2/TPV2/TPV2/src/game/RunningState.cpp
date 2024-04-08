@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "../sdlutils/InputHandler.h"
 #include "../ecs/Manager.h"
+#include "../sdlutils/SDLUtils.h"
 
 // Includes de los sistemas
 #include "../systems/CollisionsSystem.h"
@@ -22,7 +23,7 @@ RunningState::~RunningState() {
 
 void RunningState::enter()
 {
-	std::cout << "Enter RunningState." << std::endl;
+	sdlutils().soundEffects().at("pacman_chomp").play(-1); // Sonido del movimiento del Pacman. Suena un poco rarete.
 
 	// Traemos los sistemas.
 	collisionsSystem = Game::instance()->getMngr()->getSystem<CollisionsSystem>();
@@ -61,6 +62,7 @@ void RunningState::update() {
 
 void RunningState::leave()
 {
-	std::cout << "Leave RunningState." << std::endl;
+	sdlutils().soundEffects().at("pacman_chomp").pauseChannel(); // Para parar la musica del Pacman.
+	std::cout << "Leave RunningState.\n" << std::endl;
 
 }

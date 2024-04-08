@@ -35,14 +35,14 @@ void MiraculousComponent::update() {
 
 void MiraculousComponent::resetMiraculous()
 {
-	std::cout << "Se deja de ser milagrosa." << std::endl;
+	//std::cout << "Se deja de ser milagrosa." << std::endl;
 	timeToConvert = sdlutils().virtualTimer().currTime();
 	isMiracle = false;
 }
 
 void MiraculousComponent::setMiraculous()
 {
-	std::cout << "Se convierte en milagrosa." << std::endl;
+	//std::cout << "Se convierte en milagrosa." << std::endl;
 	isMiracle = true;
 	mTime = sdlutils().rand().nextInt(1, 5) * 1000; // Generamos un tiempo aleatorio para que deje de ser milagrosa.
 	timeToDesConvert = sdlutils().virtualTimer().currTime();

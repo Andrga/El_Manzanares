@@ -31,7 +31,6 @@ void PacManSystem::initSystem() {
 	mngr_->addComponent<ImageWithFrames>(pacman, &sdlutils().images().at("pacman_spritesheet"), 8, 8, 9, 11);
 	mngr_->addComponent<LifeComponent>(pacman);
 	mngr_->addComponent<InmuneComponent>(pacman);
-
 }
 
 void PacManSystem::update() {
@@ -101,12 +100,14 @@ void PacManSystem::update() {
 		pmTR_->vel_.set(0.0f, 0.0f);
 	}
 
+	
 }
 
 void PacManSystem::resetPos()
 {
 	auto e = mngr_->getHandler(ecs::hdlr::PACMAN);
 	auto eTrans = mngr_->getComponent<Transform>(e);
+	pmTR_->vel_ = Vector2D(0, 0);
 	auto s = 50.0f;
 	auto x = (sdlutils().width() - s) / 2.0f;
 	auto y = (sdlutils().height() - s) / 2.0f;

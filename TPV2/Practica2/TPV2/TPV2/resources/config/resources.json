@@ -27,9 +27,11 @@
   ],
   
   "sounds" : [
-    { "id" : "gunshot", "file" : "resources/sound/gunshot.wav" },
-    { "id" : "explosion", "file" : "resources/sound/explosion.wav" },
-    { "id" : "pacman_eat", "file" : "resources/sound/pacman_eat.wav" }
+    { "id" : "pacman_eat", "file" : "resources/sound/pacman_eat.wav" },
+    { "id" : "pacman_chomp", "file" : "resources/sound/pacman_chomp.wav " },
+    { "id" : "pacman_death", "file" : "resources/sound/pacman_death.wav" },
+    { "id" : "pacman_intro", "file" : "resources/sound/pacman_intro.wav" },
+    { "id" : "pacman_won", "file" : "resources/sound/pacman_won.wav" }
   ],
 
   "musics" : [

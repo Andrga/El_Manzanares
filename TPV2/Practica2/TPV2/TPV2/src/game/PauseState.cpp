@@ -40,7 +40,7 @@ void PauseState::update()
 
 void PauseState::leave() 
 {
-	std::cout << "Leave PauseState." << std::endl;
+	std::cout << "Leave PauseState.\n" << std::endl;
 
 	sdlutils().virtualTimer().resume(); // Volver a poner el tiempo.
 }

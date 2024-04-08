@@ -53,7 +53,7 @@ void FoodSystem::eatFruit(ecs::entity_t fruit) {
 	}
 
 	mngr_->setAlive(fruit, false);
-	sdlutils().soundEffects().at("pacman_eat").play(0, 1);
+	sdlutils().soundEffects().at("pacman_eat").play(0, 1); // Sonido del Pacman comiendo.
 
 	auto fruits = mngr_->getEntities(ecs::grp::FRUITS);
 
@@ -78,7 +78,7 @@ void FoodSystem::setFruits() {
 			if (p == 0)
 			{
 				uint16_t n = sdlutils().rand().nextInt(10, 21);
-				std::cout << "Fruta milagrosa" << std::endl;
+				//std::cout << "Fruta milagrosa" << std::endl;
 				mngr_->addComponent<MiraculousComponent>(e, n);
 			}
 
