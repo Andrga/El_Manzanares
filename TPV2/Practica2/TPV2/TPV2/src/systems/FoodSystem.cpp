@@ -57,9 +57,9 @@ void FoodSystem::eatFruit(ecs::entity_t fruit) {
 
 	auto fruits = mngr_->getEntities(ecs::grp::FRUITS);
 
-	if (fruits.size() <= 0) {
+	if (fruits.size() <= 1) {
 		Message m;
-		m.id = _m_ROUND_WIN;
+		m.id = _m_WIN_GAME;
 		mngr_->send(m);
 	}
 }
