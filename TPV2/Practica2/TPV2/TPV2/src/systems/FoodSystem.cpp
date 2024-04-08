@@ -93,13 +93,18 @@ void FoodSystem::setFruits() {
 }
 void FoodSystem::resetFruits() {
 	// Elimina entidades
+	deleteFruits();
+	// Settea frutas
+	setFruits();
+}
+
+void FoodSystem::deleteFruits()
+{
 	auto fruits = mngr_->getEntities(ecs::grp::FRUITS);
 	for (auto e : fruits)
 	{
 		mngr_->setAlive(e, false);
 	}
-
-	setFruits();
 }
 
 void FoodSystem::recieve(const Message& m) {

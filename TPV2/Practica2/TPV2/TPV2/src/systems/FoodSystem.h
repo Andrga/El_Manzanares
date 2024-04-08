@@ -20,6 +20,7 @@ public:
 	void eatFruit(ecs::entity_t fruit);
 private:
 	void resetFruits();
+	void deleteFruits();
 	void setFruits();
 	
 	int cols_, fils_;
