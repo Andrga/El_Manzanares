@@ -32,7 +32,7 @@ void LifeComponent::hit()
 		}
 		sdlutils().soundEffects().at("pacman_death").play(0, 1);
 		// Vidas actuales
-		std::cout << lifes_ << std::endl;
+		//std::cout << lifes_ << std::endl;
 	}
 }
 

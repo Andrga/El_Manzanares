@@ -21,7 +21,7 @@ void GameOverState::enter()
 	auto pacManEnt = Game::instance()->getMngr()->getEntities(ecs::hdlr::PACMAN);
 	pacMan = *pacManEnt.begin();
 
-	if (Game::instance()->getMngr()->getComponent<LifeComponent>(pacMan)->getActualLifes() <= 0)
+	if (Game::instance()->getMngr()->getComponent<LifeComponent>(pacMan)->getActualLifes() <= 1)
 	{
 		messageTexture = &sdlutils().msgs().at("gameoverLost");
 		std::cout << "Has perdido." << std::endl;

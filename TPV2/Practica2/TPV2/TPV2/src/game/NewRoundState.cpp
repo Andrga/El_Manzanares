@@ -27,7 +27,7 @@ void NewRoundState::enter()
 void NewRoundState::update()
 {
 	if (ih().keyDownEvent() && ih().isKeyDown(SDL_SCANCODE_RETURN)) {
-		Game::instance()->setState(Game::RUNNING);
+		
 		
 		// Envio del mensaje.
 		Message message;

@@ -15,7 +15,10 @@ enum msgId : msgId_type {
 	_m_PACMAN_GHOST_COLLISION,
 	_m_IMMUNITY_START,
 	_m_IMMUNITY_END,
-	_m_WIN_GAME
+	_m_WIN_GAME,
+	_m_PAUSE_GAME,
+	_m_UNPAUSE_GAME
+
 };
 
 
@@ -31,6 +34,5 @@ struct Message {
 		struct {
 			ecs::entity_t e;
 		} ent_collided;
-		
 	};
 };

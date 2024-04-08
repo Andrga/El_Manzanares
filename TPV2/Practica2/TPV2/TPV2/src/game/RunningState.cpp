@@ -1,8 +1,9 @@
 #include "RunningState.h"
-#include "Game.h"
+
 #include "../sdlutils/InputHandler.h"
-#include "../ecs/Manager.h"
 #include "../sdlutils/SDLUtils.h"
+#include "../ecs/Manager.h"
+#include "Game.h"
 
 // Includes de los sistemas
 #include "../systems/CollisionsSystem.h"
@@ -41,10 +42,15 @@ void RunningState::update() {
 	// Pausa.
 	if (ih().keyDownEvent() && ih().isKeyDown(SDL_SCANCODE_P))
 	{
-		Game::instance()->setState(Game::PAUSED);
+		// Mensaje para pausar el juego.
+		Message message;
+		message.id = _m_PAUSE_GAME;
+		Game::instance()->getMngr()->send(message, true);
 	}
+	// Para testear la inmunidad.
 	if (ih().keyDownEvent() && ih().isKeyDown(SDL_SCANCODE_I))
 	{
+		// Mensaje para cuando empiece la inmunidad.
 		Message message;
 		message.id = _m_IMMUNITY_START;
 		Game::instance()->getMngr()->send(message, true);
@@ -66,5 +72,4 @@ void RunningState::leave()
 {
 	sdlutils().soundEffects().at("pacman_chomp").pauseChannel(); // Para parar la musica del Pacman.
 	std::cout << "Leave RunningState.\n" << std::endl;
-
 }

@@ -2,6 +2,7 @@
 
 #include "../sdlutils/InputHandler.h"
 #include "../sdlutils/SDLUtils.h"
+#include "../ecs/Manager.h"
 #include "Game.h"
 
 #include "../systems/CollisionsSystem.h"
@@ -33,7 +34,10 @@ void PauseState::enter()
 void PauseState::update() 
 {
 	if (ih().keyDownEvent()) {
-		Game::instance()->setState(Game::RUNNING);
+		// Mensaje para despausar el juego.
+		Message message;
+		message.id = _m_UNPAUSE_GAME;
+		Game::instance()->getMngr()->send(message, true);
 	}
 	messageTexture->render(messageRect);
 }

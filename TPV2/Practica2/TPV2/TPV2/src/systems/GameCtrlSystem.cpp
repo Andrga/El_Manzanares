@@ -46,6 +46,15 @@ void GameCtrlSystem::recieve(const Message& m) {
 	case _m_WIN_GAME:
 		Game::instance()->setState(Game::GAMEOVER);
 		break;
+	case _m_ROUND_START:
+		Game::instance()->setState(Game::RUNNING);
+		break;
+	case _m_PAUSE_GAME:
+		Game::instance()->setState(Game::PAUSED);
+		break;
+	case _m_UNPAUSE_GAME:
+		Game::instance()->setState(Game::RUNNING);
+		break;
 	default:
 		break;
 	}
