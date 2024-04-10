@@ -183,7 +183,7 @@ class Photo : public Abs_Entity
 private:
 	Texture* texture;
 
-public: 
+public:
 	explicit Photo(GLdouble lenght);
 	~Photo();
 	void render(glm::dmat4 const& modelViewMat) const;
@@ -196,12 +196,25 @@ public:
 
 #pragma region P4
 //------Ejercicio57:
-class QuadricEntity :Abs_Entity {
+class QuadricEntity : public Abs_Entity {
 public:
 	explicit QuadricEntity();
 	~QuadricEntity();
 	void render(glm::dmat4 const& modelViewMat) const;
 };
+class Sphere : public QuadricEntity {
+
+};
+class Cylinder : public QuadricEntity {
+
+};
+class Disk : public QuadricEntity {
+
+};
+class PartialDisk : public QuadricEntity {
+
+};
+
 #pragma endregion
 
 #endif //_H_Entities_H_
