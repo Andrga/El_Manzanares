@@ -74,6 +74,8 @@ Scene::resetGL()
 void
 Scene::render(Camera const& cam) const
 {
+	sceneDirLight(cam); // Ejercicio56.
+
 	cam.upload();
 
 	for (Abs_Entity* el : gObjects) {

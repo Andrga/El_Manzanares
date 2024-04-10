@@ -194,4 +194,14 @@ public:
 };
 #pragma endregion
 
+#pragma region P4
+//------Ejercicio57:
+class QuadricEntity :Abs_Entity {
+public:
+	explicit QuadricEntity();
+	~QuadricEntity();
+	void render(glm::dmat4 const& modelViewMat) const;
+};
+#pragma endregion
+
 #endif //_H_Entities_H_
