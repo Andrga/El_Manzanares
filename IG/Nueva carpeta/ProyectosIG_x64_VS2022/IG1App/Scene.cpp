@@ -93,3 +93,19 @@ void Scene::update() {
 		el->update();
 	}
 }
+
+//------Ejercicio56:
+void Scene::sceneDirLight(Camera const& cam) const {
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glm::fvec4 posDir = { 1, 1, 1, 0 };
+	glMatrixMode(GL_MODELVIEW);
+	glLoadMatrixd(value_ptr(cam.viewMat()));
+	glLightfv(GL_LIGHT0, GL_POSITION, value_ptr(posDir));
+	glm::fvec4 ambient = { 0, 0, 0, 1 };
+	glm::fvec4 diffuse = { 1, 1, 1, 1 };
+	glm::fvec4 specular = { 0.5, 0.5, 0.5, 1 };
+	glLightfv(GL_LIGHT0, GL_AMBIENT, value_ptr(ambient));
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, value_ptr(diffuse));
+	glLightfv(GL_LIGHT0, GL_SPECULAR, value_ptr(specular));
+}
