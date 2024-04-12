@@ -480,3 +480,7 @@ void Sphere::render(glm::dmat4 const& modelViewMat) const
 
 
 #pragma endregion
+
+Cylinder::Cylinder(GLdouble bbrr, GLdouble ttrr, GLdouble hh) : br(bbrr), tr(ttrr), h(hh)
+
+{}
