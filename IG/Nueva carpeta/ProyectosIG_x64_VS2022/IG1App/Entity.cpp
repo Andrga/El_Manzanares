@@ -462,5 +462,21 @@ void Photo::update()
 #pragma endregion
 
 #pragma region P4
+// Ejercicio57.
+QuadricEntity::QuadricEntity()
+{
+	q = gluNewQuadric();
+}
+
+Sphere::Sphere(GLdouble rr) : r(rr)
+{}
+
+void Sphere::render(glm::dmat4 const& modelViewMat) const
+{
+	dmat4 aMat = modelViewMat * mModelMat;
+	upload(aMat);
+	gluSphere(q, r, 50, 50);
+}
+
 
 #pragma endregion

@@ -199,20 +199,45 @@ public:
 class QuadricEntity : public Abs_Entity {
 public:
 	explicit QuadricEntity();
-	~QuadricEntity();
+	~QuadricEntity() { gluDeleteQuadric(q); };
 	void render(glm::dmat4 const& modelViewMat) const;
+protected:
+	GLUquadricObj* q;
 };
 class Sphere : public QuadricEntity {
-
+public:
+	explicit Sphere(GLdouble rr);
+	~Sphere();
+	void render(glm::dmat4 const& modelViewMat) const;
+protected:
+	GLdouble r;
 };
 class Cylinder : public QuadricEntity {
+public:
+	explicit Cylinder(GLdouble bbrr, GLdouble ttrr,GLdouble hh);
+	~Cylinder();
+	void render(glm::dmat4 const& modelViewMat) const;
+protected:
+	GLdouble br;
+	GLdouble tr;
+	GLdouble h;
 
 };
 class Disk : public QuadricEntity {
-
+public:
+	explicit Disk(GLdouble rr);
+	~Disk();
+	void render(glm::dmat4 const& modelViewMat) const;
+protected:
+	GLdouble r;
 };
 class PartialDisk : public QuadricEntity {
-
+public:
+	explicit PartialDisk(GLdouble rr);
+	~PartialDisk();
+	void render(glm::dmat4 const& modelViewMat) const;
+protected:
+	GLdouble r;
 };
 
 #pragma endregion
