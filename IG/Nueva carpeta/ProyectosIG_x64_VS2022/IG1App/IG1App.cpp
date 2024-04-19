@@ -79,6 +79,7 @@ IG1App::init()
 	scenes[0] = new Scene;
 	scenes[1] = new Scene;
 	scenes[2] = new Scene;
+	scenes[3] = new Scene;
 
 	scenes[1]->addEntity(new RGBCube(100.0));
 	scenes[0]->addEntity(new RGBRectangle(300.0, 200.0, 0.0));

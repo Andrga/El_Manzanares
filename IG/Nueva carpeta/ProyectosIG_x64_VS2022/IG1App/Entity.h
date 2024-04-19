@@ -225,19 +225,23 @@ protected:
 };
 class Disk : public QuadricEntity {
 public:
-	explicit Disk(GLdouble rr);
+	explicit Disk(GLdouble iirr, GLdouble oorr);
 	~Disk();
 	void render(glm::dmat4 const& modelViewMat) const;
 protected:
-	GLdouble r;
+	GLdouble ir_;
+	GLdouble or_;
 };
 class PartialDisk : public QuadricEntity {
 public:
-	explicit PartialDisk(GLdouble rr);
+	explicit PartialDisk(GLdouble iirr, GLdouble oorr, GLdouble ssttaa, GLdouble sswwaa);
 	~PartialDisk();
 	void render(glm::dmat4 const& modelViewMat) const;
 protected:
-	GLdouble r;
+	GLdouble ir_;
+	GLdouble or_;
+	GLdouble sta_;
+	GLdouble swa_;
 };
 
 #pragma endregion

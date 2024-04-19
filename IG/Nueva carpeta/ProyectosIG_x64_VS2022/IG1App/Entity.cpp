@@ -484,3 +484,32 @@ void Sphere::render(glm::dmat4 const& modelViewMat) const
 Cylinder::Cylinder(GLdouble bbrr, GLdouble ttrr, GLdouble hh) : br(bbrr), tr(ttrr), h(hh)
 
 {}
+
+void Cylinder::render(glm::dmat4 const& modelViewMat) const
+{
+	dmat4 aMat = modelViewMat * mModelMat;
+	upload(aMat);
+	gluCylinder(q, br, tr, h, 50, 50);
+}
+
+Disk::Disk(GLdouble iirr, GLdouble oorr) : ir_(iirr), or_(oorr)
+{
+}
+
+void Disk::render(glm::dmat4 const& modelViewMat) const
+{
+	dmat4 aMat = modelViewMat * mModelMat;
+	upload(aMat);
+	gluDisk(q, ir_, or_, 50, 50);
+}
+
+PartialDisk::PartialDisk(GLdouble iirr, GLdouble oorr, GLdouble ssttaa, GLdouble sswwaa): ir_(iirr), or_(oorr), sta_(ssttaa), swa_(sswwaa)
+{
+}
+
+void PartialDisk::render(glm::dmat4 const& modelViewMat) const
+{
+	dmat4 aMat = modelViewMat * mModelMat;
+	upload(aMat);
+	gluPartialDisk(q, ir_, or_, 50, 50, sta_, swa_);
+}
