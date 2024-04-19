@@ -92,12 +92,18 @@ IG1App::init()
 	scenes[2]->addEntity(new GlassParapet(300, "../bmps/windowV.bmp")); // Ejercicio31.
 	scenes[2]->addEntity(new Photo(500)); // Ejercicio31.
 
+	//------Ejercicio58: granjero.
+	scenes[3]->addEntity(new Sphere(50, 1.0, 0.5, 0.0));
+	/*scenes[3]->addEntity(new Disk(50, 20));
+	scenes[3]->addEntity(new PartialDisk(50, 50, 50, 50));
+	scenes[3]->addEntity(new Cylinder(50, 0, 50));*/
+
 	mCamera->set2D();
 
 	for (auto e : scenes) {
 		e->init();
 	}
-	actualscene = 2;
+	actualscene = 3;
 }
 
 void
@@ -230,6 +236,9 @@ IG1App::key(unsigned char key, int x, int y)
 		break;
 	case '2':
 		actualscene = 2;
+		break;
+	case '3':
+		actualscene = 3;
 		break;
 	case 'u':
 		update();

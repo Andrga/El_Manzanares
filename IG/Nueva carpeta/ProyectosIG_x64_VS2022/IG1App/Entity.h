@@ -206,35 +206,37 @@ protected:
 };
 class Sphere : public QuadricEntity {
 public:
-	explicit Sphere(GLdouble rr);
+	explicit Sphere(GLdouble rr, GLfloat rrcc, GLfloat ggcc, GLfloat bbcc);
 	~Sphere();
 	void render(glm::dmat4 const& modelViewMat) const;
 protected:
 	GLdouble r;
+	GLfloat rc, gc, bc;
 };
 class Cylinder : public QuadricEntity {
 public:
-	explicit Cylinder(GLdouble bbrr, GLdouble ttrr,GLdouble hh);
+	explicit Cylinder(GLdouble bbrr, GLdouble ttrr,GLdouble hh, GLfloat rrcc, GLfloat ggcc, GLfloat bbcc);
 	~Cylinder();
 	void render(glm::dmat4 const& modelViewMat) const;
 protected:
 	GLdouble br;
 	GLdouble tr;
 	GLdouble h;
-
+	GLfloat rc, gc, bc;
 };
 class Disk : public QuadricEntity {
 public:
-	explicit Disk(GLdouble iirr, GLdouble oorr);
+	explicit Disk(GLdouble iirr, GLdouble oorr, GLfloat rrcc, GLfloat ggcc, GLfloat bbcc);
 	~Disk();
 	void render(glm::dmat4 const& modelViewMat) const;
 protected:
 	GLdouble ir_;
 	GLdouble or_;
+	GLfloat rc, gc, bc;
 };
 class PartialDisk : public QuadricEntity {
 public:
-	explicit PartialDisk(GLdouble iirr, GLdouble oorr, GLdouble ssttaa, GLdouble sswwaa);
+	explicit PartialDisk(GLdouble iirr, GLdouble oorr, GLdouble ssttaa, GLdouble sswwaa, GLfloat rrcc, GLfloat ggcc, GLfloat bbcc);
 	~PartialDisk();
 	void render(glm::dmat4 const& modelViewMat) const;
 protected:
@@ -242,8 +244,20 @@ protected:
 	GLdouble or_;
 	GLdouble sta_;
 	GLdouble swa_;
+	GLfloat rc, gc, bc;
 };
+//------Ejercicio59:
+class CompoundEntity : public Abs_Entity {
+public:
+	explicit CompoundEntity();
+	~CompoundEntity();
+	void render(glm::dmat4 const& modelViewMat) const;
+	void addEntity(Abs_Entity* ae);
 
+private:
+	std::vector<Abs_Entity*> gObjects;
+
+};
 #pragma endregion
 
 #endif //_H_Entities_H_
