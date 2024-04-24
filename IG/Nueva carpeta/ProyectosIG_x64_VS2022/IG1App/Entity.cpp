@@ -538,4 +538,27 @@ void PartialDisk::render(glm::dmat4 const& modelViewMat) const
 	glColor3f(1.0, 1.0, 1.0);
 }
 
+
+CompoundEntity::CompoundEntity() { }
+CompoundEntity::~CompoundEntity()
+{
+	for (auto& ae : gObjects)
+	{
+		ae->~Abs_Entity();
+	}
+}
+void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
+{
+	for (auto& ae : gObjects)
+	{
+		ae->render(modelViewMat);
+	}
+}
+void CompoundEntity::addEntity(Abs_Entity* ae)
+{
+	gObjects.push_back(ae);
+}
+
+
+
 #pragma endregion

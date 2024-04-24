@@ -251,7 +251,7 @@ class CompoundEntity : public Abs_Entity {
 public:
 	explicit CompoundEntity();
 	~CompoundEntity();
-	void render(glm::dmat4 const& modelViewMat) const;
+	void render(glm::dmat4 const& modelViewMat) const override;
 	void addEntity(Abs_Entity* ae);
 
 private:
