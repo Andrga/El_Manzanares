@@ -10,6 +10,8 @@
 
 #include <vector>
 
+const int NSCENES = 5;
+
 class Scene
 {
 public:
@@ -23,7 +25,7 @@ public:
 	Scene(const Scene& s) = delete;            // no copy constructor
 	Scene& operator=(const Scene& s) = delete; // no copy assignment
 
-	void addEntity(Abs_Entity* ent);
+	void addEntity(Abs_Entity* ent, uint16_t scene);
 
 	void init();
 
@@ -43,7 +45,7 @@ protected:
 
 	int mId;
 
-	std::vector<Abs_Entity*> gObjects; // Entities (graphic objects) of the scene
+	std::vector<std::vector<Abs_Entity*> > gObjects; // Entities (graphic objects) of the scene actual
 	std::vector<Texture*> gTextures; // Entidades
 };
 

@@ -17,7 +17,11 @@ Scene::init()
 	// Graphics objects (entities) of the scene
 
 	//------Ejes:
-	gObjects.push_back(new EjesRGB(400.0));
+	for (int i = 0; i <= NSCENES; i++)
+	{
+		gObjects.push_back(std::vector<Abs_Entity*>());
+		gObjects[i].push_back(new EjesRGB(400.0));
+	}
 	//------Ejercicio5:
 		//gObjects.push_back(new RegularPolygon(3, 200.0)); // Triangulo cian.
 		//gObjects[gObjects.size() - 1]->setColor(dvec4(0, 1, 1, 1));
@@ -36,18 +40,19 @@ Scene::init()
 
 }
 
-void Scene::addEntity(Abs_Entity* ent) {
-
-	gObjects.push_back(ent);
+void Scene::addEntity(Abs_Entity* ent, uint16_t scene) {
+	gObjects[scene].push_back(ent);
 }
 
 void
 Scene::free()
 { // release memory and resources
 
-	for (Abs_Entity* el : gObjects) {
-		delete el;
-		el = nullptr;
+	for (auto s : gObjects) {
+		for (auto el : s) {
+			delete el;
+			el = nullptr;
+		}
 	}
 }
 void
@@ -78,7 +83,7 @@ Scene::render(Camera const& cam) const
 
 	cam.upload();
 
-	for (Abs_Entity* el : gObjects) {
+	for (Abs_Entity* el : gObjects[mId]) {
 		el->render(cam.viewMat());
 	}
 }
@@ -89,13 +94,13 @@ void Scene::update() {
 
 	//------Ejercicio16:
 	glutPostRedisplay();
-	for (Abs_Entity* el : gObjects) {
+	for (Abs_Entity* el : gObjects[mId]) {
 		el->update();
 	}
 }
 
 //------Ejercicio56:
-void Scene::sceneDirLight(Camera const& cam) const {
+void Scene::sceneDirLight(Camera const& cam) const {/*
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	glm::fvec4 posDir = { 1, 1, 1, 0 };
@@ -107,5 +112,5 @@ void Scene::sceneDirLight(Camera const& cam) const {
 	glm::fvec4 specular = { 0.5, 0.5, 0.5, 1 };
 	glLightfv(GL_LIGHT0, GL_AMBIENT, value_ptr(ambient));
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, value_ptr(diffuse));
-	glLightfv(GL_LIGHT0, GL_SPECULAR, value_ptr(specular));
+	glLightfv(GL_LIGHT0, GL_SPECULAR, value_ptr(specular));*/
 }

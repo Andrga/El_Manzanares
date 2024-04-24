@@ -76,34 +76,28 @@ IG1App::init()
 		new Viewport(mWinW, mWinH); // glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT)
 	mCamera = new Camera(mViewPort);
 
-	scenes[0] = new Scene;
-	scenes[1] = new Scene;
-	scenes[2] = new Scene;
-	scenes[3] = new Scene;
-
-	scenes[1]->addEntity(new RGBCube(100.0));
-	scenes[0]->addEntity(new RGBRectangle(300.0, 200.0, 0.0));
-	scenes[0]->addEntity(new RGBTriangle(50.0, 200.0, 0.0));
-	scenes[0]->addEntity(new RegularPolygon(100, 200.0));
-	scenes[2]->addEntity(new Ground(200.0, 200.0, 4, 4, "../bmps/baldosaC.bmp"));
-	scenes[2]->addEntity(new BoxOutline(200, "../bmps/container.bmp", "../bmps/papelE.bmp"));
+	scene_.init();
+	scene_.addEntity(new RGBCube(100.0), 1);
+	scene_.addEntity(new RGBRectangle(300.0, 200.0, 0.0), 0);
+	scene_.addEntity(new RGBTriangle(50.0, 200.0, 0.0), 0);
+	scene_.addEntity(new RegularPolygon(100, 200.0), 0);
+	scene_.addEntity(new Ground(200.0, 200.0, 4, 4, "../bmps/baldosaC.bmp"), 2);
+	scene_.addEntity(new BoxOutline(200, "../bmps/container.bmp", "../bmps/papelE.bmp"), 2);
 	//scenes[2]->addEntity(new Star3D(300,12,200));
-	scenes[2]->addEntity(new Star3D(100, 8, 100, "../bmps/baldosaP.bmp")); // Ejercicio28.
-	scenes[2]->addEntity(new GlassParapet(300, "../bmps/windowV.bmp")); // Ejercicio31.
-	scenes[2]->addEntity(new Photo(500)); // Ejercicio31.
+	scene_.addEntity(new Star3D(100, 8, 100, "../bmps/baldosaP.bmp"), 2); // Ejercicio28.
+	scene_.addEntity(new GlassParapet(300, "../bmps/windowV.bmp"), 2); // Ejercicio31.
+	scene_.addEntity(new Photo(500), 2); // Ejercicio31.
 
 	//------Ejercicio58: granjero.
-	scenes[3]->addEntity(new Sphere(50, 1.0, 0.5, 0.0));
+	scene_.addEntity(new Sphere(50, 1.0, 0.5, 0.0), 3);
 	/*scenes[3]->addEntity(new Disk(50, 20));
 	scenes[3]->addEntity(new PartialDisk(50, 50, 50, 50));
 	scenes[3]->addEntity(new Cylinder(50, 0, 50));*/
 
 	mCamera->set2D();
 
-	for (auto e : scenes) {
-		e->init();
-	}
-	actualscene = 3;
+	scene_.setScene(0);
+
 }
 
 void
@@ -151,9 +145,6 @@ IG1App::iniWinOpenGL()
 void
 IG1App::free()
 { // release memory and resources
-	for (auto e : scenes) {
-		delete e;
-	}
 	delete mCamera;
 	mCamera = nullptr;
 	delete mViewPort;
@@ -174,12 +165,12 @@ IG1App::display() const
 
 
 		mViewPort->setPos(0, 0);
-		scenes[actualscene]->render(*mCamera); // uploads the viewport and camera to the GPU
+		scene_.render(*mCamera); // uploads the viewport and camera to the GPU
 
 		Camera mCamera2 = *mCamera;
 		mViewPort->setPos(mWinW / 2, 0);
 		mCamera2.setCenital();
-		scenes[actualscene]->render(mCamera2); // uploads the viewport and camera to the GPU
+		scene_.render(mCamera2); // uploads the viewport and camera to the GPU
 
 	}
 	else
@@ -187,7 +178,7 @@ IG1App::display() const
 		mViewPort->setSize(mWinW, mWinH);
 		mViewPort->setPos(0, 0);
 		mCamera->setSize(mViewPort->width(), mViewPort->height());
-		scenes[actualscene]->render(*mCamera); // uploads the viewport and camera to the GPU
+		scene_.render(*mCamera); // uploads the viewport and camera to the GPU
 	}
 
 
@@ -229,16 +220,22 @@ IG1App::key(unsigned char key, int x, int y)
 		mCamera->set2D();
 		break;
 	case '0':
-		actualscene = 0;
+		scene_.setScene(0);
 		break;
 	case '1':
-		actualscene = 1;
+		scene_.setScene(1);
 		break;
 	case '2':
-		actualscene = 2;
+		scene_.setScene(2);
 		break;
 	case '3':
-		actualscene = 3;
+		scene_.setScene(3);
+		break;
+	case '4':
+		scene_.setScene(4);
+		break;
+	case '5':
+		scene_.setScene(5);
 		break;
 	case 'u':
 		update();
@@ -267,7 +264,7 @@ IG1App::key(unsigned char key, int x, int y)
 //------Ejercicio13:
 void IG1App::update() {
 	//------Ejercicio16:
-	scenes[actualscene]->update();
+	scene_.update();
 }
 
 void

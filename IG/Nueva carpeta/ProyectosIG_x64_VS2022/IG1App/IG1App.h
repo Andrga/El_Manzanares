@@ -12,11 +12,10 @@
 #include "Scene.h"
 #include "Viewport.h"
 
-const int NSCENES = 4;
 
 //------Ejercicio11:
 // Array scenas
-static Scene* scenes[NSCENES];
+static Scene scene_;
 static int actualscene = 0;
 
 class IG1App
@@ -33,7 +32,7 @@ public:
 	// Camera position, view volume and projection
 	Camera const& camera() { return *mCamera; };
 	// Graphics objects of the scene
-	Scene const& scene() { return *scenes[actualscene]; };
+	Scene const& scene() { return scene_; };
 
 	//------Ejercicio13:
 	static void update();
