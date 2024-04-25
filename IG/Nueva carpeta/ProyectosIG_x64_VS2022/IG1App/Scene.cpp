@@ -73,17 +73,24 @@ Scene::init()
 
 			addEntity(inventedNodeOrbit, 4);
 
-			inventedNodeOrbit->addEntity(inventedNodeRotate); // Le metemos el noto rotate al otro nodo.
-			inventedNodeOrbit->addEntity(tatooine); // Le metemos Tatooine al nodo orbit.
 
 			inventedNodeRotate->setModelMat(translate(inventedNodeOrbit->modelMat(), dvec3(0, 500, 0))); // Movemps el nodo de rotacion para que rote a cierta distancia del planeta.
 
 			inventedNodeRotate->addEntity(tie); // Le metemos al nodo rotate el tie para que se ponga en su posicion y rote ahi.
 
+			inventedNodeOrbit->addEntity(inventedNodeRotate); // Le metemos el noto rotate al otro nodo.
+			inventedNodeOrbit->addEntity(tatooine); // Le metemos Tatooine al nodo orbit.
+
+
+
 			break;
 		case 5:
 			//------Ejercicio64:
 			addEntity(new IndexedBox(100, 0.0, 1.0, 0.0), 5);
+			break;
+		case 6:
+			tie2 = new AdvancedTIEX_1();
+			addEntity(tie2, 6);
 			break;
 		default:
 			break;
@@ -164,6 +171,15 @@ void Scene::update() {
 	for (Abs_Entity* el : gObjects[mId]) {
 		el->update();
 	}
+	// Ejercicio68.
+	if (orbitTieBool)
+	{
+		rotateTie();
+	}
+	if (rotateTieBool)
+	{
+		orbitTie();
+	}
 }
 // Ejercicio68.
 void Scene::setScene(int id)
@@ -179,19 +195,35 @@ void Scene::setScene(int id)
 	}
 }
 // Ejercicio68.
-void Scene::rotate()
+void Scene::rotateTie()
 {
-	//inventedNodeRotate->setModelMat(rotate(inventedNodeRotate->modelMat(), radians(3.0), dvec3(1, 0, 0)));
+	tie->setModelMat(
+		translate(inventedNodeRotate->modelMat(), dvec3(0, 0, 0)) * tie->modelMat());
+
+	dvec3 point = glm::normalize(dvec3(tie->modelMat() * dvec4(0.0, 1.0, 0.0, 0.0)));
+	inventedNodeRotate->setModelMat(rotate(dmat4(1), radians(-1.0), point));
 }
 
-void Scene::orbit()
+void Scene::orbitTie()
 {
-	//inventedNodeOrbit->setModelMat(rotate(inventedNodeOrbit->modelMat(), radians(3.0), dvec3(0, 1, 0)));
+	if (mId == 4)
+	{
+		tie->setModelMat(translate(inventedNodeOrbit->modelMat(), dvec3(0, 0, 0)) * tie->modelMat());
 
+		dvec3 tieDirection = normalize(dvec3(tie->modelMat() * dvec4(0.0, 0.0, 1.0, 0.0)));
 
+		inventedNodeOrbit->setModelMat(rotate(dmat4(1), radians(-1.0), tieDirection));
+	}
+}
 
+void Scene::pseudoSetOrbtit()
+{
+	orbitTieBool = !orbitTieBool;
+}
 
-	//inventedNodeOrbit->modelMat(), radians(3.0), dvec3(0, 0, 1)));
+void Scene::pseudoSetRotate()
+{
+	rotateTieBool = !rotateTieBool;
 }
 
 //------Ejercicio56:

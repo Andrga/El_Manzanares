@@ -646,7 +646,7 @@ NoseTIE::NoseTIE()
 	cylinder->setModelMat(
 		rotate(dmat4(1.0), radians(90.0), dvec3(0.0, 1.0, 0.0))
 		* cylinder->modelMat());
-	disk = new Disk(0, 5, 0, 65, 106);
+	disk = new Disk(0, 5, 255, 0, 0);
 	disk->setModelMat(
 		translate(dmat4(1.0), dvec3(50, 0, 0))
 		* rotate(dmat4(1.0), radians(90.0), dvec3(0.0, 1.0, 0.0))

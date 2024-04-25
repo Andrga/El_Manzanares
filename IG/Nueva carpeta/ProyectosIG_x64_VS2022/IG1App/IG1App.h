@@ -34,12 +34,10 @@ public:
 	Scene const& scene() { return scene_; };
 
 	//------Ejercicio13:
-	static void update();
+	static void s_update();
 
 	void run();   // the main event processing loop
 	void close(); // the application
-
-	
 
 protected:
 	IG1App() {};

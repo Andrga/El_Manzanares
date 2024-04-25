@@ -220,19 +220,30 @@ IG1App::key(unsigned char key, int x, int y)
 	case '5':
 		scene_.setScene(5);
 		break;
+	case '6':
+		scene_.setScene(6);
+		break;
 	case 'u':
-		update();
+		s_update();
 		break;
 		//------Ejercicio16:
 	case 'U':
-		glutIdleFunc(update);
+		glutIdleFunc(s_update);
 		break;
-		//------ Ejercicio 44:
+		//------Ejercicio44:
 	case 'p':
 		mCamera->changePrj();
 		break;
 	case 'k':
 		m2Vistas = !m2Vistas;
+		break;
+	case 'f':
+		cout << "rotate";
+		scene_.pseudoSetRotate();
+		break;
+	case 'g':
+		cout << "orbit";
+		scene_.pseudoSetOrbtit();
 		break;
 	default:
 		need_redisplay = false;
@@ -245,7 +256,7 @@ IG1App::key(unsigned char key, int x, int y)
 }
 
 //------Ejercicio13:
-void IG1App::update() {
+void IG1App::s_update() {
 	//------Ejercicio16:
 	scene_.update();
 }

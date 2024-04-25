@@ -10,7 +10,7 @@
 
 #include <vector>
 
-const int NSCENES = 5;
+const int NSCENES = 6;
 
 class Scene
 {
@@ -35,8 +35,10 @@ public:
 
 	void setScene(int id);
 
-	void rotate(); // Ejercicio68.
-	void orbit(); // Ejercicio68.
+	void rotateTie(); // Ejercicio68.
+	void orbitTie(); // Ejercicio68.
+	void pseudoSetOrbtit();
+	void pseudoSetRotate();
 
 protected:
 	void free();
@@ -47,6 +49,9 @@ protected:
 	void sceneDirLight(Camera const& cam) const;
 
 	int mId;
+
+	bool rotateTieBool = false; // Booleano para controlar la rotacion sobre si mismo del Tie. 68.
+	bool orbitTieBool = false; // Booleano para controlar la orbita del Tie al rededor de Tatooine. 68.
 
 	// Cosas de la cabeza: ejercicio58.
 	Abs_Entity* head; // Cabeza del granjero del ejercicio58.
@@ -59,6 +64,7 @@ protected:
 
 	// Cosas del TIE: ejercicio60.
 	Abs_Entity* tie; // Tie del ejercicio60.
+	Abs_Entity* tie2; // Para la profesora.
 	CompoundEntity* inventedNodeOrbit; // Nodo del orbit del ejercicio68.
 	CompoundEntity* inventedNodeRotate; // Nodo del rotate del ejercicio68.
 	Abs_Entity* tatooine; // Planeta del ejercicio67.
