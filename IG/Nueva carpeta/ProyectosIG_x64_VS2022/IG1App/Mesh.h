@@ -115,6 +115,8 @@ public:
 
 
 protected:
+
+	//------Ejercicio65:
 	static const int VERTEX_CARA = 3;
 	GLuint* vIndexes = nullptr;
 	int mNumIndexes = 0;
