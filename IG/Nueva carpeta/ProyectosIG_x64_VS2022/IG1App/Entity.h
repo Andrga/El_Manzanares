@@ -215,14 +215,14 @@ protected:
 };
 class Cylinder : public QuadricEntity {
 public:
-	explicit Cylinder(GLdouble bbrr, GLdouble ttrr,GLdouble hh, GLfloat rrcc, GLfloat ggcc, GLfloat bbcc);
+	explicit Cylinder(GLdouble bbrr, GLdouble ttrr, GLdouble hh, GLfloat rrcc, GLfloat ggcc, GLfloat bbcc);
 	~Cylinder();
 	void render(glm::dmat4 const& modelViewMat) const;
 protected:
-	GLdouble br;
-	GLdouble tr;
-	GLdouble h;
-	GLfloat rc, gc, bc;
+	GLdouble br; // Radio de la base.
+	GLdouble tr; // Radio de la base superior.
+	GLdouble h; // Altura.
+	GLfloat rc, gc, bc; // Colores RGB.
 };
 class Disk : public QuadricEntity {
 public:
@@ -255,9 +255,55 @@ public:
 	void addEntity(Abs_Entity* ae);
 
 private:
-	std::vector<Abs_Entity*> gObjects;
+	std::vector<Abs_Entity*> gObjects; // Vector de entidades.
 
 };
+//------Ejercicio60:
+//----General:
+class AdvancedTIEX_1 : public CompoundEntity {
+public:
+	AdvancedTIEX_1();
+	~AdvancedTIEX_1() override;
+	void render(glm::dmat4 const& modelViewMat) const override;
+
+
+private:
+	QuadricEntity* body; // La esfera.
+	Abs_Entity* nose; // El cilindro con el disco que sobresale hacia delante.
+	QuadricEntity* cosaDeAlaAAla; // El cilindro que va de ala a ala y no se nombrar de otra forma.
+	Abs_Entity* rightWing; // Ala derecha.
+	Abs_Entity* leftWing; // Ala izquierda.
+};
+//----Ala:
+class WingTIE : public Abs_Entity {
+public:
+	WingTIE(GLdouble x, GLdouble y, GLdouble z, GLdouble rot, bool inv, const std::string& tex);
+	~WingTIE();
+	void render(glm::dmat4 const& modelViewMat) const override;
+	void setTexture(Texture* texture, std::string text, GLubyte alpha) const {
+		texture->load(text, alpha);
+	}
+
+private:
+	Mesh* wing;
+	glm::dmat4 mMat = glm::dmat4();
+	Texture* texture;
+};
+//---Morro:
+class NoseTIE : CompoundEntity
+{
+public:
+	NoseTIE();
+	~NoseTIE() override;
+	void render(glm::dmat4 const& modelViewMat) const override;
+
+private:
+	Abs_Entity* cylinder; // El morro como tal que hay que cerrar.
+	Abs_Entity* disk; // La tapa del cilindro.
+};
+
+
+
 #pragma endregion
 
 #endif //_H_Entities_H_

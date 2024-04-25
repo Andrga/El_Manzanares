@@ -42,7 +42,13 @@ public:
 	static Mesh* generateStar3D(GLdouble re, GLuint np, GLdouble h); // Ejercicio25.
 	static Mesh* generateStar3DTexCor(GLdouble re, GLuint np, GLdouble h); // Ejercicio28.
 #pragma endregion
-
+#pragma region P4
+	//------Ejercicio60: 
+	// h1: altura del centro a la parte mas alta, 
+	// h2: altura desde el centro hasta cuando se dobla el ala, 
+	// d: largo del ala.
+	static Mesh* generateTIEWing(GLdouble h1, GLdouble h2, GLdouble d);
+#pragma endregion
 
 	virtual void render() const;
 

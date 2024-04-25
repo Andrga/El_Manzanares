@@ -13,6 +13,8 @@ Mesh::draw() const
 		size()); // primitive graphic, first index and number of elements to be rendered
 }
 
+
+
 void
 Mesh::render() const
 {
@@ -436,4 +438,28 @@ Mesh* Mesh::generateStar3DTexCor(GLdouble re, GLuint np, GLdouble h) {
 	return m;
 }
 
+#pragma endregion
+//Region con los apartados de la P4:
+#pragma region P4
+//------Ejercicio60:
+Mesh* Mesh::generateTIEWing(GLdouble h1, GLdouble h2, GLdouble d)
+{
+	auto* mesh = new Mesh();
+
+	mesh->mPrimitive = GL_TRIANGLE_STRIP;
+	mesh->mNumVertices = 8; // Son tres cuadrados unidos, 8 vertices.
+	mesh->vVertices.reserve(mesh->mNumVertices);
+
+
+	mesh->vVertices.emplace_back(h1, d, h2); // V0.
+	mesh->vVertices.emplace_back(h1, -d, h2); // V1.
+	mesh->vVertices.emplace_back(h2, d, 0); // V2.
+	mesh->vVertices.emplace_back(h2, -d, 0); // V3.
+	mesh->vVertices.emplace_back(-h2, d, 0); // V4.
+	mesh->vVertices.emplace_back(-h2, -d, 0); // V5.
+	mesh->vVertices.emplace_back(-h1, d, h2); // V6.
+	mesh->vVertices.emplace_back(-h1, -d, h2); // V7.
+
+	return mesh;
+}
 #pragma endregion

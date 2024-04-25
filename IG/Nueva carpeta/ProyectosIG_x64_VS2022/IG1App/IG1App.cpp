@@ -93,6 +93,8 @@ IG1App::init()
 	/*scenes[3]->addEntity(new Disk(50, 20));
 	scenes[3]->addEntity(new PartialDisk(50, 50, 50, 50));
 	scenes[3]->addEntity(new Cylinder(50, 0, 50));*/
+	//------Ejercicio60: TIE.
+	scene_.addEntity(new AdvancedTIEX_1(), 4);
 
 	mCamera->set2D();
 
