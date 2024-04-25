@@ -57,15 +57,21 @@ Scene::init()
 			head = new Sphere(30, 255, 165, 0);
 			addEntity(head, 3);
 			// Barba:
-			beard = new PartialDisk(4, 6, 80, 180, 0, 255, 0);
-			beard->setModelMat(translate(beard->modelMat(), dvec3(100, 0, 0)));
+			beard = new PartialDisk(10, 30, 90, 180, 0, 255, 0);
+			beard->setModelMat(translate(beard->modelMat(), dvec3(0, 0, 20)));
 			addEntity(beard, 3);
-			// SObrero:
+			// Sombrero:
 			cap = new Disk(0, 40, 255, 0, 0);
-			//cap->setModelMat(rotate(dmat4(1.0), radians(90.0), dvec3(0.0, 1.0, 0.0))); //PAIGRO AQUI.	
+			cap->setModelMat(rotate(dmat4(1.0), radians(90.0), dvec3(1.0, 0.0, 0.0)) * translate(cap->modelMat(), dvec3(0, 0, -25))); //PAIGRO AQUI.	
 			addEntity(cap, 3);
-
-
+			// Ojo1:
+			eye1 = new Cylinder(5, 1, 15, 0, 0, 128);
+			eye1->setModelMat(translate(eye1->modelMat(), dvec3(10, 0, 25)));
+			addEntity(eye1, 3);
+			// Ojo2:
+			eye2 = new Cylinder(5, 1, 15, 76, 88, 102);
+			eye2->setModelMat(translate(eye2->modelMat(), dvec3(-10, 0, 25)));
+			addEntity(eye2, 3);
 			break;
 		case 4:
 			//------Ejercicio60: TIE.
