@@ -44,10 +44,29 @@ Scene::init()
 			break;
 		case 4:
 			//------Ejercicio60: TIE.
+			// Caza:
 			tie = new AdvancedTIEX_1();
-			tie->setModelMat(translate(tie->modelMat(), dvec3(0, 150, 0)));
-			addEntity(tie, 4);
-			addEntity(new Sphere(800, 255, 233, 0), 4);
+			//tie->setModelMat(translate(tie->modelMat(), dvec3(0, 150, 0))); // Quito esto para que al meterlo en el noto rotate no se desplace mas de la cuenta.
+			//addEntity(tie, 4); // Tecnicamente si estan en los nodos no hace falta meterlos en la escena se meteran con el nodo i guess.
+
+			// Tatooine:
+			tatooine = new Sphere(800, 255, 233, 0);
+			//addEntity(tatooine, 4); // Lo mismo que con el TIE.
+
+			// Nodo orbit:
+			inventedNodeOrbit = new CompoundEntity();
+			// Nodo rotate:
+			inventedNodeRotate = new CompoundEntity();
+
+			addEntity(inventedNodeOrbit, 4);
+
+			inventedNodeOrbit->addEntity(inventedNodeRotate); // Le metemos el noto rotate al otro nodo.
+			inventedNodeOrbit->addEntity(tatooine); // Le metemos Tatooine al nodo orbit.
+
+			inventedNodeRotate->setModelMat(translate(inventedNodeOrbit->modelMat(), dvec3(0, 500, 0))); // Movemps el nodo de rotacion para que rote a cierta distancia del planeta.
+
+			inventedNodeRotate->addEntity(tie); // Le metemos al nodo rotate el tie para que se ponga en su posicion y rote ahi.
+
 			break;
 		case 5:
 			//------Ejercicio64:
@@ -145,6 +164,22 @@ void Scene::setScene(int id)
 	{
 		glClearColor(0.6, 0.7, 0.8, 1.0); // background color (alpha=1 -> opaque)
 	}
+}
+
+void Scene::rotate()
+{
+	inventedNodeRotate->setModelMat(
+		rotate(inventedNodeRotate->modelMat(), radians(3.0), dvec3(1, 0, 0)));
+}
+
+void Scene::orbit()
+{
+		
+		
+		
+		
+		
+		//inventedNodeOrbit->modelMat(), radians(3.0), dvec3(0, 0, 1)));
 }
 
 //------Ejercicio56:
