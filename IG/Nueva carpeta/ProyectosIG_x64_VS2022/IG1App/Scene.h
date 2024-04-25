@@ -35,6 +35,8 @@ public:
 
 	void setScene(int id);
 
+	void rotate(); // Ejercicio68.
+	void orbit(); // Ejercicio68.
 
 protected:
 	void free();
@@ -46,7 +48,11 @@ protected:
 
 	int mId;
 
-	Abs_Entity* tie;
+	Abs_Entity* tie; // Tie del ejercicio60.
+	CompoundEntity* inventedNodeOrbit; // Nodo del orbit del ejercicio68.
+	CompoundEntity* inventedNodeRotate; // Nodo del rotate del ejercicio68.
+	Abs_Entity* tatooine; // Planeta del ejercicio67.
+
 	std::vector<std::vector<Abs_Entity*> > gObjects; // Entities (graphic objects) of the scene actual
 	std::vector<Texture*> gTextures; // Entidades
 };
