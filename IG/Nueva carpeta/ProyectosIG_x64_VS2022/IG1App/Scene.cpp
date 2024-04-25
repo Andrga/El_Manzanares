@@ -42,15 +42,19 @@ Scene::init()
 			break;
 		case 3:
 			// Cabeza:
-			head = new Sphere(30, 255, 128, 0);
+			head = new Sphere(30, 255, 165, 0);
 			addEntity(head, 3);
 			// Barba:
 			beard = new PartialDisk(4, 6, 80, 180, 0, 255, 0);
+			beard->setModelMat(translate(beard->modelMat(), dvec3(100, 0, 0)));
 			addEntity(beard, 3);
+			// SObrero:
+			cap = new Disk(0, 40, 255, 0, 0);
+			//cap->setModelMat(rotate(dmat4(1.0), radians(90.0), dvec3(0.0, 1.0, 0.0))); //PAIGRO AQUI.	
+			addEntity(cap, 3);
 
 
-
-				break;
+			break;
 		case 4:
 			//------Ejercicio60: TIE.
 			// Caza:
