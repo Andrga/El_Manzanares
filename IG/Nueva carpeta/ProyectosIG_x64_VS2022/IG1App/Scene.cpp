@@ -177,12 +177,12 @@ void Scene::setScene(int id)
 // Ejercicio68.
 void Scene::rotate()
 {
-	inventedNodeRotate->setModelMat(rotate(inventedNodeRotate->modelMat(), radians(3.0), dvec3(1, 0, 0)));
+	//inventedNodeRotate->setModelMat(rotate(inventedNodeRotate->modelMat(), radians(3.0), dvec3(1, 0, 0)));
 }
 
 void Scene::orbit()
 {
-	inventedNodeOrbit->setModelMat(rotate(inventedNodeOrbit->modelMat(), radians(3.0), dvec3(0, 1, 0)));
+	//inventedNodeOrbit->setModelMat(rotate(inventedNodeOrbit->modelMat(), radians(3.0), dvec3(0, 1, 0)));
 
 
 
