@@ -1,6 +1,12 @@
 Pablo Iglesias Rodrigo
 Andrés García Navarro
 
-Realizados apartados 56-68
+Realizados apartados 56-68 (incluido el opcional 58).
+
+Errores:
+Las luces no generan sombras en todas las escenas.
+Los colores de algunos objetos se aplican a otros al cambiar de escenas.
+En el apartado 66 el triangulo no rota correctamente.
+Cuando el caza orbita y rota al mismo tiempo no sigue la orbita correcta.
 
 Hecho en Windows 10 y 11.
