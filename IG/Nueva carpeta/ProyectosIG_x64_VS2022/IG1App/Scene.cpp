@@ -23,12 +23,24 @@ Scene::init()
 		gObjects.push_back(std::vector<Abs_Entity*>());
 		gObjects[i].push_back(new EjesRGB(400.0));
 
+		RGBTriangle* triangle = new RGBTriangle(50.0, 200.0, 0.0);
+
 		switch (i)
 		{
 		case 0:
 			addEntity(new RGBRectangle(300.0, 200.0, 0.0), 0);
-			addEntity(new RGBTriangle(50.0, 200.0, 0.0), 0);
 			addEntity(new RegularPolygon(100, 200.0), 0);
+
+			//triangle->setModelMat(glm::translate(nf1->modelMat(), glm::dvec3(200, 0, 0)));
+
+			nf1 = new CompoundEntity();
+			nf1->addEntity(triangle);
+			nf2 = new CompoundEntity();
+
+			nf2->addEntity(nf1);
+			nf1->setModelMat(translate(nf2->modelMat(), glm::dvec3(200, 0, 0)));
+			//addEntity(triangle, 0);
+			addEntity(nf2, 0);
 			break;
 		case 1:
 			addEntity(new RGBCube(100.0), 1);
@@ -179,6 +191,15 @@ void Scene::update() {
 	if (rotateTieBool)
 	{
 		orbitTie();
+	}
+
+	if (mId == 0 && nf1 != nullptr && nf2 != nullptr)
+	{
+		nf2->setModelMat(glm::rotate(nf2->modelMat(),
+			radians(3.0), dvec3(0, 0, 1)));
+
+		nf1->setModelMat(glm::rotate(nf2->modelMat(),
+			radians(-3.0), dvec3(0, 0, 1)));
 	}
 }
 // Ejercicio68.
