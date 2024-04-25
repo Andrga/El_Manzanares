@@ -571,14 +571,15 @@ AdvancedTIEX_1::AdvancedTIEX_1()
 	cosaDeAlaAAla = new Cylinder(10, 10, 140, 0, 65, 106); // Creamos la cosa esta que es un cilindro.
 	cosaDeAlaAAla->setModelMat(translate(dmat4(1.0), dvec3(0, 0, -70)) * cosaDeAlaAAla->modelMat()); // Cambiamos la posicion del cilindro para que este en el medio y vaya de ala a ala.
 
-	//nose = new NoseTIE(); // Se la pela help porque no funciona.
+	nose = new NoseTIE();
 
 	// Metemos las entidades al TIE:
 	CompoundEntity::addEntity(body);
+	CompoundEntity::addEntity(cosaDeAlaAAla);
+	CompoundEntity::addEntity(nose);
+	// Las cosas transparentes lo ultimo para que se haga bien todo.
 	CompoundEntity::addEntity(leftWing);
 	CompoundEntity::addEntity(rightWing);
-	CompoundEntity::addEntity(cosaDeAlaAAla);
-
 }
 AdvancedTIEX_1::~AdvancedTIEX_1()
 {
@@ -623,26 +624,22 @@ void WingTIE::render(glm::dmat4 const& modelViewMat) const
 		glLineWidth(1);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		texture->unbind();
-
 	}
 }
 //----Morro del TIE:
 NoseTIE::NoseTIE()
 {
-	cylinder = new Cylinder(5, 5, 10, 0, 65, 106);
-	/*cylinder->setModelMat(
-		translate(dmat4(1.0), dvec3(0, 30, 25))
-		* rotate(dmat4(1.0), radians(180.0), dvec3(1.0, 0.0, 0.0))
-		* scale(dmat4(1.0), dvec3(3, 3, 1))
-		* cylinder->modelMat());*/
-	disk = new Disk(1, 5, 0, 65, 106);
-	/*disk->setModelMat(
-		translate(dmat4(1.0), dvec3(-0, 30, 25))
-		* rotate(dmat4(1.0), radians(180.0), dvec3(0.0, 1.0, 0.0))
-		* scale(dmat4(1.0), dvec3(4, 4, 1))
-		* disk->modelMat()
-	);*/
+	cylinder = new Cylinder(5, 5, 50, 0, 65, 106);
+	cylinder->setModelMat(
+		rotate(dmat4(1.0), radians(90.0), dvec3(0.0, 1.0, 0.0))
+		* cylinder->modelMat());
+	disk = new Disk(0, 5, 0, 65, 106);
+	disk->setModelMat(
+		translate(dmat4(1.0), dvec3(50, 0, 0))
+		* rotate(dmat4(1.0), radians(90.0), dvec3(0.0, 1.0, 0.0))
+		* disk->modelMat());
 
+	// Metemos las entidades al Compound.
 	CompoundEntity::addEntity(cylinder);
 	CompoundEntity::addEntity(disk);
 }
