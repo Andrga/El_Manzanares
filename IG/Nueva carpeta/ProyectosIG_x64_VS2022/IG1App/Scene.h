@@ -48,6 +48,16 @@ protected:
 
 	int mId;
 
+	// Cosas de la cabeza: ejercicio58.
+	Abs_Entity* head; // Cabeza del granjero del ejercicio58.
+	Abs_Entity* beard; // Barba del granjero del ejercicio58.
+	Abs_Entity* eye1; // Ojo1 del granjero del ejercicio58.
+	Abs_Entity* eye2; // Ojo2 del granjero del ejercicio58.
+	Abs_Entity* cap; // Sombrero del granjero del ejercicio58.
+
+
+
+	// Cosas del TIE: ejercicio60.
 	Abs_Entity* tie; // Tie del ejercicio60.
 	CompoundEntity* inventedNodeOrbit; // Nodo del orbit del ejercicio68.
 	CompoundEntity* inventedNodeRotate; // Nodo del rotate del ejercicio68.

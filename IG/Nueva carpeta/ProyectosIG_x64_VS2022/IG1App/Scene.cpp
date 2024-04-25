@@ -41,7 +41,16 @@ Scene::init()
 			addEntity(new Photo(500), 2); // Ejercicio31.
 			break;
 		case 3:
-			break;
+			// Cabeza:
+			head = new Sphere(30, 255, 128, 0);
+			addEntity(head, 3);
+			// Barba:
+			beard = new PartialDisk(4, 6, 80, 180, 0, 255, 0);
+			addEntity(beard, 3);
+
+
+
+				break;
 		case 4:
 			//------Ejercicio60: TIE.
 			// Caza:
@@ -152,7 +161,7 @@ void Scene::update() {
 		el->update();
 	}
 }
-
+// Ejercicio68.
 void Scene::setScene(int id)
 {
 	mId = id;
@@ -165,21 +174,20 @@ void Scene::setScene(int id)
 		glClearColor(0.6, 0.7, 0.8, 1.0); // background color (alpha=1 -> opaque)
 	}
 }
-
+// Ejercicio68.
 void Scene::rotate()
 {
-	inventedNodeRotate->setModelMat(
-		rotate(inventedNodeRotate->modelMat(), radians(3.0), dvec3(1, 0, 0)));
+	inventedNodeRotate->setModelMat(rotate(inventedNodeRotate->modelMat(), radians(3.0), dvec3(1, 0, 0)));
 }
 
 void Scene::orbit()
 {
-		
-		
-		
-		
-		
-		//inventedNodeOrbit->modelMat(), radians(3.0), dvec3(0, 0, 1)));
+	inventedNodeOrbit->setModelMat(rotate(inventedNodeOrbit->modelMat(), radians(3.0), dvec3(0, 1, 0)));
+
+
+
+
+	//inventedNodeOrbit->modelMat(), radians(3.0), dvec3(0, 0, 1)));
 }
 
 //------Ejercicio56:
