@@ -60,6 +60,10 @@ Scene::init()
 			eye2 = new Cylinder(5, 1, 15, 76, 88, 102);
 			eye2->setModelMat(translate(eye2->modelMat(), dvec3(-10, 0, 25)));
 			addEntity(eye2, 3);
+
+			tie2 = new AdvancedTIEX_1();
+			tie2->setModelMat(translate(tie2->modelMat(), dvec3(0, 0, 200))); // Quito esto para que al meterlo en el noto rotate no se desplace mas de la cuenta.
+			addEntity(tie2, 3);
 			break;
 		case 4:
 			//------Ejercicio60: TIE.
@@ -95,8 +99,6 @@ Scene::init()
 			addEntity(new IndexedBox(100, 0.0, 1.0, 0.0), 5);
 			break;
 		case 6:
-			tie2 = new AdvancedTIEX_1();
-			addEntity(tie2, 6);
 			break;
 		default:
 			break;
