@@ -530,12 +530,45 @@ IndexMesh* IndexMesh::generateIndexedBox(GLdouble l)
 		mesh->vIndexes[i] = arr[i];
 	}
 
+	mesh->vCaras.resize(mesh->mNumIndexes / VERTEX_CARA);
+	for (int i = 0; i < mesh->mNumVertices / VERTEX_CARA; i++)
+	{
+		mesh->vCaras[i].vec1 = mesh->vVertices[mesh->vIndexes[i * VERTEX_CARA]];
+		mesh->vCaras[i].id1 = mesh->vIndexes[i * VERTEX_CARA];
+
+		mesh->vCaras[i].vec2 = mesh->vVertices[mesh->vIndexes[(i * VERTEX_CARA) + 1]];
+		mesh->vCaras[i].id2 = mesh->vIndexes[(i * VERTEX_CARA) + 1];
+
+		mesh->vCaras[i].vec3 = mesh->vVertices[mesh->vIndexes[(i * VERTEX_CARA) + 2]];
+		mesh->vCaras[i].id3 = mesh->vIndexes[(i * VERTEX_CARA) + 2];
+	}
+
+	mesh->buildNormalVectors();
 
 	return mesh;
 }
 
 void IndexMesh::buildNormalVectors()
 {
+	int i = 0;
+	vNormals.resize(vCaras.size());
+	for (auto cara : vCaras)
+	{
+		glm::vec3 n = { 0, 0, 0 };
+		for (int i = 0; i < VERTEX_CARA; i++)
+		{
+			const auto vertActual = vVertices[cara.getIndex(i)];
+			const auto vertSiguiente = vVertices[cara.getIndex((i + 1) % VERTEX_CARA)];
+
+			n.x += (vertActual.y - vertSiguiente.y) * (vertActual.z + vertSiguiente.z);
+			n.y += (vertActual.z - vertSiguiente.z) * (vertActual.x + vertSiguiente.x);
+			n.z += (vertActual.x - vertSiguiente.x) * (vertActual.y + vertSiguiente.y);
+		}
+
+		vNormals[i] = normalize(n);
+		i++;
+	}
+
 }
 
 void IndexMesh::render() const

@@ -70,6 +70,36 @@ protected:
 	std::vector<glm::dvec3> vNormals;
 };
 
+struct Cara
+{
+	glm::dvec3 vec1;
+	glm::dvec3 vec2;
+	glm::dvec3 vec3;
+
+	int id1;
+	int id2;
+	int id3;
+
+public:
+	int getIndex(int id) {
+		switch (id)
+		{
+		case 0:
+			return id1;
+			break;
+		case 1:
+			return id2;
+			break;
+		case 2:
+			return id3;
+			break;
+		default:
+			return -1;
+			break;
+		}
+	}
+};
+
 class IndexMesh : public Mesh {
 public:
 	IndexMesh();
@@ -79,14 +109,18 @@ public:
 
 	//------Ejercicio63:
 	static IndexMesh* generateIndexedBox(GLdouble l);
-	
+
 	//------Ejercicio65:
 	void buildNormalVectors();
 
 
 protected:
+	static const int VERTEX_CARA = 3;
 	GLuint* vIndexes = nullptr;
 	int mNumIndexes = 0;
+	// Caras
+	std::vector<glm::dvec3> vNormals;
+	std::vector<Cara> vCaras;
 
 };
 
