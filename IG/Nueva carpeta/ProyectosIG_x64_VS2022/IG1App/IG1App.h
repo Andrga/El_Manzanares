@@ -16,7 +16,6 @@
 //------Ejercicio11:
 // Array scenas
 static Scene scene_;
-static int actualscene = 0;
 
 class IG1App
 {
