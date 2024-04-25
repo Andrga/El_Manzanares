@@ -53,9 +53,11 @@ void RegularPolygon::render(dmat4 const& modelViewMat) const
 		glPolygonMode(GL_FRONT, GL_FILL);
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		upload(aMat);
+
 		glColor4d(mColor.r, mColor.g, mColor.b, mColor.a);
 		glLineWidth(2);
 		mMesh->render();
+
 		glLineWidth(1);
 		glColor4d(1, 1, 1, 1);
 	}
@@ -75,6 +77,8 @@ RGBTriangle::RGBTriangle(GLdouble r, GLdouble x, GLdouble y) :
 	mModelMat = translate(mModelMat, dvec3(x, y, 0));
 }
 void RGBTriangle::update() {
+
+	/*
 	//------Ejercicio 15:
 
 	// Deshacemos rotacion y ponemos el triangulo en el (0.0.0).
@@ -105,8 +109,16 @@ void RGBTriangle::update() {
 	// Giramos nuevamente el triangulo.
 	mModelMat = rotate(mModelMat, radians(actualAngle), dvec3(0, 0.0, 1.0));
 
+	*/
 
 
+	// ------Ejercicio66:
+	// Rotacion.
+	/*actualAngle -= 5.0;
+
+	if (actualAngle <= -360) {
+		actualAngle = 0;
+	}*/
 }
 RGBTriangle::~RGBTriangle()
 {
@@ -549,7 +561,7 @@ CompoundEntity::~CompoundEntity()
 }
 void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
 {
-	
+
 	dmat4 aMat = modelViewMat * mModelMat;
 	upload(aMat);/*
 	for (auto& ae : gObjects) {

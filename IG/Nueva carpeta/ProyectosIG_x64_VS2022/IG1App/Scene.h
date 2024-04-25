@@ -71,6 +71,11 @@ protected:
 
 	std::vector<std::vector<Abs_Entity*> > gObjects; // Entities (graphic objects) of the scene actual
 	std::vector<Texture*> gTextures; // Entidades
+
+	//------Ejercicio66:
+	CompoundEntity* nf1; // Nodo del orbit del ejercicio68.
+	CompoundEntity* nf2; // Nodo del orbit del ejercicio68.
+
 };
 
 #endif //_H_Scene_H_
