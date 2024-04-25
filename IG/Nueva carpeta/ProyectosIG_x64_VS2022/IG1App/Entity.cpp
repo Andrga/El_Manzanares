@@ -667,3 +667,27 @@ void NoseTIE::render(glm::dmat4 const& modelViewMat) const
 
 
 #pragma endregion
+
+IndexedBox::IndexedBox(GLdouble l, GLfloat rrcc, GLfloat ggcc, GLfloat bbcc) :
+	rc(rrcc), gc(ggcc), bc(bbcc)
+{
+	mMesh = IndexMesh::generateIndexedBox(l);
+}
+
+IndexedBox::~IndexedBox()
+{
+}
+
+void IndexedBox::render(glm::dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		upload(aMat);
+		glEnable(GL_COLOR_MATERIAL);
+		glColor3f(rc, gc, bc);
+		mMesh->render();
+		glDisable(GL_COLOR_MATERIAL);
+		glColor3f(1.0, 1.0, 1.0);
+	}
+}

@@ -97,6 +97,9 @@ IG1App::init()
 	scene_.addEntity(new AdvancedTIEX_1(), 4);
 	scene_.addEntity(new Sphere(200, 255, 233, 0), 4);
 
+	//------Ejercicio64:
+	scene_.addEntity(new IndexedBox(100, 0.0, 1.0, 0.0), 5);
+
 	mCamera->set2D();
 
 	scene_.setScene(0);

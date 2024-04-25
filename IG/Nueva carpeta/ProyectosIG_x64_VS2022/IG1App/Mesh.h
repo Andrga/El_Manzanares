@@ -65,6 +65,29 @@ protected:
 	virtual void draw() const;
 
 	std::vector<glm::dvec2> vTexCoords;
+
+	//----Ejercicio61:
+	std::vector<glm::dvec3> vNormals;
+};
+
+class IndexMesh : public Mesh {
+public:
+	IndexMesh();
+	~IndexMesh();
+	void render() const override;
+	void draw() const override;
+
+	//------Ejercicio63:
+	static IndexMesh* generateIndexedBox(GLdouble l);
+	
+	//------Ejercicio65:
+	void buildNormalVectors();
+
+
+protected:
+	GLuint* vIndexes = nullptr;
+	int mNumIndexes = 0;
+
 };
 
 #endif //_H_Scene_H_

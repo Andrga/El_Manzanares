@@ -258,6 +258,7 @@ private:
 	std::vector<Abs_Entity*> gObjects; // Vector de entidades.
 
 };
+
 //------Ejercicio60:
 //----General:
 class AdvancedTIEX_1 : public CompoundEntity {
@@ -303,7 +304,18 @@ private:
 };
 
 
+//------Ejercicio64:
+class IndexedBox : public Abs_Entity {
+public:
+	explicit IndexedBox(GLdouble l, GLfloat rrcc, GLfloat ggcc, GLfloat bbcc);
+	~IndexedBox();
+	void render(glm::dmat4 const& modelViewMat) const override;
 
+private:
+	std::vector<Abs_Entity*> gObjects;
+	GLfloat rc, gc, bc;
+
+};
 #pragma endregion
 
 #endif //_H_Entities_H_

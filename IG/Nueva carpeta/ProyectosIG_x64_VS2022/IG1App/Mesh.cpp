@@ -37,12 +37,17 @@ Mesh::render() const
 			glTexCoordPointer(2, GL_DOUBLE, 0, vTexCoords.data());
 
 		}
-
+		//----Ejercicio61:
+		if (vNormals.size() > 0) {
+			glEnableClientState(GL_NORMAL_ARRAY);
+			glNormalPointer(GL_DOUBLE, 0, vNormals.data());
+		}
 		draw();
 
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
 	}
 }
 
@@ -98,7 +103,7 @@ Mesh* Mesh::generateRegularPolygon(GLuint num, GLdouble r) {// Generate a regula
 		x = 0 + r * glm::cos(glm::radians(90.0) + glm::radians((360.0 / num) * i));
 		y = 0 + r * glm::sin(glm::radians(90.0) + glm::radians((360.0 / num) * i));
 		mesh->vVertices.emplace_back(x, y, 0.0);
-		//mesh->vVertices.emplace_back(r * cos(radians((360.0 / num) * i)), r * sin(radians((360.0 / num) * i)), 0.0); //Se supone que pone el resto de vértices
+		//mesh->vVertices.emplace_back(r * cos(radians((360.0 / num) * i)), r * sin(radians((360.0 / num) * i)), 0.0); //Se supone que pone el resto de vï¿½rtices
 
 	}
 
@@ -123,7 +128,7 @@ Mesh* Mesh::generateRGBTriangle(GLdouble r) { // Genera un triangulo RGB:
 		x = 0 + r * glm::cos(glm::radians(90.0) + glm::radians((360.0 / 3) * i));
 		y = 0 + r * glm::sin(glm::radians(90.0) + glm::radians((360.0 / 3) * i));
 		mesh->vVertices.emplace_back(x, y, 1.0);
-		//mesh->vVertices.emplace_back(r * cos(radians((360.0 / num) * i)), r * sin(radians((360.0 / num) * i)), 0.0); //Se supone que pone el resto de vértices
+		//mesh->vVertices.emplace_back(r * cos(radians((360.0 / num) * i)), r * sin(radians((360.0 / num) * i)), 0.0); //Se supone que pone el resto de vï¿½rtices
 
 	}
 	mesh->vColors.reserve(mesh->mNumVertices);
@@ -439,6 +444,7 @@ Mesh* Mesh::generateStar3DTexCor(GLdouble re, GLuint np, GLdouble h) {
 }
 
 #pragma endregion
+
 //Region con los apartados de la P4:
 #pragma region P4
 //------Ejercicio60:
@@ -469,4 +475,121 @@ Mesh* Mesh::generateTIEWing(GLdouble h1, GLdouble h2, GLdouble d)
 
 	return mesh;
 }
+
+
+IndexMesh::IndexMesh()
+{
+}
+
+IndexMesh::~IndexMesh()
+{
+}
+
+IndexMesh* IndexMesh::generateIndexedBox(GLdouble l)
+{
+	IndexMesh* mesh = new IndexMesh();
+
+	mesh->mNumVertices = 8;
+
+	GLdouble s = l / 2;
+	// Aniade los 8 vertices del cubo a la mesh
+	mesh->vVertices.reserve(mesh->mNumVertices);
+	mesh->vVertices.emplace_back(-s, s, -s);		// v0
+	mesh->vVertices.emplace_back(s, s, -s);		// v1
+	mesh->vVertices.emplace_back(s, -s, -s);		// v2
+	mesh->vVertices.emplace_back(-s, -s, -s);	// v3
+	mesh->vVertices.emplace_back(-s, s, s);		// v4
+	mesh->vVertices.emplace_back(s, s, s);		// v5
+	mesh->vVertices.emplace_back(s, -s, s);		// v6
+	mesh->vVertices.emplace_back(-s, -s, s);		// v7
+
+	// Indices para la creacion de primitivas
+	mesh->mNumIndexes = 36;
+	mesh->vIndexes = new GLuint[mesh->mNumIndexes];
+
+	GLuint arr[36] = {
+		// Laterales
+		0,2,1,
+		2,0,3,
+		6,2,1,
+		6,1,5,
+		5,7,6,
+		7,5,4,
+		4,3,7,
+		3,4,0,
+
+		// Tapas
+		0,5,1,
+		0,4,5,
+		3,6,2,
+		3,7,6
+	};
+
+	for (int i = 0; i < mesh->mNumIndexes; i++) {
+
+		mesh->vIndexes[i] = arr[i];
+	}
+
+
+	return mesh;
+}
+
+void IndexMesh::buildNormalVectors()
+{
+}
+
+void IndexMesh::render() const
+{
+	if (vVertices.empty()) return;
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(
+		3, GL_DOUBLE, 0, vVertices.data()); // number of coordinates per vertex, type of
+	// each coordinate, stride, pointer
+
+	/// si tiene vertices de color
+	if (!vColors.empty())
+	{
+		// transfer colors
+		glEnableClientState(GL_COLOR_ARRAY);
+		glColorPointer(
+			4, GL_DOUBLE, 0, vColors.data()); // components number (rgba=4), type of
+		// each component, stride, pointer
+	}
+
+	/// si tiene vertices de textura
+	if (!vTexCoords.empty())
+	{
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		glTexCoordPointer(2, GL_DOUBLE, 0, vTexCoords.data());
+	}
+
+	if (!vNormals.empty())
+	{
+		//glEnable(GL_NORMALIZE);
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glNormalPointer(GL_DOUBLE, 0, vNormals.data());
+	}
+	if (vIndexes != nullptr)
+	{
+		glEnableClientState(GL_INDEX_ARRAY);
+		glIndexPointer(GL_UNSIGNED_INT, 0, vIndexes);
+	}
+
+	glColorMaterial(GL_FRONT_AND_BACK, GL_FILL);
+	draw();
+	glDisableClientState(GL_INDEX_ARRAY);
+
+	//glDisable(GL_NORMALIZE);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+}
+
+void IndexMesh::draw() const
+{
+	//------Ejercicio62:
+	glDrawElements(mPrimitive, mNumIndexes, GL_UNSIGNED_INT, vIndexes);
+}
+
 #pragma endregion
