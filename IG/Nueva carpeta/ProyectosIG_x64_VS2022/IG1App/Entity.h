@@ -283,6 +283,7 @@ public:
 	void setTexture(Texture* texture, std::string text, GLubyte alpha) const {
 		texture->load(text, alpha);
 	}
+	void update() override;
 
 private:
 	glm::dmat4 mMat = glm::dmat4();

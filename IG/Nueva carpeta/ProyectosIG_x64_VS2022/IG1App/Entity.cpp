@@ -549,6 +549,13 @@ CompoundEntity::~CompoundEntity()
 }
 void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
 {
+
+	/*dmat4 aMat = modelViewMat * mModelMat;
+	upload(aMat);
+	for (auto& ae : gObjects) {
+
+		ae->render(aMat * ae->modelMat()); // Hay qeu usar esto pero me jode todo y ns porque no me hace las transformaciones...
+	}*/
 	for (auto& ae : gObjects)
 	{
 		ae->render(modelViewMat);
@@ -626,6 +633,11 @@ void WingTIE::render(glm::dmat4 const& modelViewMat) const
 		texture->unbind();
 	}
 }
+void WingTIE::update()
+{
+
+}
+
 //----Morro del TIE:
 NoseTIE::NoseTIE()
 {
