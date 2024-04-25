@@ -269,7 +269,7 @@ public:
 
 private:
 	QuadricEntity* body; // La esfera.
-	Abs_Entity* nose; // El cilindro con el disco que sobresale hacia delante.
+	CompoundEntity* nose; // El cilindro con el disco que sobresale hacia delante.
 	QuadricEntity* cosaDeAlaAAla; // El cilindro que va de ala a ala y no se nombrar de otra forma.
 	Abs_Entity* rightWing; // Ala derecha.
 	Abs_Entity* leftWing; // Ala izquierda.
@@ -285,7 +285,6 @@ public:
 	}
 
 private:
-	Mesh* wing;
 	glm::dmat4 mMat = glm::dmat4();
 	Texture* texture;
 };

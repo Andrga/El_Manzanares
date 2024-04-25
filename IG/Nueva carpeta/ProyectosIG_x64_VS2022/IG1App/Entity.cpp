@@ -603,17 +603,18 @@ WingTIE::WingTIE(GLdouble x, GLdouble y, GLdouble z, GLdouble rot, bool inv, con
 	}
 
 	texture = new Texture();
-	setTexture(texture, tex, 155);
+	setTexture(texture, tex, 180);
 }
 WingTIE::~WingTIE()
 {
-
+	delete texture;
+	texture = nullptr;
 }
 void WingTIE::render(glm::dmat4 const& modelViewMat) const
 {
 	if (mMesh != nullptr)
 	{
-		dmat4 aMat = modelViewMat * mModelMat;
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		texture->bind(GL_MODULATE);
 		upload(aMat);
@@ -622,6 +623,7 @@ void WingTIE::render(glm::dmat4 const& modelViewMat) const
 		glLineWidth(1);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		texture->unbind();
+
 	}
 }
 //----Morro del TIE:

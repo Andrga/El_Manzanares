@@ -460,6 +460,13 @@ Mesh* Mesh::generateTIEWing(GLdouble h1, GLdouble h2, GLdouble d)
 	mesh->vVertices.emplace_back(-h1, d, h2); // V6.
 	mesh->vVertices.emplace_back(-h1, -d, h2); // V7.
 
+	mesh->vTexCoords.reserve(4);
+
+	mesh->vTexCoords.emplace_back(0, 0);
+	mesh->vTexCoords.emplace_back(1, 0);
+	mesh->vTexCoords.emplace_back(0, 1);
+	mesh->vTexCoords.emplace_back(1, 1);
+
 	return mesh;
 }
 #pragma endregion
