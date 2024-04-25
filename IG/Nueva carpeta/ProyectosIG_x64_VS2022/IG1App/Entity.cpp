@@ -549,16 +549,16 @@ CompoundEntity::~CompoundEntity()
 }
 void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
 {
-
-	/*dmat4 aMat = modelViewMat * mModelMat;
-	upload(aMat);
+	
+	dmat4 aMat = modelViewMat * mModelMat;
+	upload(aMat);/*
 	for (auto& ae : gObjects) {
 
-		ae->render(aMat * ae->modelMat()); // Hay qeu usar esto pero me jode todo y ns porque no me hace las transformaciones...
+		ae->render(aMat * ae->modelMat()); // Hay que usar esto pero me jode todo y ns porque no me hace las transformaciones...
 	}*/
 	for (auto& ae : gObjects)
 	{
-		ae->render(modelViewMat);
+		ae->render(aMat);
 	}
 }
 void CompoundEntity::addEntity(Abs_Entity* ae)
@@ -587,6 +587,8 @@ AdvancedTIEX_1::AdvancedTIEX_1()
 	// Las cosas transparentes lo ultimo para que se haga bien todo.
 	CompoundEntity::addEntity(leftWing);
 	CompoundEntity::addEntity(rightWing);
+
+	mModelMat = translate(mModelMat, dvec3(0, 1000, 0));
 }
 AdvancedTIEX_1::~AdvancedTIEX_1()
 {
@@ -595,6 +597,10 @@ AdvancedTIEX_1::~AdvancedTIEX_1()
 void AdvancedTIEX_1::render(glm::dmat4 const& modelViewMat) const
 {
 	CompoundEntity::render(modelViewMat);
+}
+void AdvancedTIEX_1::update()
+{
+	mModelMat = translate(mModelMat, dvec3(0, 1000, 0));
 }
 //----Ala del TIE:
 WingTIE::WingTIE(GLdouble x, GLdouble y, GLdouble z, GLdouble rot, bool inv, const std::string& tex)
@@ -633,11 +639,6 @@ void WingTIE::render(glm::dmat4 const& modelViewMat) const
 		texture->unbind();
 	}
 }
-void WingTIE::update()
-{
-
-}
-
 //----Morro del TIE:
 NoseTIE::NoseTIE()
 {

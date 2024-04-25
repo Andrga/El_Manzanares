@@ -16,26 +16,62 @@ Scene::init()
 
 	// Graphics objects (entities) of the scene
 
+
 	//------Ejes:
 	for (int i = 0; i <= NSCENES; i++)
 	{
 		gObjects.push_back(std::vector<Abs_Entity*>());
 		gObjects[i].push_back(new EjesRGB(400.0));
+
+		switch (i)
+		{
+		case 0:
+			addEntity(new RGBRectangle(300.0, 200.0, 0.0), 0);
+			addEntity(new RGBTriangle(50.0, 200.0, 0.0), 0);
+			addEntity(new RegularPolygon(100, 200.0), 0);
+			break;
+		case 1:
+			addEntity(new RGBCube(100.0), 1);
+			break;
+		case 2:
+			addEntity(new Ground(200.0, 200.0, 4, 4, "../bmps/baldosaC.bmp"), 2);
+			addEntity(new BoxOutline(200, "../bmps/container.bmp", "../bmps/papelE.bmp"), 2);
+			addEntity(new Star3D(100, 8, 100, "../bmps/baldosaP.bmp"), 2); // Ejercicio28.
+			addEntity(new GlassParapet(300, "../bmps/windowV.bmp"), 2); // Ejercicio31.
+			addEntity(new Photo(500), 2); // Ejercicio31.
+			break;
+		case 3:
+			break;
+		case 4:
+			//------Ejercicio60: TIE.
+			tie = new AdvancedTIEX_1();
+			tie->setModelMat(translate(tie->modelMat(), dvec3(0, 150, 0)));
+			addEntity(tie, 4);
+			addEntity(new Sphere(800, 255, 233, 0), 4);
+			break;
+		case 5:
+			//------Ejercicio64:
+			addEntity(new IndexedBox(100, 0.0, 1.0, 0.0), 5);
+			break;
+		default:
+			break;
+		}
 	}
-	//------Ejercicio5:
+
+	/*//------Ejercicio5:
 		//gObjects.push_back(new RegularPolygon(3, 200.0)); // Triangulo cian.
 		//gObjects[gObjects.size() - 1]->setColor(dvec4(0, 1, 1, 1));
 		//gObjects.push_back(new RegularPolygon(100, 200.0)); // Circulo morado.
 		//gObjects[gObjects.size() - 1]->setColor(dvec4(1, 0, 0.8, 1));
 	//------Ejercicio6:
-	/*gObjects.push_back(new RGBTriangle(200.0)); // Triangulo RGB.
-	gObjects[gObjects.size() - 1]->setColor(dvec4(0, 1, 1, 1));*/
+	gObjects.push_back(new RGBTriangle(200.0)); // Triangulo RGB.
+	gObjects[gObjects.size() - 1]->setColor(dvec4(0, 1, 1, 1));
 	//------Ejercicio8:
 	// gObjects.push_back(new RGBRectangle(100.0, 200.0));
 	//------Ejercicio9:
 	//gObjects.push_back(new Cube(100.0));
 	//------Ejercicio10:
-	//gObjects.push_back(new RGBCube(100.0));
+	//gObjects.push_back(new RGBCube(100.0));*/
 
 
 }
@@ -59,7 +95,6 @@ void
 Scene::setGL()
 {
 	// OpenGL basic setting
-	glClearColor(0.6, 0.7, 0.8, 1.0); // background color (alpha=1 -> opaque)
 	glEnable(GL_DEPTH_TEST);          // enable Depth test
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GLUT_MULTISAMPLE);
@@ -96,6 +131,19 @@ void Scene::update() {
 	glutPostRedisplay();
 	for (Abs_Entity* el : gObjects[mId]) {
 		el->update();
+	}
+}
+
+void Scene::setScene(int id)
+{
+	mId = id;
+	if (mId == 4)
+	{
+		glClearColor(0.0, 0.0, 0.0, 1.0); // background color (alpha=1 -> opaque)
+	}
+	else
+	{
+		glClearColor(0.6, 0.7, 0.8, 1.0); // background color (alpha=1 -> opaque)
 	}
 }
 

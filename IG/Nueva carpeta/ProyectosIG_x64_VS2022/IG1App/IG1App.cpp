@@ -72,33 +72,10 @@ IG1App::init()
 
 	// create the scene after creating the context
 	// allocate memory and resources
-	mViewPort =
-		new Viewport(mWinW, mWinH); // glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT)
+	mViewPort = new Viewport(mWinW, mWinH); // glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT)
 	mCamera = new Camera(mViewPort);
 
 	scene_.init();
-	scene_.addEntity(new RGBCube(100.0), 1);
-	scene_.addEntity(new RGBRectangle(300.0, 200.0, 0.0), 0);
-	scene_.addEntity(new RGBTriangle(50.0, 200.0, 0.0), 0);
-	scene_.addEntity(new RegularPolygon(100, 200.0), 0);
-	scene_.addEntity(new Ground(200.0, 200.0, 4, 4, "../bmps/baldosaC.bmp"), 2);
-	scene_.addEntity(new BoxOutline(200, "../bmps/container.bmp", "../bmps/papelE.bmp"), 2);
-	//scenes[2]->addEntity(new Star3D(300,12,200));
-	scene_.addEntity(new Star3D(100, 8, 100, "../bmps/baldosaP.bmp"), 2); // Ejercicio28.
-	scene_.addEntity(new GlassParapet(300, "../bmps/windowV.bmp"), 2); // Ejercicio31.
-	scene_.addEntity(new Photo(500), 2); // Ejercicio31.
-
-	//------Ejercicio58: granjero.
-	scene_.addEntity(new Sphere(50, 1.0, 0.5, 0.0), 3);
-	/*scenes[3]->addEntity(new Disk(50, 20));
-	scenes[3]->addEntity(new PartialDisk(50, 50, 50, 50));
-	scenes[3]->addEntity(new Cylinder(50, 0, 50));*/
-	//------Ejercicio60: TIE.
-	scene_.addEntity(new AdvancedTIEX_1(), 4);
-	scene_.addEntity(new Sphere(200, 255, 233, 0), 4);
-
-	//------Ejercicio64:
-	scene_.addEntity(new IndexedBox(100, 0.0, 1.0, 0.0), 5);
 
 	mCamera->set2D();
 

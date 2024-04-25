@@ -33,7 +33,8 @@ public:
 
 	void update();
 
-	void setScene(int id) { mId = id; }
+	void setScene(int id);
+
 
 protected:
 	void free();
@@ -45,6 +46,7 @@ protected:
 
 	int mId;
 
+	Abs_Entity* tie;
 	std::vector<std::vector<Abs_Entity*> > gObjects; // Entities (graphic objects) of the scene actual
 	std::vector<Texture*> gTextures; // Entidades
 };

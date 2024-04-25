@@ -266,7 +266,7 @@ public:
 	AdvancedTIEX_1();
 	~AdvancedTIEX_1() override;
 	void render(glm::dmat4 const& modelViewMat) const override;
-
+	void update() override;
 
 private:
 	QuadricEntity* body; // La esfera.
@@ -284,7 +284,7 @@ public:
 	void setTexture(Texture* texture, std::string text, GLubyte alpha) const {
 		texture->load(text, alpha);
 	}
-	void update() override;
+	
 
 private:
 	glm::dmat4 mMat = glm::dmat4();
