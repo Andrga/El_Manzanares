@@ -54,22 +54,22 @@ Scene::init()
 			break;
 		case 3:
 			// Cabeza:
-			head = new Sphere(30, 255, 165, 0);
+			head = new Sphere(30, 1, 0.5, 0);
 			addEntity(head, 3);
 			// Barba:
-			beard = new PartialDisk(10, 30, 90, 180, 0, 255, 0);
+			beard = new PartialDisk(10, 30, 90, 180, 0, 1, 0);
 			beard->setModelMat(translate(beard->modelMat(), dvec3(0, 0, 20)));
 			addEntity(beard, 3);
 			// Sombrero:
-			cap = new Disk(0, 40, 255, 0, 0);
+			cap = new Disk(0, 40, 1, 0, 0);
 			cap->setModelMat(rotate(dmat4(1.0), radians(90.0), dvec3(1.0, 0.0, 0.0)) * translate(cap->modelMat(), dvec3(0, 0, -25))); //PAIGRO AQUI.	
 			addEntity(cap, 3);
 			// Ojo1:
-			eye1 = new Cylinder(5, 1, 15, 0, 0, 128);
+			eye1 = new Cylinder(5, 1, 15, 0, 0, 0.5);
 			eye1->setModelMat(translate(eye1->modelMat(), dvec3(10, 0, 25)));
 			addEntity(eye1, 3);
 			// Ojo2:
-			eye2 = new Cylinder(5, 1, 15, 76, 88, 102);
+			eye2 = new Cylinder(5, 1, 15, 0.29, 0.34, 0.4);
 			eye2->setModelMat(translate(eye2->modelMat(), dvec3(-10, 0, 25)));
 			addEntity(eye2, 3);
 
@@ -85,7 +85,7 @@ Scene::init()
 			//addEntity(tie, 4); // Tecnicamente si estan en los nodos no hace falta meterlos en la escena se meteran con el nodo i guess.
 
 			// Tatooine:
-			tatooine = new Sphere(800, 255, 233, 0);
+			tatooine = new Sphere(800, 1, 0.91, 0);
 			//addEntity(tatooine, 4); // Lo mismo que con el TIE.
 
 			// Nodo orbit:

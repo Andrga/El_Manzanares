@@ -581,13 +581,13 @@ void CompoundEntity::addEntity(Abs_Entity* ae)
 //----En general el TIE:
 AdvancedTIEX_1::AdvancedTIEX_1()
 {
-	body = new Sphere(40, 0, 65, 106); // Creamos el cuerpo que es una esfera.
+	body = new Sphere(40, 0, 0.25, 0.41); // Creamos el cuerpo que es una esfera.
 
 	leftWing = new WingTIE(0, 0, -60, 0, false, "../bmps/noche.bmp"); // Creamos una de las alas.
 
 	rightWing = new WingTIE(0, 0, 60, 0, true, "../bmps/noche.bmp"); // Creamos el otro ala, invertido a true porque es mas eficiente que hacer una rotacion como tal.
 
-	cosaDeAlaAAla = new Cylinder(10, 10, 140, 0, 65, 106); // Creamos la cosa esta que es un cilindro.
+	cosaDeAlaAAla = new Cylinder(10, 10, 140, 0, 0.25, 0.41); // Creamos la cosa esta que es un cilindro.
 	cosaDeAlaAAla->setModelMat(translate(dmat4(1.0), dvec3(0, 0, -70)) * cosaDeAlaAAla->modelMat()); // Cambiamos la posicion del cilindro para que este en el medio y vaya de ala a ala.
 
 	nose = new NoseTIE();
@@ -654,11 +654,11 @@ void WingTIE::render(glm::dmat4 const& modelViewMat) const
 //----Morro del TIE:
 NoseTIE::NoseTIE()
 {
-	cylinder = new Cylinder(5, 5, 50, 0, 65, 106);
+	cylinder = new Cylinder(5, 5, 50, 0, 0.25, 0.41);
 	cylinder->setModelMat(
 		rotate(dmat4(1.0), radians(90.0), dvec3(0.0, 1.0, 0.0))
 		* cylinder->modelMat());
-	disk = new Disk(0, 5, 255, 0, 0);
+	disk = new Disk(0, 5, 1, 0, 0);
 	disk->setModelMat(
 		translate(dmat4(1.0), dvec3(50, 0, 0))
 		* rotate(dmat4(1.0), radians(90.0), dvec3(0.0, 1.0, 0.0))
