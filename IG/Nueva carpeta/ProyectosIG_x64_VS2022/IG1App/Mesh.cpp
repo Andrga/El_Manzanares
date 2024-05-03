@@ -626,3 +626,20 @@ void IndexMesh::draw() const
 }
 
 #pragma endregion
+
+#pragma region P5
+//------Ejercicio69:
+MbR::MbR(int perPoi, int nRot, glm::dvec3* per) : perfilPoints(perPoi), nRotations(nRot), perfil(per)
+{
+
+}
+MbR::~MbR()
+{
+
+}
+MbR* MbR::generaMallaIndexadaPorRevolucion(int perPoi, int nRot, glm::dvec3* per)
+{
+	return nullptr;
+}
+#pragma endregion
+

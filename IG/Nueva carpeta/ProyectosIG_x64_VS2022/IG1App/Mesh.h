@@ -126,4 +126,22 @@ protected:
 
 };
 
+// Practica5:
+#pragma region P5
+//------Ejercicio69:
+class MbR : public IndexMesh {
+public:
+	MbR(int perPoi, int nRot, glm::dvec3* per); // Constructora.
+	~MbR(); // Destructora.
+
+
+protected:
+	int perfilPoints; // Numero de puntos del perfil.
+	int nRotations; // Numero de rotaciones que se hacen.
+	glm::dvec3* perfil; // Perfil original en el eje XY.
+
+	static MbR* generaMallaIndexadaPorRevolucion(int perPoi, int nRot, glm::dvec3* per); //  Obtiene los vértices de la malla, los índices y los vectores normales.
+};
+#pragma endregion
+
 #endif //_H_Scene_H_
