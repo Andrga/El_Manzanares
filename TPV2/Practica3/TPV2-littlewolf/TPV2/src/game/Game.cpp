@@ -6,10 +6,14 @@
 #include "../sdlutils/SDLUtils.h"
 #include "LittleWolf.h"
 
+#include "Networking.h"
+
+Game* Game::_instance = nullptr;
 
 Game::Game() :
 		little_wolf_(nullptr) //
 {
+	_instance = this;
 }
 
 Game::~Game() {

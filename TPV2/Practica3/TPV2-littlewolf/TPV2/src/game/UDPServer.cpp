@@ -1,11 +1,11 @@
 // This file is part of the course TPV2@UCM - Samir Genaim
 
-#include "../../../fighters/net/game/UDPServer.h"
+#include "UDPServer.h"
 
 #include <iostream>
 #include <SDL_net.h>
 
-#include "../../../fighters/net/game/netwrok_messages.h"
+#include "netwrok_messages.h"
 #include "../sdlutils/SDLNetUtils.h"
 
 UDPServer::UDPServer(const Uint16 port, uint8_t max_clients) {

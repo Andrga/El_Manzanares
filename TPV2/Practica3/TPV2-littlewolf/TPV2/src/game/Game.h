@@ -14,5 +14,7 @@ public:
 private:
 	LittleWolf *little_wolf_;
 
+	static Game* _instance;
+	static Game* instance() { return _instance; };
 };
 
