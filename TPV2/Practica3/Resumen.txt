@@ -1,0 +1,30 @@
+1. ORDENADOR MÁSTER: 
+    - si se desconecta se asigna al siguiente con menor identificador
+    - si se conecta alguien con identificador menor que el actual cambia máster
+    - decide las posiciones aleatorias en las que aparecen los siguientes jugadores
+-> TODA EL ENVÍO DE MENSAJES SE TRAMITA A TRAVÉS DE ESTE ORDENADOR, CUANDO SE REALICE UNA ACCIÓN ESTE ORDENADOR 
+PROCESA LA LÓGICA DE VALIDACIÓN DE LA ACCIÓN
+
+2. CUANDO SE CONECTA JUGADOR:
+    - ya puede ir directamente de chill por el mapa
+3. numJugadores <= 0: PANTALLA DE ESPERA
+    - mensaje de restart (si los jugadores han muerto y no abandonado)
+    - a los 5 segundos spawnean los jugadores donde el máster quiere 
+    - aquí nadie puede navegar
+4. VISTA AÉREA CON LIMITE:
+    - 1 o 2 segundos de límite al pulsar N
+5. ABANDONAR PARTIDA:
+    - al pulsar ESC, el resto siguen y tu sales
+6. SINCRONIZAR JUGADORES:
+    - después de cada movimiento cada jugador avisa a todos la información del movimiento (posición anterior, posición actual, velocidad actual, rotación actual, etc)
+    - cuando el master recibe ese mensaje tiene que comprobar que no haya conflictos:
+        + en el mapa del master ese movimiento es válido (el jugador estaba en su posición anterior y la nueva posición –si es distinta– no está ocupada), 
+        en caso contrario avisa a todos los jugadores las posiciones actuales (como en su mapa) que tienen que tener para resolver el conflicto
+7. DISPAROS:
+    - cuando un jugador dispara envía un mensaje diciendo que se ha disparado y el máster tiene que decidir si el disparo choca con algún jugador y avisar a todos quien haya muerto
+8. SONIDOS:
+    - disparo
+    - grito de dolor cuando un jugador muere
+        + en todos los clientes con volumen relativo a la distancia del jugador que haya disparado/muerto
+9. LIMPIAR:
+    - eliminar pulsar R para reiniciar y pulsar N para cambiar de jugador
