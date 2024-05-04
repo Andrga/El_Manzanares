@@ -235,7 +235,12 @@ void Networking::send_restart() {
 
 void Networking::sendPlayerInfo(const Vector2D& pos, const Vector2D& vel, float speed, float acceleration, float theta, Uint8 state)
 {
+	PlayerInfoMsg m;
+	m._client_id = clientId_;
+	m._type = _PLAYER_INFO;
 
+	m.x = pos.getX();
+	m.y = pos.getY();
 }
 
 void Networking::handle_restart() {

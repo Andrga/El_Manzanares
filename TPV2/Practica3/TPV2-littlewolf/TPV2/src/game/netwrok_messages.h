@@ -51,14 +51,16 @@ struct PlayerStateMsg : MsgWithId {
 
 struct PlayerInfoMsg : MsgWithId {
 
-	float x;
-	float y;
-	int w;
-	int h;
-	float rot;
+	float posX;
+	float posY;
+	float velX;
+	float velY;
+	float speed;
+	float acceleration;
+	float theta;
 	Uint8 state;
 
-	_IMPL_SERIALIAZION_WITH_BASE_(MsgWithId, x, y, w, h, rot, state)
+	_IMPL_SERIALIAZION_WITH_BASE_(MsgWithId, posX, posY, velX, velY, speed, acceleration, theta, state)
 
 };
 struct ShootMsg : MsgWithId {

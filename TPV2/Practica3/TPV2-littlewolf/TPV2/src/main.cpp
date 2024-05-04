@@ -21,6 +21,6 @@ int main(int, char**) {
 		std::cerr << "Caught and exception of unknown type ...";
 	}
 
-	return 0;
+	return 66;
 }
 
