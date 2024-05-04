@@ -26,9 +26,9 @@ void Game::init() {
 	SDLUtils::init("Demo", 900, 480,
 			"resources/config/littlewolf.resources.json");
 
-	net = new Networking();
+	network_ = new Networking();
 
-	if(!Networking->init())
+	if(!network_->init())
 
 
 	little_wolf_ = new LittleWolf(sdlutils().width(), sdlutils().height(),

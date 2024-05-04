@@ -51,14 +51,14 @@ struct PlayerStateMsg : MsgWithId {
 
 struct PlayerInfoMsg : MsgWithId {
 
-	float posX;
-	float posY;
-	float velX;
-	float velY;
-	float speed;
-	float acceleration;
-	float theta;
-	Uint8 state;
+	float posX; // Posicion en X.
+	float posY; // Posicion en Y.
+	float velX; // Velocidad en X.
+	float velY; // Velocidad en Y.
+	float speed; // Velocidad.
+	float acceleration; // Acceleracion.
+	float theta; // Rotacion en radianes.
+	Uint8 state; // Estado.
 
 	_IMPL_SERIALIAZION_WITH_BASE_(MsgWithId, posX, posY, velX, velY, speed, acceleration, theta, state)
 

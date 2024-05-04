@@ -235,12 +235,25 @@ void Networking::send_restart() {
 
 void Networking::sendPlayerInfo(const Vector2D& pos, const Vector2D& vel, float speed, float acceleration, float theta, Uint8 state)
 {
+	//Mensaje.
 	PlayerInfoMsg m;
+
+	// Id del mensaje y el tipo.
 	m._client_id = clientId_;
 	m._type = _PLAYER_INFO;
 
-	m.x = pos.getX();
-	m.y = pos.getY();
+	// Meter la info del jugador.
+	m.posX = pos.getX();
+	m.posY = pos.getY();
+	m.velX = vel.getX();
+	m.velY = vel.getY();
+	m.speed = speed;
+	m.acceleration = acceleration;
+	m.theta = theta;
+	m.state = state;
+
+	// Manda el mensaje.
+	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);
 }
 
 void Networking::handle_restart() {
