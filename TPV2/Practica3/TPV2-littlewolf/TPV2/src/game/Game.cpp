@@ -20,7 +20,7 @@ Game::~Game() {
 	delete little_wolf_;
 }
 
-void Game::init() {
+void Game::init(const char* host, int port) {
 
 	// initialize the SDLUtils singleton
 	SDLUtils::init("Demo", 900, 480,
@@ -28,7 +28,7 @@ void Game::init() {
 
 	network_ = new Networking();
 
-	if(!network_->init())
+	if(!network_->init(host, port))
 
 
 	little_wolf_ = new LittleWolf(sdlutils().width(), sdlutils().height(),

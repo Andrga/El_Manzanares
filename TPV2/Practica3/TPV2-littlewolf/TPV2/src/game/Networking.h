@@ -13,7 +13,7 @@ public:
 	Networking();
 	virtual ~Networking();
 
-	bool init(char* host, Uint16 port);
+	bool init(const char* host, Uint16 port);
 	bool disconnect();
 	void update();
 

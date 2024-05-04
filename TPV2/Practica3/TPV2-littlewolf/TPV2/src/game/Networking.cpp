@@ -22,7 +22,7 @@ Networking::Networking() :
 Networking::~Networking() {
 }
 
-bool Networking::init(char* host, Uint16 port) {
+bool Networking::init(const char* host, Uint16 port) {
 
 	if (SDLNet_ResolveHost(&srvadd_, host, port) < 0) {
 		SDLNetUtils::print_SDLNet_error();

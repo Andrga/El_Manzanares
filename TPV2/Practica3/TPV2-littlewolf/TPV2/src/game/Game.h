@@ -10,7 +10,7 @@ class Game {
 public:
 	Game();
 	virtual ~Game();
-	void init();
+	void init(const char* host, int port);
 	void start();
 
 	LittleWolf* getLittleWolf();

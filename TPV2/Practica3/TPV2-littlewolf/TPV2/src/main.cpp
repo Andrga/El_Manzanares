@@ -4,13 +4,27 @@
 #include <fstream>
 
 #include "game/Game.h"
+#include "game/UDPServer.h"
+
+#include "sdlutils/SDLNetUtils.h"
+
+void server(Uint16 port) {
+
+}
+
+void client(const char* host, Uint16 port) {
+	Game g;
+
+	g.init(host, port);
+	g.start();
+}
 
 int main(int, char**) {
 
 	try {
-		Game g;
-		g.init();
-		g.start();
+		sdlUtils
+		const char* host;
+
 	} catch (const std::string &e) { // catch exceptions thrown as strings
 		std::cerr << e << std::endl;
 	} catch (const char *e) { // catch exceptions thrown as char*
