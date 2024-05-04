@@ -5,8 +5,10 @@
 #include <iostream>
 
 #include "Game.h"
+#include "LittleWolf.h"
 #include "netwrok_messages.h"
 #include "../sdlutils/SDLNetUtils.h"
+#include "../utils/Vector2D.h"
 
 Networking::Networking() :
 	sock_(), //
@@ -142,8 +144,9 @@ void Networking::update() {
 }
 
 void Networking::handle_new_client(Uint8 id) {
-	//if (id != clientId_)
-		//Game::instance()->get_fighters().send_my_info();
+	if (id != clientId_) {
+		Game::instance()->getLittleWolf()->sendPlayerInfo();
+	}
 }
 
 void Networking::handle_disconnet(Uint8 id) {
@@ -151,7 +154,7 @@ void Networking::handle_disconnet(Uint8 id) {
 }
 
 void Networking::send_state(const Vector2D& pos, float w, float h, float rot) {
-	/*PlayerStateMsg m;
+	PlayerStateMsg m;
 	m._type = _PLAYER_STATE;
 	m._client_id = clientId_;
 	m.x = pos.getX();
@@ -159,15 +162,14 @@ void Networking::send_state(const Vector2D& pos, float w, float h, float rot) {
 	m.w = w;
 	m.h = h;
 	m.rot = rot;
-	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);*/
+	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);
 }
 
 void Networking::handle_player_state(const PlayerStateMsg& m) {
 
-	/*if (m._client_id != clientId_) {
-		Game::instance()->get_fighters().update_player_state(m._client_id, m.x,
-			m.y, m.w, m.h, m.rot);
-	}*/
+	if (m._client_id != clientId_) {
+		//Game::instance()->getLittleWolf().update_player_state(m._client_id, m.x, m.y, m.w, m.h, m.rot);
+	}
 }
 
 /*void Networking::send_shoot(Vector2D p, Vector2D v, int width, int height, float r) {
@@ -188,6 +190,10 @@ void Networking::handle_shoot(const ShootMsg& m) {
 	/*Game::instance()->get_bullets().shoot(Vector2D(m.x, m.y),
 		Vector2D(m.vx, m.vy), m.w, m.h, m.rot);*/
 
+}
+
+void Networking::send_shoot(Vector2D p, Vector2D v, int width, int height, float r)
+{
 }
 
 void Networking::send_dead(Uint8 id) {
@@ -225,6 +231,11 @@ void Networking::send_restart() {
 	/*Msg m;
 	m._type = _RESTART;
 	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);*/
+}
+
+void Networking::sendPlayerInfo(const Vector2D& pos, const Vector2D& vel, float speed, float acceleration, float theta, Uint8 state)
+{
+
 }
 
 void Networking::handle_restart() {

@@ -25,19 +25,19 @@ struct Msg {
 	_IMPL_SERIALIAZION_(_type)
 };
 
-struct MsgWithId: Msg {
+struct MsgWithId : Msg {
 	Uint8 _client_id;
 
-	_IMPL_SERIALIAZION_WITH_BASE_(Msg,_client_id)
+	_IMPL_SERIALIAZION_WITH_BASE_(Msg, _client_id)
 };
 
-struct MsgWithMasterId: MsgWithId {
+struct MsgWithMasterId : MsgWithId {
 	Uint8 _master_id;
 
-	_IMPL_SERIALIAZION_WITH_BASE_(MsgWithId,_master_id)
+	_IMPL_SERIALIAZION_WITH_BASE_(MsgWithId, _master_id)
 };
 
-struct PlayerStateMsg: MsgWithId {
+struct PlayerStateMsg : MsgWithId {
 
 	float x;
 	float y;
@@ -45,11 +45,11 @@ struct PlayerStateMsg: MsgWithId {
 	int h;
 	float rot;
 
-	_IMPL_SERIALIAZION_WITH_BASE_(MsgWithId, x,y,w,h,rot)
+	_IMPL_SERIALIAZION_WITH_BASE_(MsgWithId, x, y, w, h, rot)
 
 };
 
-struct PlayerInfoMsg: MsgWithId {
+struct PlayerInfoMsg : MsgWithId {
 
 	float x;
 	float y;
@@ -58,10 +58,10 @@ struct PlayerInfoMsg: MsgWithId {
 	float rot;
 	Uint8 state;
 
-	_IMPL_SERIALIAZION_WITH_BASE_(MsgWithId, x,y,w,h,rot,state)
+	_IMPL_SERIALIAZION_WITH_BASE_(MsgWithId, x, y, w, h, rot, state)
 
 };
-struct ShootMsg: MsgWithId {
+struct ShootMsg : MsgWithId {
 
 	float x;
 	float y;
@@ -71,6 +71,6 @@ struct ShootMsg: MsgWithId {
 	int h;
 	float rot;
 
-	_IMPL_SERIALIAZION_WITH_BASE_(MsgWithId, x,y,vx,vy,w,h,rot)
+	_IMPL_SERIALIAZION_WITH_BASE_(MsgWithId, x, y, vx, vy, w, h, rot)
 
 };

@@ -4,6 +4,7 @@
 
 
 class LittleWolf;
+class Networking;
 
 class Game {
 public:
@@ -11,10 +12,16 @@ public:
 	virtual ~Game();
 	void init();
 	void start();
-private:
-	LittleWolf *little_wolf_;
+
+	LittleWolf* getLittleWolf();
+	Networking* getNetworking();
 
 	static Game* _instance;
 	static Game* instance() { return _instance; };
+
+private:
+	LittleWolf* little_wolf_;
+	Networking* network_;
+
 };
 

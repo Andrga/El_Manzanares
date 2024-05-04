@@ -39,16 +39,16 @@ public:
 	// The information on the window/renderer, the size of the window, and a texture
 	// that we use to draw the walls, etc.
 	struct Gpu {
-		SDL_Window *window;
-		SDL_Renderer *renderer;
-		SDL_Texture *texture;
+		SDL_Window* window;
+		SDL_Renderer* renderer;
+		SDL_Texture* texture;
 		int xres;
 		int yres;
 	};
 
 	// when we lock a texture, we get an array of pixels where we can draw
 	struct Display {
-		uint32_t *pixels;
+		uint32_t* pixels;
 		int width;
 	};
 
@@ -79,8 +79,8 @@ public:
 	// Representing a map, the user_walling is the walling provided by the user, and
 	// walling is a scaled up version
 	struct Map {
-		uint8_t **user_walling;
-		uint8_t **walling;
+		uint8_t** user_walling;
+		uint8_t** walling;
 
 		uint16_t user_walling_width;
 		uint16_t user_walling_height;
@@ -90,7 +90,7 @@ public:
 		Map() {
 			user_walling = walling = nullptr;
 			user_walling_width = user_walling_height = walling_width =
-					walling_height = 0u;
+				walling_height = 0u;
 		}
 
 		~Map() {
@@ -110,8 +110,8 @@ public:
 	};
 
 	// the constructor get the window's dimensions and the sdl winodw/renderer
-	LittleWolf(uint16_t xres, uint16_t yres, SDL_Window *window,
-			SDL_Renderer *render);
+	LittleWolf(uint16_t xres, uint16_t yres, SDL_Window* window,
+		SDL_Renderer* render);
 	virtual ~LittleWolf();
 
 	// load a map from a file
@@ -132,27 +132,31 @@ public:
 	// update the world, tec
 	void update();
 
+	//void update_player_info(std::uint8_t id, float x, float y, float w, float h, float rot, uint);
+	
+	void sendPlayerInfo();
+
 private:
 
 	// Calculates wall size using the <corrected> ray to the wall.
 	Wall project(const int xres, const int yres, const float focal,
-			const Point corrected);
+		const Point corrected);
 
 	// Casts a ray from <where> in unit <direction> until a <walling> tile is hit.
-	Hit cast(const Point where, Point direction, uint8_t **walling,
-			bool ignore_players, bool ignore_deads);
+	Hit cast(const Point where, Point direction, uint8_t** walling,
+		bool ignore_players, bool ignore_deads);
 
 	// Moves the player when w,a,s,d are held down. Handles collision detection for the walls.
-	bool shoot(Player &p);
+	bool shoot(Player& p);
 
 	// Spins the player when keys grid_h,l are held down. When left-shit is held down the move is slower
-	inline void spin(Player &p);
+	inline void spin(Player& p);
 
 	// Moves the player when w,a,s,d are held down. Handles collision detection for the walls.
-	void move(Player &p);
+	void move(Player& p);
 
 	// Renders the entire scene from the <current player> perspective given a <map> and a software <gpu>.
-	void render_map(Player &p);
+	void render_map(Player& p);
 
 	// Renders the entire scene from the <current player> perspective given a <map> and a software <gpu>.
 	void render_upper_view();
@@ -227,33 +231,33 @@ private:
 
 	// Fast floor (math.grid_h is too slow).
 	inline int fl(const float x) {
-		return (int) x - (x < (int) x);
+		return (int)x - (x < (int)x);
 	}
 
 	// Fast ceil (math.grid_h is too slow).
 	inline int cl(const float x) {
-		return (int) x + (x > (int) x);
+		return (int)x + (x > (int) x);
 	}
 
 	// Returns a decimal value of the ascii tile value on the map.
-	inline uint8_t tile(const Point a, uint8_t **tiles) {
+	inline uint8_t tile(const Point a, uint8_t** tiles) {
 		const int x = a.x;
 		const int y = a.y;
 		return tiles[y][x];
 	}
 
 	inline Display lock(const Gpu gpu) {
-		void *screen;
+		void* screen;
 		int pitch;
 		SDL_LockTexture(gpu.texture, NULL, &screen, &pitch);
-		const Display display = { (uint32_t*) screen, pitch
-				/ (int) sizeof(uint32_t) };
+		const Display display = { (uint32_t*)screen, pitch
+				/ (int)sizeof(uint32_t) };
 		return display;
 	}
 
 	// Places a pixels in gpu video memory.
 	inline void put(const Display display, const int x, const int y,
-			const uint32_t pixel) {
+		const uint32_t pixel) {
 		display.pixels[y + x * display.width] = pixel;
 	}
 
@@ -280,7 +284,7 @@ private:
 
 	// Floating point decimal.
 	inline float dec(const float x) {
-		return x - (int) x;
+		return x - (int)x;
 	}
 
 	// Returns a color value (RGBA) from a decimal tile value.

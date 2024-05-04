@@ -89,3 +89,13 @@ void Game::start() {
 
 }
 
+LittleWolf* Game::getLittleWolf()
+{
+	return little_wolf_;
+}
+
+Networking* Game::getNetworking()
+{
+	return network_;
+}
+
