@@ -1,0 +1,24 @@
+{
+
+  "fonts" : [
+    { "id" : "ARIAL12", "file" : "resources/fonts/ARIAL.ttf", "size": 12 },
+    { "id" : "ARIAL16", "file" : "resources/fonts/ARIAL.ttf", "size": 16 },
+    { "id" : "ARIAL24", "file" : "resources/fonts/ARIAL.ttf", "size": 24 },
+    { "id" : "ARIAL48", "file" : "resources/fonts/ARIAL.ttf", "size": 48 }
+  ],
+  
+  "images" : [
+  ],
+  
+  "messages" : [
+  ],
+  
+  "sounds" : [
+    { "id" : "gunshot", "file" : "resources/sound/gunshot.wav" },
+    { "id" : "pain", "file" : "resources/sound/pain.wav" }
+  ],
+
+  "musics" : [
+  ]
+
+}

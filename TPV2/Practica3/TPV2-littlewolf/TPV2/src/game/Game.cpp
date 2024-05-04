@@ -11,7 +11,7 @@
 Game* Game::_instance = nullptr;
 
 Game::Game() :
-		little_wolf_(nullptr) //
+	little_wolf_(nullptr) //
 {
 	_instance = this;
 }
@@ -20,20 +20,20 @@ Game::~Game() {
 	delete little_wolf_;
 }
 
-void Game::init(const char* host, int port) {
+bool Game::init(const char* host, int port) {
 
-	// initialize the SDLUtils singleton
-	SDLUtils::init("Demo", 900, 480,
-			"resources/config/littlewolf.resources.json");
 
 	network_ = new Networking();
 
-	if(!network_->init(host, port))
-
+	if (!network_->init(host, port))
+		SDLNetUtils::print_SDLNet_error();
 
 	little_wolf_ = new LittleWolf(sdlutils().width(), sdlutils().height(),
-			sdlutils().window(), sdlutils().renderer());
+		sdlutils().window(), sdlutils().renderer());
 
+	// initialize the SDLUtils singleton
+	SDLUtils::init("Demo", 900, 480,
+		"resources/config/littlewolf.resources.json");
 	// load a map
 	little_wolf_->load("resources/maps/little_wolf/map_0.txt");
 
@@ -42,6 +42,8 @@ void Game::init(const char* host, int port) {
 	little_wolf_->addPlayer(1);
 	little_wolf_->addPlayer(2);
 	little_wolf_->addPlayer(3);
+
+	return true;
 }
 
 void Game::start() {
@@ -49,7 +51,7 @@ void Game::start() {
 	// a boolean to exit the loop
 	bool exit = false;
 
-	auto &ihdlr = ih();
+	auto& ihdlr = ih();
 
 	while (!exit) {
 		Uint32 startTime = sdlutils().currRealTime();

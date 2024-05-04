@@ -5,35 +5,30 @@
 
 #include "game/Game.h"
 #include "game/UDPServer.h"
-
 #include "sdlutils/SDLNetUtils.h"
 
 void server(Uint16 port) {
 	UDPServer s(port, 10);
-	std::cout << "server" << std::endl;
+	s.listen();
 }
 
-void client(const char* host, Uint16 port) {
-	Game& g = *Game::instance();
-
-	std::cout << "client" << std::endl;
+void client(char *host, Uint16 port) {
+	Game &g = *Game::instance();
 
 	if (g.init(host, port)) {
 		g.start();
-		std::cout << "start game" << std::endl;
 	}
 }
 
-void start(int argc, char** argv) {
+void start(int argc, char **argv) {
+
 	SDLNetUtils::initSDLNet();
-	std::cout << "Start" << std::endl;
+
 	if (argc == 3 && strcmp(argv[1], "server") == 0) {
 		server(static_cast<Uint16>(atoi(argv[2]))); // start in server mode
-	}
-	else if (argc == 4 && strcmp(argv[1], "client") == 0) {
+	} else if (argc == 4 && strcmp(argv[1], "client") == 0) {
 		client(argv[2], static_cast<Uint16>(atoi(argv[3]))); // start in client mode
-	}
-	else {
+	} else {
 		std::cout << "Usage: " << std::endl;
 		std::cout << "  " << argv[0] << " server port " << std::endl;
 		std::cout << "  " << argv[0] << " client host port " << std::endl;
@@ -43,28 +38,26 @@ void start(int argc, char** argv) {
 		std::cout << "  " << argv[0] << " client localhost 2000" << std::endl;
 	}
 
+	// finalize SDLNet
 	SDLNetUtils::closeSDLNet();
+
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char **argv) {
 
 	try {
-		std::cout << "main" << std::endl;
 		start(argc, argv);
-	}
-	catch (const std::string& e) { // catch exceptions thrown as strings
+
+	} catch (const std::string &e) { // catch exceptions thrown as strings
 		std::cerr << e << std::endl;
-	}
-	catch (const char* e) { // catch exceptions thrown as char*
+	} catch (const char *e) { // catch exceptions thrown as char*
 		std::cerr << e << std::endl;
-	}
-	catch (const std::exception& e) { // catch exceptions thrown as a sub-type of std::exception
+	} catch (const std::exception &e) { // catch exceptions thrown as a sub-type of std::exception
 		std::cerr << e.what();
-	}
-	catch (...) {
+	} catch (...) {
 		std::cerr << "Caught and exception of unknown type ...";
 	}
 
-	return 66;
+	return 0;
 }
 
