@@ -49,7 +49,11 @@ void LittleWolf::update() {
 
 	spin(p);  // handle spinning
 	move(p);  // handle moving
-	shoot(p); // handle shooting
+
+	if (ih().keyDownEvent() && ih().isKeyDown(SDL_SCANCODE_SPACE)) // Disparo.
+	{
+		sendShoot();
+	}
 }
 
 void LittleWolf::disconnetPlayer(Uint8 playerID)
@@ -516,6 +520,7 @@ bool LittleWolf::shoot(Player& p) {
 	}
 	return false;
 }
+
 #pragma endregion
 
 #pragma region Sends:
@@ -534,7 +539,7 @@ void LittleWolf::sendDie(Uint8 playerID)
 
 void LittleWolf::sendShoot()
 {
-
+	Game::instance()->getNetworking()->send_shoot();
 }
 
 void LittleWolf::sendRestart()
@@ -555,7 +560,7 @@ void LittleWolf::sendSyncro()
 
 void LittleWolf::sendWaiting()
 {
-
+	Game::instance()->getNetworking()->send_waiting();
 }
 
 #pragma endregion
@@ -564,7 +569,7 @@ void LittleWolf::sendWaiting()
 
 void LittleWolf::processShoot(Uint8 playerID)
 {
-
+	shoot(players_[playerID]);
 }
 
 void LittleWolf::processDie(Uint8 playerID)
@@ -583,7 +588,6 @@ void LittleWolf::processSyncro(Uint8 playerID, Vector2D pos)
 }
 
 #pragma endregion
-
 
 void LittleWolf::updatePlayerInfo(Uint8 playerID, float posX, float posY, float velX, float velY, float speed, float acceleration, float theta, Uint8 state)
 {

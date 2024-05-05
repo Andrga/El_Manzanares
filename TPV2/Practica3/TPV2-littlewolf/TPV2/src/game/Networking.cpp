@@ -178,7 +178,7 @@ void Networking::send_state(const Vector2D& pos, float w, float h, float rot)
 	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);
 }
 
-void Networking::send_shoot(Vector2D pos, Vector2D vel, int width, int height, float r) {
+void Networking::send_shoot() {
 	// Mensaje.
 	ShootMsg m;
 
@@ -187,13 +187,6 @@ void Networking::send_shoot(Vector2D pos, Vector2D vel, int width, int height, f
 
 	// Pone info al mensaje.
 	m._client_id = clientId_; // Id del mensaje.
-	m.posX = pos.getX();
-	m.posY = pos.getY();
-	m.velX = vel.getX();
-	m.velY = vel.getY();
-	m.width = width;
-	m.height = height;
-	m.rot = r;
 
 	// Manda el mensaje.
 	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);
