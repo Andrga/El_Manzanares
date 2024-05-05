@@ -32,8 +32,8 @@ public:
 	void send_dead(Uint8 id);
 	void send_restart();
 	void sendPlayerInfo(const Vector2D& pos, const Vector2D& vel, float speed, float acceleration, float theta, Uint8 state);
-
-	void sendRestar();
+	void send_waiting();
+	void send_syncro(Uint8 playerID, const Vector2D& pos);
 
 private:
 
@@ -44,6 +44,8 @@ private:
 	void handle_shoot(const ShootMsg& m);
 	void handle_dead(const MsgWithId& m);
 	void handle_restart();
+	void handle_waiting();
+	void handle_syncro(const PlayerInfoMsg& m);
 
 	UDPsocket sock_;
 	SDLNet_SocketSet socketSet_;

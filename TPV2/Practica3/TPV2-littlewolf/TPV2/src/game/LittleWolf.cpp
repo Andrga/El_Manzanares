@@ -43,7 +43,9 @@ void LittleWolf::update() {
 
 	// dead player don't move/spin/shoot
 	if (p.state != ALIVE)
+	{
 		return;
+	}
 
 	spin(p);  // handle spinning
 	move(p);  // handle moving
@@ -64,30 +66,7 @@ void LittleWolf::disconnetPlayer(Uint8 playerID)
 	p.state = NOT_USED; // Cambiamos el estado a no usado porque no hay jugador.
 }
 
-void LittleWolf::sendDie(Uint8 playerID)
-{
-
-}
-
-void LittleWolf::sendShoot()
-{
-
-}
-
-void LittleWolf::sendRestart()
-{
-
-}
-
-void LittleWolf::sendSyncro()
-{
-
-}
-
-void LittleWolf::sendWaiting()
-{
-
-}
+#pragma region Cosas que ya estaban
 
 void LittleWolf::load(std::string filename) {
 	std::ifstream in(filename);
@@ -182,7 +161,9 @@ bool LittleWolf::addPlayer(std::uint8_t id) {
 	assert(id < max_player);
 
 	if (players_[id].state != NOT_USED)
+	{
 		return false;
+	}
 
 	auto& rand = sdlutils().rand();
 
@@ -206,14 +187,14 @@ bool LittleWolf::addPlayer(std::uint8_t id) {
 
 	// initialize the player
 	Player p = { //
-			id, //
-					viewport(0.8f),             // focal
-					{ col + 0.5f, row + 0.5f }, // Where.
-					{ 0.0f, 0.0f }, 			// Velocity.
-					2.0f, 			            // Speed.
-					0.9f,		            	// Acceleration.
-					0.0f, 			            // Rotation angle in radians.
-					ALIVE                       // Player state
+			id, // id.
+			viewport(0.8f),             // Focal.
+			{ col + 0.5f, row + 0.5f }, // Where.
+			{ 0.0f, 0.0f }, 			// Velocity.
+			2.0f, 			            // Speed.
+			0.9f,		            	// Acceleration.
+			0.0f, 			            // Rotation angle in radians.
+			ALIVE                       // Player state.
 	};
 
 	// not that player <id> is stored in the map as player_to_tile(id) -- which is id+10
@@ -229,16 +210,19 @@ void LittleWolf::render() {
 
 	// if the player is dead we only render upper view, otherwise the normal view
 	if (players_[player_id_].state == DEAD)
+	{
 		render_upper_view();
+	}
 	else
+	{
 		render_map(players_[player_id_]);
+	}
 
 	// render the identifiers, state, etc
 	render_players_info();
 }
 
-LittleWolf::Hit LittleWolf::cast(const Point where, Point direction,
-	uint8_t** walling, bool ignore_players, bool ignore_deads) {
+LittleWolf::Hit LittleWolf::cast(const Point where, Point direction, uint8_t** walling, bool ignore_players, bool ignore_deads) {
 	// Determine whether to step horizontally or vertically on the grid.
 	Point hor = sh(where, direction);
 	Point ver = sv(where, direction);
@@ -272,8 +256,7 @@ LittleWolf::Hit LittleWolf::cast(const Point where, Point direction,
 	}
 }
 
-LittleWolf::Wall LittleWolf::project(const int xres, const int yres,
-	const float focal, const Point corrected) {
+LittleWolf::Wall LittleWolf::project(const int xres, const int yres, const float focal, const Point corrected) {
 	// Normal distance of corrected ray is clamped to some small value else wall size will shoot to infinity.
 	const float normal = corrected.x < 1e-2f ? 1e-2f : 0.05 * corrected.x;
 	const float size = 0.5f * focal * xres / normal;
@@ -540,17 +523,115 @@ bool LittleWolf::shoot(Player& p) {
 	}
 	return false;
 }
+#pragma endregion
+
+void LittleWolf::sendDie(Uint8 playerID)
+{
+
+}
+
+void LittleWolf::sendShoot()
+{
+
+}
+
+void LittleWolf::sendRestart()
+{
+
+}
+
+void LittleWolf::sendSyncro()
+{
+	for (int i = 0; i < max_player; i++)
+	{
+
+	}
+}
+
+void LittleWolf::sendWaiting()
+{
+
+}
+
+void LittleWolf::updatePlayerInfo(Uint8 playerID, Vector2D pos, Vector2D vel, float speed, float acceleration, float theta, PlayerState state)
+{
+	if (players_[playerID].state == NOT_USED) // Si no hay jugador crea un jugador.
+	{
+		Player newPlayer = {
+			playerID, // Id.
+			viewport(0.8), // Punto de vista.
+			{ pos.getX(), pos.getY() }, // Posicion.
+			{ vel.getX(), vel.getY() }, // Velocidad.
+			speed, // Velocidad.
+			acceleration, // Aceleracion.
+			theta, // Rotacion.
+			ALIVE // Estado, lo ponemos a ALIVE cuando se crea,
+		};
+		map_.walling[(int)newPlayer.where.y][(int)newPlayer.where.x] = player_to_tile(playerID); // Lo pone
+		players_[playerID] = newPlayer;
+	}
+	else // Si hay jugador entonces actualiza su informacion.
+	{
+		auto& player = players_[playerID]; /// Jugador.
+		if (Game::instance()->getNetworking()->is_master()) // Si es el master gestiona.
+		{
+			Point lastPos = player.where; // Guardamos la posicion.
+
+			if (tile(player.where, map_.walling) != player_to_tile(playerID) && tile(player.where, map_.walling) != 0) // Comprueba colisiones.
+			{
+				player.velocity = { 0.0,0.0 }; // Paramos el jugador.
+				player.where = lastPos;
+
+				sendSyncro();
+				return; // Para cortar el metodo.
+			}
+		}
+		// Si no hay colision no otra cosa entoces acutalizamos ahora si.
+		map_.walling[(int)player.where.x][(int)player.where.y] = 0; // Reset del tile.
+
+		player.where.x = pos.getX();
+		player.where.y = pos.getY();
+		player.velocity.x = vel.getX();
+		player.velocity.y = vel.getY();
+		player.speed = speed;
+		player.acceleration = acceleration;
+		player.theta = theta;
+
+		map_.walling[(int)player.where.y][(int)player.where.x] = player_to_tile(playerID); // Seteamos el tile.
+	}
+}
+
+void LittleWolf::processShoot(Uint8 playerID)
+{
+
+}
+
+void LittleWolf::processDie(Uint8 playerID)
+{
+
+}
+
+void LittleWolf::processWaiting()
+{
+	sdlutils().virtualTimer().pause(); // PAIGRO AQUI: no creo que esto sea asi.
+}
+
+void LittleWolf::processSyncro(Uint8 playerID, const Vector2D& pos)
+{
+
+}
 
 void LittleWolf::switchToNextPlayer() {
 
 	// search the next player in the palyer's array
 	int j = (player_id_ + 1) % max_player;
 	while (j != player_id_ && players_[j].state == NOT_USED)
+	{
 		j = (j + 1) % max_player;
+	}
 
 	// move to the next player view
 	player_id_ = j;
-
 }
 
 void LittleWolf::bringAllToLife() {

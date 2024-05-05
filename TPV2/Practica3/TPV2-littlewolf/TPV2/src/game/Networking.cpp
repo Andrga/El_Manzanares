@@ -233,28 +233,33 @@ void Networking::send_my_info(const Vector2D& pos, float w, float h, float rot, 
 }
 
 void Networking::handle_player_info(const PlayerInfoMsg& m) {
-	/*if (m._client_id != clientId_) {
-		Game::instance()->get_fighters().update_player_info(m._client_id, m.x,
-			m.y, m.w, m.h, m.rot, m.state);
-	}*/
+	if (m._client_id != clientId_)
+	{
+		//Game::instance()->get_fighters().update_player_info(m._client_id, m.x,m.y, m.w, m.h, m.rot, m.state);
+		Game::instance()->getLittleWolf()
+	}
 }
 
-void Networking::send_restart() {
-	/*Msg m;
+void Networking::send_restart()
+{
+	Msg m; // Mensaje.
+
+	// Pone el tipo al mensaje.
 	m._type = _RESTART;
-	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);*/
+
+	// Manda el mensaje.
+	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);
 }
 
 void Networking::sendPlayerInfo(const Vector2D& pos, const Vector2D& vel, float speed, float acceleration, float theta, Uint8 state)
 {
-	//Mensaje.
-	PlayerInfoMsg m;
+	PlayerInfoMsg m; // Mensaje.
 
-	// Id del mensaje y el tipo.
-	m._client_id = clientId_; // Id del mensaje.
-	m._type = _PLAYER_INFO; // Tipo del mensaje.
+	// Pone el tipo al mensaje.
+	m._type = _PLAYER_INFO;
 
-	// Meter la info del jugador.
+	// Mete la info del jugador al mensaje.
+	m._client_id = clientId_;
 	m.posX = pos.getX();
 	m.posY = pos.getY();
 	m.velX = vel.getX();
@@ -268,11 +273,44 @@ void Networking::sendPlayerInfo(const Vector2D& pos, const Vector2D& vel, float 
 	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);
 }
 
-void Networking::sendRestar()
+void Networking::send_waiting()
 {
-	
+	Msg m; // Mensaje.
+
+	// Pone el tipo al mensaje.
+	m._type = _WAITING;
+
+	// Manda el mensaje.
+	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);
 }
 
-void Networking::handle_restart() {
-	//Game::instance()->get_fighters().bringAllToLife();
+void Networking::send_syncro(Uint8 playerID, const Vector2D& pos)
+{
+	PlayerInfoMsg m; // Mensaje de tipo PlayerInfo.
+
+	// Pone parametros al mensaje.
+	m._client_id = playerID;
+	m.posX = pos.getX();
+	m.posY = pos.getY();
+
+	// Pone el tipo al mensaje.
+	m._type = _SYNCRO;
+
+	// Manda el mesaje.
+	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);
+}
+
+void Networking::handle_restart()
+{
+	Game::instance()->getLittleWolf()->bringAllToLife();
+}
+
+void Networking::handle_waiting()
+{
+	Game::instance()->getLittleWolf()->processWaiting();
+}
+
+void Networking::handle_syncro(const PlayerInfoMsg& m)
+{
+	Game::instance()->getLittleWolf()->processSyncro(m._client_id, Vector2D(m.posX, m.posY));
 }
