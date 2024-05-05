@@ -99,7 +99,7 @@ void Networking::update() {
 	MsgWithId m4;
 	PlayerInfoMsg m5;
 	
-	std::cout << "NETWORKING UPDATE." << std::endl;
+	//std::cout << "NETWORKING UPDATE." << std::endl;
 
 	while (SDLNetUtils::deserializedReceive(m0, p_, sock_) > 0) {
 

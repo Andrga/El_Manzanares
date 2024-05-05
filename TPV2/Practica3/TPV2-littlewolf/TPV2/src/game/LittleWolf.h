@@ -159,7 +159,7 @@ private:
 	Hit cast(const Point where, Point direction, uint8_t** walling,
 		bool ignore_players, bool ignore_deads);
 
-	// Moves the player when w,a,s,d are held down. Handles collision detection for the walls.
+	// 
 	bool shoot(Player& p);
 
 	// Spins the player when keys grid_h,l are held down. When left-shit is held down the move is slower
@@ -378,6 +378,18 @@ private:
 
 	// array of players
 	Player players_[max_player];
+
+#pragma region cosas para cuando mueren todos los jugadores
+	// Bool esperar si hay menos de 2 jugadores
+	bool wait_;
+
+	// Tiempo de espera actual
+	float elapsed_time_;
+
+	// Ultimo frame
+	float last_frame_;
+
+#pragma endregion
 
 	// id of the current player, used since we allows switching between players
 	uint8_t player_id_;

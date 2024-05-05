@@ -19,7 +19,10 @@ LittleWolf::LittleWolf(uint16_t xres, uint16_t yres, SDL_Window* window,
 			std::min(walling_width, walling_height) / 2), // the shoot distance -- not that it's wrt to the walling size
 	map_(), //
 	players_(), //
-	player_id_(0) { // we start with player 0
+	player_id_(0),
+	wait_(false),
+	last_frame_(0)
+{ // we start with player 0
 	std::cout << "new littlewolf" << std::endl;
 
 	// for some reason it is created with a rotation of 90 degrees -- must be easier to
@@ -41,18 +44,31 @@ void LittleWolf::update() {
 
 	Player& p = players_[player_id_];
 
-	// dead player don't move/spin/shoot
-	if (p.state != ALIVE)
+	if (wait_)
 	{
-		return;
+		elapsed_time_ -= (sdlutils().virtualTimer().currTime() - last_frame_);
+		last_frame_ = sdlutils().virtualTimer().currTime();
+
+		if (Game::instance()->getNetworking()->is_master() && elapsed_time_ <= 0) {
+			sendRestart();
+			wait_ = false;
+		}
 	}
-
-	spin(p);  // handle spinning
-	move(p);  // handle moving
-
-	if (ih().keyDownEvent() && ih().isKeyDown(SDL_SCANCODE_SPACE)) // Disparo.
+	else
 	{
-		sendShoot();
+		// dead player don't move/spin/shoot
+		if (p.state != ALIVE)
+		{
+			return;
+		}
+
+		spin(p);  // handle spinning
+		move(p);  // handle moving
+
+		if (ih().keyDownEvent() && ih().isKeyDown(SDL_SCANCODE_SPACE)) // Disparo.
+		{
+			sendShoot();
+		}
 	}
 }
 
@@ -512,6 +528,17 @@ bool LittleWolf::shoot(Player& p) {
 				uint8_t id = tile_to_player(hit.tile);
 				players_[id].state = DEAD;
 				sdlutils().soundEffects().at("pain").play();
+
+				int cantPlayersAlive = 0;
+				for (auto p : players_) {
+					if (p.state == ALIVE)
+						cantPlayersAlive++;
+				}
+
+				if (cantPlayersAlive < 2) {
+					sendWaiting();
+				}
+
 				return true;
 			}
 		}
@@ -521,6 +548,7 @@ bool LittleWolf::shoot(Player& p) {
 
 #pragma endregion
 
+// Envios a la network
 #pragma region Sends:
 
 void LittleWolf::sendPlayerInfo()
@@ -542,7 +570,7 @@ void LittleWolf::sendShoot()
 
 void LittleWolf::sendRestart()
 {
-
+	Game::instance()->getNetworking()->send_restart();
 }
 
 void LittleWolf::sendSyncro()
@@ -563,6 +591,7 @@ void LittleWolf::sendWaiting()
 
 #pragma endregion
 
+// Procesado de mensajes
 #pragma region Processes:
 
 void LittleWolf::processShoot(Uint8 playerID)
@@ -578,7 +607,14 @@ void LittleWolf::processDie(Uint8 playerID)
 
 void LittleWolf::processWaiting()
 {
-	sdlutils().virtualTimer().pause(); // PAIGRO AQUI: no creo que esto sea asi.
+	// Esperar
+	wait_ = true;
+
+	// 5 segundos de espera
+	elapsed_time_ = 5000;
+	// Coge el ultimo frame
+	last_frame_ = sdlutils().virtualTimer().currTime();
+
 }
 
 void LittleWolf::processSyncro(Uint8 playerID, Vector2D pos)
