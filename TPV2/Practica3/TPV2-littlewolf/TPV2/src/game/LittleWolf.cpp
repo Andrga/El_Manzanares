@@ -333,9 +333,14 @@ void LittleWolf::spin(Player& p) {
 	}
 
 	if (ihdrl.isKeyDown(SDL_SCANCODE_H))
+	{
 		p.theta -= d;
+	}
+
 	if (ihdrl.isKeyDown(SDL_SCANCODE_L))
+	{
 		p.theta += d;
+	}
 }
 
 bool LittleWolf::shoot(Player& p) {
