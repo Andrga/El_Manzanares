@@ -30,4 +30,14 @@ PROCESA LA LÓGICA DE VALIDACIÓN DE LA ACCIÓN
     - eliminar pulsar R para reiniciar y pulsar N para cambiar de jugador
 
 
-En el debug abrir terminar, poner cd TPV2Debug.exe server 2000 
+-----------------------
+
+ONLINE TUTORIAL:
+0) Meter el resources en la carpeta bin
+1) entrar en la carpeta bin 
+2) hacer click derecho y ejecutar en consola
+3) escribir:  .\TPV2Debug.exe server 2000
+4) ya tienes servidor up and kicking!
+5) volver a la carpeta bin y hacer click derecho y ejecutar en consola
+6) escribir:  .\TPV2Debug.exe client localhost 2000
+7) ya tienes un cliente conectado

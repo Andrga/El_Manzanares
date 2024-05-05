@@ -10,13 +10,12 @@
 
 void server(Uint16 port) {
 	UDPServer s(port, 10);
-	std::cout << "server" << std::endl;
+	s.listen();
+	std::cout << "server listen" << std::endl;
 }
 
 void client(const char* host, Uint16 port) {
 	Game& g = *Game::instance();
-
-	std::cout << "client" << std::endl;
 
 	if (g.init(host, port)) {
 		g.start();
@@ -24,9 +23,10 @@ void client(const char* host, Uint16 port) {
 	}
 }
 
-void start(int argc, char** argv) {
+bool start(int argc, char** argv, char c) {
 	SDLNetUtils::initSDLNet();
-	std::cout << "Start" << std::endl;
+	std::cout << "Start process" << std::endl;
+	/*
 	if (argc == 3 && strcmp(argv[1], "server") == 0) {
 		server(static_cast<Uint16>(atoi(argv[2]))); // start in server mode
 	}
@@ -41,8 +41,19 @@ void start(int argc, char** argv) {
 		std::cout << "Example:" << std::endl;
 		std::cout << "  " << argv[0] << " server 2000" << std::endl;
 		std::cout << "  " << argv[0] << " client localhost 2000" << std::endl;
-	}
+	}*/
+	if (c == 's') {
+		server(2000); // start in server mode
 
+	}
+	else if (c == 'c') {
+		client("localhost", 2000); // start in client mode
+	}
+	else
+	{
+		return false;
+	}
+	return true;
 	SDLNetUtils::closeSDLNet();
 }
 
@@ -50,7 +61,13 @@ int main(int argc, char** argv) {
 
 	try {
 		std::cout << "main" << std::endl;
-		start(argc, argv);
+		bool aceptado = false;
+		char c = ' ';
+		while (!aceptado)
+		{
+			std::cin >> c;
+			aceptado = start(argc, argv, c);
+		}
 	}
 	catch (const std::string& e) { // catch exceptions thrown as strings
 

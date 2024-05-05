@@ -20,13 +20,16 @@ LittleWolf::LittleWolf(uint16_t xres, uint16_t yres, SDL_Window* window,
 	map_(), //
 	players_(), //
 	player_id_(0) { // we start with player 0
+	std::cout << "new littlewolf" << std::endl;
 
 	// for some reason it is created with a rotation of 90 degrees -- must be easier to
 	// manipulate coordinates
 	SDL_Texture* const texture = SDL_CreateTexture(sdlutils().renderer(),
 		SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING, yres, xres);
+	std::cout << "new littlewolf medio?" << std::endl;
 
 	gpu_ = { window, render, texture, xres, yres };
+	std::cout << "new littlewolf ha ido bien" << std::endl;
 
 }
 

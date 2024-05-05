@@ -17,6 +17,7 @@ Networking::Networking() :
 	srvadd_(), //
 	clientId_(), //
 	masterId_() {
+	std::cout << "New networking" << std::endl;
 }
 
 Networking::~Networking() {
