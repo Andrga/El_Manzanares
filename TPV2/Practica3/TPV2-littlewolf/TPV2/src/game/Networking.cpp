@@ -263,7 +263,7 @@ void Networking::sendPlayerInfo(const Vector2D& pos, const Vector2D& vel, float 
 
 	// Manda el mensaje.
 	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);
-	std::cout << "Send player info." << std::endl;
+	//std::cout << "Send player info." << std::endl;
 }
 
 void Networking::send_waiting()

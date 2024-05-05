@@ -219,22 +219,6 @@ bool LittleWolf::addPlayer(std::uint8_t id) {
 	return true;
 }
 
-void LittleWolf::render() {
-
-	// if the player is dead we only render upper view, otherwise the normal view
-	if (players_[player_id_].state == DEAD)
-	{
-		render_upper_view();
-	}
-	else
-	{
-		render_map(players_[player_id_]);
-	}
-
-	// render the identifiers, state, etc
-	render_players_info();
-}
-
 LittleWolf::Hit LittleWolf::cast(const Point where, Point direction, uint8_t** walling, bool ignore_players, bool ignore_deads) {
 	// Determine whether to step horizontally or vertically on the grid.
 	Point hor = sh(where, direction);
@@ -279,6 +263,152 @@ LittleWolf::Wall LittleWolf::project(const int xres, const int yres, const float
 	// (or segfault) when rasterizing pixels off screen.
 	const Wall wall = { top > yres ? yres : top, bot < 0 ? 0 : bot, size };
 	return wall;
+}
+
+void LittleWolf::move(Player& p) {
+	auto& ihdrl = ih();
+
+	// W forwards, S backwards, D right, L left
+
+	const Point last = p.where, zero = { 0.0f, 0.0f };
+
+	// Accelerates with key held down.
+	if (ihdrl.isKeyDown(SDL_SCANCODE_W) || ihdrl.isKeyDown(SDL_SCANCODE_S)
+		|| ihdrl.isKeyDown(SDL_SCANCODE_D)
+		|| ihdrl.isKeyDown(SDL_SCANCODE_A)) {
+		const Point reference = { 1.0f, 0.0f };
+		const Point direction = turn(reference, p.theta);
+		const Point acceleration = mul(direction, p.acceleration);
+		if (ihdrl.isKeyDown(SDL_SCANCODE_W))
+			p.velocity = add(p.velocity, acceleration);
+		if (ihdrl.isKeyDown(SDL_SCANCODE_S))
+			p.velocity = sub(p.velocity, acceleration);
+		if (ihdrl.isKeyDown(SDL_SCANCODE_D))
+			p.velocity = add(p.velocity, rag(acceleration));
+		if (ihdrl.isKeyDown(SDL_SCANCODE_A))
+			p.velocity = sub(p.velocity, rag(acceleration));
+	}
+	else { // Otherwise, decelerates (exponential decay).
+		p.velocity = mul(p.velocity, 1.0f - p.acceleration / p.speed);
+	}
+
+	// Caps velocity if top speed is exceeded.
+	if (mag(p.velocity) > p.speed)
+		p.velocity = mul(unit(p.velocity), p.speed);
+
+	// Moves.
+	p.where = add(p.where, p.velocity);
+	// Sets velocity to zero if there is a collision and puts p back in bounds.
+
+	// if player hits a wall or a different player, we take the player back
+	// to previous position and put velocity to 0
+	if (tile(p.where, map_.walling) != 10 + player_id_
+		&& tile(p.where, map_.walling) != 0) {
+		p.velocity = zero;
+		p.where = last;
+	}
+	else { // otherwise we make a move
+		int y0 = (int)last.y;
+		int x0 = (int)last.x;
+		int y1 = (int)p.where.y;
+		int x1 = (int)p.where.x;
+		if (x0 != x1 || y0 != y1) {
+			map_.walling[y1][x1] = map_.walling[y0][x0];
+			map_.walling[y0][x0] = 0;
+		}
+	}
+
+	sendPlayerInfo(); // Para que se actualice todo el rato. SE MUEVEEEEN EN TIEMPO REAL.
+}
+
+void LittleWolf::spin(Player& p) {
+	auto& ihdrl = ih();
+
+	// L spin right, H spin left -- when left shift is held the player spins slowly
+
+	// turn by 0.05rad, but if left shift is pressed make is 0.005rad
+	float d = 0.05f;
+	if (ihdrl.isKeyDown(SDL_SCANCODE_LSHIFT)) {
+		d = 0.005f;
+	}
+
+	if (ihdrl.isKeyDown(SDL_SCANCODE_H))
+		p.theta -= d;
+	if (ihdrl.isKeyDown(SDL_SCANCODE_L))
+		p.theta += d;
+}
+
+bool LittleWolf::shoot(Player& p) {
+	auto& ihdrl = ih();
+
+	// Space shoot -- we use keyDownEvent to force a complete press/release for each bullet
+	if (ihdrl.keyDownEvent() && ihdrl.isKeyDown(SDL_SCANCODE_SPACE)) {
+
+		// play gun shot sound
+		sdlutils().soundEffects().at("gunshot").play();
+
+		// we shoot in several directions, because with projection what you see is not exact
+		for (float d = -0.05; d <= 0.05; d += 0.005) {
+
+			// search which tile was hit
+			const Line camera = rotate(p.fov, p.theta + d);
+			Point direction = lerp(camera, 0.5f);
+			direction.x = direction.x / mag(direction);
+			direction.y = direction.y / mag(direction);
+			const Hit hit = cast(p.where, direction, map_.walling, false, true);
+
+#if _DEBUG
+			printf("Shoot by player %d hit a tile with value %d! at distance %f\n", p.id, hit.tile, mag(sub(p.where, hit.where)));
+#endif
+
+			// if we hit a tile with a player id and the distance from that tile is smaller
+			// than shoot_distace, we mark the player as dead
+			if (hit.tile > 9 && mag(sub(p.where, hit.where)) < shoot_distace) {
+				uint8_t id = tile_to_player(hit.tile);
+				players_[id].state = DEAD;
+				sdlutils().soundEffects().at("pain").play();
+
+				int cantPlayersAlive = 0;
+				for (auto p : players_) {
+					if (p.state == ALIVE)
+						cantPlayersAlive++;
+				}
+
+				if (cantPlayersAlive < 2) {
+					sendWaiting();
+				}
+
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+#pragma endregion
+
+// Renderizado de cosas:
+#pragma region Renderers:
+
+void LittleWolf::render() {
+
+	// if the player is dead we only render upper view, otherwise the normal view
+	if (players_[player_id_].state == DEAD)
+	{
+		render_upper_view();
+	}
+	else
+	{
+		render_map(players_[player_id_]);
+	}
+
+	// render the identifiers, state, etc
+	render_players_info();
+
+	if (wait_) // Si esta en tiempo de espera se pone el mensaje.
+	{
+		waitingMessage();
+	}
 }
 
 void LittleWolf::render_map(Player& p) {
@@ -428,129 +558,9 @@ void LittleWolf::render_players_info() {
 	}
 }
 
-void LittleWolf::move(Player& p) {
-	auto& ihdrl = ih();
-
-	// W forwards, S backwards, D right, L left
-
-	const Point last = p.where, zero = { 0.0f, 0.0f };
-
-	// Accelerates with key held down.
-	if (ihdrl.isKeyDown(SDL_SCANCODE_W) || ihdrl.isKeyDown(SDL_SCANCODE_S)
-		|| ihdrl.isKeyDown(SDL_SCANCODE_D)
-		|| ihdrl.isKeyDown(SDL_SCANCODE_A)) {
-		const Point reference = { 1.0f, 0.0f };
-		const Point direction = turn(reference, p.theta);
-		const Point acceleration = mul(direction, p.acceleration);
-		if (ihdrl.isKeyDown(SDL_SCANCODE_W))
-			p.velocity = add(p.velocity, acceleration);
-		if (ihdrl.isKeyDown(SDL_SCANCODE_S))
-			p.velocity = sub(p.velocity, acceleration);
-		if (ihdrl.isKeyDown(SDL_SCANCODE_D))
-			p.velocity = add(p.velocity, rag(acceleration));
-		if (ihdrl.isKeyDown(SDL_SCANCODE_A))
-			p.velocity = sub(p.velocity, rag(acceleration));
-	}
-	else { // Otherwise, decelerates (exponential decay).
-		p.velocity = mul(p.velocity, 1.0f - p.acceleration / p.speed);
-	}
-
-	// Caps velocity if top speed is exceeded.
-	if (mag(p.velocity) > p.speed)
-		p.velocity = mul(unit(p.velocity), p.speed);
-
-	// Moves.
-	p.where = add(p.where, p.velocity);
-	// Sets velocity to zero if there is a collision and puts p back in bounds.
-
-	// if player hits a wall or a different player, we take the player back
-	// to previous position and put velocity to 0
-	if (tile(p.where, map_.walling) != 10 + player_id_
-		&& tile(p.where, map_.walling) != 0) {
-		p.velocity = zero;
-		p.where = last;
-	}
-	else { // otherwise we make a move
-		int y0 = (int)last.y;
-		int x0 = (int)last.x;
-		int y1 = (int)p.where.y;
-		int x1 = (int)p.where.x;
-		if (x0 != x1 || y0 != y1) {
-			map_.walling[y1][x1] = map_.walling[y0][x0];
-			map_.walling[y0][x0] = 0;
-		}
-	}
-
-	sendPlayerInfo(); // Para que se actualice todo el rato. SE MUEVEEEEN EN TIEMPO REAL.
-}
-
-void LittleWolf::spin(Player& p) {
-	auto& ihdrl = ih();
-
-	// L spin right, H spin left -- when left shift is held the player spins slowly
-
-	// turn by 0.05rad, but if left shift is pressed make is 0.005rad
-	float d = 0.05f;
-	if (ihdrl.isKeyDown(SDL_SCANCODE_LSHIFT)) {
-		d = 0.005f;
-	}
-
-	if (ihdrl.isKeyDown(SDL_SCANCODE_H))
-		p.theta -= d;
-	if (ihdrl.isKeyDown(SDL_SCANCODE_L))
-		p.theta += d;
-}
-
-bool LittleWolf::shoot(Player& p) {
-	auto& ihdrl = ih();
-
-	// Space shoot -- we use keyDownEvent to force a complete press/release for each bullet
-	if (ihdrl.keyDownEvent() && ihdrl.isKeyDown(SDL_SCANCODE_SPACE)) {
-
-		// play gun shot sound
-		sdlutils().soundEffects().at("gunshot").play();
-
-		// we shoot in several directions, because with projection what you see is not exact
-		for (float d = -0.05; d <= 0.05; d += 0.005) {
-
-			// search which tile was hit
-			const Line camera = rotate(p.fov, p.theta + d);
-			Point direction = lerp(camera, 0.5f);
-			direction.x = direction.x / mag(direction);
-			direction.y = direction.y / mag(direction);
-			const Hit hit = cast(p.where, direction, map_.walling, false, true);
-
-#if _DEBUG
-			printf("Shoot by player %d hit a tile with value %d! at distance %f\n", p.id, hit.tile, mag(sub(p.where, hit.where)));
-#endif
-
-			// if we hit a tile with a player id and the distance from that tile is smaller
-			// than shoot_distace, we mark the player as dead
-			if (hit.tile > 9 && mag(sub(p.where, hit.where)) < shoot_distace) {
-				uint8_t id = tile_to_player(hit.tile);
-				players_[id].state = DEAD;
-				sdlutils().soundEffects().at("pain").play();
-
-				int cantPlayersAlive = 0;
-				for (auto p : players_) {
-					if (p.state == ALIVE)
-						cantPlayersAlive++;
-				}
-
-				if (cantPlayersAlive < 2) {
-					sendWaiting();
-				}
-
-				return true;
-			}
-		}
-	}
-	return false;
-}
-
 #pragma endregion
 
-// Envios a la network
+// Envios a la network:
 #pragma region Sends:
 
 void LittleWolf::sendPlayerInfo()
@@ -593,7 +603,7 @@ void LittleWolf::sendWaiting()
 
 #pragma endregion
 
-// Procesado de mensajes
+// Procesado de mensajes:
 #pragma region Processes:
 
 void LittleWolf::processShoot(Uint8 playerID)
@@ -632,6 +642,17 @@ void LittleWolf::processSyncro(Uint8 playerID, Vector2D pos)
 
 #pragma endregion
 
+void LittleWolf::waitingMessage()
+{
+	std::string waitMessage = "Start in: " + std::to_string((int)(elapsed_time_) / 1000) + " seconds."; // Texto de espera.
+
+	Texture info(sdlutils().renderer(), waitMessage, sdlutils().fonts().at("ARIAL24"), build_sdlcolor(color_rgba(6))); // Genera la textura del texto.
+
+	SDL_Rect dest = build_sdlrect(sdlutils().width() / 2, sdlutils().height() / 2, info.width(), info.height()); // Destino donde aparece el mensaje.
+
+	info.render(dest); // Renderizado del texto.
+}
+
 void LittleWolf::updatePlayerInfo(Uint8 playerID, float posX, float posY, float velX, float velY, float speed, float acceleration, float theta, Uint8 state)
 {
 	if (players_[playerID].state == NOT_USED) // Si no hay jugador crea un jugador.
@@ -666,7 +687,7 @@ void LittleWolf::updatePlayerInfo(Uint8 playerID, float posX, float posY, float 
 			}
 		}
 		// Si no hay colision no otra cosa entoces acutalizamos ahora si.
-		map_.walling[(int)player.where.x][(int)player.where.y] = 0; // Reset del tile.
+		map_.walling[(int)player.where.y][(int)player.where.x] = 0; // Reset del tile.
 
 		player.where.x = posX;
 		player.where.y = posY;
@@ -676,7 +697,7 @@ void LittleWolf::updatePlayerInfo(Uint8 playerID, float posX, float posY, float 
 		player.acceleration = acceleration;
 		player.theta = theta;
 
-		map_.walling[(int)player.where.x][(int)player.where.y] = player_to_tile(playerID); // Seteamos el tile.
+		map_.walling[(int)player.where.y][(int)player.where.x] = player_to_tile(playerID); // Seteamos el tile.
 	}
 }
 

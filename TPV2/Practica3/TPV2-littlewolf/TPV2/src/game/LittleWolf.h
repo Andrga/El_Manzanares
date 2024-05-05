@@ -149,6 +149,8 @@ public:
 	void processWaiting();
 	void processSyncro(Uint8 playerID, Vector2D pos);
 
+	void waitingMessage(); // Escribe el mensaje de espera.
+
 private:
 
 	// Calculates wall size using the <corrected> ray to the wall.
