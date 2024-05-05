@@ -31,7 +31,7 @@ public:
 	void send_shoot();
 	void send_dead(Uint8 id);
 	void send_restart();
-	void sendPlayerInfo(const Vector2D& pos, const Vector2D& vel, float speed, float acceleration, float theta, Uint8 state);
+	void send_player_info(const Vector2D& pos, const Vector2D& vel, float speed, float acceleration, float theta, Uint8 state);
 	void send_waiting();
 	void send_syncro(Uint8 playerID, const Vector2D& pos);
 

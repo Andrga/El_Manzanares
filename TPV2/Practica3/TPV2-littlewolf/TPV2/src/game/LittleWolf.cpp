@@ -381,6 +381,7 @@ bool LittleWolf::shoot(Player& p) {
 				}
 
 				if (cantPlayersAlive < 2) {
+					std::cout << "Start waiting" << std::endl;
 					sendWaiting();
 				}
 				return true;
@@ -428,7 +429,7 @@ void LittleWolf::render_map(Player& p) {
 		//		for (int y = 0; y < gpu_.yres; y++)
 		//			put(display, x, y, 0x00000000);
 
-				// draw walls
+		// draw walls
 		const Point direction = lerp(camera, x / (float)gpu_.xres);
 		const Hit hit = cast(p.where, direction, map_.walling, true, false);
 		const Point ray = sub(hit.where, p.where);
@@ -571,7 +572,7 @@ void LittleWolf::sendPlayerInfo()
 {
 	auto& p = players_[player_id_];
 
-	Game::instance()->getNetworking()->sendPlayerInfo(Vector2D(p.where.x, p.where.y), Vector2D(p.velocity.x, p.velocity.y), p.speed, p.acceleration, p.theta, p.state);
+	Game::instance()->getNetworking()->send_player_info(Vector2D(p.where.x, p.where.y), Vector2D(p.velocity.x, p.velocity.y), p.speed, p.acceleration, p.theta, p.state);
 }
 
 void LittleWolf::sendDie(Uint8 playerID)

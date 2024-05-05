@@ -82,7 +82,6 @@ void Game::start() {
 			if (ihdlr.isKeyDown(SDL_SCANCODE_R)) {
 				little_wolf_->bringAllToLife();
 			}*/
-
 		}
 
 		little_wolf_->update();
@@ -98,10 +97,11 @@ void Game::start() {
 
 		Uint32 frameTime = sdlutils().currRealTime() - startTime;
 
-		if (frameTime < 10)
+		if (frameTime < 10) 
+		{
 			SDL_Delay(10 - frameTime);
+		}
 	}
-
 }
 
 LittleWolf* Game::getLittleWolf()

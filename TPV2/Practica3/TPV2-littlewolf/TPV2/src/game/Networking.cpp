@@ -146,13 +146,16 @@ void Networking::update() {
 			// para resetear
 			handle_restart();
 			break;
+
 		case _WAITING:
 			handle_waiting();
 			break;
+
 		case _SYNCRO:
 			m5.deserialize(p_->data);
 			handle_syncro(m5);
 			break;
+
 		default:
 			break;
 		}
@@ -243,7 +246,7 @@ void Networking::send_restart()
 	std::cout << "Send restart." << std::endl;
 }
 
-void Networking::sendPlayerInfo(const Vector2D& pos, const Vector2D& vel, float speed, float acceleration, float theta, Uint8 state)
+void Networking::send_player_info(const Vector2D& pos, const Vector2D& vel, float speed, float acceleration, float theta, Uint8 state)
 {
 	PlayerInfoMsg m; // Mensaje.
 
