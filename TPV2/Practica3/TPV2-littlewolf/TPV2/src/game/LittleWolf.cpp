@@ -544,7 +544,10 @@ void LittleWolf::sendSyncro()
 {
 	for (int i = 0; i < max_player; i++)
 	{
-
+		if (players_[i].state != NOT_USED)
+		{
+			Game::instance()->getNetworking()->send_syncro(i, Vector2D(players_[i].where.x, players_[i].where.y));
+		}
 	}
 }
 
@@ -553,15 +556,15 @@ void LittleWolf::sendWaiting()
 
 }
 
-void LittleWolf::updatePlayerInfo(Uint8 playerID, Vector2D pos, Vector2D vel, float speed, float acceleration, float theta, PlayerState state)
+void LittleWolf::updatePlayerInfo(Uint8 playerID, float posX, float posY, float velX, float velY, float speed, float acceleration, float theta, PlayerState state)
 {
 	if (players_[playerID].state == NOT_USED) // Si no hay jugador crea un jugador.
 	{
 		Player newPlayer = {
 			playerID, // Id.
 			viewport(0.8), // Punto de vista.
-			{ pos.getX(), pos.getY() }, // Posicion.
-			{ vel.getX(), vel.getY() }, // Velocidad.
+			{ posX, posY }, // Posicion.
+			{ velX, velY }, // Velocidad.
 			speed, // Velocidad.
 			acceleration, // Aceleracion.
 			theta, // Rotacion.
@@ -572,7 +575,7 @@ void LittleWolf::updatePlayerInfo(Uint8 playerID, Vector2D pos, Vector2D vel, fl
 	}
 	else // Si hay jugador entonces actualiza su informacion.
 	{
-		auto& player = players_[playerID]; /// Jugador.
+		Player& player = players_[playerID]; /// Jugador.
 		if (Game::instance()->getNetworking()->is_master()) // Si es el master gestiona.
 		{
 			Point lastPos = player.where; // Guardamos la posicion.
@@ -589,10 +592,10 @@ void LittleWolf::updatePlayerInfo(Uint8 playerID, Vector2D pos, Vector2D vel, fl
 		// Si no hay colision no otra cosa entoces acutalizamos ahora si.
 		map_.walling[(int)player.where.x][(int)player.where.y] = 0; // Reset del tile.
 
-		player.where.x = pos.getX();
-		player.where.y = pos.getY();
-		player.velocity.x = vel.getX();
-		player.velocity.y = vel.getY();
+		player.where.x = posX;
+		player.where.y = posY;
+		player.velocity.x = velY;
+		player.velocity.y = velY;
 		player.speed = speed;
 		player.acceleration = acceleration;
 		player.theta = theta;
@@ -616,7 +619,7 @@ void LittleWolf::processWaiting()
 	sdlutils().virtualTimer().pause(); // PAIGRO AQUI: no creo que esto sea asi.
 }
 
-void LittleWolf::processSyncro(Uint8 playerID, const Vector2D& pos)
+void LittleWolf::processSyncro(Uint8 playerID, Vector2D pos)
 {
 
 }

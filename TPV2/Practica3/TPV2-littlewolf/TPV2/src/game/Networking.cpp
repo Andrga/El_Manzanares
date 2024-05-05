@@ -236,7 +236,7 @@ void Networking::handle_player_info(const PlayerInfoMsg& m) {
 	if (m._client_id != clientId_)
 	{
 		//Game::instance()->get_fighters().update_player_info(m._client_id, m.x,m.y, m.w, m.h, m.rot, m.state);
-		Game::instance()->getLittleWolf()
+		//Game::instance()->getLittleWolf()
 	}
 }
 
@@ -312,5 +312,5 @@ void Networking::handle_waiting()
 
 void Networking::handle_syncro(const PlayerInfoMsg& m)
 {
-	Game::instance()->getLittleWolf()->processSyncro(m._client_id, Vector2D(m.posX, m.posY));
+	Game::instance()->getLittleWolf()->processSyncro(m._client_id,Vector2D(m.posX, m.posY));
 }

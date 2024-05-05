@@ -14,6 +14,7 @@
 #include <fstream>
 
 #include "../sdlutils/InputHandler.h"
+#include "../utils/Vector2D.h"
 
 class LittleWolf {
 public:
@@ -141,12 +142,12 @@ public:
 	void sendSyncro(); // Manda la infomacion de sincronizacion.
 	void sendWaiting(); // Manda la informacion de espera.
 
-	void updatePlayerInfo(Uint8 playerID, Vector2D pos, Vector2D vel, float speed, float acceleration, float theta, PlayerState state);
+	void updatePlayerInfo(Uint8 playerID, float posX, float posY, float velX, float velY, float speed, float acceleration, float theta, PlayerState state);
 
 	void processShoot(Uint8 playerID);
 	void processDie(Uint8 playerID);
 	void processWaiting();
-	void processSyncro(Uint8 playerID, const Vector2D& pos);
+	void processSyncro(Uint8 playerID, Vector2D pos);
 
 private:
 
