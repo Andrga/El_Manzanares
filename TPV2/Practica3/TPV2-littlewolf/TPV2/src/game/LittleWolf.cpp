@@ -480,6 +480,8 @@ void LittleWolf::move(Player& p) {
 			map_.walling[y0][x0] = 0;
 		}
 	}
+
+	sendPlayerInfo();
 }
 
 void LittleWolf::spin(Player& p) {
