@@ -16,7 +16,10 @@ enum MsgType : Uint8 {
 	_PLAYER_INFO, //
 	_SHOOT, //
 	_DEAD, //
-	_RESTART
+	_RESTART, //
+	_SYNCRO, //
+	_WAITING //
+
 };
 
 struct Msg {
@@ -65,14 +68,14 @@ struct PlayerInfoMsg : MsgWithId {
 };
 struct ShootMsg : MsgWithId {
 
-	float x;
-	float y;
-	float vx;
-	float vy;
-	int w;
-	int h;
-	float rot;
+	float posX; // Posicion en X.
+	float posY; // Posicion en Y.
+	float velX; // Velocidad en X.
+	float velY; // Velocidad en Y.
+	int width; // Anchura.
+	int height; // Altura.
+	float rot; // Rotacion
 
-	_IMPL_SERIALIAZION_WITH_BASE_(MsgWithId, x, y, vx, vy, w, h, rot)
+	_IMPL_SERIALIAZION_WITH_BASE_(MsgWithId, posX, posY, velX, velY, width, height, rot)
 
 };

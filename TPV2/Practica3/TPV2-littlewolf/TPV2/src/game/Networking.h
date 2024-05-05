@@ -33,6 +33,8 @@ public:
 	void send_restart();
 	void sendPlayerInfo(const Vector2D& pos, const Vector2D& vel, float speed, float acceleration, float theta, Uint8 state);
 
+	void sendRestar();
+
 private:
 
 	void handle_new_client(Uint8 id);

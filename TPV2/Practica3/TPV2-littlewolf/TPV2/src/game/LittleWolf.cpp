@@ -49,9 +49,16 @@ void LittleWolf::update() {
 
 void LittleWolf::sendPlayerInfo()
 {
-	auto p = players_[player_id_];
+	auto& p = players_[player_id_];
 
 	Game::instance()->getNetworking()->sendPlayerInfo(Vector2D(p.where.x, p.where.y), Vector2D(p.velocity.x, p.velocity.y), p.speed, p.acceleration, p.theta, p.state);
+}
+
+void LittleWolf::disconnetPlayer(Uint8 playerID)
+{
+	auto& p = players_[playerID]; // Sacamos el jugador que sea.
+	map_.walling[(int)p.where.x, (int)p.where.y] = 0;
+	p.state = NOT_USED; // Cambiamos el estado a no usado porque no hay jugador.
 }
 
 void LittleWolf::load(std::string filename) {

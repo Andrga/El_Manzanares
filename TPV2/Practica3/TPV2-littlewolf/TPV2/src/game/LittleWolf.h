@@ -131,10 +131,10 @@ public:
 
 	// update the world, tec
 	void update();
-
-	//void update_player_info(std::uint8_t id, float x, float y, float w, float h, float rot, uint);
 	
 	void sendPlayerInfo();
+
+	void disconnetPlayer(Uint8 playerID);
 
 private:
 

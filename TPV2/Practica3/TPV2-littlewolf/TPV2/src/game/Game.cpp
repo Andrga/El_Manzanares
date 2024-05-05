@@ -11,13 +11,15 @@
 Game* Game::_instance = nullptr;
 
 Game::Game() :
-	little_wolf_(nullptr) //
+	little_wolf_(nullptr), //
+	network_(nullptr)
 {
 	_instance = this;
 }
 
 Game::~Game() {
 	delete little_wolf_;
+	delete network_;
 }
 
 bool Game::init(const char* host, int port) {
@@ -26,14 +28,14 @@ bool Game::init(const char* host, int port) {
 	network_ = new Networking();
 
 	if (!network_->init(host, port))
+	{
 		SDLNetUtils::print_SDLNet_error();
+	}
 
-	little_wolf_ = new LittleWolf(sdlutils().width(), sdlutils().height(),
-		sdlutils().window(), sdlutils().renderer());
+	little_wolf_ = new LittleWolf(sdlutils().width(), sdlutils().height(), sdlutils().window(), sdlutils().renderer());
 
 	// initialize the SDLUtils singleton
-	SDLUtils::init("Demo", 900, 480,
-		"resources/config/littlewolf.resources.json");
+	SDLUtils::init("Demo", 900, 480, "resources/config/littlewolf.resources.json");
 	// load a map
 	little_wolf_->load("resources/maps/little_wolf/map_0.txt");
 

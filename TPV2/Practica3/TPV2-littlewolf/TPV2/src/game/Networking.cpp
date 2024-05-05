@@ -158,6 +158,7 @@ void Networking::handle_new_client(Uint8 id) {
 
 void Networking::handle_disconnet(Uint8 id) {
 	//Game::instance()->get_fighters().removePlayer(id);
+	Game::instance()->getLittleWolf()->disconnetPlayer(id);
 }
 
 void Networking::send_state(const Vector2D& pos, float w, float h, float rot) {
@@ -179,19 +180,26 @@ void Networking::handle_player_state(const PlayerStateMsg& m) {
 	}
 }
 
-/*void Networking::send_shoot(Vector2D p, Vector2D v, int width, int height, float r) {
+void Networking::send_shoot(Vector2D pos, Vector2D vel, int width, int height, float r) {
+	// Mensaje.
 	ShootMsg m;
-	m._type = _SHOOT;
-	m._client_id = clientId_;
-	m.x = p.getX();
-	m.y = p.getY();
-	m.vx = v.getX();
-	m.vy = v.getY();
-	m.w = width;
-	m.h = height;
+
+	// Id y tipo del mensaje.
+	m._client_id = clientId_; // Id del mensaje.
+	m._type = _SHOOT; // Tipo de mensaje.
+
+	// Informacion del mensaje.
+	m.posX = pos.getX();
+	m.posY = pos.getY();
+	m.velX = vel.getX();
+	m.velY = vel.getY();
+	m.width = width;
+	m.height = height;
 	m.rot = r;
+
+	// Manda el mensaje.
 	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);
-}*/
+}
 
 void Networking::handle_shoot(const ShootMsg& m) {
 	/*Game::instance()->get_bullets().shoot(Vector2D(m.x, m.y),
@@ -246,8 +254,8 @@ void Networking::sendPlayerInfo(const Vector2D& pos, const Vector2D& vel, float 
 	PlayerInfoMsg m;
 
 	// Id del mensaje y el tipo.
-	m._client_id = clientId_;
-	m._type = _PLAYER_INFO;
+	m._client_id = clientId_; // Id del mensaje.
+	m._type = _PLAYER_INFO; // Tipo del mensaje.
 
 	// Meter la info del jugador.
 	m.posX = pos.getX();
@@ -263,7 +271,11 @@ void Networking::sendPlayerInfo(const Vector2D& pos, const Vector2D& vel, float 
 	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);
 }
 
+void Networking::sendRestar()
+{
+	
+}
+
 void Networking::handle_restart() {
 	//Game::instance()->get_fighters().bringAllToLife();
-
 }
