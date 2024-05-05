@@ -372,6 +372,7 @@ bool LittleWolf::shoot(Player& p) {
 				uint8_t id = tile_to_player(hit.tile);
 				players_[id].state = DEAD;
 				sdlutils().soundEffects().at("pain").play();
+				sendDie(id);
 
 				int cantPlayersAlive = 0;
 				for (auto p : players_) {
@@ -382,7 +383,6 @@ bool LittleWolf::shoot(Player& p) {
 				if (cantPlayersAlive < 2) {
 					sendWaiting();
 				}
-
 				return true;
 			}
 		}
