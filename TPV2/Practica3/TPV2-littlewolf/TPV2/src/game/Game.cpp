@@ -72,7 +72,7 @@ void Game::start() {
 				continue;
 			}
 
-			// Apartado8: funcionalidad que no queremos.
+			// Apartado9: funcionalidad que no queremos.
 			/*// N switches to the next player view
 			if (ihdlr.isKeyDown(SDL_SCANCODE_N)) {
 				little_wolf_->switchToNextPlayer();
