@@ -98,6 +98,8 @@ void Networking::update() {
 	ShootMsg m3;
 	MsgWithId m4;
 	PlayerInfoMsg m5;
+	
+	std::cout << "NETWORKING UPDATE." << std::endl;
 
 	while (SDLNetUtils::deserializedReceive(m0, p_, sock_) > 0) {
 
@@ -190,6 +192,7 @@ void Networking::send_shoot() {
 
 	// Manda el mensaje.
 	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);
+	std::cout << "Send shoot." << std::endl;
 }
 
 void Networking::send_dead(Uint8 id)
@@ -204,6 +207,7 @@ void Networking::send_dead(Uint8 id)
 
 	// Manda el mensaje.
 	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);
+	std::cout << "Send dead." << std::endl;
 }
 
 void Networking::send_my_info(const Vector2D& pos, const Vector2D& vel, float speed, float acceleration, float theta, Uint8 state)
@@ -224,6 +228,7 @@ void Networking::send_my_info(const Vector2D& pos, const Vector2D& vel, float sp
 
 	// Manda el mensaje.
 	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);
+	std::cout << "Send my info." << std::endl;
 }
 
 void Networking::send_restart()
@@ -235,6 +240,7 @@ void Networking::send_restart()
 
 	// Manda el mensaje.
 	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);
+	std::cout << "Send restart." << std::endl;
 }
 
 void Networking::sendPlayerInfo(const Vector2D& pos, const Vector2D& vel, float speed, float acceleration, float theta, Uint8 state)
@@ -257,6 +263,7 @@ void Networking::sendPlayerInfo(const Vector2D& pos, const Vector2D& vel, float 
 
 	// Manda el mensaje.
 	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);
+	std::cout << "Send player info." << std::endl;
 }
 
 void Networking::send_waiting()
@@ -268,6 +275,7 @@ void Networking::send_waiting()
 
 	// Manda el mensaje.
 	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);
+	std::cout << "Send waiting." << std::endl;
 }
 
 void Networking::send_syncro(Uint8 playerID, const Vector2D& pos)
@@ -284,6 +292,7 @@ void Networking::send_syncro(Uint8 playerID, const Vector2D& pos)
 
 	// Manda el mesaje.
 	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);
+	std::cout << "Send syncro." << std::endl;
 }
 #pragma endregion
 
@@ -292,6 +301,7 @@ void Networking::send_syncro(Uint8 playerID, const Vector2D& pos)
 void Networking::handle_new_client(Uint8 id)
 {
 	if (id != clientId_) {
+		std::cout << "Handle new client." << std::endl;
 		Game::instance()->getLittleWolf()->sendPlayerInfo();
 	}
 }
@@ -312,6 +322,7 @@ void Networking::handle_shoot(const ShootMsg& m)
 {
 	if (is_master())
 	{
+		std::cout << "Handle shoot." << std::endl;
 		Game::instance()->getLittleWolf()->processShoot(m._client_id);
 	}
 }
@@ -320,6 +331,7 @@ void Networking::handle_dead(const MsgWithId& m)
 {
 	if (m._client_id != clientId_)
 	{
+		std::cout << "Handle dead." << std::endl;
 		Game::instance()->getLittleWolf()->processDie(m._client_id);
 	}
 }
@@ -327,22 +339,26 @@ void Networking::handle_dead(const MsgWithId& m)
 void Networking::handle_player_info(const PlayerInfoMsg& m) {
 	if (m._client_id != clientId_)
 	{
+		std::cout << "Handle player info." << std::endl;
 		Game::instance()->getLittleWolf()->updatePlayerInfo(m._client_id, m.posX, m.posY, m.velX, m.velY, m.speed, m.acceleration, m.theta, m.state);
 	}
 }
 
 void Networking::handle_restart()
 {
+	std::cout << "Handle restart." << std::endl;
 	Game::instance()->getLittleWolf()->bringAllToLife();
 }
 
 void Networking::handle_waiting()
 {
+	std::cout << "Handle waiting." << std::endl;
 	Game::instance()->getLittleWolf()->processWaiting();
 }
 
 void Networking::handle_syncro(const PlayerInfoMsg& m)
 {
+	std::cout << "Handle syncro." << std::endl;
 	Game::instance()->getLittleWolf()->processSyncro(m._client_id, Vector2D(m.posX, m.posY));
 }
 #pragma endregion

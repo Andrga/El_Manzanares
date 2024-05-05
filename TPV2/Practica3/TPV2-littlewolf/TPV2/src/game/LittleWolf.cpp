@@ -314,7 +314,6 @@ void LittleWolf::render_map(Player& p) {
 			for (int y = wall_p.bot; y < size_p; y++)
 				put(display, x, y, color(hit_p.tile));
 		}
-
 	}
 
 	// draw a rifle sight at the center
@@ -331,7 +330,6 @@ void LittleWolf::render_map(Player& p) {
 			/ 2, gpu_.yres, gpu_.xres, };
 	SDL_RenderCopyEx(gpu_.renderer, gpu_.texture, NULL, &dst, -90, NULL,
 		SDL_FLIP_NONE);
-
 }
 
 void LittleWolf::render_upper_view() {
@@ -570,11 +568,12 @@ void LittleWolf::sendWaiting()
 void LittleWolf::processShoot(Uint8 playerID)
 {
 	shoot(players_[playerID]);
+	std::cout << "Process shoot." << std::endl;
 }
 
 void LittleWolf::processDie(Uint8 playerID)
 {
-
+	std::cout << "Process die." << std::endl;
 }
 
 void LittleWolf::processWaiting()
@@ -584,7 +583,13 @@ void LittleWolf::processWaiting()
 
 void LittleWolf::processSyncro(Uint8 playerID, Vector2D pos)
 {
+	map_.walling[(int)players_[playerID].where.x][(int)players_[playerID].where.y] = 0; // Reset del tile.
 
+	players_[playerID].where.x = pos.getX();
+	players_[playerID].where.y = pos.getY();
+
+	map_.walling[(int)players_[playerID].where.x][(int)players_[playerID].where.y] = player_to_tile(playerID); // Seteamos el tile.
+	std::cout << "Process syncro." << std::endl;
 }
 
 #pragma endregion
@@ -633,7 +638,7 @@ void LittleWolf::updatePlayerInfo(Uint8 playerID, float posX, float posY, float 
 		player.acceleration = acceleration;
 		player.theta = theta;
 
-		map_.walling[(int)player.where.y][(int)player.where.x] = player_to_tile(playerID); // Seteamos el tile.
+		map_.walling[(int)player.where.x][(int)player.where.y] = player_to_tile(playerID); // Seteamos el tile.
 	}
 }
 

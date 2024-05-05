@@ -49,7 +49,6 @@ struct PlayerStateMsg : MsgWithId {
 	float rot;
 
 	_IMPL_SERIALIAZION_WITH_BASE_(MsgWithId, x, y, w, h, rot)
-
 };
 
 struct PlayerInfoMsg : MsgWithId {
@@ -64,8 +63,8 @@ struct PlayerInfoMsg : MsgWithId {
 	Uint8 state; // Estado.
 
 	_IMPL_SERIALIAZION_WITH_BASE_(MsgWithId, posX, posY, velX, velY, speed, acceleration, theta, state)
-
 };
+
 struct ShootMsg : MsgWithId {
 
 	float posX; // Posicion en X.
@@ -77,5 +76,4 @@ struct ShootMsg : MsgWithId {
 	float rot; // Rotacion
 
 	_IMPL_SERIALIAZION_WITH_BASE_(MsgWithId, posX, posY, velX, velY, width, height, rot)
-
 };
