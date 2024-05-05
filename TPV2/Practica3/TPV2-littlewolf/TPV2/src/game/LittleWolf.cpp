@@ -484,7 +484,6 @@ void LittleWolf::render_map(Player& p) {
 }
 
 void LittleWolf::render_upper_view() {
-
 	// lock texture
 	const Display display = lock(gpu_);
 
@@ -577,7 +576,7 @@ void LittleWolf::sendPlayerInfo()
 
 void LittleWolf::sendDie(Uint8 playerID)
 {
-
+	Game::instance()->getNetworking()->send_dead(playerID);
 }
 
 void LittleWolf::sendShoot()
@@ -619,7 +618,9 @@ void LittleWolf::processShoot(Uint8 playerID)
 
 void LittleWolf::processDie(Uint8 playerID)
 {
-	std::cout << "Process die." << std::endl;
+	std::cout << "kill player: " << playerID << std::endl;
+	players_[playerID].state = DEAD;
+	std::cout << players_[playerID].state << std::endl;
 }
 
 void LittleWolf::processWaiting()
@@ -694,10 +695,10 @@ void LittleWolf::updatePlayerInfo(Uint8 playerID, float posX, float posY, float 
 		// Si no hay colision no otra cosa entoces acutalizamos ahora si.
 		map_.walling[(int)player.where.y][(int)player.where.x] = 0; // Reset del tile.
 
-		player.where.x = posX;
 		player.where.y = posY;
-		player.velocity.x = velY;
+		player.where.x = posX;
 		player.velocity.y = velY;
+		player.velocity.x = velX;
 		player.speed = speed;
 		player.acceleration = acceleration;
 		player.theta = theta;
@@ -720,10 +721,46 @@ void LittleWolf::switchToNextPlayer() {
 }
 
 void LittleWolf::bringAllToLife() {
-	// bring all dead players to life -- all stay in the same position
+
+	if (Game::instance()->getNetworking()->is_master())
+		setRandomPos();
+
+	// bring all dead players to life -- Cambia la posicion a una random
 	for (auto i = 0u; i < max_player; i++) {
+
+		std::cout << "revive player: " << i << std::endl;
 		if (players_[i].state == DEAD) {
 			players_[i].state = ALIVE;
+			std::cout << "Alive" << std::endl;
+		}
+	}
+}
+
+void LittleWolf::setRandomPos()
+{
+	for (auto p : players_)
+	{
+		if (p.state != NOT_USED)
+		{
+			auto& rand = sdlutils().rand();
+
+			// The search for an empty cell start at a random position (orow,ocol)
+			uint16_t orow = rand.nextInt(0, map_.walling_height);
+			uint16_t ocol = rand.nextInt(0, map_.walling_width);
+
+			// search for an empty cell
+			uint16_t row = orow;
+			uint16_t col = (ocol + 1) % map_.walling_width;
+			while (!((orow == row) && (ocol == col)) && map_.walling[row][col] != 0) {
+				col = (col + 1) % map_.user_walling_width;
+				if (col == 0)
+					row = (row + 1) % map_.walling_height;
+			}
+
+			p.where.x = col + 0.5f;
+			p.where.y = row + 0.5f;
+
+			map_.walling[(int)p.where.y][(int)p.where.x] = player_to_tile(p.id);
 		}
 	}
 }

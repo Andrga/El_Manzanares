@@ -98,7 +98,7 @@ void Networking::update() {
 	ShootMsg m3;
 	MsgWithId m4;
 	PlayerInfoMsg m5;
-	
+
 	//std::cout << "NETWORKING UPDATE." << std::endl;
 
 	while (SDLNetUtils::deserializedReceive(m0, p_, sock_) > 0) {
@@ -320,26 +320,26 @@ void Networking::handle_player_state(const PlayerStateMsg& m)
 
 void Networking::handle_shoot(const ShootMsg& m)
 {
+	Game::instance()->getLittleWolf()->processShoot(m._client_id);
 	if (is_master())
 	{
 		std::cout << "Handle shoot." << std::endl;
-		Game::instance()->getLittleWolf()->processShoot(m._client_id);
 	}
 }
 
 void Networking::handle_dead(const MsgWithId& m)
 {
+	Game::instance()->getLittleWolf()->processDie(m._client_id);
 	if (m._client_id != clientId_)
 	{
 		std::cout << "Handle dead." << std::endl;
-		Game::instance()->getLittleWolf()->processDie(m._client_id);
 	}
 }
 
 void Networking::handle_player_info(const PlayerInfoMsg& m) {
 	if (m._client_id != clientId_)
 	{
-		std::cout << "Handle player info." << std::endl;
+		//std::cout << "Handle player info." << std::endl;
 		Game::instance()->getLittleWolf()->updatePlayerInfo(m._client_id, m.posX, m.posY, m.velX, m.velY, m.speed, m.acceleration, m.theta, m.state);
 	}
 }

@@ -123,6 +123,9 @@ public:
 	// mark all (used) player alive
 	void bringAllToLife();
 
+	// Setea posiciones aleatorias
+	void setRandomPos();
+
 	// switch to the view of the next player
 	void switchToNextPlayer();
 
