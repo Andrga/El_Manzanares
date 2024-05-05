@@ -110,8 +110,7 @@ public:
 	};
 
 	// the constructor get the window's dimensions and the sdl winodw/renderer
-	LittleWolf(uint16_t xres, uint16_t yres, SDL_Window* window,
-		SDL_Renderer* render);
+	LittleWolf(uint16_t xres, uint16_t yres, SDL_Window* window, SDL_Renderer* render);
 	virtual ~LittleWolf();
 
 	// load a map from a file
@@ -131,10 +130,16 @@ public:
 
 	// update the world, tec
 	void update();
-	
-	void sendPlayerInfo();
 
-	void disconnetPlayer(Uint8 playerID);
+	void sendPlayerInfo(); // Manda la informacion de un jugador.
+
+	void disconnetPlayer(Uint8 playerID); // Desconecta un jugador con id.
+
+	void sendDie(Uint8 playerID); // Manda la informacion de muerte.
+	void sendShoot(); // Manda la informacion del disparo.
+	void sendRestart(); // Manda la informacion de reseteo.
+	void sendSyncro(); // Manda la infomacion de sincronizacion.
+	void sendWaiting(); // Manda la informacion de espera.
 
 private:
 

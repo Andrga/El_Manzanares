@@ -61,6 +61,31 @@ void LittleWolf::disconnetPlayer(Uint8 playerID)
 	p.state = NOT_USED; // Cambiamos el estado a no usado porque no hay jugador.
 }
 
+void LittleWolf::sendDie(Uint8 playerID)
+{
+
+}
+
+void LittleWolf::sendShoot()
+{
+
+}
+
+void LittleWolf::sendRestart()
+{
+
+}
+
+void LittleWolf::sendSyncro()
+{
+
+}
+
+void LittleWolf::sendWaiting()
+{
+
+}
+
 void LittleWolf::load(std::string filename) {
 	std::ifstream in(filename);
 	if (in.fail()) {

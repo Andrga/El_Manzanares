@@ -112,7 +112,7 @@ void Networking::update() {
 			// informas al master de jugador desconectado
 			m1.deserialize(p_->data);
 			masterId_ = m1._master_id; // guardas el nuevo master si hay que cambiarlo
-			handle_disconnet(); // se administra la desconexion
+			handle_disconnet(0); // se administra la desconexion
 			break;
 
 		case _PLAYER_STATE:
@@ -205,10 +205,6 @@ void Networking::handle_shoot(const ShootMsg& m) {
 	/*Game::instance()->get_bullets().shoot(Vector2D(m.x, m.y),
 		Vector2D(m.vx, m.vy), m.w, m.h, m.rot);*/
 
-}
-
-void Networking::send_shoot(Vector2D p, Vector2D v, int width, int height, float r)
-{
 }
 
 void Networking::send_dead(Uint8 id) {
