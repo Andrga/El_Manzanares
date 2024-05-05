@@ -132,10 +132,10 @@ public:
 	// update the world, tec
 	void update();
 
-	void sendPlayerInfo(); // Manda la informacion de un jugador.
 
 	void disconnetPlayer(Uint8 playerID); // Desconecta un jugador con id.
 
+	void sendPlayerInfo(); // Manda la informacion de un jugador.
 	void sendDie(Uint8 playerID); // Manda la informacion de muerte.
 	void sendShoot(); // Manda la informacion del disparo.
 	void sendRestart(); // Manda la informacion de reseteo.

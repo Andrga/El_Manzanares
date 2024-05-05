@@ -52,13 +52,6 @@ void LittleWolf::update() {
 	shoot(p); // handle shooting
 }
 
-void LittleWolf::sendPlayerInfo()
-{
-	auto& p = players_[player_id_];
-
-	Game::instance()->getNetworking()->sendPlayerInfo(Vector2D(p.where.x, p.where.y), Vector2D(p.velocity.x, p.velocity.y), p.speed, p.acceleration, p.theta, p.state);
-}
-
 void LittleWolf::disconnetPlayer(Uint8 playerID)
 {
 	auto& p = players_[playerID]; // Sacamos el jugador que sea.
@@ -525,6 +518,15 @@ bool LittleWolf::shoot(Player& p) {
 }
 #pragma endregion
 
+#pragma region Sends:
+
+void LittleWolf::sendPlayerInfo()
+{
+	auto& p = players_[player_id_];
+
+	Game::instance()->getNetworking()->sendPlayerInfo(Vector2D(p.where.x, p.where.y), Vector2D(p.velocity.x, p.velocity.y), p.speed, p.acceleration, p.theta, p.state);
+}
+
 void LittleWolf::sendDie(Uint8 playerID)
 {
 
@@ -555,6 +557,33 @@ void LittleWolf::sendWaiting()
 {
 
 }
+
+#pragma endregion
+
+#pragma region Processes:
+
+void LittleWolf::processShoot(Uint8 playerID)
+{
+
+}
+
+void LittleWolf::processDie(Uint8 playerID)
+{
+
+}
+
+void LittleWolf::processWaiting()
+{
+	sdlutils().virtualTimer().pause(); // PAIGRO AQUI: no creo que esto sea asi.
+}
+
+void LittleWolf::processSyncro(Uint8 playerID, Vector2D pos)
+{
+
+}
+
+#pragma endregion
+
 
 void LittleWolf::updatePlayerInfo(Uint8 playerID, float posX, float posY, float velX, float velY, float speed, float acceleration, float theta, Uint8 state)
 {
@@ -602,26 +631,6 @@ void LittleWolf::updatePlayerInfo(Uint8 playerID, float posX, float posY, float 
 
 		map_.walling[(int)player.where.y][(int)player.where.x] = player_to_tile(playerID); // Seteamos el tile.
 	}
-}
-
-void LittleWolf::processShoot(Uint8 playerID)
-{
-
-}
-
-void LittleWolf::processDie(Uint8 playerID)
-{
-
-}
-
-void LittleWolf::processWaiting()
-{
-	sdlutils().virtualTimer().pause(); // PAIGRO AQUI: no creo que esto sea asi.
-}
-
-void LittleWolf::processSyncro(Uint8 playerID, Vector2D pos)
-{
-
 }
 
 void LittleWolf::switchToNextPlayer() {

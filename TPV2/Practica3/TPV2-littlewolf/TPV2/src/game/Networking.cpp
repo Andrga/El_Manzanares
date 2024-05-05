@@ -296,31 +296,39 @@ void Networking::send_syncro(Uint8 playerID, const Vector2D& pos)
 
 #pragma region Handlers:
 
-void Networking::handle_new_client(Uint8 id) {
+void Networking::handle_new_client(Uint8 id)
+{
 	if (id != clientId_) {
 		Game::instance()->getLittleWolf()->sendPlayerInfo();
 	}
 }
 
-void Networking::handle_disconnet(Uint8 id) {
-	//Game::instance()->get_fighters().removePlayer(id);
+void Networking::handle_disconnet(Uint8 id)
+{
 	Game::instance()->getLittleWolf()->disconnetPlayer(id);
 }
 
-void Networking::handle_player_state(const PlayerStateMsg& m) {
-
+void Networking::handle_player_state(const PlayerStateMsg& m)
+{
 	if (m._client_id != clientId_) {
 		//Game::instance()->getLittleWolf().update_player_state(m._client_id, m.x, m.y, m.w, m.h, m.rot);
 	}
 }
 
-void Networking::handle_shoot(const ShootMsg& m) {
-	/*Game::instance()->get_bullets().shoot(Vector2D(m.x, m.y),
-		Vector2D(m.vx, m.vy), m.w, m.h, m.rot);*/
+void Networking::handle_shoot(const ShootMsg& m)
+{
+	if (is_master())
+	{
+		Game::instance()->getLittleWolf()->processShoot(m._client_id);
+	}
 }
 
-void Networking::handle_dead(const MsgWithId& m) {
-	//Game::instance()->get_fighters().killPlayer(m._client_id);
+void Networking::handle_dead(const MsgWithId& m)
+{
+	if (m._client_id != clientId_)
+	{
+		Game::instance()->getLittleWolf()->processDie(m._client_id);
+	}
 }
 
 void Networking::handle_player_info(const PlayerInfoMsg& m) {
