@@ -556,7 +556,7 @@ void LittleWolf::sendWaiting()
 
 }
 
-void LittleWolf::updatePlayerInfo(Uint8 playerID, float posX, float posY, float velX, float velY, float speed, float acceleration, float theta, PlayerState state)
+void LittleWolf::updatePlayerInfo(Uint8 playerID, float posX, float posY, float velX, float velY, float speed, float acceleration, float theta, Uint8 state)
 {
 	if (players_[playerID].state == NOT_USED) // Si no hay jugador crea un jugador.
 	{
