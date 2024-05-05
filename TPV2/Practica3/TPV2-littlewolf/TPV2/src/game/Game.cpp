@@ -72,7 +72,8 @@ void Game::start() {
 				continue;
 			}
 
-			// N switches to the next player view
+			// Apartado8: funcionalidad que no queremos.
+			/*// N switches to the next player view
 			if (ihdlr.isKeyDown(SDL_SCANCODE_N)) {
 				little_wolf_->switchToNextPlayer();
 			}
@@ -80,7 +81,7 @@ void Game::start() {
 			// R brings deads to life
 			if (ihdlr.isKeyDown(SDL_SCANCODE_R)) {
 				little_wolf_->bringAllToLife();
-			}
+			}*/
 
 		}
 

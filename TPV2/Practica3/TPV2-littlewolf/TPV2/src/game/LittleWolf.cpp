@@ -481,7 +481,7 @@ void LittleWolf::move(Player& p) {
 		}
 	}
 
-	sendPlayerInfo();
+	sendPlayerInfo(); // Para que se actualice todo el rato. SE MUEVEEEEN EN TIEMPO REAL.
 }
 
 void LittleWolf::spin(Player& p) {
