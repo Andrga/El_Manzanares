@@ -14,11 +14,13 @@ public:
 	virtual ~Networking();
 
 	bool init(const char* host, Uint16 port);
+	bool send_disconnect();
 	void update();
 
 	Uint8 client_id() {
 		return clientId_;
 	}
+
 	void change_id(Uint8 id) {
 		clientId_ = id;
 	}
@@ -29,7 +31,6 @@ public:
 
 	void send_state(const Vector2D& pos, float w, float h, float rot);
 	void send_my_info(const Vector2D& pos, const Vector2D& vel, float speed, float acceleration, float theta, Uint8 state);
-	bool send_disconnect();
 
 	void send_shoot();
 	void send_dead(Uint8 id);

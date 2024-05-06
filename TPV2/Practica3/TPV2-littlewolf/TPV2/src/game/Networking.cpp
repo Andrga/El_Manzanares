@@ -83,8 +83,6 @@ bool Networking::init(const char* host, Uint16 port) {
 	return true;
 }
 
-
-
 void Networking::update() {
 	Msg m0;
 	MsgWithMasterId m1;
@@ -288,7 +286,7 @@ void Networking::send_syncro(Uint8 playerID, const Vector2D& pos)
 
 	// Manda el mesaje.
 	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);
-	std::cout << "Send syncro." << std::endl;
+	//std::cout << "Send syncro."<< playerID << std::endl;
 }
 
 bool Networking::send_disconnect() {
@@ -330,8 +328,8 @@ void Networking::handle_shoot(const ShootMsg& m)
 
 void Networking::handle_dead(const MsgWithId& m)
 {
-	Game::instance()->getLittleWolf()->processDie(m._client_id);
 	std::cout << "Handle dead." << std::endl;
+	Game::instance()->getLittleWolf()->processDie(m._client_id);
 }
 
 void Networking::handle_player_info(const PlayerInfoMsg& m) {
@@ -356,7 +354,7 @@ void Networking::handle_waiting()
 
 void Networking::handle_syncro(const PlayerInfoMsg& m)
 {
-	std::cout << "Handle syncro." << std::endl;
+	//std::cout << "Handle syncro." << std::endl;
 	Game::instance()->getLittleWolf()->processSyncro(m._client_id, Vector2D(m.posX, m.posY));
 }
 #pragma endregion
