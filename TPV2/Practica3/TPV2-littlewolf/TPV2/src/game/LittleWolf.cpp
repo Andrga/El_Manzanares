@@ -75,8 +75,24 @@ void LittleWolf::update() {
 void LittleWolf::disconnetPlayer(Uint8 playerID)
 {
 	auto& p = players_[playerID]; // Sacamos el jugador que sea.
-	map_.walling[(int)p.where.x, (int)p.where.y] = 0;
+	map_.walling[(int)p.where.y][(int)p.where.x] = 0;
 	p.state = NOT_USED; // Cambiamos el estado a no usado porque no hay jugador.
+
+	for (int i = 0; i < max_player; i++)
+	{
+		if (i > playerID && players_[i].state != NOT_USED) {
+			if (players_[i].id == player_id_)
+			{
+				player_id_--;
+				Game::instance()->getNetworking()->change_id(player_id_);
+			}
+			players_[i].id--;
+			players_[i - 1] = players_[i];
+
+			map_.walling[(int)players_[i].where.y][(int)players_[i].where.x] = 0;
+			players_[i].state = NOT_USED;
+		}
+	}
 }
 
 #pragma region Cosas que ya estaban
@@ -638,13 +654,13 @@ void LittleWolf::processWaiting()
 
 void LittleWolf::processSyncro(Uint8 playerID, Vector2D pos)
 {
-	map_.walling[(int)players_[playerID].where.x][(int)players_[playerID].where.y] = 0; // Reset del tile.
+	map_.walling[(int)players_[playerID].where.y][(int)players_[playerID].where.x] = 0; // Reset del tile.
 
 	players_[playerID].where.x = pos.getX();
 	players_[playerID].where.y = pos.getY();
 
-	map_.walling[(int)players_[playerID].where.x][(int)players_[playerID].where.y] = player_to_tile(playerID); // Seteamos el tile.
-	std::cout << "Process syncro." << std::endl;
+	map_.walling[(int)players_[playerID].where.y][(int)players_[playerID].where.x] = player_to_tile(playerID); // Seteamos el tile.
+	//std::cout << "Process syncro." << std::endl;
 }
 
 #pragma endregion
@@ -722,9 +738,11 @@ void LittleWolf::switchToNextPlayer() {
 }
 
 void LittleWolf::bringAllToLife() {
+	wait_ = false;
 
 	if (Game::instance()->getNetworking()->is_master())
 		setRandomPos();
+
 
 	// bring all dead players to life -- Cambia la posicion a una random
 	for (auto i = 0u; i < max_player; i++) {

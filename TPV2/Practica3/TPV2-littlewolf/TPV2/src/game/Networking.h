@@ -14,11 +14,15 @@ public:
 	virtual ~Networking();
 
 	bool init(const char* host, Uint16 port);
-	bool disconnect();
+	bool send_disconnect();
 	void update();
 
 	Uint8 client_id() {
 		return clientId_;
+	}
+
+	void change_id(Uint8 id) {
+		clientId_ = id;
 	}
 
 	bool is_master() {
