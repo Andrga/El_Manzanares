@@ -637,6 +637,7 @@ MbR::~MbR()
 {
 
 }
+//----Ejercicio70:
 MbR* MbR::generaMallaIndexadaPorRevolucion(int perPoi, int nRot, glm::dvec3* per)
 {
 	MbR* mesh = new MbR(perPoi, nRot, per);
