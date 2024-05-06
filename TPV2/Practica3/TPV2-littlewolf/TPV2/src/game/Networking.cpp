@@ -328,8 +328,8 @@ void Networking::handle_shoot(const ShootMsg& m)
 
 void Networking::handle_dead(const MsgWithId& m)
 {
-	Game::instance()->getLittleWolf()->processDie(m._client_id);
 	std::cout << "Handle dead." << std::endl;
+	Game::instance()->getLittleWolf()->processDie(m._client_id);
 }
 
 void Networking::handle_player_info(const PlayerInfoMsg& m) {

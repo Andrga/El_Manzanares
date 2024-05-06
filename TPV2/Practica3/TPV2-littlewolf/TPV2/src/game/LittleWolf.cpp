@@ -23,7 +23,7 @@ LittleWolf::LittleWolf(uint16_t xres, uint16_t yres, SDL_Window* window,
 	wait_(false),
 	last_frame_(0),
 	elapsed_time_(0)
-{ 
+{
 	std::cout << "new littlewolf" << std::endl;
 
 	// for some reason it is created with a rotation of 90 degrees -- must be easier to
@@ -77,22 +77,6 @@ void LittleWolf::disconnetPlayer(Uint8 playerID)
 	auto& p = players_[playerID]; // Sacamos el jugador que sea.
 	map_.walling[(int)p.where.y][(int)p.where.x] = 0;
 	p.state = NOT_USED; // Cambiamos el estado a no usado porque no hay jugador.
-
-	for (int i = 0; i < max_player; i++)
-	{
-		if (i > playerID && players_[i].state != NOT_USED) {
-			if (players_[i].id == player_id_)
-			{
-				player_id_--;
-				Game::instance()->getNetworking()->change_id(player_id_);
-			}
-			players_[i].id--;
-			players_[i - 1] = players_[i];
-
-			map_.walling[(int)players_[i].where.y][(int)players_[i].where.x] = 0;
-			players_[i].state = NOT_USED;
-		}
-	}
 }
 
 #pragma region Cosas que ya estaban
@@ -386,8 +370,9 @@ bool LittleWolf::shoot(Player& p) {
 			// than shoot_distace, we mark the player as dead
 			if (hit.tile > 9 && mag(sub(p.where, hit.where)) < shoot_distace) {
 				uint8_t id = tile_to_player(hit.tile);
-				players_[id].state = DEAD;
+
 				sdlutils().soundEffects().at("pain").play();
+
 				sendDie(id);
 
 				int cantPlayersAlive = 0;
@@ -776,10 +761,27 @@ void LittleWolf::setRandomPos()
 					row = (row + 1) % map_.walling_height;
 			}
 
+			// handle the case where the search is failed, which in principle should never
+			// happen unless we start with map with few empty cells
+			if (row >= map_.walling_height)
+			{
+				return;
+			}
+
+			map_.walling[(int)p.where.y][(int)p.where.x] = 0;
+
 			p.where.x = col + 0.5f;
 			p.where.y = row + 0.5f;
+			p.velocity.x = 0;
+			p.velocity.y = 0;
+			p.speed = 2.0;
+			p.acceleration = 0.9;
+			p.theta = 0;
+			p.state = ALIVE;
 
 			map_.walling[(int)p.where.y][(int)p.where.x] = player_to_tile(p.id);
+
+			Game::instance()->getNetworking()->send_syncro(p.id, Vector2D(p.where.x, p.where.y));
 		}
 	}
 }
