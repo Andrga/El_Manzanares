@@ -485,6 +485,8 @@ void QuadricEntity::render(glm::dmat4 const& modelViewMat) const {}
 Sphere::Sphere(GLdouble rr, GLfloat rrcc, GLfloat ggcc, GLfloat bbcc) : r(rr), rc(rrcc), gc(ggcc), bc(bbcc)
 {}
 
+
+
 Sphere::~Sphere() {}
 
 void Sphere::render(glm::dmat4 const& modelViewMat) const
@@ -704,3 +706,31 @@ void IndexedBox::render(glm::dmat4 const& modelViewMat) const
 		glColor3f(1.0, 1.0, 1.0);
 	}
 }
+#pragma region P5
+
+//------Ejercicio71:
+RevSphere::RevSphere(GLfloat radius, GLfloat meridians, GLfloat paralels) :r(radius), m(meridians), p(paralels)
+{
+
+}
+
+RevSphere::~RevSphere()
+{
+
+}
+
+void RevSphere::render(glm::dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr)
+	{
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
+		upload(aMat);
+		glLineWidth(2);
+		mMesh->render();
+		glLineWidth(1);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+}
+
+#pragma endregion

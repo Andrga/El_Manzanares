@@ -284,7 +284,7 @@ public:
 	void setTexture(Texture* texture, std::string text, GLubyte alpha) const {
 		texture->load(text, alpha);
 	}
-	
+
 
 private:
 	glm::dmat4 mMat = glm::dmat4();
@@ -314,6 +314,25 @@ public:
 private:
 	std::vector<Abs_Entity*> gObjects;
 	GLfloat rc, gc, bc;
+
+};
+#pragma endregion
+
+#pragma region P5
+
+//------Ejercicio71:
+class RevSphere : public Abs_Entity
+{
+public:
+	RevSphere(GLfloat radius, GLfloat meridians, GLfloat paralels); // Construcotra.
+	~RevSphere(); // Destructora.
+
+	void render(glm::dmat4 const& modelViewMat) const; // Render.
+
+protected:
+	GLfloat r; // Radio de la esfera.
+	GLfloat p; // Numero de paralelos.
+	GLfloat m; // Numero de meridianos (rotaciones).
 
 };
 #pragma endregion
