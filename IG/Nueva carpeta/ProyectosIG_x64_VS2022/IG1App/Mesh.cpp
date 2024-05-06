@@ -639,6 +639,14 @@ MbR::~MbR()
 }
 MbR* MbR::generaMallaIndexadaPorRevolucion(int perPoi, int nRot, glm::dvec3* per)
 {
+	MbR* mesh = new MbR(perPoi, nRot, per);
+
+	mesh->mPrimitive = GL_TRIANGLES;
+	mesh->mNumVertices = perPoi + nRot;
+
+	mesh->vNormals.reserve(mesh->mNumVertices);
+
+
 	return nullptr;
 }
 #pragma endregion
