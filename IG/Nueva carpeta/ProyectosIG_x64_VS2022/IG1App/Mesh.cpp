@@ -703,4 +703,3 @@ MbR* MbR::generaMallaIndexadaPorRevolucion(int perPoi, int nRot, glm::dvec3* per
 	}
 }
 #pragma endregion
-
