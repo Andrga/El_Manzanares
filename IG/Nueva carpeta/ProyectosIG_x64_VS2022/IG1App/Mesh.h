@@ -134,14 +134,14 @@ public:
 	MbR(int perPoi, int nRot, glm::dvec3* per); // Constructora.
 	~MbR(); // Destructora.
 
+	//----Ejercicio69.
+	static MbR* generaMallaIndexadaPorRevolucion(int perPoi, int nRot, glm::dvec3* per); //  Obtiene los vértices de la malla, los índices y los vectores normales.
 
 protected:
 	int perfilPoints; // Numero de puntos del perfil.
 	int nRotations; // Numero de rotaciones que se hacen.
 	glm::dvec3* perfil; // Perfil original en el eje XY.
 
-	//----Ejercicio69.
-	static MbR* generaMallaIndexadaPorRevolucion(int perPoi, int nRot, glm::dvec3* per); //  Obtiene los vértices de la malla, los índices y los vectores normales.
 };
 #pragma endregion
 

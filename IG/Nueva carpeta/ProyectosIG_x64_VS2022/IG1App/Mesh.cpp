@@ -669,12 +669,12 @@ MbR* MbR::generaMallaIndexadaPorRevolucion(int perPoi, int nRot, glm::dvec3* per
 		// Construccion de las caras triangulares.
 		mesh->vIndexes = new GLuint[mesh->mNumIndexes];
 		int indiceMayor = 0; // Contador para ir rellendando el array.
-		for (int i = 0; i < perPoi; i++) 
+		for (int i = 0; i < perPoi; i++)
 		{
 			// El contador j recorre los vértices del perfil,
 			// de abajo arriba. Las caras cuadrangulares resultan
 			// al unir la muestra i-ésima con la (i+1)%nn-ésima //_________________________nn=nRot, mm=perPoi.
-			for (int j = 0; j < nRot - 1; j++) 
+			for (int j = 0; j < nRot - 1; j++)
 			{
 				// El contador indice sirve para llevar cuenta
 				// de los índices generados hasta ahora. Se recorre
@@ -701,5 +701,6 @@ MbR* MbR::generaMallaIndexadaPorRevolucion(int perPoi, int nRot, glm::dvec3* per
 
 		return mesh;
 	}
+}
 #pragma endregion
 

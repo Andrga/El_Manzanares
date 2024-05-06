@@ -111,6 +111,8 @@ Scene::init()
 			addEntity(new IndexedBox(100, 0.0, 1.0, 0.0), 5);
 			break;
 		case 6:
+			//------Ejercicio71:
+			addEntity(new RevSphere(50.0, 4.0, 6.0), 6);
 			break;
 		default:
 			break;
