@@ -652,7 +652,7 @@ MbR* MbR::generaMallaIndexadaPorRevolucion(int perPoi, int nRot, glm::dvec3* per
 		GLdouble theta = i * 360 / perPoi;
 		GLdouble c = cos(radians(theta));
 		GLdouble s = sin(radians(theta));
-		for (int j = 0; j < nRot; j++) 
+		for (int j = 0; j < nRot; j++)
 		{
 			GLdouble x = c * per[j].x + s * per[j].z;
 			GLdouble z = -s * per[j].x + c * per[j].z;
@@ -660,13 +660,45 @@ MbR* MbR::generaMallaIndexadaPorRevolucion(int perPoi, int nRot, glm::dvec3* per
 		}
 		// Volcar el array auxliar al normal:
 		mesh->vVertices.reserve(mesh->mNumVertices);
-		for (int i = 0; i < mesh->mNumVertices;i++) 
+		for (int i = 0; i < mesh->mNumVertices;i++)
 		{
 			mesh->vVertices.push_back(vs[i]);
 		}
 
-		mesh->vIndexes = new GLuint[mesh->m];
-		return nullptr;
+		// Construccion de las caras triangulares.
+		mesh->vIndexes = new GLuint[mesh->mNumIndexes];
+		int indiceMayor = 0; // Contador para ir rellendando el array.
+		for (int i = 0; i < perPoi; i++) 
+		{
+			// El contador j recorre los vértices del perfil,
+			// de abajo arriba. Las caras cuadrangulares resultan
+			// al unir la muestra i-ésima con la (i+1)%nn-ésima //_________________________nn=nRot, mm=perPoi.
+			for (int j = 0; j < nRot - 1; j++) 
+			{
+				// El contador indice sirve para llevar cuenta
+				// de los índices generados hasta ahora. Se recorre
+				// la cara desde la esquina inferior izquierda
+				int indice = i * nRot + j;
+				// Indices: indice, (indice+perPoi)%(nRot*perPoi), (indice+perPoi+1)%(nRot*perPoi), indice+1.
+				mesh->vIndexes[indiceMayor] = indice;
+				indiceMayor++;
+				mesh->vIndexes[indiceMayor] = (indice + perPoi) % (nRot * perPoi);
+				indiceMayor++;
+				mesh->vIndexes[indiceMayor] = (indice + perPoi + 1) % (nRot * perPoi);
+				indiceMayor++;
+
+				mesh->vIndexes[indiceMayor] = (indice + perPoi + 1) % (nRot * perPoi);
+				indiceMayor++;
+				mesh->vIndexes[indiceMayor] = indice + 1;
+				indiceMayor++;
+				mesh->vIndexes[indiceMayor] = indice;
+				indiceMayor++;
+			}
+		}
+		// Construir vectores y devolver malla.
+		mesh->buildNormalVectors();
+
+		return mesh;
 	}
 #pragma endregion
 
