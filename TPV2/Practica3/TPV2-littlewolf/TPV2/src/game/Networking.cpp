@@ -286,7 +286,7 @@ void Networking::send_syncro(Uint8 playerID, const Vector2D& pos)
 
 	// Manda el mesaje.
 	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);
-	std::cout << "Send syncro." << std::endl;
+	//std::cout << "Send syncro."<< playerID << std::endl;
 }
 
 bool Networking::send_disconnect() {

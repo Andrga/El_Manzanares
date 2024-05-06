@@ -19,10 +19,11 @@ LittleWolf::LittleWolf(uint16_t xres, uint16_t yres, SDL_Window* window,
 			std::min(walling_width, walling_height) / 2), // the shoot distance -- not that it's wrt to the walling size
 	map_(), //
 	players_(), //
-	player_id_(0),
+	player_id_(0),// we start with player 0
 	wait_(false),
-	last_frame_(0)
-{ // we start with player 0
+	last_frame_(0),
+	elapsed_time_(0)
+{ 
 	std::cout << "new littlewolf" << std::endl;
 
 	// for some reason it is created with a rotation of 90 degrees -- must be easier to
@@ -51,7 +52,6 @@ void LittleWolf::update() {
 
 		if (Game::instance()->getNetworking()->is_master() && elapsed_time_ <= 0) {
 			sendRestart();
-			wait_ = false;
 		}
 	}
 	else
