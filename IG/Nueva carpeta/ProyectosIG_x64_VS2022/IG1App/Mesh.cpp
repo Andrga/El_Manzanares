@@ -646,8 +646,27 @@ MbR* MbR::generaMallaIndexadaPorRevolucion(int perPoi, int nRot, glm::dvec3* per
 
 	mesh->vNormals.reserve(mesh->mNumVertices);
 
+	dvec3* vs = new dvec3[mesh->mNumVertices]; // Vector auxliar de vertices.
+	for (int i = 0; i < perPoi; i++) {
+		// Generar la muestra i-ésima de vértices
+		GLdouble theta = i * 360 / perPoi;
+		GLdouble c = cos(radians(theta));
+		GLdouble s = sin(radians(theta));
+		for (int j = 0; j < nRot; j++) 
+		{
+			GLdouble x = c * per[j].x + s * per[j].z;
+			GLdouble z = -s * per[j].x + c * per[j].z;
+			vs[i * perPoi] = dvec3(x, per[j].y, z);
+		}
+		// Volcar el array auxliar al normal:
+		mesh->vVertices.reserve(mesh->mNumVertices);
+		for (int i = 0; i < mesh->mNumVertices;i++) 
+		{
+			mesh->vVertices.push_back(vs[i]);
+		}
 
-	return nullptr;
-}
+		mesh->vIndexes = new GLuint[mesh->m];
+		return nullptr;
+	}
 #pragma endregion
 
