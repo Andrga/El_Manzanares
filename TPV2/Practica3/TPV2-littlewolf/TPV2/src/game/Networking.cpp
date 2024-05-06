@@ -83,13 +83,7 @@ bool Networking::init(const char* host, Uint16 port) {
 	return true;
 }
 
-bool Networking::disconnect() {
-	MsgWithId m;
-	m._type = _DISCONNECTED;
-	m._client_id = clientId_;
-	return (SDLNetUtils::serializedSend(m, p_, sock_, srvadd_) > 0);
 
-}
 
 void Networking::update() {
 	Msg m0;
@@ -114,8 +108,7 @@ void Networking::update() {
 		case _DISCONNECTED:
 			// informas al master de jugador desconectado
 			m1.deserialize(p_->data);
-			masterId_ = m1._master_id; // guardas el nuevo master si hay que cambiarlo
-			handle_disconnet(0); // se administra la desconexion
+			handle_disconnet(m1._client_id); // se administra la desconexion
 			break;
 
 		case _PLAYER_STATE:
@@ -297,6 +290,14 @@ void Networking::send_syncro(Uint8 playerID, const Vector2D& pos)
 	SDLNetUtils::serializedSend(m, p_, sock_, srvadd_);
 	std::cout << "Send syncro." << std::endl;
 }
+
+bool Networking::send_disconnect() {
+	MsgWithId m;
+	m._type = _DISCONNECTED;
+	m._client_id = clientId_;
+	return (SDLNetUtils::serializedSend(m, p_, sock_, srvadd_) > 0);
+
+}
 #pragma endregion
 
 #pragma region Handlers:
@@ -324,19 +325,13 @@ void Networking::handle_player_state(const PlayerStateMsg& m)
 void Networking::handle_shoot(const ShootMsg& m)
 {
 	Game::instance()->getLittleWolf()->processShoot(m._client_id);
-	if (is_master())
-	{
-		std::cout << "Handle shoot." << std::endl;
-	}
+	std::cout << "Handle shoot." << std::endl;
 }
 
 void Networking::handle_dead(const MsgWithId& m)
 {
 	Game::instance()->getLittleWolf()->processDie(m._client_id);
-	if (m._client_id != clientId_)
-	{
-		std::cout << "Handle dead." << std::endl;
-	}
+	std::cout << "Handle dead." << std::endl;
 }
 
 void Networking::handle_player_info(const PlayerInfoMsg& m) {
