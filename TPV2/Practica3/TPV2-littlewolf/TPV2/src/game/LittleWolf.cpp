@@ -375,16 +375,6 @@ bool LittleWolf::shoot(Player& p) {
 
 				sendDie(id);
 
-				int cantPlayersAlive = 0;
-				for (auto p : players_) {
-					if (p.state == ALIVE)
-						cantPlayersAlive++;
-				}
-
-				if (cantPlayersAlive < 2) {
-					std::cout << "Start waiting" << std::endl;
-					sendWaiting();
-				}
 				return true;
 			}
 		}
@@ -623,6 +613,17 @@ void LittleWolf::processDie(Uint8 playerID)
 	std::cout << "kill player: " << playerID << std::endl;
 	players_[playerID].state = DEAD;
 	std::cout << players_[playerID].state << std::endl;
+
+	int cantPlayersAlive = 0;
+	for (auto p : players_) {
+		if (p.state == ALIVE)
+			cantPlayersAlive++;
+	}
+
+	if (cantPlayersAlive < 2) {
+		std::cout << "Start waiting" << std::endl;
+		sendWaiting();
+	}
 }
 
 void LittleWolf::processWaiting()
