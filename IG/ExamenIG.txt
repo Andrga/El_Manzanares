@@ -1,0 +1,22 @@
+Lunes 27 de Mayo 2024. De 9:00 a 12:00 en los
+laboratorios 10 y 11.
+
+Extraordinaria el 27 de Junio de 2024. De 17:00 a 20:00.
+
+Examen. Todo el examen es practico. En USB se puede traer
+todo lo que sea, apuntes incluidos. Se puede mejorar la practica hasta el dia
+de antes.
+
+Pueden salir cosas como:
+-Piramides doble. Malla por revolucion por ejemplo.
+O malla indexada. Le ha gustado lo de la malla por revolucion.
+-Piramide doble2. Con entidades compuestas porque son varias. Solo una
+piramide o en el render ir moviendola. Consejo de Elena la 
+segunda.
+-Media rosca toroide parcial. Malla por revolucion.
+-Cabeza del granjero.
+-Ilumninar la cabeza, moverla, etc. Con nodos ficticios etc.
+-Poner luces.
+-Limite de luces. Hay que eliminar las luces en el
+cambio de escena porque hay un maximo y puede petar. El
+maximo de luces son 5 en las tarjetas graficas normales.

@@ -151,39 +151,58 @@ void Scene::setLights()
 	//----Ejercicio76:
 	dirLight = new DirLight();
 	// Settea la dirLight.
-	fvec4 v = { 1, 1, 1, 0 };
+	fvec4 dir = { 1, 1, 1, 0 };
 	fvec4 ambient = { 0, 0, 0, 1 };
 	fvec4 diffuse = { 1, 1, 1, 1 };
 	fvec4 specular = { 0.5, 0.5, 0.5, 1 };
 
-	dirLight->setPosDir(v);
+	dirLight->setPosDir(dir);
 	dirLight->setAmbient(ambient);
 	dirLight->setDiffuse(diffuse);
 	dirLight->setSpecular(specular);
 	dirLight->setID(GL_LIGHT0); // Le pone el id.
 
-	glLightfv(GL_LIGHT0, GL_POSITION, value_ptr(v)); // Posicion de la luz.
+	glLightfv(GL_LIGHT0, GL_POSITION, value_ptr(dir)); // Posicion de la luz direccional.
 
 	lights.push_back(dirLight);
 
 	//----Ejercicio77:
 	posLight = new PosLight();
-	// Settea la dirLight.
-	v = { 1, 1, 1, 0 };
+	// Settea la posLight.
+	dir = { 200, 200, 0, 1 };
+	ambient = { 0, 0, 0, 1 };
+	diffuse = { 1, 1, 0, 0 };
+	specular = { 0.5, 0.5, 0.5, 1 };
+
+	posLight->setPosDir(dir);
+	posLight->setAmbient(ambient);
+	posLight->setDiffuse(diffuse);
+	posLight->setSpecular(specular);
+	posLight->setID(GL_LIGHT1); // Le ponemos el id.
+
+	glLightfv(GL_LIGHT1, GL_POSITION, value_ptr(dir)); // Posicion de la luz ¿posicional?.
+
+	lights.push_back(posLight);
+
+	spotLight = new SpotLight();
+	// Settea el spotLight.
+	fvec3 spot = { 0, 1, 1 };
+	dir = { 0, 200, 200, 1 };
 	ambient = { 0, 0, 0, 1 };
 	diffuse = { 1, 1, 1, 1 };
 	specular = { 0.5, 0.5, 0.5, 1 };
 
-	posLight->setPosDir(v);
-	posLight->setAmbient(ambient);
-	posLight->setDiffuse(diffuse);
-	posLight->setSpecular(specular);
-	posLight->setID(GL_LIGHT0); // Le pone el id.
+	spotLight->setPosDir(dir);
+	spotLight->setSpot(spot, 100.0, 100.0);
+	spotLight->setAmbient(ambient);
+	spotLight->setDiffuse(diffuse);
+	spotLight->setSpecular(specular);
+	spotLight->setID(GL_LIGHT2); // Le ponemos el id.
+	spotLight->setAtte(1, 0, 1);
 
-	glLightfv(GL_LIGHT0, GL_POSITION, value_ptr(v)); // Posicion de la luz.
+	glLightfv(GL_LIGHT2, GL_POSITION, value_ptr(dir)); // Posicion de la luz ¿posicional?.
 
-	lights.push_back(posLight);
-
+	lights.push_back(spotLight);
 
 
 }
@@ -192,11 +211,18 @@ void
 Scene::free()
 { // release memory and resources
 
+	// Delete de los objetos:
 	for (auto s : gObjects) {
 		for (auto el : s) {
 			delete el;
 			el = nullptr;
 		}
+	}
+	// Delete de las luces:
+	for (auto l : lights)
+	{
+		delete l;
+		l = nullptr;
 	}
 }
 void
@@ -327,36 +353,36 @@ void Scene::sceneDirLight(Camera const& cam) const {
 //----Ejercicio76:
 void Scene::activateDirLight()
 {
-	dirLight->enable();
+	lights[0]->enable(); // Con la q.
 }
 void Scene::deactivateDirLight()
 {
-	dirLight->disable();
+	lights[0]->disable(); // Con la w.
 }
 //----Ejercicio77:
 void Scene::activatePosLight()
 {
-	posLight->enable();
+	lights[1]->enable(); // Con la a.
 }
 void Scene::deactivatePosLight()
 {
-	posLight->disable();
+	lights[1]->disable(); // Con la s.
 }
 //----Ejercicio78:
 void Scene::activateSpotLight()
 {
-	spotLight->enable();
+	lights[2]->enable(); // Con la z.
 }
 void Scene::deactivateSpotLight()
 {
-	spotLight->disable();
+	lights[2]->disable(); // Con la x.
 }
 //----Ejercicio79:
 void Scene::activateTieSpotLight()
 {
-	tieSpotLight->enable();
+	tieSpotLight->enable(); // Con la f.
 }
 void Scene::deactivateTieSpotLight()
 {
-	tieSpotLight->disable();
+	tieSpotLight->disable(); // Con la g.
 }

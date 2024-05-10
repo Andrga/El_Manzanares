@@ -254,27 +254,27 @@ IG1App::key(unsigned char key, int x, int y)
 		scene_.deactivateDirLight();
 		break;
 	case 'a': // Encender luz posicional. Ejercicio77.
-		cout << "orbit" << endl;
-
+		cout << "activatePosLight" << endl;
+		scene_.activatePosLight();
 		break;
 	case 's': // Apagar luz posicional. Ejercicio77.
-		cout << "orbit" << endl;
-
+		cout << "deactivatePosLight" << endl;
+		scene_.deactivatePosLight();
 		break;
 	case 'z': // Encender spot light. Ejercicio78.
-		cout << "orbit" << endl;
-
+		cout << "activateSpotLight" << endl;
+		scene_.activateSpotLight();
 		break;
 	case 'x': // Apagar spot light. Ejercicio78.
-		cout << "orbit" << endl;
-
+		cout << "deactivateSpotLight" << endl;
+		scene_.deactivateSpotLight();
 		break;
 	case 'c': // Esto es la f del ejercicio79. Activar foco del TIE.
-		cout << "orbit"<<endl;
+		cout << "c"<<endl;
 
 		break;
 	case 'v': // Esto es la g del ejercicio79. Apagar foco del TIE.
-		cout << "orbit"<<endl;
+		cout << "v"<<endl;
 
 		break;
 	default:
