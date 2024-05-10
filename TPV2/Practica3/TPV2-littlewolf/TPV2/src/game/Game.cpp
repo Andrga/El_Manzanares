@@ -102,6 +102,7 @@ void Game::start() {
 			SDL_Delay(10 - frameTime);
 		}
 	}
+
 	network_->send_disconnect();
 }
 
