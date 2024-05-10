@@ -742,7 +742,7 @@ RevSphere::RevSphere(GLfloat radius, GLfloat meridians, GLfloat paralels, bool u
 	//perfil[1] = dvec3(r, 0.0, 0.0);
 	//perfil[2] = dvec3(0.5, h, 0.0);
 
-	mColor = { 0,0,1,1 };
+	mColor = { 1,1,0,1 };
 	mMesh = MbR::generaMallaIndexadaPorRevolucion(paralels, meridians, perfil);
 }
 
@@ -766,7 +766,7 @@ void RevSphere::render(glm::dmat4 const& modelViewMat) const
 		{
 			//set
 			glLineWidth(2);
-			if (mColor.a > 0) 
+			if (mColor.a > 0)
 			{
 				glColor4f(mColor.r, mColor.g, mColor.b, mColor.a);
 			}

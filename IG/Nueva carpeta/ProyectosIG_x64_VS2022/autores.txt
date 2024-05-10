@@ -6,3 +6,9 @@ Andrés García Navarro
 
 
 Hecho en Windows 10 y 11.
+
+Lo siento Elena pero no hemos podido completar la practica
+por completo, las tres ultimas luces no funcionan, solo la
+dirLight y los materiales aunque estan tampoco. La intentaremos
+completar y mejorar para el examen pero acutalmente no podemos.
+Pido disculpas otra vez   :|
