@@ -712,7 +712,7 @@ void IndexedBox::render(glm::dmat4 const& modelViewMat) const
 RevSphere::RevSphere(GLfloat radius, GLfloat meridians, GLfloat paralels) :r(radius), m(meridians), p(paralels)
 {
 
-	dvec3* perfil = new dvec3[paralels];
+	perfil = new dvec3[paralels];
 	for (int i = 0; i < paralels; i++)
 	{
 		int x, y;
@@ -726,7 +726,7 @@ RevSphere::RevSphere(GLfloat radius, GLfloat meridians, GLfloat paralels) :r(rad
 	//perfil[1] = dvec3(r, 0.0, 0.0);
 	//perfil[2] = dvec3(0.5, h, 0.0);
 
-
+	mColor = { 0,0,1,1 };
 	mMesh = MbR::generaMallaIndexadaPorRevolucion(paralels, meridians, perfil);
 }
 

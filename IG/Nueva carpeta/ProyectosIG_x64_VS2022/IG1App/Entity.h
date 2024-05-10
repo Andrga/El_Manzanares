@@ -330,10 +330,26 @@ public:
 	void render(glm::dmat4 const& modelViewMat) const; // Render.
 
 protected:
+	glm::dvec3* perfil;
 	GLfloat r; // Radio de la esfera.
 	GLfloat p; // Numero de paralelos.
 	GLfloat m; // Numero de meridianos (rotaciones).
 
+};
+
+
+class toroid : public Abs_Entity {
+public:
+	toroid(float r, float R, float m, float p);
+private:
+	// grosor de rosquilla
+	float r_;
+	// radio rosquilla
+	float R_;
+	// numero de muestras
+	float m_;
+	// mu,ero de puntos que se aproxima a la circunferencia
+	float p_;
 };
 #pragma endregion
 
