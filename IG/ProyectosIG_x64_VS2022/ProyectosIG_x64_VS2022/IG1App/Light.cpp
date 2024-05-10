@@ -7,7 +7,6 @@
 
 //------Ejercicio75:
 GLuint Light::cont = 0;
-
 Light::Light()
 {
 	if (cont < GL_MAX_LIGHTS)
@@ -16,6 +15,9 @@ Light::Light()
 		++cont;
 		glEnable(id);
 	}
+}
+void Light::uploadL() const
+{
 }
 //----DirLight:
 void DirLight::upload(glm::dmat4 const& modelViewMat) const
@@ -44,11 +46,11 @@ void PosLight::setPosDir(glm::fvec3 dir)
 {
 	posDir = glm::fvec4(dir, 1.0); // Ojo al 1.0 que determina que la luz sea local
 }
-void PosLight::setAtte(GLfloat kc_, GLfloat kl_, GLfloat kc2_)
+void PosLight::setAtte(GLfloat kc_, GLfloat kl_, GLfloat kq_)
 {
 	kc = kc_;
 	kl = kl_;
-	kc = kc2_;
+	kq = kq;
 }
 //----SpotLight:
 void SpotLight::upload(glm::dmat4 const& modelViewMat) const

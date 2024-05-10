@@ -98,7 +98,7 @@ protected:
 public:
 	virtual void upload(glm::dmat4 const& modelViewMat) const;
 	void setPosDir(glm::fvec3 dir);
-	void setAtte(GLfloat kc, GLfloat kl, GLfloat kc);
+	void setAtte(GLfloat kc, GLfloat kl, GLfloat kq);
 };
 
 class SpotLight : public PosLight {
