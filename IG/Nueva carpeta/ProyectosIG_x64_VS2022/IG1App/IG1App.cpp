@@ -238,12 +238,44 @@ IG1App::key(unsigned char key, int x, int y)
 		m2Vistas = !m2Vistas;
 		break;
 	case 'f':
-		cout << "rotate";
+		cout << "pseudoSetRotate" << endl;
 		scene_.pseudoSetRotate();
 		break;
 	case 'g':
-		cout << "orbit";
+		cout << "pseudoSetOrbtit" << endl;
 		scene_.pseudoSetOrbtit();
+		break;
+	case 'q': // Activar luz escena. Ejercicio76.
+		cout << "activateDirLight" << endl;
+		scene_.activateDirLight();
+		break;
+	case 'w': // Desactivar luz escena. Ejercicio76.
+		cout << "deactivateDirLight" << endl;
+		scene_.deactivateDirLight();
+		break;
+	case 'a': // Encender luz posicional. Ejercicio77.
+		cout << "orbit" << endl;
+
+		break;
+	case 's': // Apagar luz posicional. Ejercicio77.
+		cout << "orbit" << endl;
+
+		break;
+	case 'z': // Encender spot light. Ejercicio78.
+		cout << "orbit" << endl;
+
+		break;
+	case 'x': // Apagar spot light. Ejercicio78.
+		cout << "orbit" << endl;
+
+		break;
+	case 'c': // Esto es la f del ejercicio79. Activar foco del TIE.
+		cout << "orbit"<<endl;
+
+		break;
+	case 'v': // Esto es la g del ejercicio79. Apagar foco del TIE.
+		cout << "orbit"<<endl;
+
 		break;
 	default:
 		need_redisplay = false;

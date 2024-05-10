@@ -3,12 +3,15 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Light.h"
+
 using namespace glm;
 
 void
 Scene::init()
 {
 	setGL(); // OpenGL settings
+	setLights(); // Settea las luces de la escena. Ejercicio75.
 
 	// allocate memory and load resources
 	// Lights
@@ -112,7 +115,8 @@ Scene::init()
 			break;
 		case 6:
 			//------Ejercicio71:
-			addEntity(new RevSphere(50.0, 4.0, 6.0), 6);
+			//addEntity(new RevSphere(500.0, 4.0, 6.0), 6);
+			//addEntity(new RGBCube(49), 6);
 			break;
 		default:
 			break;
@@ -140,6 +144,48 @@ Scene::init()
 void Scene::addEntity(Abs_Entity* ent, uint16_t scene) {
 	gObjects[scene].push_back(ent);
 }
+//----Ejercicio75:
+void Scene::setLights()
+{
+	//----Ejercicio76:
+	dirLight = new DirLight();
+	// Settea la dirLight.
+	fvec4 v = { 1, 1, 1, 0 };
+	fvec4 ambient = { 0, 0, 0, 1 };
+	fvec4 diffuse = { 1, 1, 1, 1 };
+	fvec4 specular = { 0.5, 0.5, 0.5, 1 };
+
+	dirLight->setPosDir(v);
+	dirLight->setAmbient(ambient);
+	dirLight->setDiffuse(diffuse);
+	dirLight->setSpecular(specular);
+	dirLight->setID(GL_LIGHT0); // Le pone el id.
+
+	glLightfv(GL_LIGHT0, GL_POSITION, value_ptr(v)); // Posicion de la luz.
+
+	lights.push_back(dirLight);
+
+	//----Ejercicio77:
+	posLight = new PosLight();
+	// Settea la dirLight.
+	v = { 1, 1, 1, 0 };
+	ambient = { 0, 0, 0, 1 };
+	diffuse = { 1, 1, 1, 1 };
+	specular = { 0.5, 0.5, 0.5, 1 };
+
+	posLight->setPosDir(v);
+	posLight->setAmbient(ambient);
+	posLight->setDiffuse(diffuse);
+	posLight->setSpecular(specular);
+	posLight->setID(GL_LIGHT0); // Le pone el id.
+
+	glLightfv(GL_LIGHT0, GL_POSITION, value_ptr(v)); // Posicion de la luz.
+
+	lights.push_back(posLight);
+
+
+
+}
 
 void
 Scene::free()
@@ -160,7 +206,9 @@ Scene::setGL()
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GLUT_MULTISAMPLE);
 	glEnable(GL_BLEND);	// Para el Blending.
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	// Para el alpha.
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	// Para el alpha.ç
+	glEnable(GL_LIGHTING); // Activar la luz.
+	glEnable(GL_NORMALIZE);
 }
 void
 Scene::resetGL()
@@ -170,12 +218,14 @@ Scene::resetGL()
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GLUT_MULTISAMPLE);
 	glDisable(GL_BLEND);
+	glDisable(GL_LIGHTING); // Desactivar la luz.
+	glDisable(GL_NORMALIZE);
 }
 
 void
 Scene::render(Camera const& cam) const
 {
-	sceneDirLight(cam); // Ejercicio56.
+	//sceneDirLight(cam); // Ejercicio56. Comentado por ejercicio76.
 
 	cam.upload();
 
@@ -271,4 +321,41 @@ void Scene::sceneDirLight(Camera const& cam) const {
 	glLightfv(GL_LIGHT0, GL_AMBIENT, value_ptr(ambient));
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, value_ptr(diffuse));
 	glLightfv(GL_LIGHT0, GL_SPECULAR, value_ptr(specular));
+}
+
+//----Ejercicio76:
+void Scene::activateDirLight()
+{
+	dirLight->enable();
+}
+void Scene::deactivateDirLight()
+{
+	dirLight->disable();
+}
+//----Ejercicio77:
+void Scene::activatePosLight()
+{
+	posLight->enable();
+}
+void Scene::deactivatePosLight()
+{
+	posLight->disable();
+}
+//----Ejercicio78:
+void Scene::activateSpotLight()
+{
+	spotLight->enable();
+}
+void Scene::deactivateSpotLight()
+{
+	spotLight->disable();
+}
+//----Ejercicio79:
+void Scene::activateTieSpotLight()
+{
+	tieSpotLight->enable();
+}
+void Scene::deactivateTieSpotLight()
+{
+	tieSpotLight->disable();
 }

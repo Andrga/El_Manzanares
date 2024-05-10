@@ -42,7 +42,7 @@
     <ClInclude Include="Texture.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\ProyectosIG_x64_VS2022\ProyectosIG_x64_VS2022\IG1App\Light.h">
+    <ClInclude Include="Light.h">
       <Filter>Archivos de encabezado</Filter>
     </ClInclude>
   </ItemGroup>
@@ -74,7 +74,7 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\ProyectosIG_x64_VS2022\ProyectosIG_x64_VS2022\IG1App\Light.cpp">
+    <ClCompile Include="Light.cpp">
       <Filter>Archivos de código fuente</Filter>
     </ClCompile>
   </ItemGroup>

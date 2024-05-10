@@ -11,6 +11,10 @@
 #include <vector>
 
 const int NSCENES = 6;
+class Light;
+class DirLight;
+class PosLight;
+class SpotLight;
 
 class Scene
 {
@@ -40,6 +44,21 @@ public:
 	void pseudoSetOrbtit();
 	void pseudoSetRotate();
 
+	//----Ejercicio76:
+	void activateDirLight();
+	void deactivateDirLight();
+	//----Ejrecicio77:
+	void activatePosLight();
+	void deactivatePosLight();
+	//----Ejercicio78:
+	void activateSpotLight();
+	void deactivateSpotLight();
+	//----Ejercicio79:
+	void activateTieSpotLight();
+	void deactivateTieSpotLight();
+
+	void setLights(); // Ejercicio75.
+
 protected:
 	void free();
 	void setGL();
@@ -60,7 +79,7 @@ protected:
 	Abs_Entity* eye2; // Ojo2 del granjero del ejercicio58.
 	Abs_Entity* cap; // Sombrero del granjero del ejercicio58.
 
-
+	std::vector<Light*> lights;	// Ejercicio75.
 
 	// Cosas del TIE: ejercicio60.
 	Abs_Entity* tie; // Tie del ejercicio60.
@@ -76,6 +95,10 @@ protected:
 	CompoundEntity* nf1; // Nodo del orbit del ejercicio68.
 	CompoundEntity* nf2; // Nodo del orbit del ejercicio68.
 
+	DirLight* dirLight; // Ejercicio76.
+	PosLight* posLight; // Ejercicio77.
+	SpotLight* spotLight; // Ejercicio78.
+	SpotLight* tieSpotLight; // Ejercicio79.
 };
 
 #endif //_H_Scene_H_
