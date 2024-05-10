@@ -10,7 +10,7 @@
 
 #include <vector>
 
-const int NSCENES = 6;
+const int NSCENES = 7;
 class Light;
 class DirLight;
 class PosLight;
@@ -99,6 +99,10 @@ protected:
 	PosLight* posLight; // Ejercicio77.
 	SpotLight* spotLight; // Ejercicio78.
 	SpotLight* tieSpotLight; // Ejercicio79.
+
+	//------Ejercicio74:
+	Abs_Entity* yellowTotooine;
+	Abs_Entity* cooperTotooine;
 };
 
 #endif //_H_Scene_H_

@@ -2,6 +2,8 @@
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "Light.h"
+#include "Material.h"
 
 using namespace glm;
 
@@ -592,6 +594,19 @@ AdvancedTIEX_1::AdvancedTIEX_1()
 	cosaDeAlaAAla = new Cylinder(10, 10, 140, 0, 0.25, 0.41); // Creamos la cosa esta que es un cilindro.
 	cosaDeAlaAAla->setModelMat(translate(dmat4(1.0), dvec3(0, 0, -70)) * cosaDeAlaAAla->modelMat()); // Cambiamos la posicion del cilindro para que este en el medio y vaya de ala a ala.
 
+	spotLight = new SpotLight();
+
+	fvec3 posDir = { 0, 0, 0 };
+	fvec4 ambient = { 0, 0, 0, 1 };
+	fvec4 diffuse = { 1, 1, 1, 1 };
+	fvec4 specular = { 0.5, 0.5, 0.5, 1 };
+
+	spotLight->setAmbient(ambient);
+	spotLight->setDiffuse(diffuse);
+	spotLight->setSpecular(specular);
+	spotLight->setPosDir(posDir);
+	spotLight->setAtte(1, 0, 1);
+
 	nose = new NoseTIE();
 
 	// Metemos las entidades al TIE:
@@ -709,7 +724,7 @@ void IndexedBox::render(glm::dmat4 const& modelViewMat) const
 #pragma region P5
 
 //------Ejercicio71:
-RevSphere::RevSphere(GLfloat radius, GLfloat meridians, GLfloat paralels) :r(radius), m(meridians), p(paralels)
+RevSphere::RevSphere(GLfloat radius, GLfloat meridians, GLfloat paralels, bool use) :r(radius), m(meridians), p(paralels), useMaterial(use)
 {
 
 	perfil = new dvec3[paralels];
@@ -738,24 +753,42 @@ RevSphere::~RevSphere()
 
 void RevSphere::render(glm::dmat4 const& modelViewMat) const
 {
-	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	if (mMesh != nullptr)
+	{
+		glPolygonMode(GL_FRONT, GL_FILL);
+		glPolygonMode(GL_BACK, GL_CULL_FACE);
+		glDisable(GL_COLOR_MATERIAL);
+		if (useMaterial && material != nullptr)
+		{
+			material->upload();
+		}
+		else
+		{
+			//set
+			glLineWidth(2);
+			if (mColor.a > 0) 
+			{
+				glColor4f(mColor.r, mColor.g, mColor.b, mColor.a);
+			}
 
-	dmat4 aMat = modelViewMat * mModelMat;	// glm matrix multiplication
-	upload(aMat);
+		}
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-	//set
-	glLineWidth(2);
-	if (mColor.a > 0) {
-		glColor4f(mColor.r, mColor.g, mColor.b, mColor.a);
+		dmat4 aMat = modelViewMat * mModelMat;	// glm matrix multiplication
+		upload(aMat);
+
+		mMesh->render();
+		if (useMaterial && material != nullptr)
+		{
+			material->reset();
+		}
+		//reset
+		glColor3f(1.0, 1.0, 1.0);
+		glColor4f(0, 0, 0, 0);
+		glLineWidth(1);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
-	mMesh->render();
-
-	//reset
-	glColor3f(1.0, 1.0, 1.0);
-	glColor4f(0, 0, 0, 0);
-	glLineWidth(1);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	//glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE); // Defecto
 	//glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT);
 	//glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
@@ -771,9 +804,12 @@ void RevSphere::render(glm::dmat4 const& modelViewMat) const
 	//	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	//}
 }
-
-#pragma endregion
-
+//------Ejercicio74:
+EntityWithMaterial::~EntityWithMaterial()
+{
+	delete material;
+}
+//------Ejercicio72:
 Toroid::Toroid(float r, float R, float m, float p) : r_(r), R_(R), m_(m), p_(p)
 {
 	perfil = new dvec3[p];
@@ -803,3 +839,5 @@ void Toroid::render(glm::dmat4 const& modelViewMat) const
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 }
+
+#pragma endregion

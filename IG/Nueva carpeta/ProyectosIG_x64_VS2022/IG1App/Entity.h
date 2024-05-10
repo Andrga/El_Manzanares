@@ -7,6 +7,9 @@
 #include "Mesh.h"
 #include "Texture.h"
 
+class SpotLight; // Para la luz del TIE. Ejercicio79.
+class Material;
+
 class Abs_Entity // abstract class
 {
 public:
@@ -267,6 +270,7 @@ public:
 	~AdvancedTIEX_1() override;
 	void render(glm::dmat4 const& modelViewMat) const override;
 	void update() override;
+	SpotLight* getTieLight() { return spotLight; }
 
 private:
 	QuadricEntity* body; // La esfera.
@@ -274,6 +278,7 @@ private:
 	QuadricEntity* cosaDeAlaAAla; // El cilindro que va de ala a ala y no se nombrar de otra forma.
 	Abs_Entity* rightWing; // Ala derecha.
 	Abs_Entity* leftWing; // Ala izquierda.
+	SpotLight* spotLight;
 };
 //----Ala:
 class WingTIE : public Abs_Entity {
@@ -320,11 +325,21 @@ private:
 
 #pragma region P5
 
+class EntityWithMaterial : public Abs_Entity {
+public:
+	EntityWithMaterial() : Abs_Entity() { };
+	virtual ~EntityWithMaterial();
+	void setMaterial(Material* matl) { material = matl; };
+protected:
+	Material* material = nullptr;
+};
+
+
 //------Ejercicio71:
-class RevSphere : public Abs_Entity
+class RevSphere : public EntityWithMaterial
 {
 public:
-	RevSphere(GLfloat radius, GLfloat meridians, GLfloat paralels); // Construcotra.
+	RevSphere(GLfloat radius, GLfloat meridians, GLfloat paralels, bool useMaterial); // Construcotra.
 	~RevSphere(); // Destructora.
 
 	void render(glm::dmat4 const& modelViewMat) const; // Render.
@@ -334,6 +349,7 @@ protected:
 	GLfloat r; // Radio de la esfera.
 	GLfloat p; // Numero de paralelos.
 	GLfloat m; // Numero de meridianos (rotaciones).
+	bool useMaterial;
 
 };
 
@@ -353,7 +369,7 @@ private:
 	float m_;
 	// mu,ero de puntos que se aproxima a la circunferencia
 	float p_;
-	
+
 	glm::dvec3* perfil;
 };
 #pragma endregion

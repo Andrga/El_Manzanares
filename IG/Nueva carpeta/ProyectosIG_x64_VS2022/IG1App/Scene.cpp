@@ -4,6 +4,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Light.h"
+#include "Material.h"
 
 using namespace glm;
 
@@ -65,7 +66,7 @@ Scene::init()
 			addEntity(beard, 3);
 			// Sombrero:
 			cap = new Disk(0, 40, 1, 0, 0);
-			cap->setModelMat(rotate(dmat4(1.0), radians(90.0), dvec3(1.0, 0.0, 0.0)) * translate(cap->modelMat(), dvec3(0, 0, -25))); //PAIGRO AQUI.	
+			cap->setModelMat(rotate(dmat4(1.0), radians(90.0), dvec3(1.0, 0.0, 0.0)) * translate(cap->modelMat(), dvec3(0, 0, -25))); //PAIGRO AQUI
 			addEntity(cap, 3);
 			// Ojo1:
 			eye1 = new Cylinder(5, 1, 15, 0, 0, 0.5);
@@ -87,6 +88,8 @@ Scene::init()
 			//tie->setModelMat(translate(tie->modelMat(), dvec3(0, 150, 0))); // Quito esto para que al meterlo en el noto rotate no se desplace mas de la cuenta.
 			//addEntity(tie, 4); // Tecnicamente si estan en los nodos no hace falta meterlos en la escena se meteran con el nodo i guess.
 
+			//tieSpotLight = tie.getTieLight();
+
 			// Tatooine:
 			tatooine = new Sphere(800, 1, 0.91, 0);
 			//addEntity(tatooine, 4); // Lo mismo que con el TIE.
@@ -103,8 +106,9 @@ Scene::init()
 
 			inventedNodeRotate->addEntity(tie); // Le metemos al nodo rotate el tie para que se ponga en su posicion y rote ahi.
 
-			inventedNodeOrbit->addEntity(inventedNodeRotate); // Le metemos el noto rotate al otro nodo.
+			inventedNodeOrbit->addEntity(inventedNodeRotate); // Le metemos el nodo rotate al otro nodo.
 			inventedNodeOrbit->addEntity(tatooine); // Le metemos Tatooine al nodo orbit.
+
 
 
 
@@ -115,9 +119,22 @@ Scene::init()
 			break;
 		case 6:
 			//------Ejercicio71:
-			addEntity(new RevSphere(500.0, 20, 20), 6);
+			addEntity(new RevSphere(500.0, 20, 20, false), 6);
 			addEntity(new Toroid(100, 100, 30, 20), 6);
 			//addEntity(new RGBCube(49), 6);
+			break;
+		case 7:
+			//------Ejercicio74:
+			/*cooperTotooine = new RevSphere(50, 10, 10, true); // True para que se ponga el material.
+			cooperTotooine->setModelMat(translate(dmat4(1.0), dvec3(0, 0, 700)));
+			const auto mat = new Material;
+			mat->setCopper();
+			cooperTotooine->setMaterial(mat);
+			addEntity(cooperTotooine, 7);*/
+
+			yellowTotooine = new RevSphere(50, 10, 10, false); // False para que no ponga material.
+			yellowTotooine->setModelMat(translate(dmat4(1.0), dvec3(700, 0, 0)));
+			addEntity(yellowTotooine, 7);
 			break;
 		default:
 			break;
@@ -203,7 +220,7 @@ void Scene::setLights()
 	glLightfv(GL_LIGHT2, GL_POSITION, value_ptr(dir)); // Posicion de la luz ¿posicional?.
 
 	lights.push_back(spotLight);
-
+	// No se porque no me funcionan las luces, solo la dirLight funciona bien, las otras no se apagan ni se encienden.
 
 }
 
@@ -233,9 +250,10 @@ Scene::setGL()
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GLUT_MULTISAMPLE);
 	glEnable(GL_BLEND);	// Para el Blending.
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	// Para el alpha.ç
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	// Para el alpha.
 	glEnable(GL_LIGHTING); // Activar la luz.
 	glEnable(GL_NORMALIZE);
+	glEnable(GL_COLOR_MATERIAL);
 }
 void
 Scene::resetGL()
@@ -247,6 +265,7 @@ Scene::resetGL()
 	glDisable(GL_BLEND);
 	glDisable(GL_LIGHTING); // Desactivar la luz.
 	glDisable(GL_NORMALIZE);
+	glDisable(GL_COLOR_MATERIAL);
 }
 
 void
@@ -327,11 +346,12 @@ void Scene::orbitTie()
 void Scene::pseudoSetOrbtit()
 {
 	orbitTieBool = !orbitTieBool;
+	//orbitTie();
 }
-
 void Scene::pseudoSetRotate()
 {
 	rotateTieBool = !rotateTieBool;
+	//rotateTie();
 }
 
 //------Ejercicio56:
@@ -353,33 +373,37 @@ void Scene::sceneDirLight(Camera const& cam) const {
 //----Ejercicio76:
 void Scene::activateDirLight()
 {
-	lights[0]->enable(); // Con la q.
+	dirLight->enable(); // Con la q.
 }
 void Scene::deactivateDirLight()
 {
-	lights[0]->disable(); // Con la w.
+	dirLight->disable(); // Con la w.
 }
 //----Ejercicio77:
 void Scene::activatePosLight()
 {
-	lights[1]->enable(); // Con la a.
+	posLight->enable(); // Con la a.
 }
 void Scene::deactivatePosLight()
 {
-	lights[1]->disable(); // Con la s.
+	posLight->disable(); // Con la s.
 }
 //----Ejercicio78:
 void Scene::activateSpotLight()
 {
-	lights[2]->enable(); // Con la z.
+	spotLight->enable(); // Con la z.
 }
 void Scene::deactivateSpotLight()
 {
-	lights[2]->disable(); // Con la x.
+	spotLight->disable(); // Con la x.
 }
 //----Ejercicio79:
 void Scene::activateTieSpotLight()
 {
+	if (mId == 5)
+	{
+
+	}
 	tieSpotLight->enable(); // Con la f.
 }
 void Scene::deactivateTieSpotLight()
