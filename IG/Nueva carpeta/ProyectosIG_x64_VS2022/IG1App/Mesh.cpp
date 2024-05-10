@@ -641,80 +641,85 @@ MbR::~MbR()
 //----Ejercicio70:
 MbR* MbR::generaMallaIndexadaPorRevolucion(int perPoi, int nRot, glm::dvec3* per)
 {
-	MbR* mesh = new MbR(perPoi, nRot, per);
+	MbR* mesh = new MbR(perPoi, nRot, per);	//Creamos la malla
 
-	mesh->mPrimitive = GL_TRIANGLES;
-	mesh->mNumVertices = perPoi + nRot;
+	mesh->mPrimitive = GL_TRIANGLES;		//Primitiva
+	mesh->mNumVertices = nRot * perPoi;			//Número de vértices
 
-	mesh->vNormals.reserve(mesh->mNumVertices);
+	mesh->vVertices.reserve(mesh->mNumVertices);
 
-	dvec3* vs = new glm::dvec3[mesh->mNumVertices]; // Vector auxliar de vertices.
-	std::cout << mesh->mNumVertices<< "/" << nRot << std::endl;
+	dvec3* vs = new dvec3[mesh->mNumVertices];	//Vector auxiliar de vértices
+
 	for (int i = 0; i < nRot; i++)
 	{
-		// Generar la muestra i- ésima de vértices
+		//Genera la muestra i-ésima de vértices
 		GLdouble theta = i * 360 / nRot;
-		GLdouble c = cos(glm::radians(theta));
-		GLdouble s = sin(glm::radians(theta));
+		GLdouble c = cos(radians(theta));
+		GLdouble s = sin(radians(theta));
+
 		for (int j = 0; j < perPoi; j++)
 		{
 			GLdouble z = -s * per[j].x + c * per[j].z;
-			GLdouble x = c * per[j].x + s * per[j].z; // anyadido
-			int indice = i * perPoi + j;
-			vs[indice] = glm::dvec3(x, per[j].y, z);
+			GLdouble x = c * per[j].x + s * per[j].z;
+
+			int Indice = (i * perPoi) + j;
+			vs[Indice] = dvec3(x, per[j].y, z);
 		}
 	}
-	// Volcar el array auxliar al normal:
-	//mesh->vVertices.reserve(mesh->mNumVertices);
+
+	// 4. Volcar el array auxiliar vértices en el array de vértices
 	for (int i = 0; i < mesh->mNumVertices; i++)
 	{
-		mesh->vVertices.push_back(vs[i]);
+		mesh->vVertices.emplace_back(vs[i]);
 	}
-	//delete[] vs;
+	delete[] vs;
 
-	// Construccion de las caras triangulares.
+	// 5. Construir los índices de las caras triangulares
+	int indiceMayor = 0;
 	mesh->mNumIndexes = mesh->mNumVertices * 6;
 	mesh->vIndexes = new GLuint[mesh->mNumIndexes];
-	int indiceMayor = 0; // Contador para ir rellendando el array.
 
-	// Limpiar los vertices
+	// Inicializamos nIndexes a 0
 	for (int i = 0; i < mesh->mNumVertices; i++)
 	{
 		mesh->vIndexes[i] = 0;
 	}
 
-	for (int i = 0; i < perPoi; i++)
+	// 6. Se rellena nIndexes
+	// i recorre las muestras alrededor del eje Y
+	for (int i = 0; i < nRot; i++)
 	{
-		// El contador j recorre los vértices del perfil,
-		// de abajo arriba. Las caras cuadrangulares resultan
-		// al unir la muestra i-ésima con la (i+1)%nn-ésima //_________________________nn=nRot, mm=perPoi.
-		for (int j = 0; j < nRot; j++)
+		// j recorre los vertices del perfil
+		for (int j = 0; j < perPoi; j++)
 		{
-			// El contador indice sirve para llevar cuenta
-			// de los índices generados hasta ahora. Se recorre
-			// la cara desde la esquina inferior izquierda
-			int indice = i * nRot + j;
-			// Indices: indice, (indice+perPoi)%(nRot*perPoi), (indice+perPoi+1)%(nRot*perPoi), indice+1.
+			// 7.
+			//indice cuenta los indices generados hasta ahora
+			const int indice = i * perPoi + j;
+
 			mesh->vIndexes[indiceMayor] = indice;
 			indiceMayor++;
+
 			mesh->vIndexes[indiceMayor] = (indice + perPoi) % (nRot * perPoi);
 			indiceMayor++;
+
 			mesh->vIndexes[indiceMayor] = (indice + perPoi + 1) % (nRot * perPoi);
 			indiceMayor++;
 
 			mesh->vIndexes[indiceMayor] = (indice + perPoi + 1) % (nRot * perPoi);
 			indiceMayor++;
-			mesh->vIndexes[indiceMayor] = indice + 1;
+
+			mesh->vIndexes[indiceMayor] = (indice + perPoi) % (nRot * perPoi);
 			indiceMayor++;
+
 			mesh->vIndexes[indiceMayor] = indice;
 			indiceMayor++;
 		}
-
-		// Construir vectores y devolver malla.
-		mesh->vNormals.reserve(mesh->mNumVertices);
-		//mesh->buildNormalVectors();
-
-		return mesh;
 	}
+
+	// 8. Construir los vectores normales y construir la malla.
+	mesh->vNormals.reserve(mesh->mNumVertices);
+	mesh->buildNormalVectors();
+
+	return mesh;
 }
 #pragma endregion

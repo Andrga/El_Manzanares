@@ -115,7 +115,7 @@ Scene::init()
 			break;
 		case 6:
 			//------Ejercicio71:
-			//addEntity(new RevSphere(500.0, 4.0, 6.0), 6);
+			addEntity(new RevSphere(500.0, 4.0, 6.0), 6);
 			//addEntity(new RGBCube(49), 6);
 			break;
 		default:

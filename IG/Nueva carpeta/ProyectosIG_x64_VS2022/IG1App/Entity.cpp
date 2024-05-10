@@ -737,16 +737,38 @@ RevSphere::~RevSphere()
 
 void RevSphere::render(glm::dmat4 const& modelViewMat) const
 {
-	if (mMesh != nullptr)
-	{
-		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
-		upload(aMat);
-		glLineWidth(2);
-		mMesh->render();
-		glLineWidth(1);
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	dmat4 aMat = modelViewMat * mModelMat;	// glm matrix multiplication
+	upload(aMat);
+
+	//set
+	glLineWidth(2);
+	if (mColor.a > 0) {
+		glColor4f(mColor.r, mColor.g, mColor.b, mColor.a);
 	}
+
+	mMesh->render();
+
+	//reset
+	glColor3f(1.0, 1.0, 1.0);
+	glColor4f(0, 0, 0, 0);
+	glLineWidth(1);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE); // Defecto
+	//glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT);
+	//glColorMaterial(GL_FRONT_AND_BACK, GL_DIFFUSE);
+	//glDisable(GL_COLOR_MATERIAL);
+	//if (mMesh != nullptr)
+	//{
+	//	dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+	//	glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
+	//	upload(aMat);
+	//	glLineWidth(2);
+	//	mMesh->render();
+	//	glLineWidth(1);
+	//	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//}
 }
 
 #pragma endregion
