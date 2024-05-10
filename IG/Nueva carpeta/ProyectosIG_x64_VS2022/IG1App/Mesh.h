@@ -1,4 +1,4 @@
-#if _H_Mesh_H_
+#pragma once
 #define _H_Mesh_H_
 
 #include <GL/freeglut.h>
@@ -145,4 +145,4 @@ protected:
 };
 #pragma endregion
 
-#endif //_H_Scene_H_
+//#endif //_H_Scene_H_
