@@ -338,9 +338,12 @@ protected:
 };
 
 
-class toroid : public Abs_Entity {
+class Toroid : public Abs_Entity {
 public:
-	toroid(float r, float R, float m, float p);
+	Toroid(float r, float R, float m, float p);
+
+	void render(glm::dmat4 const& modelViewMat) const;
+
 private:
 	// grosor de rosquilla
 	float r_;
@@ -350,6 +353,8 @@ private:
 	float m_;
 	// mu,ero de puntos que se aproxima a la circunferencia
 	float p_;
+	
+	glm::dvec3* perfil;
 };
 #pragma endregion
 

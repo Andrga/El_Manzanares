@@ -713,13 +713,14 @@ RevSphere::RevSphere(GLfloat radius, GLfloat meridians, GLfloat paralels) :r(rad
 {
 
 	perfil = new dvec3[paralels];
-	for (int i = 0; i < paralels; i++)
-	{
-		int x, y;
-		x = 0 + r * glm::cos(glm::radians(90.0) + glm::radians((180 / paralels) * i));
-		y = 0 + r * glm::sin(glm::radians(90.0) + glm::radians((180 / paralels) * i));
-		perfil[i] = dvec3(x, y, 0.0f);
-	}
+	const double alpha = 180.0 / (p - 1); // angulo entre puntos
+	constexpr double offset = -90; // angulo inicial
+
+	for (int i = 0; i < p; i++)
+		perfil[i] = dvec3(
+			cos(radians(alpha * i + offset)) * r,
+			sin(radians(alpha * i + offset)) * r,
+			0);
 
 
 	//perfil[0] = dvec3(0.5, 0.0, 0.0);
@@ -772,3 +773,33 @@ void RevSphere::render(glm::dmat4 const& modelViewMat) const
 }
 
 #pragma endregion
+
+Toroid::Toroid(float r, float R, float m, float p) : r_(r), R_(R), m_(m), p_(p)
+{
+	perfil = new dvec3[p];
+	const float alpha = 360.0f / (p - 1); // angulo entre puntos
+	constexpr float offset = -90.0f; // angulo inicial
+
+	for (int i = 0; i < p; i++)
+		perfil[i] = dvec3( // los puntos de abajo a arriba antihorario
+			cos(radians(alpha * i + offset)) * R + r + R,
+			sin(radians(alpha * i + offset)) * R,
+			0
+		);
+	mColor = { 0, 1, 0, 1 };
+	mMesh = MbR::generaMallaIndexadaPorRevolucion(p, m, perfil);
+}
+
+void Toroid::render(glm::dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr)
+	{
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINES);
+		upload(aMat);
+		glLineWidth(2);
+		mMesh->render();
+		glLineWidth(1);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+}
