@@ -69,6 +69,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\ProyectosIG_x64_VS2022\ProyectosIG_x64_VS2022\IG1App\Light.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="CheckML.h" />
     <ClInclude Include="Entity.h" />
@@ -80,6 +81,7 @@
     <ClInclude Include="Viewport.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\ProyectosIG_x64_VS2022\ProyectosIG_x64_VS2022\IG1App\Light.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="IG1App.cpp" />
