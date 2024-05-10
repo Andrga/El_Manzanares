@@ -630,9 +630,9 @@ void IndexMesh::draw() const
 
 #pragma region P5
 //------Ejercicio69:
-MbR::MbR(int perPoi, int nRot, glm::dvec3* per) : perfilPoints(perPoi), nRotations(nRot)
+MbR::MbR(int perPoi, int nRot, glm::dvec3* per) : perfilPoints(perPoi), nRotations(nRot), perfil(per)
 {
-	//perfil = per;
+
 }
 MbR::~MbR()
 {
@@ -648,7 +648,7 @@ MbR* MbR::generaMallaIndexadaPorRevolucion(int perPoi, int nRot, glm::dvec3* per
 
 	mesh->vNormals.reserve(mesh->mNumVertices);
 
-	//dvec3* vs = new glm::dvec3[mesh->mNumVertices]; // Vector auxliar de vertices.
+	dvec3* vs = new glm::dvec3[mesh->mNumVertices]; // Vector auxliar de vertices.
 	std::cout << mesh->mNumVertices<< "/" << nRot << std::endl;
 	for (int i = 0; i < nRot; i++)
 	{
@@ -658,17 +658,17 @@ MbR* MbR::generaMallaIndexadaPorRevolucion(int perPoi, int nRot, glm::dvec3* per
 		GLdouble s = sin(glm::radians(theta));
 		for (int j = 0; j < perPoi; j++)
 		{
-			/*GLdouble z = -s * perfil[j].x + c * perfil[j].z;
-			GLdouble x = c * perfil[j].x + s * perfil[j].z; // anyadido
+			GLdouble z = -s * per[j].x + c * per[j].z;
+			GLdouble x = c * per[j].x + s * per[j].z; // anyadido
 			int indice = i * perPoi + j;
-			vs[indice] = glm::dvec3(x, perfil[j].y, z);*/
+			vs[indice] = glm::dvec3(x, per[j].y, z);
 		}
 	}
 	// Volcar el array auxliar al normal:
 	//mesh->vVertices.reserve(mesh->mNumVertices);
 	for (int i = 0; i < mesh->mNumVertices; i++)
 	{
-		//mesh->vVertices.push_back(vs[i]);
+		mesh->vVertices.push_back(vs[i]);
 	}
 	//delete[] vs;
 

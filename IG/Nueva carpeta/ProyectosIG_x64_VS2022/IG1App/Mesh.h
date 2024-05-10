@@ -140,7 +140,7 @@ public:
 protected:
 	int perfilPoints; // Numero de puntos del perfil.
 	int nRotations; // Numero de rotaciones que se hacen.
-	//static glm::dvec3* perfil; // Perfil original en el eje XY.
+	glm::dvec3* perfil; // Perfil original en el eje XY.
 
 };
 #pragma endregion
