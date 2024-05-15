@@ -37,6 +37,9 @@ void GameCtrlSystem::update() {
 
 void GameCtrlSystem::recieve(const Message& m) {
 	switch (m.id) {
+	case _m_NEW_GAME:
+		setScore(0); // Para resetear los puntos al inicio de un nuevo juego.
+		break;
 	case _m_GAME_OVER:
 		Game::instance()->setState(Game::GAMEOVER);
 		break;

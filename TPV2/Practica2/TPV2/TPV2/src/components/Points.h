@@ -14,6 +14,6 @@ struct Points: public ecs::Component {
 
 	}
 
-	int points_;
+	int points_; // Puntos que vale la entidad.
 };
 
