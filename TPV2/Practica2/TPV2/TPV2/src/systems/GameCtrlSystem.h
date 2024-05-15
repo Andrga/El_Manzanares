@@ -3,6 +3,10 @@
 #pragma once
 #include "../ecs/System.h"
 
+const uint8_t FRUIT_POINTS = 50; // Puntos que da la fruta normal al ser comida.
+const uint8_t MIRACLE_POINTS = 100; // Puntos que da la fruta milagrosa al ser comida.
+const uint8_t GHOST_POINTS = 200; // Puntos que da el fantasma al ser comido.
+
 class GameCtrlSystem: public ecs::System {
 public:
 

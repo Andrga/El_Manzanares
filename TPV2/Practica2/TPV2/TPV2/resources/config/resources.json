@@ -20,7 +20,8 @@
     { "id" : "newround", "text" : "Press ENTER to star a round.", "font" : "ARIAL24", "color" : "0x00ff00ff" },
     { "id" : "pause", "text" : "PAUSE: press ANY key to unpause.", "font" : "ARIAL24", "color" : "0x00ff00ff" },
     { "id" : "gameoverLost", "text" : "You lost. Press ANY key to star a new game.", "font" : "ARIAL24", "color" : "0x00ff00ff" },
-    { "id" : "gameoverWin", "text" : "You win. Press ANY key to star a new game.", "font" : "ARIAL24", "color" : "0x00ff00ff" }
+    { "id" : "gameoverWin", "text" : "You win. Press ANY key to star a new game.", "font" : "ARIAL24", "color" : "0x00ff00ff" },
+    { "id" : "score", "text" : " ", "font" : "ARIAL24", "color" : "0x00ff00ff" }
   ],
   
   "sounds" : [

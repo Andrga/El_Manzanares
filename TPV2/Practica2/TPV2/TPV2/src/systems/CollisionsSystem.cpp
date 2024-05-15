@@ -76,10 +76,7 @@ void CollisionsSystem::update() {
 				m.id = _m_PACMAN_GHOST_COLLISION;
 				m.ent_collided.e = e;
 				mngr_->send(m);
-
 			}
 		}
 	}
-
 }
-

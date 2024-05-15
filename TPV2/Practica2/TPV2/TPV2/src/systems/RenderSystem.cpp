@@ -28,6 +28,7 @@ void RenderSystem::update() {
 		drawGhosts();
 		drawPacMan();
 		drawLifes();
+		drawMsgs();
 	}
 }
 
@@ -42,7 +43,6 @@ void RenderSystem::drawGhosts() {
 void RenderSystem::drawPacMan() {
 	auto e = mngr_->getHandler(ecs::hdlr::PACMAN);
 	mngr_->getComponent<ImageWithFrames>(e)->render();
-
 }
 
 void RenderSystem::drawLifes()
@@ -75,7 +75,7 @@ void RenderSystem::drawMsgs() {
 	scoreTex.render(dest);
 
 	// draw add stars message
-	sdlutils().msgs().at("addstars").render(10, 10);
+	sdlutils().msgs().at("score").render(10, 10);
 
 }
 

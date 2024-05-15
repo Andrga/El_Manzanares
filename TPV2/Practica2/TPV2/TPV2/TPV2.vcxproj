@@ -64,6 +64,7 @@
     <ClInclude Include="src\systems\GhostSystem.h" />
     <ClInclude Include="src\systems\ImmunitySystem.h" />
     <ClInclude Include="src\systems\PacManSystem.h" />
+    <ClInclude Include="src\systems\PuntSystem.h" />
     <ClInclude Include="src\systems\RenderSystem.h" />
     <ClInclude Include="src\utils\Collisions.h" />
     <ClInclude Include="src\utils\DynamicBitSet.h" />
@@ -99,6 +100,7 @@
     <ClCompile Include="src\systems\GhostSystem.cpp" />
     <ClCompile Include="src\systems\ImmunitySystem.cpp" />
     <ClCompile Include="src\systems\PacManSystem.cpp" />
+    <ClCompile Include="src\systems\PuntSystem.cpp" />
     <ClCompile Include="src\systems\RenderSystem.cpp" />
     <ClCompile Include="src\utils\Collisions.cpp" />
     <ClCompile Include="src\utils\Vector2D.cpp" />

@@ -5,6 +5,7 @@
 #include "../components/ImageWithFrames.h"
 #include "../components/InmuneComponent.h"
 #include "../components/MiraculousComponent.h"
+#include "../components/Points.h"
 
 FoodSystem::FoodSystem() :
 	cols_(8), fils_(6)
@@ -28,12 +29,14 @@ void FoodSystem::update()
 			{
 				eMir->setMiraculous(); // Convierte en miraculosa
 				mngr_->getComponent<ImageWithFrames>(e)->changeFirstLastFrame(13, 13); // Cambia la imagen
+				mngr_->getComponent<Points>(e)->points_ += 50;
 			}
 			// convertir en normal
 			else if (eMir->getIsMiracle() && (sdlutils().virtualTimer().currTime() - eMir->timeToDesConvert) >= eMir->mTime)
 			{
 				eMir->resetMiraculous(); // Convierte en normal
 				mngr_->getComponent<ImageWithFrames>(e)->changeFirstLastFrame(12, 12); // Cambia la imagen
+				mngr_->getComponent<Points>(e)->points_ -= 50;
 			}
 		}
 	}
@@ -49,8 +52,13 @@ void FoodSystem::eatFruit(ecs::entity_t fruit) {
 		pcInm->setInmune(true);
 		Message m;
 		m.id = _m_IMMUNITY_START;
+		m.ent_collided.e = fruit;
 		mngr_->send(m);
-	}
+	} 	
+		Message m;
+		m.id = _m_FRUIT_EAT;
+		m.ent_collided.e = fruit;
+		mngr_->send(m);	
 
 	mngr_->setAlive(fruit, false);
 	sdlutils().soundEffects().at("pacman_eat").play(0, 1); // Sonido del Pacman comiendo.
@@ -73,6 +81,8 @@ void FoodSystem::setFruits() {
 			// Aniade fruta
 			auto e = mngr_->addEntity(ecs::grp::FRUITS);
 			auto tr = mngr_->addComponent<Transform>(e);
+			auto ePoints = mngr_->addComponent<Points>(e);
+			ePoints->points_ = 50;
 
 			uint16_t p = sdlutils().rand().nextInt(0, 10);
 			if (p == 0)

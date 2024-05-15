@@ -6,6 +6,7 @@
 #include "../components/InmuneComponent.h"
 #include "../ecs/Manager.h"
 #include "../sdlutils/SDLUtils.h"
+#include "../components/Points.h"
 
 GhostSystem::GhostSystem(int ghostLimit) :
 	ghostLimit_(ghostLimit), currentGhosts_(0), maxSpawnTime_(2000)
@@ -36,6 +37,9 @@ void GhostSystem::generateGhost()
 		auto tr = mngr_->addComponent<Transform>(e);
 		mngr_->addComponent<GhostMotion>(e);
 		auto eImg = mngr_->addComponent<ImageWithFrames>(e, &sdlutils().images().at("pacman_spritesheet"), 8, 8, 57, 63);
+		auto ePoints = mngr_->addComponent<Points>(e);
+		ePoints->points_ = 200;
+		
 
 		// Si pacman es inmortal:
 		auto pc = mngr_->getHandler(ecs::hdlr::PACMAN);
@@ -69,7 +73,6 @@ void GhostSystem::generateGhost()
 			tr->pos_ = Vector2D(0, 0);
 			break;
 		}
-
 
 		// Aumenta el contador de fantasmas
 		currentGhosts_++;
@@ -112,13 +115,16 @@ void GhostSystem::collGhost(ecs::entity_t ghost)
 
 		mngr_->setAlive(ghost, false);
 		sdlutils().soundEffects().at("pacman_eat").play(0, 1);
+		Message m;
+		m.id = _m_GHOST_EAT;
+		m.ent_collided.e = ghost;
+		mngr_->send(m);
 	}
 	else
 	{
 		Message m;
 		m.id = _m_ROUND_OVER;
 	}
-
 }
 
 void GhostSystem::changeBlueSprite()

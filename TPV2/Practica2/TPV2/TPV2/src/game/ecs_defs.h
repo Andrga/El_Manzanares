@@ -13,7 +13,8 @@
 	IMNUNE_COMPONENT,\
 	GHOST_MOTION,\
 	IMAGEWITHFRAMES, \
-	MIRACULOUS
+	MIRACULOUS, \
+    SCORE
 
 // Groups list - must have at least one element
 //
@@ -37,5 +38,6 @@
 	COLLISIONS, \
 	GHOSTS, \
 	FRUITS, \
-	INMUNITY
+	INMUNITY, \
+    PUNT
 

@@ -16,6 +16,7 @@
 #include "../systems/GhostSystem.h"
 #include "../systems/FoodSystem.h"
 #include "../systems/ImmunitySystem.h"
+#include "../systems/PuntSystem.h"
 
 // Estados:
 #include "NewGameState.h"
@@ -61,6 +62,7 @@ void Game::init() {
 	ghostSys_ = mngr_->addSystem<GhostSystem>();
 	foodSys_ = mngr_->addSystem<FoodSystem>();
 	immunitySys_ = mngr_->addSystem<ImmunitySystem>();
+	//puntSys_ = mngr_->addSystem<PuntSystem>();
 
 	// Estados:
 	newgame_state_ = new NewGameState();

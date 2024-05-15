@@ -55,6 +55,12 @@ void GameCtrlSystem::recieve(const Message& m) {
 	case _m_UNPAUSE_GAME:
 		Game::instance()->setState(Game::RUNNING);
 		break;
+	case _m_FRUIT_EAT:
+		incrScore(mngr_->getComponent<Points>(m.ent_collided.e)->points_);
+		break;
+	case _m_GHOST_EAT:
+		incrScore(mngr_->getComponent<Points>(m.ent_collided.e)->points_);
+		break;
 	default:
 		break;
 	}
