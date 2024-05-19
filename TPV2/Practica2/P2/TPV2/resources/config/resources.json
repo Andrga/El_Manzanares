@@ -1,0 +1,40 @@
+{
+
+  "fonts" : [
+    { "id" : "ARIAL16", "file" : "resources/fonts/ARIAL.ttf", "size": 16 },
+    { "id" : "ARIAL24", "file" : "resources/fonts/ARIAL.ttf", "size": 24 },
+    { "id" : "ARIAL48", "file" : "resources/fonts/ARIAL.ttf", "size": 48 }
+  ],
+  
+  "images" : [
+    { "id" : "sdl_logo", "file" : "resources/images/SDL_logo.png" },
+    { "id" : "tennis_ball", "file" : "resources/images/tennis_ball.png" },
+    { "id" : "star", "file" : "resources/images/star.png"},
+    { "id" : "pacman", "file" : "resources/images/pacman.png"},
+    { "id" : "heart", "file" : "resources/images/heart.png"},
+    { "id" : "pacman_spritesheet", "file" : "resources/images/pacman_sprites.png"}
+  ],
+  
+  "messages" : [
+    { "id" : "newgame", "text" : "Press ANY key to start a game.", "font" : "ARIAL24", "color" : "0x00ff00ff" },
+    { "id" : "newround", "text" : "Press ENTER to star a round.", "font" : "ARIAL24", "color" : "0x00ff00ff" },
+    { "id" : "pause", "text" : "PAUSE: press ANY key to unpause.", "font" : "ARIAL24", "color" : "0x00ff00ff" },
+    { "id" : "gameoverLost", "text" : "You lost. Press ANY key to star a new game.", "font" : "ARIAL24", "color" : "0x00ff00ff" },
+    { "id" : "gameoverWin", "text" : "You win. Press ANY key to star a new game.", "font" : "ARIAL24", "color" : "0x00ff00ff" },
+    { "id" : "score", "text" : " ", "font" : "ARIAL24", "color" : "0x00ff00ff" }
+  ],
+  
+  "sounds" : [
+    { "id" : "pacman_eat", "file" : "resources/sound/pacman_eat.wav" },
+    { "id" : "pacman_chomp", "file" : "resources/sound/pacman_chomp.wav " },
+    { "id" : "pacman_death", "file" : "resources/sound/pacman_death.wav" },
+    { "id" : "pacman_intro", "file" : "resources/sound/pacman_intro.wav" },
+    { "id" : "pacman_won", "file" : "resources/sound/pacman_won.wav" }
+  ],
+
+  "musics" : [
+    { "id" : "beat", "file" : "resources/sound/beat.wav" },
+    { "id" : "imperial_march", "file" : "resources/sound/imperial_march.wav" }
+  ]
+
+}
