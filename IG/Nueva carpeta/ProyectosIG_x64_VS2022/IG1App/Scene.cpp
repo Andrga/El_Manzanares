@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "CheckML.h"
+#include "Material.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
@@ -24,6 +25,10 @@ Scene::init()
 		gObjects[i].push_back(new EjesRGB(400.0));
 
 		RGBTriangle* triangle = new RGBTriangle(50.0, 200.0, 0.0);
+
+		auto sp1 = new SphereMbR(100, 50, 50);
+		auto sp2 = new SphereMbR(100, 50, 50);
+		auto msp = new Material();
 
 		switch (i)
 		{
@@ -112,8 +117,22 @@ Scene::init()
 			break;
 		case 6:
 			//------Ejercicio71:
-			//addEntity(new SphereMbR(100, 50, 50), 6);
 			addEntity(new ToroidMbR(100, 500, 50, 10), 6);
+			break;
+		case 7:
+			// Tatooion con color
+			sp1->setColor(glm::dvec4(1, 1, 0, 1));
+			sp1->setModelMat(translate(sp1->modelMat(), dvec3(0, 0, 200)));
+
+			// tatooin con material
+			msp->setGold();
+			sp2->setMaterial(msp);
+			sp2->setModelMat(translate(sp2->modelMat(), dvec3(200, 0, 0)));
+
+			// aniade las esferas a la escena
+			addEntity(sp1, 7);
+			addEntity(sp2, 7);
+
 			break;
 		default:
 			break;

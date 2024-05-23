@@ -1,7 +1,6 @@
 #pragma once
 #include <GL/freeglut.h>
 #include <glm/glm.hpp>
-#include "Entity.h"
 
 //------Ejercicio74:
 class Material {
@@ -19,5 +18,6 @@ public:
 	virtual ~Material() {};
 	virtual void upload();
 	void setCopper();
+	void setGold();
 	void reset();
 };

@@ -712,26 +712,19 @@ void IndexedBox::render(glm::dmat4 const& modelViewMat) const
 // m (meridianos)	||
 SphereMbR::SphereMbR(int r, int p, int m) : r_(r), p_(p), m_(m)
 {
-	// angulo entre vertices
-	const double alpha = 180.0 / (p - 1);
-	// angulo inicial
-	constexpr double offset = -90;
 
 	perfil = new dvec3[p];
 
-	// genera el perfil de la esfera (semicirculo)
-	for (int i = 0; i < p; i++)
-	{
-		auto x = glm::cos(glm::radians(alpha * i * offset)) * r;
-		auto y = glm::sin(glm::radians(alpha * i * offset)) * r;
+	for (int i = 0; i < p; i++) {
 
-		perfil[i] = dvec3(
-			glm::cos(glm::radians(alpha * i * offset)) * r,
-			glm::sin(glm::radians(alpha * i * offset)) * r,
-			0);
+		// formula para hacer un semicirculo
+		GLdouble theta = (3.14 / (p - 1)) * i;
+		perfil[i] = { 
+			r * sin(theta),
+			r * cos(theta), 
+			0 };
 	}
 
-	mColor = { 1,1,0,1 };
 	mMesh = MbR::generaIndexMbR(p, m, perfil);
 }
 
@@ -745,7 +738,22 @@ void SphereMbR::render(glm::dmat4 const& modelViewMat) const
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		upload(aMat);
-		mMesh->render();
+
+		// renderizado de color y materiales
+		if (material != nullptr)
+		{
+			material->upload();
+			mMesh->render();
+			material->reset();
+		}
+		else
+		{
+			glEnable(GL_COLOR_MATERIAL);
+			glColor3f(mColor.r, mColor.g, mColor.b);
+			mMesh->render();
+			glDisable(GL_COLOR_MATERIAL);
+			glColor3f(1.0, 1.0, 1.0);
+		}
 	}
 }
 
@@ -785,6 +793,7 @@ void ToroidMbR::render(glm::dmat4 const& modelViewMat) const
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		upload(aMat);
+
 		mMesh->render();
 	}
 }
@@ -794,3 +803,12 @@ void ToroidMbR::update()
 }
 
 #pragma endregion
+
+EntityWithMaterial::EntityWithMaterial() : material(nullptr)
+{
+}
+
+EntityWithMaterial::~EntityWithMaterial()
+{
+	delete material;
+}

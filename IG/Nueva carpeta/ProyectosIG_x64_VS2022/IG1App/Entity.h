@@ -6,6 +6,7 @@
 
 #include "Mesh.h"
 #include "Texture.h"
+#include "Material.h"
 
 class Abs_Entity // abstract class
 {
@@ -319,7 +320,19 @@ private:
 #pragma endregion
 
 #pragma region P5
-class SphereMbR : public Abs_Entity {
+class EntityWithMaterial : public Abs_Entity
+{
+protected:
+	Material* material;
+
+public:
+	EntityWithMaterial();
+	~EntityWithMaterial();
+
+	void setMaterial(Material* m) { material = m; }
+};
+
+class SphereMbR : public EntityWithMaterial {
 private:
 	int r_, p_, m_;
 	glm::dvec3* perfil;
@@ -332,7 +345,7 @@ public:
 	void update() override;
 };
 
-class ToroidMbR : public Abs_Entity {
+class ToroidMbR : public EntityWithMaterial {
 private:
 	int r_, R_, p_, m_;
 	glm::dvec3* perfil;
@@ -344,6 +357,8 @@ public:
 	void render(glm::dmat4 const& modelViewMat) const;
 	void update() override;
 };
+
+
 #pragma endregion
 
 

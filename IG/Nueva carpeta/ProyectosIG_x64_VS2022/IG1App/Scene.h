@@ -10,7 +10,7 @@
 
 #include <vector>
 
-const int NSCENES = 6;
+const int NSCENES = 7;
 
 class Scene
 {
