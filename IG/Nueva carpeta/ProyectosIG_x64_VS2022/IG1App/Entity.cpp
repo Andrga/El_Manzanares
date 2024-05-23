@@ -704,3 +704,96 @@ void IndexedBox::render(glm::dmat4 const& modelViewMat) const
 		glColor3f(1.0, 1.0, 1.0);
 	}
 }
+
+#pragma region P5
+
+// r (radio de la circunferencia)
+// p (paralelos)	--
+// m (meridianos)	||
+SphereMbR::SphereMbR(int r, int p, int m) : r_(r), p_(p), m_(m)
+{
+	// angulo entre vertices
+	const double alpha = 180.0 / (p - 1);
+	// angulo inicial
+	constexpr double offset = -90;
+
+	perfil = new dvec3[p];
+
+	// genera el perfil de la esfera (semicirculo)
+	for (int i = 0; i < p; i++)
+	{
+		auto x = glm::cos(glm::radians(alpha * i * offset)) * r;
+		auto y = glm::sin(glm::radians(alpha * i * offset)) * r;
+
+		perfil[i] = dvec3(
+			glm::cos(glm::radians(alpha * i * offset)) * r,
+			glm::sin(glm::radians(alpha * i * offset)) * r,
+			0);
+	}
+
+	mColor = { 1,1,0,1 };
+	mMesh = MbR::generaIndexMbR(p, m, perfil);
+}
+
+SphereMbR::~SphereMbR()
+{
+}
+
+void SphereMbR::render(glm::dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		upload(aMat);
+		mMesh->render();
+	}
+}
+
+void SphereMbR::update()
+{
+}
+
+// r (grosor de la rosquilla)
+// R (radio de la rosquilla
+// m (numero de muestras/meridianos)
+// p (numero de puntos que tiene la circunferencia)
+ToroidMbR::ToroidMbR(int r, int R, int m, int p) : r_(r), R_(R), m_(m), p_(p)
+{
+	perfil = new dvec3[p_];
+
+	//Colocamos los puntos en el perfil
+	for (int i = 1; i < p; i++)
+	{
+		//Variables para colocar los puntos
+		const double alpha = (3.14 * 2 / (p - 1)) * i;	//ángulo entre los puntos del perfil
+
+		perfil[i] = dvec3(
+			R + (r * sin(alpha)),
+			-(r * cos(alpha)),
+			0);
+	}
+
+	mMesh = MbR::generaIndexMbR(p, m, perfil);
+}
+
+ToroidMbR::~ToroidMbR()
+{
+	delete mMesh;
+	mMesh = nullptr;
+}
+
+void ToroidMbR::render(glm::dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		upload(aMat);
+		mMesh->render();
+	}
+}
+
+void ToroidMbR::update()
+{
+}
+
+#pragma endregion

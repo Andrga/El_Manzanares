@@ -477,10 +477,6 @@ Mesh* Mesh::generateTIEWing(GLdouble h1, GLdouble h2, GLdouble d)
 }
 
 
-IndexMesh::IndexMesh()
-{
-}
-
 IndexMesh::~IndexMesh()
 {
 }
@@ -645,6 +641,11 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per)
 {
 	MbR* m = new MbR(mm, nn, per);
 
+	m->mPrimitive = GL_TRIANGLES;		//Primitiva
+	m->mNumVertices = nn * mm;
+
+	m->vVertices.reserve(m->mNumVertices);
+	m->vNormals.reserve(m->mNumVertices);
 
 	// reserva vertices en un array auxiliar
 	dvec3* vs = new dvec3[m->mNumVertices];
@@ -666,7 +667,7 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per)
 			int indice = i * mm + j;
 
 			// aniadimos el vertice
-			vs[indice] = dvec3(x, per[j], z);
+			vs[indice] = dvec3(x, per[j].y, z);
 		}
 	}
 
@@ -680,11 +681,19 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per)
 
 	// INDICE SUPERIOR QUE RECORRE EL ARRAY DE INDICES DE LA MALLA
 	int indiceMayor = 0;
+	m->mNumIndexes = m->mNumVertices * 6;
+	m->vIndexes = new GLuint[m->mNumIndexes];
+
+	// Inicializamos nIndexes a 0
+	for (int i = 0; i < m->mNumVertices; i++)
+	{
+		m->vIndexes[i] = 0;
+	}
 
 	// calculamos los indices de las caras
 	for (int i = 0; i < nn; i++)
 	{
-		for (int j = 0; j < mm - 1; j++)
+		for (int j = 0; j < mm; j++)
 		{
 			// colocamos los vertices en sentido antihorario para que las normales esten bien
 			// 
@@ -693,6 +702,8 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per)
 			//  a -- b
 
 			int indice = i * mm + j;
+
+			//------------- TRIANGULO 1 ---------------
 
 			m->vIndexes[indiceMayor] = indice; // a
 			indiceMayor++;
@@ -703,15 +714,76 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per)
 			m->vIndexes[indiceMayor] = (indice + mm + 1) % (nn * mm); // c
 			indiceMayor++;
 
+			//------------- TRIANGULO 2 ---------------
+			
+			m->vIndexes[indiceMayor] = (indice + mm + 1) % (nn * mm); // c
+			indiceMayor++;
+
+			m->vIndexes[indiceMayor] = (indice + mm) % (nn * mm); // b
+			indiceMayor++;
+
 			m->vIndexes[indiceMayor] = indice + 1; // d
 			indiceMayor++;
 		}
 	}
 
 	// construimos las normales
+	m->vNormals.reserve(m->mNumVertices);
 	m->buildNormalVectors();
 
 	return m;
+}
+
+void MbR::render() const
+{
+	if (vVertices.empty()) return;
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glVertexPointer(
+		3, GL_DOUBLE, 0, vVertices.data()); // number of coordinates per vertex, type of
+	// each coordinate, stride, pointer
+
+	/// si tiene vertices de color
+	if (!vColors.empty())
+	{
+		// transfer colors
+		glEnableClientState(GL_COLOR_ARRAY);
+		glColorPointer(
+			4, GL_DOUBLE, 0, vColors.data()); // components number (rgba=4), type of
+		// each component, stride, pointer
+	}
+
+	/// si tiene vertices de textura
+	if (!vTexCoords.empty())
+	{
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		glTexCoordPointer(2, GL_DOUBLE, 0, vTexCoords.data());
+	}
+
+	if (!vNormals.empty())
+	{
+		//glEnable(GL_NORMALIZE);
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glNormalPointer(GL_DOUBLE, 0, vNormals.data());
+	}
+	if (vIndexes != nullptr)
+	{
+		glEnableClientState(GL_INDEX_ARRAY);
+		glIndexPointer(GL_UNSIGNED_INT, 0, vIndexes);
+	}
+
+	glColorMaterial(GL_FRONT_AND_BACK, GL_FILL);
+	draw();
+	glDisableClientState(GL_INDEX_ARRAY);
+
+	//glDisable(GL_NORMALIZE);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisableClientState(GL_COLOR_ARRAY);
+	glDisableClientState(GL_VERTEX_ARRAY);
+	glDisableClientState(GL_NORMAL_ARRAY);
+}
+void MbR::draw() const
+{
+	glDrawElements(mPrimitive, mNumIndexes, GL_UNSIGNED_INT, vIndexes);
 }
 #pragma endregion
 

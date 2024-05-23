@@ -111,6 +111,9 @@ Scene::init()
 			addEntity(new IndexedBox(100, 0.0, 1.0, 0.0), 5);
 			break;
 		case 6:
+			//------Ejercicio71:
+			//addEntity(new SphereMbR(100, 50, 50), 6);
+			addEntity(new ToroidMbR(100, 500, 50, 50), 6);
 			break;
 		default:
 			break;

@@ -102,7 +102,7 @@ public:
 
 class IndexMesh : public Mesh {
 public:
-	IndexMesh();
+	IndexMesh() { mPrimitive = GL_TRIANGLES; }
 	~IndexMesh();
 	void render() const override;
 	void draw() const override;
@@ -134,8 +134,9 @@ public:
 	MbR(int perPoi, int nRot, glm::dvec3* per); // Constructora.
 	~MbR(); // Destructora.
 
-
 	static MbR* generaIndexMbR(int, int, glm::dvec3*); //  Obtiene los vértices de la malla, los índices y los vectores normales.
+	void render() const override;
+	void draw() const override;
 
 protected:
 	int mPerfilPoints; // Numero de puntos del perfil.

@@ -284,7 +284,7 @@ public:
 	void setTexture(Texture* texture, std::string text, GLubyte alpha) const {
 		texture->load(text, alpha);
 	}
-	
+
 
 private:
 	glm::dmat4 mMat = glm::dmat4();
@@ -319,10 +319,31 @@ private:
 #pragma endregion
 
 #pragma region P5
-class sphere : public Abs_Entity {
+class SphereMbR : public Abs_Entity {
+private:
+	int r_, p_, m_;
+	glm::dvec3* perfil;
 
+public:
+	SphereMbR(int, int, int);
+	~SphereMbR();
+
+	void render(glm::dmat4 const& modelViewMat) const;
+	void update() override;
 };
 
+class ToroidMbR : public Abs_Entity {
+private:
+	int r_, R_, p_, m_;
+	glm::dvec3* perfil;
+
+public:
+	ToroidMbR(int, int, int, int);
+	~ToroidMbR();
+
+	void render(glm::dmat4 const& modelViewMat) const;
+	void update() override;
+};
 #pragma endregion
 
 
