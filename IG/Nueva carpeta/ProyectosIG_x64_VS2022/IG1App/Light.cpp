@@ -18,6 +18,10 @@ Light::Light()
 }
 void Light::uploadL() const
 {
+	// Transfiere las características de la luz a la GPU
+	glLightfv(id, GL_AMBIENT, value_ptr(ambient));
+	glLightfv(id, GL_DIFFUSE, value_ptr(diffuse));
+	glLightfv(id, GL_SPECULAR, value_ptr(specular));
 }
 //----DirLight:
 void DirLight::upload(glm::dmat4 const& modelViewMat) const

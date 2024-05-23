@@ -13,6 +13,7 @@ Scene::init()
 
 	// allocate memory and load resources
 	// Lights
+	setLights();
 	// Textures
 
 	// Graphics objects (entities) of the scene
@@ -139,20 +140,6 @@ Scene::init()
 		}
 	}
 
-	/*//------Ejercicio5:
-		//gObjects.push_back(new RegularPolygon(3, 200.0)); // Triangulo cian.
-		//gObjects[gObjects.size() - 1]->setColor(dvec4(0, 1, 1, 1));
-		//gObjects.push_back(new RegularPolygon(100, 200.0)); // Circulo morado.
-		//gObjects[gObjects.size() - 1]->setColor(dvec4(1, 0, 0.8, 1));
-	//------Ejercicio6:
-	gObjects.push_back(new RGBTriangle(200.0)); // Triangulo RGB.
-	gObjects[gObjects.size() - 1]->setColor(dvec4(0, 1, 1, 1));
-	//------Ejercicio8:
-	// gObjects.push_back(new RGBRectangle(100.0, 200.0));
-	//------Ejercicio9:
-	//gObjects.push_back(new Cube(100.0));
-	//------Ejercicio10:
-	//gObjects.push_back(new RGBCube(100.0));*/
 
 
 }
@@ -181,6 +168,8 @@ Scene::setGL()
 	glEnable(GLUT_MULTISAMPLE);
 	glEnable(GL_BLEND);	// Para el Blending.
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	// Para el alpha.
+	glEnable(GL_COLOR_MATERIAL);
+	glEnable(GL_LIGHTING);
 }
 void
 Scene::resetGL()
@@ -190,14 +179,21 @@ Scene::resetGL()
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GLUT_MULTISAMPLE);
 	glDisable(GL_BLEND);
+	glDisable(GL_COLOR_MATERIAL);
+	glDisable(GL_LIGHTING);
 }
 
 void
 Scene::render(Camera const& cam) const
 {
-	sceneDirLight(cam); // Ejercicio56.
+	//sceneDirLight(cam); // Ejercicio56.
 
-	cam.upload();
+
+	dirLight->upload(cam.viewMat());
+	posLight->upload(cam.viewMat());
+	spotLight->upload(cam.viewMat());
+	
+	cam.upload(); 
 
 	for (Abs_Entity* el : gObjects[mId]) {
 		el->render(cam.viewMat());
@@ -291,4 +287,31 @@ void Scene::sceneDirLight(Camera const& cam) const {
 	glLightfv(GL_LIGHT0, GL_AMBIENT, value_ptr(ambient));
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, value_ptr(diffuse));
 	glLightfv(GL_LIGHT0, GL_SPECULAR, value_ptr(specular));
+}
+
+void Scene::setLights()
+{
+	dirLight = new DirLight();
+
+	dirLight->setID(GL_LIGHT0);
+	dirLight->setPosDir(dvec4(1, 1, 1, 0));
+	dirLight->setAmbient(dvec4(0, 0, 0, 1));
+	dirLight->setDiffuse(dvec4(1, 1, 1, 1));
+	dirLight->setSpecular(dvec4(0.5, 0.5, 0.5, 1));
+
+	posLight = new PosLight();
+
+	posLight->setID(GL_LIGHT1);
+	posLight->setAmbient(glm::fvec4(0.0, 0.0, 0.0, 1.0));
+	posLight->setDiffuse(glm::fvec4(1.0, 1.0, 0.0, 1.0));
+	posLight->setSpecular(glm::fvec4(0.5, 0.5, 0.5, 1.0));
+	posLight->setPosDir(glm::fvec3(100.0, 1500.0, 0.0));
+
+	spotLight = new SpotLight();
+
+	spotLight->setID(GL_LIGHT2);
+	spotLight->setAmbient(glm::fvec4(0.0, 0.0, 0.0, 1.0));
+	spotLight->setDiffuse(glm::fvec4(1.0, 1.0, 1.0, 1.0));
+	spotLight->setSpecular(glm::fvec4(0.5, 0.5, 0.5, 1.0));
+	spotLight->setPosDir(glm::fvec3(100.0, 300.0, 3000.0));
 }

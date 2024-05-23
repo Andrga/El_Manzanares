@@ -85,6 +85,11 @@ protected:
 	void mouse(int button, int state, int x, int y);
 	void motion(int x, int y);
 	void mouseWheel(int n, int d, int x, int y);
+
+	//------Ejercicio76:
+	bool dirlight = true;
+	bool poslight = true;
+	bool spotlight = true;
 };
 
 #endif //_H_IG1App_H_

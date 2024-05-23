@@ -769,6 +769,8 @@ ToroidMbR::ToroidMbR(int r, int R, int m, int p) : r_(r), R_(R), m_(m), p_(p)
 {
 	glm::dvec3* perfil = new glm::dvec3[p];
 
+	// formula para hacer dos semicirculos (una circunferencia)
+	
 	//Colocamos los puntos en el perfil
 	for (int i = 0; i < p; i++)
 	{

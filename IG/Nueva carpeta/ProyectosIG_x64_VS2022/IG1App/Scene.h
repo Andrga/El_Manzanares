@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Entity.h"
 #include "Texture.h"
+#include "Light.h"
 
 #include <vector>
 
@@ -40,6 +41,15 @@ public:
 	void pseudoSetOrbtit();
 	void pseudoSetRotate();
 
+	void switchDirlight(bool s) {
+		s ? dirLight->enable() : dirLight->disable();
+	}
+	void switchPoslight(bool s) {
+		s ? posLight->enable() : posLight->disable();
+	}
+	void switchSpotlight(bool s) {
+		s ? spotLight->enable() : spotLight->disable();
+	}
 protected:
 	void free();
 	void setGL();
@@ -75,6 +85,14 @@ protected:
 	//------Ejercicio66:
 	CompoundEntity* nf1; // Nodo del orbit del ejercicio68.
 	CompoundEntity* nf2; // Nodo del orbit del ejercicio68.
+
+	//------Ejercicio76:
+	DirLight* dirLight;
+	PosLight* posLight;
+	SpotLight* spotLight;
+	void setLights();
+
+	
 
 };
 

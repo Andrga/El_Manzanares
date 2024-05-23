@@ -62,9 +62,9 @@ public:
 		disable();
 	}
 
-	void uploadL() const; // Método abstracto 
+	void uploadL() const; 
 
-	virtual void upload(const glm::dmat4& modelViewMat) const = 0;
+	virtual void upload(const glm::dmat4& modelViewMat) const = 0; // Método abstracto 
 
 	void disable()
 	{

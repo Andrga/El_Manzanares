@@ -248,6 +248,21 @@ IG1App::key(unsigned char key, int x, int y)
 		cout << "orbit";
 		scene_.pseudoSetOrbtit();
 		break;
+	case 'q':
+		cout << "switch dir light" << endl;
+		dirlight = !dirlight;
+		scene_.switchDirlight(dirlight);
+		break;
+	case 'a':
+		cout << "switch pos light" << endl;
+		poslight = !poslight;
+		scene_.switchPoslight(poslight);
+		break;
+	case 'z':
+		cout << "switch spot light" << endl;
+		spotlight = !spotlight;
+		scene_.switchSpotlight(spotlight);
+		break;
 	default:
 		need_redisplay = false;
 		break;
