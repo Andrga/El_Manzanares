@@ -1,6 +1,7 @@
 #include "Mesh.h"
 #include "CheckML.h"
 #include <fstream>
+#include <iostream>
 using namespace std;
 using namespace glm;
 
@@ -546,23 +547,31 @@ IndexMesh* IndexMesh::generateIndexedBox(GLdouble l)
 
 void IndexMesh::buildNormalVectors()
 {
-	int i = 0;
-	vNormals.resize(vCaras.size());
-	for (auto cara : vCaras)
+	vNormals.resize(mNumIndexes);
+	std::vector<glm::dvec3> vAuxNormals = vNormals; // vector auxiliar
+
+	GLuint a = mNumIndexes / 3;
+
+	// Newell
+	for (int i = 0; i < a; i++)
 	{
-		glm::vec3 n = { 0, 0, 0 };
-		for (int i = 0; i < VERTEX_CARA; i++)
-		{
-			const auto vertActual = vVertices[cara.getIndex(i)];
-			const auto vertSiguiente = vVertices[cara.getIndex((i + 1) % VERTEX_CARA)];
+		//std::cout << nIndexes[(i * 3)] << std::endl;
 
-			n.x += (vertActual.y - vertSiguiente.y) * (vertActual.z + vertSiguiente.z);
-			n.y += (vertActual.z - vertSiguiente.z) * (vertActual.x + vertSiguiente.x);
-			n.z += (vertActual.x - vertSiguiente.x) * (vertActual.y + vertSiguiente.y);
-		}
+		dvec3 v0 = vVertices[vIndexes[(i * 3)]];
+		dvec3 v1 = vVertices[vIndexes[((i * 3) + 1)]];
+		dvec3 v2 = vVertices[vIndexes[((i * 3) + 2)]];
 
-		vNormals[i] = normalize(n);
-		i++;
+		glm::dvec3 v = v1 - v0;
+		glm::dvec3 w = v2 - v0;
+		const glm::dvec3 n = normalize(cross(v, w));
+
+		vAuxNormals[vIndexes[i * 3]] += n;
+		vAuxNormals[vIndexes[i * 3 + 1]] += n;
+		vAuxNormals[vIndexes[i * 3 + 2]] += n;
+	}
+
+	for (int i = 0; i < mNumVertices; i++) {
+		vNormals[i] = normalize(vAuxNormals[i]);
 	}
 
 }
@@ -674,7 +683,7 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per)
 	// aniadimos los vertices creados a la malla
 	for (int i = 0; i < m->mNumVertices; i++)
 	{
-		m->vVertices.push_back(vs[i]);
+		m->vVertices.emplace_back(vs[i]);
 	}
 	// borramos el vector auxiliar
 	delete[] vs;
@@ -703,6 +712,8 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per)
 
 			int indice = i * mm + j;
 
+			// poner "% (nn * mm)" sirve para prevenir que el indice salga del array
+
 			//------------- TRIANGULO 1 ---------------
 
 			m->vIndexes[indiceMayor] = indice; // a
@@ -715,14 +726,14 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per)
 			indiceMayor++;
 
 			//------------- TRIANGULO 2 ---------------
-			
+
 			m->vIndexes[indiceMayor] = (indice + mm + 1) % (nn * mm); // c
 			indiceMayor++;
 
-			m->vIndexes[indiceMayor] = (indice + mm) % (nn * mm); // b
+			m->vIndexes[indiceMayor] = (indice + 1) % (nn * mm); // d
 			indiceMayor++;
 
-			m->vIndexes[indiceMayor] = indice + 1; // d
+			m->vIndexes[indiceMayor] = indice % (nn * mm); // a
 			indiceMayor++;
 		}
 	}
@@ -732,58 +743,89 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per)
 	m->buildNormalVectors();
 
 	return m;
+
+	//MbR* mesh = new MbR(mm, nn, per);	//Creamos la malla
+
+	//mesh->mPrimitive = GL_TRIANGLES;		//Primitiva
+	//mesh->mNumVertices = nn * mm;			//Número de vértices
+
+	//mesh->vVertices.reserve(mesh->mNumVertices);
+	//mesh->vNormals.reserve(mesh->mNumVertices);
+
+	//dvec3* vs = new dvec3[mesh->mNumVertices];	//Vector auxiliar de vértices
+
+	//for (int i = 0; i < nn; i++)
+	//{
+	//	//Genera la muestra i-ésima de vértices
+	//	GLdouble theta = i * 360 / nn;
+	//	GLdouble c = cos(radians(theta));
+	//	GLdouble s = sin(radians(theta));
+
+	//	for (int j = 0; j < mm; j++)
+	//	{
+	//		GLdouble z = -s * per[j].x + c * per[j].z;
+	//		GLdouble x = c * per[j].x + s * per[j].z;
+
+	//		int Indice = (i * mm) + j;
+	//		vs[Indice] = dvec3(x, per[j].y, z);
+	//	}
+	//}
+
+	//// 4. Volcar el array auxiliar vértices en el array de vértices
+	//for (int i = 0; i < mesh->mNumVertices; i++)
+	//{
+	//	mesh->vVertices.emplace_back(vs[i]);
+	//}
+	//delete[] vs;
+
+	//// 5. Construir los índices de las caras triangulares
+	//int indiceMayor = 0;
+	//mesh->mNumIndexes = mesh->mNumVertices * 6;
+	//mesh->vIndexes = new GLuint[mesh->mNumIndexes];
+
+	//// Inicializamos nIndexes a 0
+	//for (int i = 0; i < mesh->mNumVertices; i++)
+	//{
+	//	mesh->vIndexes[i] = 0;
+	//}
+
+	//// 6. Se rellena nIndexes
+	//// i recorre las muestras alrededor del eje Y
+	//for (int i = 0; i < nn; i++)
+	//{
+	//	// j recorre los vertices del perfil
+	//	for (int j = 0; j < mm; j++)
+	//	{
+	//		// 7.
+	//		//indice cuenta los indices generados hasta ahora
+	//		const int indice = i * mm + j;
+
+	//		mesh->vIndexes[indiceMayor] = indice;
+	//		indiceMayor++;
+
+	//		mesh->vIndexes[indiceMayor] = (indice + mm) % (nn * mm);
+	//		indiceMayor++;
+
+	//		mesh->vIndexes[indiceMayor] = (indice + mm + 1) % (nn * mm);
+	//		indiceMayor++;
+
+	//		mesh->vIndexes[indiceMayor] = (indice + mm + 1) % (nn * mm);
+	//		indiceMayor++;
+
+	//		mesh->vIndexes[indiceMayor] = (indice + mm) % (nn * mm);
+	//		indiceMayor++;
+
+	//		mesh->vIndexes[indiceMayor] = indice;
+	//		indiceMayor++;
+	//	}
+	//}
+
+	//// 8. Construir los vectores normales y construir la malla.
+	//mesh->vNormals.reserve(mesh->mNumVertices);
+	//mesh->buildNormalVectors();
+
+	//return mesh;
 }
 
-void MbR::render() const
-{
-	if (vVertices.empty()) return;
-	glEnableClientState(GL_VERTEX_ARRAY);
-	glVertexPointer(
-		3, GL_DOUBLE, 0, vVertices.data()); // number of coordinates per vertex, type of
-	// each coordinate, stride, pointer
-
-	/// si tiene vertices de color
-	if (!vColors.empty())
-	{
-		// transfer colors
-		glEnableClientState(GL_COLOR_ARRAY);
-		glColorPointer(
-			4, GL_DOUBLE, 0, vColors.data()); // components number (rgba=4), type of
-		// each component, stride, pointer
-	}
-
-	/// si tiene vertices de textura
-	if (!vTexCoords.empty())
-	{
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		glTexCoordPointer(2, GL_DOUBLE, 0, vTexCoords.data());
-	}
-
-	if (!vNormals.empty())
-	{
-		//glEnable(GL_NORMALIZE);
-		glEnableClientState(GL_NORMAL_ARRAY);
-		glNormalPointer(GL_DOUBLE, 0, vNormals.data());
-	}
-	if (vIndexes != nullptr)
-	{
-		glEnableClientState(GL_INDEX_ARRAY);
-		glIndexPointer(GL_UNSIGNED_INT, 0, vIndexes);
-	}
-
-	glColorMaterial(GL_FRONT_AND_BACK, GL_FILL);
-	draw();
-	glDisableClientState(GL_INDEX_ARRAY);
-
-	//glDisable(GL_NORMALIZE);
-	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-}
-void MbR::draw() const
-{
-	glDrawElements(mPrimitive, mNumIndexes, GL_UNSIGNED_INT, vIndexes);
-}
 #pragma endregion
 

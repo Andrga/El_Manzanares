@@ -113,7 +113,7 @@ Scene::init()
 		case 6:
 			//------Ejercicio71:
 			//addEntity(new SphereMbR(100, 50, 50), 6);
-			addEntity(new ToroidMbR(100, 500, 50, 50), 6);
+			addEntity(new ToroidMbR(100, 500, 50, 10), 6);
 			break;
 		default:
 			break;

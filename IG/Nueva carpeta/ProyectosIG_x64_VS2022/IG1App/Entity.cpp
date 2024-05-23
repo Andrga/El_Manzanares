@@ -759,18 +759,15 @@ void SphereMbR::update()
 // p (numero de puntos que tiene la circunferencia)
 ToroidMbR::ToroidMbR(int r, int R, int m, int p) : r_(r), R_(R), m_(m), p_(p)
 {
-	perfil = new dvec3[p_];
+	glm::dvec3* perfil = new glm::dvec3[p];
 
 	//Colocamos los puntos en el perfil
-	for (int i = 1; i < p; i++)
+	for (int i = 0; i < p; i++)
 	{
 		//Variables para colocar los puntos
-		const double alpha = (3.14 * 2 / (p - 1)) * i;	//ángulo entre los puntos del perfil
+		GLdouble alpha = (3.1415 * 2 / (p - 1)) * i;	//ángulo entre los puntos del perfil
 
-		perfil[i] = dvec3(
-			R + (r * sin(alpha)),
-			-(r * cos(alpha)),
-			0);
+		perfil[i] = { R + (r * sin(alpha)),	-(r * cos(alpha)), 0 };
 	}
 
 	mMesh = MbR::generaIndexMbR(p, m, perfil);
