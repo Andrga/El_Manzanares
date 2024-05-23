@@ -318,4 +318,12 @@ private:
 };
 #pragma endregion
 
+#pragma region P5
+class sphere : public Abs_Entity {
+
+};
+
+#pragma endregion
+
+
 #endif //_H_Entities_H_
