@@ -159,17 +159,18 @@ Scene::free()
 		}
 	}
 }
+
 void
 Scene::setGL()
 {
 	// OpenGL basic setting
-	glEnable(GL_DEPTH_TEST);          // enable Depth test
-	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_DEPTH_TEST); // Activa el buffer (Z-buffer) contiene la distancia respecto a la camara
+	glEnable(GL_TEXTURE_2D); // Activa el uso de las texturas
 	glEnable(GLUT_MULTISAMPLE);
-	glEnable(GL_BLEND);	// Para el Blending.
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	// Para el alpha.
-	glEnable(GL_COLOR_MATERIAL);
-	glEnable(GL_LIGHTING);
+	glEnable(GL_BLEND);	// Activa el Blending (suma de colores de objetos distintos).
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);	// Activa el alpha (Activa el blendeo de colores con el componente alpha).
+	glEnable(GL_COLOR_MATERIAL); // Activa los materiales.
+	glEnable(GL_LIGHTING); // Activacion de las luces.
 }
 void
 Scene::resetGL()
@@ -180,7 +181,7 @@ Scene::resetGL()
 	glDisable(GLUT_MULTISAMPLE);
 	glDisable(GL_BLEND);
 	glDisable(GL_COLOR_MATERIAL);
-	glDisable(GL_LIGHTING);
+	glDisable(GL_LIGHTING); // 
 }
 
 void
@@ -188,7 +189,7 @@ Scene::render(Camera const& cam) const
 {
 	//sceneDirLight(cam); // Ejercicio56.
 
-
+	// Actualizacion de las luces segun la camara
 	dirLight->upload(cam.viewMat());
 	posLight->upload(cam.viewMat());
 	spotLight->upload(cam.viewMat());
@@ -209,16 +210,18 @@ void Scene::update() {
 	for (Abs_Entity* el : gObjects[mId]) {
 		el->update();
 	}
-	// Ejercicio68.
-	if (orbitTieBool)
-	{
-		rotateTie();
-	}
-	if (rotateTieBool)
-	{
-		orbitTie();
-	}
+	// Movimiento y rotacion del TIE por update
+	//// Ejercicio68.
+	//if (orbitTieBool)
+	//{
+	//	rotateTie();
+	//}
+	//if (rotateTieBool)
+	//{
+	//	orbitTie();
+	//}
 
+	// Rotacion del triangulo y la circunferencia (rehacedura de la practica 1)
 	if (mId == 0 && nf1 != nullptr && nf2 != nullptr)
 	{
 		nf2->setModelMat(glm::rotate(nf2->modelMat(),
@@ -241,20 +244,28 @@ void Scene::setScene(int id)
 		glClearColor(0.6, 0.7, 0.8, 1.0); // background color (alpha=1 -> opaque)
 	}
 }
-// Ejercicio68.
+
+// --------------- ROTACION TIE Y TATOOIN -----------------
+//
+// Tie rota sobre si mismo
 void Scene::rotateTie()
 {
-	// Alinea el TIE con el planeta
-	tie->setModelMat(
-		translate(inventedNodeRotate->modelMat(), dvec3(0, 0, 0)) * tie->modelMat());
+	// Si la escena es la 4 (Escena de Tatooin)
+	if (mId == 4)
+	{
+		// Alinea el TIE con el planeta
+		tie->setModelMat(
+			translate(inventedNodeRotate->modelMat(), dvec3(0, 0, 0)) * tie->modelMat());
 
-	// Rota el TIE
-	dvec3 point = glm::normalize(dvec3(tie->modelMat() * dvec4(0.0, 1.0, 0.0, 0.0)));
-	inventedNodeRotate->setModelMat(rotate(dmat4(1), radians(-1.0), point));
+		// Rota el TIE
+		dvec3 point = glm::normalize(dvec3(tie->modelMat() * dvec4(0.0, 1.0, 0.0, 0.0)));
+		inventedNodeRotate->setModelMat(rotate(dmat4(1), radians(-1.0), point));
+	}
 }
-
+// Tie orbita alrededor del planeta
 void Scene::orbitTie()
 {
+	// Si la escena es la 4 (Escena de Tatooin)
 	if (mId == 4)
 	{
 		// Alinea el TIE con el planeta
@@ -266,6 +277,7 @@ void Scene::orbitTie()
 	}
 }
 
+#pragma region Switch rotacion y orbita del TIE
 void Scene::pseudoSetOrbtit()
 {
 	orbitTieBool = !orbitTieBool;
@@ -276,7 +288,11 @@ void Scene::pseudoSetRotate()
 	rotateTieBool = !rotateTieBool;
 }
 
-//------Ejercicio56:
+#pragma endregion
+
+// --------------- LUCES -----------------
+//
+// Metodo que renderiza una unica luz con los parametros asignados
 void Scene::sceneDirLight(Camera const& cam) const {
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
@@ -292,6 +308,7 @@ void Scene::sceneDirLight(Camera const& cam) const {
 	glLightfv(GL_LIGHT0, GL_SPECULAR, value_ptr(specular));
 }
 
+// Metodo que settea las luces de la escena y sus parametros:
 void Scene::setLights()
 {
 	dirLight = new DirLight();

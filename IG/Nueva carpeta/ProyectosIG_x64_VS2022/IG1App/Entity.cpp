@@ -563,11 +563,8 @@ void CompoundEntity::render(glm::dmat4 const& modelViewMat) const
 {
 
 	dmat4 aMat = modelViewMat * mModelMat;
-	upload(aMat);/*
-	for (auto& ae : gObjects) {
+	upload(aMat);
 
-		ae->render(aMat * ae->modelMat()); // Hay que usar esto pero me jode todo y ns porque no me hace las transformaciones...
-	}*/
 	for (auto& ae : gObjects)
 	{
 		ae->render(aMat);
@@ -582,12 +579,10 @@ void CompoundEntity::addEntity(Abs_Entity* ae)
 AdvancedTIEX_1::AdvancedTIEX_1()
 {
 	body = new Sphere(40, 0, 0.25, 0.41); // Creamos el cuerpo que es una esfera.
-
 	leftWing = new WingTIE(0, 0, -60, 0, false, "../bmps/noche.bmp"); // Creamos una de las alas.
-
 	rightWing = new WingTIE(0, 0, 60, 0, true, "../bmps/noche.bmp"); // Creamos el otro ala, invertido a true porque es mas eficiente que hacer una rotacion como tal.
-
 	cosaDeAlaAAla = new Cylinder(10, 10, 140, 0, 0.25, 0.41); // Creamos la cosa esta que es un cilindro.
+
 	cosaDeAlaAAla->setModelMat(translate(dmat4(1.0), dvec3(0, 0, -70)) * cosaDeAlaAAla->modelMat()); // Cambiamos la posicion del cilindro para que este en el medio y vaya de ala a ala.
 
 	nose = new NoseTIE();
@@ -596,6 +591,7 @@ AdvancedTIEX_1::AdvancedTIEX_1()
 	CompoundEntity::addEntity(body);
 	CompoundEntity::addEntity(cosaDeAlaAAla);
 	CompoundEntity::addEntity(nose);
+
 	// Las cosas transparentes lo ultimo para que se haga bien todo.
 	CompoundEntity::addEntity(leftWing);
 	CompoundEntity::addEntity(rightWing);
@@ -604,12 +600,13 @@ AdvancedTIEX_1::AdvancedTIEX_1()
 
 	// creamos la luz que sigue al TIE
 	foco = new SpotLight();
-
 }
+
 AdvancedTIEX_1::~AdvancedTIEX_1()
 {
 	CompoundEntity::~CompoundEntity();
 }
+
 void AdvancedTIEX_1::render(glm::dmat4 const& modelViewMat) const
 {
 	CompoundEntity::render(modelViewMat);
@@ -621,6 +618,9 @@ void AdvancedTIEX_1::update()
 {
 	mModelMat = translate(mModelMat, dvec3(0, 1000, 0));
 }
+
+#pragma region Elementos del TIE
+
 //----Ala del TIE:
 WingTIE::WingTIE(GLdouble x, GLdouble y, GLdouble z, GLdouble rot, bool inv, const std::string& tex)
 {
@@ -686,6 +686,7 @@ void NoseTIE::render(glm::dmat4 const& modelViewMat) const
 }
 
 
+#pragma endregion
 
 #pragma endregion
 
@@ -713,7 +714,7 @@ void IndexedBox::render(glm::dmat4 const& modelViewMat) const
 	}
 }
 
-#pragma region P5
+#pragma region Mallas por revolucion
 
 // r (radio de la circunferencia)
 // p (paralelos)	--
@@ -733,7 +734,7 @@ SphereMbR::SphereMbR(int r, int p, int m) : r_(r), p_(p), m_(m)
 			0 };
 	}
 
-	mMesh = MbR::generaIndexMbR(p, m, perfil);
+	mMesh = MbR::generaIndexMbR(p, m, perfil, 360);
 }
 
 SphereMbR::~SphereMbR()
@@ -788,7 +789,7 @@ ToroidMbR::ToroidMbR(int r, int R, int m, int p) : r_(r), R_(R), m_(m), p_(p)
 		perfil[i] = { R + (r * sin(alpha)),	-(r * cos(alpha)), 0 };
 	}
 
-	mMesh = MbR::generaIndexMbR(p, m, perfil);
+	mMesh = MbR::generaIndexMbR(p, m, perfil, 180);
 }
 
 ToroidMbR::~ToroidMbR()

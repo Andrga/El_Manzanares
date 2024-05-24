@@ -242,11 +242,11 @@ IG1App::key(unsigned char key, int x, int y)
 		break;
 	case 'f':
 		cout << "rotate";
-		scene_.pseudoSetRotate();
+		scene_.rotateTie();
 		break;
 	case 'g':
 		cout << "orbit";
-		scene_.pseudoSetOrbtit();
+		scene_.orbitTie();
 		break;
 	case 'q':
 		cout << "switch dir light" << endl;

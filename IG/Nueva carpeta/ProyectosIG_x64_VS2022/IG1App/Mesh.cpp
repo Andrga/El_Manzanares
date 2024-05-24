@@ -545,6 +545,7 @@ IndexMesh* IndexMesh::generateIndexedBox(GLdouble l)
 	return mesh;
 }
 
+// --------- METODO SUPER IMPORTANTE PARA GENERAL LAS NORMALES ---------
 void IndexMesh::buildNormalVectors()
 {
 	vNormals.resize(mNumIndexes);
@@ -646,11 +647,12 @@ MbR::~MbR()
 // mm (numero de vertices del perfl)
 // nn (numero de rotaciones)
 // per (perfil)
-MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per)
+// angle (angulo hasta el que se hace la revolucion)
+MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per, int angle)
 {
 	MbR* m = new MbR(mm, nn, per);
 
-	m->mPrimitive = GL_TRIANGLES;		//Primitiva
+	m->mPrimitive = GL_TRIANGLE_STRIP;		//Primitiva
 	m->mNumVertices = nn * mm;
 
 	m->vVertices.reserve(m->mNumVertices);
@@ -663,7 +665,8 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per)
 	for (int i = 0; i < nn; i++)
 	{
 		// cosas de la ecuacion de la circunferencia y trigonometria
-		GLdouble theta = i * 360 / nn;
+		// angle hace que no se complete la rotacion en 360 siempre
+		GLdouble theta = i * angle / nn;
 		GLdouble c = cos(radians(theta));
 		GLdouble s = sin(radians(theta));
 
