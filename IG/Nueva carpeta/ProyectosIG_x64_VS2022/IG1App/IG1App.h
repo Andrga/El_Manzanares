@@ -90,6 +90,7 @@ protected:
 	bool dirlight = true;
 	bool poslight = true;
 	bool spotlight = true;
+	bool TIESpotlight = true;
 };
 
 #endif //_H_IG1App_H_

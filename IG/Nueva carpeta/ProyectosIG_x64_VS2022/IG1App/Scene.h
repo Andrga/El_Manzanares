@@ -50,6 +50,9 @@ public:
 	void switchSpotlight(bool s) {
 		s ? spotLight->enable() : spotLight->disable();
 	}
+	void switchTIESpotlight(bool s) {
+		tie->switchFoco(s);
+	}
 protected:
 	void free();
 	void setGL();
@@ -73,7 +76,7 @@ protected:
 
 
 	// Cosas del TIE: ejercicio60.
-	Abs_Entity* tie; // Tie del ejercicio60.
+	AdvancedTIEX_1* tie; // Tie del ejercicio60.
 	Abs_Entity* tie2; // Para la profesora.
 	CompoundEntity* inventedNodeOrbit; // Nodo del orbit del ejercicio68.
 	CompoundEntity* inventedNodeRotate; // Nodo del rotate del ejercicio68.

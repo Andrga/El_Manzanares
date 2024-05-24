@@ -601,6 +601,10 @@ AdvancedTIEX_1::AdvancedTIEX_1()
 	CompoundEntity::addEntity(rightWing);
 
 	mModelMat = translate(mModelMat, dvec3(0, 1000, 0));
+
+	// creamos la luz que sigue al TIE
+	foco = new SpotLight();
+
 }
 AdvancedTIEX_1::~AdvancedTIEX_1()
 {
@@ -609,6 +613,9 @@ AdvancedTIEX_1::~AdvancedTIEX_1()
 void AdvancedTIEX_1::render(glm::dmat4 const& modelViewMat) const
 {
 	CompoundEntity::render(modelViewMat);
+
+	// actualizacion de la luz
+	foco->upload(modelViewMat * mModelMat);
 }
 void AdvancedTIEX_1::update()
 {
@@ -630,6 +637,7 @@ WingTIE::WingTIE(GLdouble x, GLdouble y, GLdouble z, GLdouble rot, bool inv, con
 
 	texture = new Texture();
 	setTexture(texture, tex, 180);
+
 }
 WingTIE::~WingTIE()
 {
@@ -719,9 +727,9 @@ SphereMbR::SphereMbR(int r, int p, int m) : r_(r), p_(p), m_(m)
 
 		// formula para hacer un semicirculo
 		GLdouble theta = (3.14 / (p - 1)) * i;
-		perfil[i] = { 
+		perfil[i] = {
 			r * sin(theta),
-			r * cos(theta), 
+			r * cos(theta),
 			0 };
 	}
 
@@ -770,7 +778,7 @@ ToroidMbR::ToroidMbR(int r, int R, int m, int p) : r_(r), R_(R), m_(m), p_(p)
 	glm::dvec3* perfil = new glm::dvec3[p];
 
 	// formula para hacer dos semicirculos (una circunferencia)
-	
+
 	//Colocamos los puntos en el perfil
 	for (int i = 0; i < p; i++)
 	{

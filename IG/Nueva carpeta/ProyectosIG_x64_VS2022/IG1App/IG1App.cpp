@@ -263,6 +263,11 @@ IG1App::key(unsigned char key, int x, int y)
 		spotlight = !spotlight;
 		scene_.switchSpotlight(spotlight);
 		break;
+	case 'x':
+		cout << "switch TIE light" << endl;
+		TIESpotlight = !TIESpotlight;
+		scene_.switchTIESpotlight(TIESpotlight);
+		break;
 	default:
 		need_redisplay = false;
 		break;

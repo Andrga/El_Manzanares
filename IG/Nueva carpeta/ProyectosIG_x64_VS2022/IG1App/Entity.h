@@ -7,6 +7,7 @@
 #include "Mesh.h"
 #include "Texture.h"
 #include "Material.h"
+#include "Light.h"
 
 class Abs_Entity // abstract class
 {
@@ -266,8 +267,14 @@ class AdvancedTIEX_1 : public CompoundEntity {
 public:
 	AdvancedTIEX_1();
 	~AdvancedTIEX_1() override;
+
 	void render(glm::dmat4 const& modelViewMat) const override;
 	void update() override;
+
+	// activa/desactiva el foco
+	void switchFoco(bool s) {
+		s ? foco->enable() : foco->disable();
+	}
 
 private:
 	QuadricEntity* body; // La esfera.
@@ -275,6 +282,8 @@ private:
 	QuadricEntity* cosaDeAlaAAla; // El cilindro que va de ala a ala y no se nombrar de otra forma.
 	Abs_Entity* rightWing; // Ala derecha.
 	Abs_Entity* leftWing; // Ala izquierda.
+
+	SpotLight* foco;
 };
 //----Ala:
 class WingTIE : public Abs_Entity {

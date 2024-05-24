@@ -19,9 +19,9 @@ Scene::init()
 	// Graphics objects (entities) of the scene
 
 
-	//------Ejes:
 	for (int i = 0; i <= NSCENES; i++)
 	{
+		//------Ejes:
 		gObjects.push_back(std::vector<Abs_Entity*>());
 		gObjects[i].push_back(new EjesRGB(400.0));
 
@@ -192,8 +192,8 @@ Scene::render(Camera const& cam) const
 	dirLight->upload(cam.viewMat());
 	posLight->upload(cam.viewMat());
 	spotLight->upload(cam.viewMat());
-	
-	cam.upload(); 
+
+	cam.upload();
 
 	for (Abs_Entity* el : gObjects[mId]) {
 		el->render(cam.viewMat());
@@ -244,9 +244,11 @@ void Scene::setScene(int id)
 // Ejercicio68.
 void Scene::rotateTie()
 {
+	// Alinea el TIE con el planeta
 	tie->setModelMat(
 		translate(inventedNodeRotate->modelMat(), dvec3(0, 0, 0)) * tie->modelMat());
 
+	// Rota el TIE
 	dvec3 point = glm::normalize(dvec3(tie->modelMat() * dvec4(0.0, 1.0, 0.0, 0.0)));
 	inventedNodeRotate->setModelMat(rotate(dmat4(1), radians(-1.0), point));
 }
@@ -255,10 +257,11 @@ void Scene::orbitTie()
 {
 	if (mId == 4)
 	{
+		// Alinea el TIE con el planeta
 		tie->setModelMat(translate(inventedNodeOrbit->modelMat(), dvec3(0, 0, 0)) * tie->modelMat());
 
+		// Rota el TIE
 		dvec3 tieDirection = normalize(dvec3(tie->modelMat() * dvec4(0.0, 0.0, 1.0, 0.0)));
-
 		inventedNodeOrbit->setModelMat(rotate(dmat4(1), radians(-1.0), tieDirection));
 	}
 }
@@ -314,4 +317,5 @@ void Scene::setLights()
 	spotLight->setDiffuse(glm::fvec4(1.0, 1.0, 1.0, 1.0));
 	spotLight->setSpecular(glm::fvec4(0.5, 0.5, 0.5, 1.0));
 	spotLight->setPosDir(glm::fvec3(100.0, 300.0, 3000.0));
+
 }
