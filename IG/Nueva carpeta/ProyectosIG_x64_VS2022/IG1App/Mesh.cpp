@@ -84,6 +84,7 @@ Mesh* Mesh::createRGBAxes(GLdouble l)
 
 	return mesh;
 }
+
 // Region con los apartados de la P1:
 #pragma region P1
 //------Ejercicio2:
@@ -200,6 +201,7 @@ Mesh* Mesh::generateCube(GLdouble l) {
 	mesh->mNumVertices = 14;
 	mesh->vVertices.reserve(mesh->mNumVertices);
 
+	// colocamos los vertices en sentido anti horario
 	mesh->vVertices.emplace_back(-m, -m, -m); // 4.
 	mesh->vVertices.emplace_back(m, -m, -m); // 3.
 	mesh->vVertices.emplace_back(-m, -m, m); // 2.
@@ -628,6 +630,8 @@ void IndexMesh::render() const
 void IndexMesh::draw() const
 {
 	//------Ejercicio62:
+	// glDrawArrays ( GL_TRIANGLES , 0 , numVertices ); antes se usaba esto para renderizar
+
 	glDrawElements(mPrimitive, mNumIndexes, GL_UNSIGNED_INT, vIndexes);
 }
 
