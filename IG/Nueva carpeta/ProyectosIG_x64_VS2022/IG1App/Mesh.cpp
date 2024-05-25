@@ -656,7 +656,7 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per, int angle)
 {
 	MbR* m = new MbR(mm, nn, per);
 
-	m->mPrimitive = GL_TRIANGLE_STRIP;		//Primitiva
+	m->mPrimitive = GL_TRIANGLES;		//Primitiva
 	m->mNumVertices = nn * mm;
 
 	m->vVertices.reserve(m->mNumVertices);
@@ -701,7 +701,7 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per, int angle)
 	m->vIndexes = new GLuint[m->mNumIndexes];
 
 	// Inicializamos nIndexes a 0
-	for (int i = 0; i < m->mNumVertices; i++)
+	for (int i = 0; i < m->mNumVertices * 6; i++)
 	{
 		m->vIndexes[i] = 0;
 	}
@@ -709,7 +709,7 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per, int angle)
 	// calculamos los indices de las caras
 	for (int i = 0; i < nn; i++)
 	{
-		for (int j = 0; j < mm; j++)
+		for (int j = 0; j < mm - 1; j++)
 		{
 			// colocamos los vertices en sentido antihorario para que las normales esten bien
 			// 
@@ -737,10 +737,10 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per, int angle)
 			m->vIndexes[indiceMayor] = (indice + mm + 1) % (nn * mm); // c
 			indiceMayor++;
 
-			m->vIndexes[indiceMayor] = (indice + 1) % (nn * mm); // d
+			m->vIndexes[indiceMayor] = (indice + 1);// % (nn * mm); // d
 			indiceMayor++;
 
-			m->vIndexes[indiceMayor] = indice % (nn * mm); // a
+			m->vIndexes[indiceMayor] = indice;// % (nn * mm); // a
 			indiceMayor++;
 		}
 	}

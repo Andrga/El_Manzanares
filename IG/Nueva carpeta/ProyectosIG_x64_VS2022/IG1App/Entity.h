@@ -370,5 +370,4 @@ public:
 
 #pragma endregion
 
-
 #endif //_H_Entities_H_

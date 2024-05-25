@@ -135,6 +135,11 @@ Scene::init()
 			addEntity(sp2, 7);
 
 			break;
+		case 8:
+			// Rombo generado reutilizando la esfera / malla de rebolucion
+			// addEntity(new SphereMbR(100, 3, 4), 8);
+
+			break;
 		default:
 			break;
 		}

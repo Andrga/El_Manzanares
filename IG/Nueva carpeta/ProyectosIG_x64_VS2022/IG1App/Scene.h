@@ -11,7 +11,7 @@
 
 #include <vector>
 
-const int NSCENES = 7;
+const int NSCENES = 8;
 
 class Scene
 {

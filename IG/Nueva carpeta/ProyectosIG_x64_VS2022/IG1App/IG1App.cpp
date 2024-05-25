@@ -226,6 +226,9 @@ IG1App::key(unsigned char key, int x, int y)
 	case '7':
 		scene_.setScene(7);
 		break;
+	case '8':
+		scene_.setScene(8);
+		break;
 	case 'u':
 		s_update();
 		break;

@@ -800,7 +800,9 @@ ToroidMbR::~ToroidMbR()
 
 void ToroidMbR::render(glm::dmat4 const& modelViewMat) const
 {
+
 	if (mMesh != nullptr) {
+
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
 		upload(aMat);
