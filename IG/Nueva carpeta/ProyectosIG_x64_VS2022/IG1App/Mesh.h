@@ -45,6 +45,7 @@ public:
 	// Practica examen
 	// Genera una piramide
 	static Mesh* generaPiramide(GLdouble l); 
+
 #pragma endregion
 #pragma region P4
 	//------Ejercicio60: 

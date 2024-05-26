@@ -62,7 +62,7 @@ void Texture::setWrap(GLuint wp) // GL_REPEAT, GL_CLAMP
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wp);  
   glBindTexture(GL_TEXTURE_2D, 0); 
 }
-//-------------------------------------------------------------------------
+//---------------------------------- CUIDADO EXAMEN --------------------
 void Texture::loadColorBuffer(GLsizei width, GLsizei height, GLuint buffer) {
 
 	//Establece el tamanyo del recorte.

@@ -801,7 +801,8 @@ ToroidMbR::ToroidMbR(int r, int R, int m, int p) : r_(r), R_(R), m_(m), p_(p)
 		perfil[i] = { R + (r * sin(alpha)),	-(r * cos(alpha)), 0 };
 	}
 
-	mMesh = MbR::generaIndexMbR(p, m, perfil, 90);
+	// Examen usa el metodo de malla inconexa / Parcial
+	mMesh = MbR::generaIndexMbR(p, m, perfil, 90); 
 }
 
 ToroidMbR::~ToroidMbR()
@@ -960,6 +961,11 @@ void OctaedroTriangulos::render(glm::dmat4 const& modelViewMat) const
 		//glDrawArrays(GL_TRIANGLES, 0, 3);
 		//glLineWidth(1);
 		texture->unbind();
+
+		// resetea las transformaciones
+
+		aMat *= scale(mModelMat, dvec3(0.1, 0.1, 0.1)); 
+		aMat *= translate(mModelMat, dvec3(-r_ / 2, 0, -r_ / 2));
 	}
 }
 

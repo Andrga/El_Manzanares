@@ -138,11 +138,14 @@ Scene::init()
 
 #pragma region Practicas Examen
 		case 8:
-			// Rombo generado reutilizando la esfera / malla de rebolucion
+			// Octaedro generado reutilizando la esfera / malla de revolucion
 			// addEntity(new SphereMbR(100, 3, 4), 8);
 
+			// Octaedro normal 
+			addEntity(new Octaedro(100), 8);
+			
 			// Octaedro generado por malla indexada
-			addEntity(new OctaedroTriangulos(100, "../bmps/windowC.bmp"), 8);
+			//addEntity(new OctaedroTriangulos(100, "../bmps/windowC.bmp"), 8);
 
 			break;
 #pragma endregion
@@ -321,7 +324,7 @@ void Scene::sceneDirLight(Camera const& cam) const {
 	glLightfv(GL_LIGHT0, GL_SPECULAR, value_ptr(specular));
 }
 
-// Metodo que settea las luces de la escena y sus parametros:
+// Metodo que settea las luces de la escena y sus parametros: CUIDADO CON TENER MAS DE 5 (explota)
 void Scene::setLights()
 {
 	dirLight = new DirLight();

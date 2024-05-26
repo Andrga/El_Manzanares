@@ -549,7 +549,7 @@ IndexMesh* IndexMesh::generateIndexedBox(GLdouble l)
 }
 
 
-// --------- METODO SUPER IMPORTANTE PARA GENERAL LAS NORMALES ---------
+// --------- METODO SUPER IMPORTANTE PARA GENERAL LAS NORMALES (tener en cuenta para EXAMEN) ---------
 void IndexMesh::buildNormalVectors()
 {
 	vNormals.resize(mNumIndexes);
