@@ -41,6 +41,10 @@ public:
 	static Mesh* generateBoxOutlineTexCor(GLdouble longitud); // Ejercicio23.
 	static Mesh* generateStar3D(GLdouble re, GLuint np, GLdouble h); // Ejercicio25.
 	static Mesh* generateStar3DTexCor(GLdouble re, GLuint np, GLdouble h); // Ejercicio28.
+
+	// Practica examen
+	// Genera una piramide
+	static Mesh* generaPiramide(GLdouble l); 
 #pragma endregion
 #pragma region P4
 	//------Ejercicio60: 

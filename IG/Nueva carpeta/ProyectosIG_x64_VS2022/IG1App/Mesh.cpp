@@ -446,6 +446,7 @@ Mesh* Mesh::generateStar3DTexCor(GLdouble re, GLuint np, GLdouble h) {
 	return m;
 }
 
+
 #pragma endregion
 
 //Region con los apartados de la P4:
@@ -779,7 +780,7 @@ IndexMesh* IndexMesh::generateIndexedOctaedro(GLdouble l)
 	mesh->vVertices.emplace_back(0, 0, -s);		// v4
 	mesh->vVertices.emplace_back(0, -s, 0);		// v5
 
-	
+
 
 	// Indices para la creacion de primitivas
 	mesh->mNumIndexes = 24;
@@ -821,5 +822,53 @@ IndexMesh* IndexMesh::generateIndexedOctaedro(GLdouble l)
 	return mesh;
 	return nullptr;
 }
+
+Mesh* Mesh::generaPiramide(GLdouble l)
+{
+	Mesh* mesh = new Mesh();
+
+	// CREAMOS LOS VERTICES USANDO EL TRIANGLE FAN PARA QUE TODOS LOS VERTICES SE JUNTEN CON EL PRIMERO
+	mesh->mPrimitive = GL_TRIANGLE_FAN;
+
+	//			 0
+	//		   /||\
+	//		  / || \
+	//       1--24--3
+	//
+
+	//mitad del lado de la piramide
+	GLdouble r = l / 2;
+
+	// reservamos los vertices
+	mesh->mNumVertices = 6;
+	mesh->vVertices.reserve(mesh->mNumVertices);
+
+	// Vertice superior de la piramide
+	mesh->vVertices.emplace_back(0, l, 0); // V0
+
+	mesh->vVertices.emplace_back(-r, 0, -r);	// V1
+	mesh->vVertices.emplace_back(-r, 0, r);		// V2
+	mesh->vVertices.emplace_back(r, 0, r);		// V3
+	mesh->vVertices.emplace_back(r, 0, -r);		// V4
+
+
+	mesh->vVertices.push_back(mesh->vVertices[1]); // V1.
+
+	// GENERAMOS LAS COORDENADAS DE LAS TEXTURAS
+	mesh->vTexCoords.reserve(mesh->mNumVertices);
+
+	mesh->vTexCoords.emplace_back(0.5, 0.5);
+
+	mesh->vTexCoords.emplace_back(0, 0);
+	mesh->vTexCoords.emplace_back(0, 0.5);
+	mesh->vTexCoords.emplace_back(0, 0);
+	mesh->vTexCoords.emplace_back(0.5, 0);
+
+
+	mesh->vTexCoords.emplace_back(0, 0);
+
+	return mesh;
+}
+
 #pragma endregion
 

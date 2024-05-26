@@ -142,7 +142,7 @@ Scene::init()
 			// addEntity(new SphereMbR(100, 3, 4), 8);
 
 			// Octaedro generado por malla indexada
-			addEntity(new Octaedro(100), 8);
+			addEntity(new OctaedroTriangulos(100, "../bmps/windowC.bmp"), 8);
 
 			break;
 #pragma endregion

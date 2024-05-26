@@ -870,4 +870,88 @@ void Octaedro::update()
 {
 }
 
+OctaedroTriangulos::OctaedroTriangulos(int r, const std::string& text) : r_(r)
+{
+	mMesh = Mesh::generaPiramide(r_);
+
+
+	texture = new Texture();
+	setTexture(texture, text, 180);
+}
+
+OctaedroTriangulos::~OctaedroTriangulos()
+{
+}
+
+void OctaedroTriangulos::render(glm::dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		texture->bind(GL_MODULATE);
+
+		upload(aMat);
+		glLineWidth(2);
+		mMesh->render();
+
+		// TRIANGULOS SUPERIORES
+		aMat *= translate(mModelMat, dvec3(r_, 0, 0));
+		aMat *= mModelMat;
+		upload(aMat);
+		mMesh->render();
+
+		aMat *= translate(mModelMat, dvec3(0, 0, r_));
+		aMat *= mModelMat;
+		upload(aMat);
+		mMesh->render();
+
+		aMat *= translate(mModelMat, dvec3(-r_, 0, 0));
+		aMat *= mModelMat;
+		upload(aMat);
+		mMesh->render();
+
+		aMat *= translate(mModelMat, dvec3(r_ / 2, r_, -r_ / 2));
+		aMat *= mModelMat;
+		upload(aMat);
+		mMesh->render();
+
+		// RESETEA POSICION
+		aMat *= translate(mModelMat, dvec3(-r_ / 2, -r_, -r_ / 2));
+		// TRIANGULOS INFERIORES
+		aMat *= rotate(mModelMat, radians(180.0), dvec3(0, 0, 1.0));
+		aMat *= mModelMat;
+		upload(aMat);
+		mMesh->render();
+
+		aMat *= translate(mModelMat, dvec3(-r_, 0, 0));
+		aMat *= mModelMat;
+		upload(aMat);
+		mMesh->render();
+
+		aMat *= translate(mModelMat, dvec3(0, 0, r_));
+		aMat *= mModelMat;
+		upload(aMat);
+		mMesh->render();
+
+		aMat *= translate(mModelMat, dvec3(r_, 0, 0));
+		aMat *= mModelMat;
+		upload(aMat);
+		mMesh->render();
+
+		aMat *= translate(mModelMat, dvec3(-r_ / 2, r_, -r_ / 2));
+		aMat *= mModelMat;
+		upload(aMat);
+		mMesh->render();
+
+		//glDrawArrays(GL_TRIANGLES, 0, 3);
+		//glLineWidth(1);
+		texture->unbind();
+	}
+}
+
+void OctaedroTriangulos::update()
+{
+}
+
 #pragma endregion

@@ -383,6 +383,25 @@ public:
 	void render(glm::dmat4 const& modelViewMat) const;
 	void update() override;
 };
+
+class OctaedroTriangulos : public Abs_Entity {
+private:
+	int r_;
+	Texture* texture;
+
+public:
+	// r (longitud del radio del octaedro)
+	OctaedroTriangulos(int r, const std::string& text);
+	~OctaedroTriangulos();
+
+	void render(glm::dmat4 const& modelViewMat) const;
+	void update() override;
+
+	// Metodo para cargar y settear una textura
+	void setTexture(Texture* texture, std::string text, GLubyte alpha) const {
+		texture->load(text, alpha);
+	}
+};
 #pragma endregion
 
 #endif //_H_Entities_H_
