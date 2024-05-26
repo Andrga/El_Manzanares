@@ -653,8 +653,7 @@ MbR::~MbR()
 // mm (numero de vertices del perfl)
 // nn (numero de rotaciones)
 // per (perfil)
-// angle (angulo hasta el que se hace la revolucion)
-MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per, int angle)
+MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per)
 {
 	MbR* m = new MbR(mm, nn, per);
 
@@ -672,7 +671,7 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per, int angle)
 	{
 		// cosas de la ecuacion de la circunferencia y trigonometria
 		// angle hace que no se complete la rotacion en 360 siempre
-		GLdouble theta = i * angle / nn;
+		GLdouble theta = i * 360 / nn;
 		GLdouble c = cos(radians(theta));
 		GLdouble s = sin(radians(theta));
 
@@ -754,9 +753,114 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per, int angle)
 	return m;
 }
 
+
 #pragma endregion
 
 #pragma region Practicas Examen
+// GENERA UNA MALLA POR REVOLUCION PARCIAL
+// mm (numero de vertices del perfl)
+// nn (numero de rotaciones)
+// per (perfil)
+// angle (angulo hasta el que se hace la revolucion)
+MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per, int angle)
+{
+	MbR* m = new MbR(mm, nn, per);
+
+	m->mPrimitive = GL_TRIANGLES;		//Primitiva
+	m->mNumVertices = nn * mm;
+
+	m->vVertices.reserve(m->mNumVertices);
+
+	// reserva vertices en un array auxiliar
+	dvec3* vs = new dvec3[m->mNumVertices];
+
+	// aniade los vertices a la malla, (i indica la rotacion que se va a generar, j indica el vertice que se esta creando)
+	for (int i = 0; i < nn; i++)
+	{
+		// cosas de la ecuacion de la circunferencia y trigonometria
+		// angle hace que no se complete la rotacion en 360 siempre
+		GLdouble theta = i * angle / (nn - 1);
+		GLdouble c = cos(radians(theta));
+		GLdouble s = sin(radians(theta));
+
+		for (int j = 0; j < mm; j++)
+		{
+			GLdouble z = -s * per[j].x + c * per[j].z;
+			GLdouble x = c * per[j].x + s * per[j].z;
+
+			// ultimo vertice creado
+			int indice = i * mm + j;
+
+			// aniadimos el vertice
+			vs[indice] = dvec3(x, per[j].y, z);
+		}
+	}
+
+	// aniadimos los vertices creados a la malla
+	for (int i = 0; i < m->mNumVertices; i++)
+	{
+		m->vVertices.emplace_back(vs[i]);
+	}
+	// borramos el vector auxiliar
+	delete[] vs;
+
+	// INDICE SUPERIOR QUE RECORRE EL ARRAY DE INDICES DE LA MALLA
+	int indiceMayor = 0;
+	m->mNumIndexes = (nn - 1) * (mm - 1) * 6;
+	m->vIndexes = new GLuint[m->mNumIndexes];
+
+	// Inicializamos nIndexes a 0
+	/*
+	for (int i = 0; i < m->mNumVertices * 6; i++)
+	{
+		m->vIndexes[i] = 0;
+	}*/
+
+	// calculamos los indices de las caras
+	for (int i = 0; i < nn - 1; i++)
+	{
+		for (int j = 0; j < mm - 1; j++)
+		{
+			// colocamos los vertices en sentido antihorario para que las normales esten bien
+			// 
+			//	d -- c
+			//	|    |
+			//  a -- b
+
+			const int indice = i * mm + j;
+
+			// poner "% (nn * mm)" sirve para prevenir que el indice salga del array
+
+			//------------- TRIANGULO 1 ---------------
+
+			m->vIndexes[indiceMayor] = indice; // a
+			indiceMayor++;
+
+			m->vIndexes[indiceMayor] = (indice + mm) % (nn * mm); // b
+			indiceMayor++;
+
+			m->vIndexes[indiceMayor] = (indice + mm + 1) % (nn * mm); // c
+			indiceMayor++;
+
+			//------------- TRIANGULO 2 ---------------
+
+			m->vIndexes[indiceMayor] = (indice + mm + 1) % (nn * mm); // c
+			indiceMayor++;
+
+			m->vIndexes[indiceMayor] = (indice + 1) % (nn * mm); // d
+			indiceMayor++;
+
+			m->vIndexes[indiceMayor] = indice % (nn * mm); // a
+			indiceMayor++;
+		}
+	}
+
+	// construimos las normales
+	m->vNormals.reserve(m->mNumVertices);
+	m->buildNormalVectors();
+
+	return m;
+}
 
 IndexMesh* IndexMesh::generateIndexedOctaedro(GLdouble l)
 {

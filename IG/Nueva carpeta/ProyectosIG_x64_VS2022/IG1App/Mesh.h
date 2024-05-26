@@ -140,6 +140,7 @@ public:
 	MbR(int perPoi, int nRot, glm::dvec3* per); // Constructora.
 	~MbR(); // Destructora.
 
+	static MbR* generaIndexMbR(int, int, glm::dvec3*); //  Obtiene los vértices de la malla, los índices y los vectores normales.
 	static MbR* generaIndexMbR(int, int, glm::dvec3*, int); //  Obtiene los vértices de la malla, los índices y los vectores normales.
 
 

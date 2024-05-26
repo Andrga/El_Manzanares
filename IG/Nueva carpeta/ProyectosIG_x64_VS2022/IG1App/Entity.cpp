@@ -744,7 +744,7 @@ SphereMbR::SphereMbR(int r, int p, int m) : r_(r), p_(p), m_(m)
 			0 };
 	}
 
-	mMesh = MbR::generaIndexMbR(p, m, perfil, 360);
+	mMesh = MbR::generaIndexMbR(p, m, perfil);
 }
 
 SphereMbR::~SphereMbR()
@@ -801,7 +801,7 @@ ToroidMbR::ToroidMbR(int r, int R, int m, int p) : r_(r), R_(R), m_(m), p_(p)
 		perfil[i] = { R + (r * sin(alpha)),	-(r * cos(alpha)), 0 };
 	}
 
-	mMesh = MbR::generaIndexMbR(p, m, perfil, 180);
+	mMesh = MbR::generaIndexMbR(p, m, perfil, 90);
 }
 
 ToroidMbR::~ToroidMbR()
