@@ -896,7 +896,7 @@ void OctaedroTriangulos::render(glm::dmat4 const& modelViewMat) const
 		mMesh->render();
 
 		// TRIANGULOS SUPERIORES
-		aMat *= translate(mModelMat, dvec3(r_, 0, 0));
+		aMat *= translate(mModelMat, dvec3(r_, 0, 0)); // ejemplo translate
 		aMat *= mModelMat;
 		upload(aMat);
 		mMesh->render();
@@ -919,7 +919,7 @@ void OctaedroTriangulos::render(glm::dmat4 const& modelViewMat) const
 		// RESETEA POSICION
 		aMat *= translate(mModelMat, dvec3(-r_ / 2, -r_, -r_ / 2));
 		// TRIANGULOS INFERIORES
-		aMat *= rotate(mModelMat, radians(180.0), dvec3(0, 0, 1.0));
+		aMat *= rotate(mModelMat, radians(180.0), dvec3(0, 0, 1.0)); // ejemplo rotate
 		aMat *= mModelMat;
 		upload(aMat);
 		mMesh->render();
@@ -940,6 +940,19 @@ void OctaedroTriangulos::render(glm::dmat4 const& modelViewMat) const
 		mMesh->render();
 
 		aMat *= translate(mModelMat, dvec3(-r_ / 2, r_, -r_ / 2));
+		aMat *= mModelMat;
+		upload(aMat);
+		mMesh->render();
+
+		// RELLENO CON ESCALA
+		aMat *= translate(mModelMat, dvec3(0, -r_, 0));
+		aMat *= scale(mModelMat, dvec3(1.9, 1.9, 1.9)); // ejemplo escala
+		aMat *= mModelMat;
+		upload(aMat);
+		mMesh->render();
+
+
+		aMat *= rotate(mModelMat, radians(180.0), dvec3(0, 0, 1.0));
 		aMat *= mModelMat;
 		upload(aMat);
 		mMesh->render();
