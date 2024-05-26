@@ -494,8 +494,10 @@ void Sphere::render(glm::dmat4 const& modelViewMat) const
 	glEnable(GL_COLOR_MATERIAL);
 	glColor3f(rc, gc, bc);
 	gluSphere(q, r, 50, 50);	gluQuadricDrawStyle(q, GLU_FILL);
-	glDisable(GL_COLOR_MATERIAL);
+
+	// PRIMERO CAMBIA EL COLOR LUEGO DESACTIVAR
 	glColor3f(1.0, 1.0, 1.0);
+	glDisable(GL_COLOR_MATERIAL);
 }
 
 
@@ -512,8 +514,10 @@ void Cylinder::render(glm::dmat4 const& modelViewMat) const
 	glColor3f(rc, gc, bc);
 	gluCylinder(q, br, tr, h, 50, 50);
 	gluQuadricDrawStyle(q, GLU_FILL);
-	glDisable(GL_COLOR_MATERIAL);
+
+	// PRIMERO CAMBIA EL COLOR LUEGO DESACTIVAR
 	glColor3f(1.0, 1.0, 1.0);
+	glDisable(GL_COLOR_MATERIAL);
 }
 
 Disk::Disk(GLdouble iirr, GLdouble oorr, GLfloat rrcc, GLfloat ggcc, GLfloat bbcc) : ir_(iirr), or_(oorr), rc(rrcc), gc(ggcc), bc(bbcc)
@@ -529,8 +533,10 @@ void Disk::render(glm::dmat4 const& modelViewMat) const
 	glColor3f(rc, gc, bc);
 	gluDisk(q, ir_, or_, 50, 50);
 	gluQuadricDrawStyle(q, GLU_FILL);
-	glDisable(GL_COLOR_MATERIAL);
+
+	// PRIMERO CAMBIA EL COLOR LUEGO DESACTIVAR
 	glColor3f(1.0, 1.0, 1.0);
+	glDisable(GL_COLOR_MATERIAL);
 }
 
 PartialDisk::PartialDisk(GLdouble iirr, GLdouble oorr, GLdouble ssttaa, GLdouble sswwaa, GLfloat rrcc, GLfloat ggcc, GLfloat bbcc) : ir_(iirr), or_(oorr), sta_(ssttaa), swa_(sswwaa), rc(rrcc), gc(ggcc), bc(bbcc)
@@ -546,8 +552,10 @@ void PartialDisk::render(glm::dmat4 const& modelViewMat) const
 	glColor3f(rc, gc, bc);
 	gluPartialDisk(q, ir_, or_, 50, 50, sta_, swa_);
 	gluQuadricDrawStyle(q, GLU_FILL);
-	glDisable(GL_COLOR_MATERIAL);
+
+	// PRIMERO CAMBIA EL COLOR LUEGO DESACTIVAR
 	glColor3f(1.0, 1.0, 1.0);
+	glDisable(GL_COLOR_MATERIAL);
 }
 
 
@@ -709,8 +717,10 @@ void IndexedBox::render(glm::dmat4 const& modelViewMat) const
 		glEnable(GL_COLOR_MATERIAL);
 		glColor3f(rc, gc, bc);
 		mMesh->render();
-		glDisable(GL_COLOR_MATERIAL);
+
+		// PRIMERO CAMBIA EL COLOR Y DESPUES DESACTIVAR EL COLOR
 		glColor3f(1.0, 1.0, 1.0);
+		glDisable(GL_COLOR_MATERIAL);
 	}
 }
 
@@ -760,8 +770,10 @@ void SphereMbR::render(glm::dmat4 const& modelViewMat) const
 			glEnable(GL_COLOR_MATERIAL);
 			glColor3f(mColor.r, mColor.g, mColor.b);
 			mMesh->render();
-			glDisable(GL_COLOR_MATERIAL);
+
+			// PRIMERO CAMBIA EL COLOR Y DESPUES DESACTIVAR EL COLOR
 			glColor3f(1.0, 1.0, 1.0);
+			glDisable(GL_COLOR_MATERIAL);
 		}
 	}
 }
@@ -825,3 +837,37 @@ EntityWithMaterial::~EntityWithMaterial()
 {
 	delete material;
 }
+
+#pragma region Practicas examen
+
+
+Octaedro::Octaedro(int l) : l_(l)
+{
+	mMesh = IndexMesh::generateIndexedOctaedro(l_);
+}
+
+Octaedro::~Octaedro()
+{
+}
+
+void Octaedro::render(glm::dmat4 const& modelViewMat) const
+{
+	if (mMesh != nullptr) {
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		dmat4 aMat = modelViewMat * mModelMat; // glm matrix multiplication
+		upload(aMat);
+		//glEnable(GL_COLOR_MATERIAL);
+		//glColor3f(rc, gc, bc);
+		mMesh->render();
+
+		// PRIMERO CAMBIA EL COLOR LUEGO DESACTIVAR
+		//glColor3f(1.0, 1.0, 1.0);
+		//glDisable(GL_COLOR_MATERIAL);
+	}
+}
+
+void Octaedro::update()
+{
+}
+
+#pragma endregion

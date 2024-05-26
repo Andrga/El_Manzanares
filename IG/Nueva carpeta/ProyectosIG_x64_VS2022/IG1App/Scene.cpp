@@ -135,11 +135,19 @@ Scene::init()
 			addEntity(sp2, 7);
 
 			break;
+
+#pragma region Practicas Examen
 		case 8:
 			// Rombo generado reutilizando la esfera / malla de rebolucion
 			// addEntity(new SphereMbR(100, 3, 4), 8);
 
+			// Octaedro generado por malla indexada
+			addEntity(new Octaedro(100), 8);
+
 			break;
+#pragma endregion
+
+
 		default:
 			break;
 		}

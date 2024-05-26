@@ -547,6 +547,7 @@ IndexMesh* IndexMesh::generateIndexedBox(GLdouble l)
 	return mesh;
 }
 
+
 // --------- METODO SUPER IMPORTANTE PARA GENERAL LAS NORMALES ---------
 void IndexMesh::buildNormalVectors()
 {
@@ -752,5 +753,73 @@ MbR* MbR::generaIndexMbR(int mm, int nn, glm::dvec3* per, int angle)
 	return m;
 }
 
+#pragma endregion
+
+#pragma region Practicas Examen
+
+IndexMesh* IndexMesh::generateIndexedOctaedro(GLdouble l)
+{
+	IndexMesh* mesh = new IndexMesh();
+
+	mesh->mNumVertices = 6;
+
+	//			   0
+	//			 / || \
+	//			3--24--1
+	//           \ || /
+	//			   5
+
+	GLdouble s = l / 2;
+	// Aniade los 8 vertices del cubo a la mesh
+	mesh->vVertices.reserve(mesh->mNumVertices);
+	mesh->vVertices.emplace_back(0, s, 0);		// v0
+	mesh->vVertices.emplace_back(s, 0, 0);		// v1
+	mesh->vVertices.emplace_back(0, 0, s);		// v2
+	mesh->vVertices.emplace_back(-s, 0, 0);		// v3
+	mesh->vVertices.emplace_back(0, 0, -s);		// v4
+	mesh->vVertices.emplace_back(0, -s, 0);		// v5
+
+	
+
+	// Indices para la creacion de primitivas
+	mesh->mNumIndexes = 24;
+	mesh->vIndexes = new GLuint[mesh->mNumIndexes];
+
+	GLuint arr[24] = {
+		// Caras arriba
+		0,2,1,
+		0,1,4,
+		0,4,3,
+		0,3,2,
+		// Caras abajo
+		5,1,2,
+		5,2,3,
+		5,3,4,
+		5,4,1
+	};
+
+	for (int i = 0; i < mesh->mNumIndexes; i++) {
+
+		mesh->vIndexes[i] = arr[i];
+	}
+
+	mesh->vCaras.resize(mesh->mNumIndexes / VERTEX_CARA);
+	for (int i = 0; i < mesh->mNumVertices / VERTEX_CARA; i++)
+	{
+		mesh->vCaras[i].vec1 = mesh->vVertices[mesh->vIndexes[i * VERTEX_CARA]];
+		mesh->vCaras[i].id1 = mesh->vIndexes[i * VERTEX_CARA];
+
+		mesh->vCaras[i].vec2 = mesh->vVertices[mesh->vIndexes[(i * VERTEX_CARA) + 1]];
+		mesh->vCaras[i].id2 = mesh->vIndexes[(i * VERTEX_CARA) + 1];
+
+		mesh->vCaras[i].vec3 = mesh->vVertices[mesh->vIndexes[(i * VERTEX_CARA) + 2]];
+		mesh->vCaras[i].id3 = mesh->vIndexes[(i * VERTEX_CARA) + 2];
+	}
+
+	mesh->buildNormalVectors();
+
+	return mesh;
+	return nullptr;
+}
 #pragma endregion
 

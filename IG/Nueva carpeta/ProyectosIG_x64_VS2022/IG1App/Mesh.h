@@ -109,6 +109,8 @@ public:
 
 	//------Ejercicio63:
 	static IndexMesh* generateIndexedBox(GLdouble l);
+	// Practica Examen
+	static IndexMesh* generateIndexedOctaedro(GLdouble l);
 
 	//------Ejercicio65:
 	void buildNormalVectors();

@@ -370,4 +370,19 @@ public:
 
 #pragma endregion
 
+#pragma region Practicas examen
+class Octaedro : public Abs_Entity {
+private:
+	int l_;
+
+public:
+	// l (longitud del radio del octaedro)
+	Octaedro(int l);
+	~Octaedro();
+
+	void render(glm::dmat4 const& modelViewMat) const;
+	void update() override;
+};
+#pragma endregion
+
 #endif //_H_Entities_H_
