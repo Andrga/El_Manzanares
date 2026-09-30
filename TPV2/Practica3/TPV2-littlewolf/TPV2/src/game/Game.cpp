@@ -67,7 +67,7 @@ void Game::start() {
 		if (ihdlr.keyDownEvent()) {
 
 			// ESC exists the game
-			if (ihdlr.isKeyDown(SDL_SCANCODE_ESCAPE)) {
+			if (ihdlr.isKeyDown(SDL_SCANCODE_ESCAPE) || ihdlr.closeWindowEvent()) {
 				exit = true;
 				continue;
 			}
